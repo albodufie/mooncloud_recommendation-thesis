@@ -1,0 +1,92 @@
+\documentclass[12pt,fleqn,twoside,a4paper]{book}
+
+\usepackage[T1]{fontenc} % codifica dei font
+\usepackage[utf8]{inputenc} % lettere accentate da tastiera
+\usepackage[italian]{babel} % lingua del documento
+%\usepackage{epsfig}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+%\usepackage{hyperref} % collegamenti ipertestuali e carica anche il paccheto 'url' (caricato per ultimo)
+
+\usepackage{csquotes}
+\usepackage[backend=biber, style=alphabetic, sorting=nty]{biblatex}
+\addbibresource{bibliography.bib}
+
+\usepackage{imakeidx}
+\makeindex
+
+\title{mooncloud recommendation system thesis}
+\author{Andrea Michele Albonico}
+
+
+\begin{document}
+
+\frontmatter
+
+\begin{titlepage}
+    \begin{figure}
+    	\centering
+    	\includegraphics[height=5.0 cm]{logo.jpg}
+    	\vspace{0.5 cm}
+    \end{figure}
+    \begin{center}
+        {\Large Corso di Laurea in Informatica Musicale}
+    \end{center}
+    
+    \begin{center}
+        \vspace{3 cm}
+        {\Large \textsc{Mooncloud recommendation system} }
+    \end{center}
+    \par
+    \vspace{3 cm}
+    \begin{flushleft}
+        Relatore:\\ Claudio Agostino Ardagna\\
+        \noindent Correlatore:\\ Nome COGNOME
+    \end{flushleft}
+    \vspace{1 cm}
+    \begin{flushright}
+        Tesi di Laurea di:\\ Andrea Michele Albonico\\ Matricola: 886667
+    \end{flushright}
+    \vfill
+    \begin{center}
+    	{\Large Anno Accademico 2019/2020}
+    \end{center}
+\end{titlepage}
+
+% RINGRAZIAMENTI 
+\input{chapters/00-thanks}
+
+% motivazione con breve descrizione del progetto
+\input{chapters/00-prefaction}
+
+% INDICE DELLA TESI
+\tableofcontents
+\listoffigures
+
+
+%       CONTENUTO DELLA TESI        %
+\mainmatter
+
+% 1- Stato dell'arte e introduzione con descrizione più approfondita
+\input{chapters/01-introduction}
+
+% 2- Tecnologie
+\chapter{Tecnologie}
+
+% 3- Recommendation systems
+\chapter{Sistemi di raccomandazione}
+
+% 4- Descrizione del mio progetto
+\chapter{Descrizione approfondita del progetto}
+
+% 5- Conclusioni
+\chapter{Conclusioni}
+
+
+%       CHIUSURA DELLA TESI     %
+\backmatter
+
+% Bibliografia
+\printbibliography[heading=bibintoc, title={Bibliografia}]
+
+\end{document}
