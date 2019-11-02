@@ -70,7 +70,43 @@ Una security compliance evaluation è il processo di verifica che un target è s
 soddisfare i richiesti standard e politiche. Da questi processi di verifica, che devono a loro volta essere 
 affidabili, si ottendo delle evidence (prove); queste ultime possono essere raccolte monitorando l'attività
 del target oppure, come già menzionato, sottoponendo il target a scenari
-critici o testing.
+critica o testing.
 In particolare, una security compliance evaluation è un processo che verifica la compliance (uniformità)
 di un certo target a una o più politiche; vengono eseguiti tutti i controlli e produce un valore booleano per
 le politiche, in base al valore booleano associato ad ogni controllo.
+\begin{figure}
+	\includegraphics[scale=0.5]{images/Security_Compliance_Evaluation.PNG}
+	\caption{Security Compliance Evaluation}
+\end{figure}
+
+\section{Moon Cloud Architecture}
+Moon Cloud implementa il processo di compliance in Figura 1 usando controlli di monitoraggio o di test e un sistema
+di security compliance evaluation personalizzabile. Inoltre garantisce tutti i requisisti ad alto livello 
+elencati prima:
+\begin{description}
+	\item Moon Cloud è una piattaforma cloud centralizzata presentando una visione olistica dello stato di 
+	sicurezza di un dato sistema.
+	\item Moon Cloudimplementa un sistema di assurance evidence-based continuo, implementato come processo di compliance,
+	basato su politiche custom o standard.
+	\item Moon Cloud è offerto come un servizio - PaaS, dove le attività di evaluation possono essere facilmente 
+	e efficentemente configurate su un target asset, senza l'intervento dell'uomo.
+	\item Moon Cloud permette di schedulare delle ispezioni automatiche, grazie all'inventario di asset protetto.
+	\item Moon Cloud evaluation engine può ispezionare dall'interno, gestendo delle minaccie interne; permettendo 
+	anche reazioni rapide a incidenti di sicurezza e veloci rimedi, grazie alla raccolta di continua di evidence. 
+\end{description}
+
+
+L'architettura di Moon Cloud è costituita da un'assurance manager che gestisce i processi di evaluation attraverso un 
+set di \textit{execution cluster}; ogni execution cluster gestisce ed esegue un set di probe collezionando le 
+evidence necessarie per le evaluation. Tutte le attività di collezione sono eseguite dal probe. Ogni probe è 
+uno script di python fornito come una sigola immagine di Docker, che viene inizializzata quando è triggerata una 
+evaluation ed è distrutta quando il processo di evaluation è terminato.
+\newline
+Accedendo alla piattaforma di Moon Cloud, l'utente può definire le proprie politiche di sicurezza e attività di 
+evaluation come espressioni booleane di controlli di sicurezza e altre politiche predefinite. Una volta che una 
+politica viene definita, l'utente può decidere quando schedulare l'evaluation; e nel momento in cui un
+processo di evaluation viene inizializzato, tutti i controlli vengono eseguiti e i risultati dell'espressioni 
+booleane vengono memorizzati e restituiti all'utente. A questo punto l'utente può accedere a questi risultati a 
+diversi gradi di precisione: una visione sommaria e generale di tutte le politche implentate e dello stato 
+generale del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence raccolte per una 
+evaluation.
