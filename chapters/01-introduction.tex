@@ -3,15 +3,32 @@ In questo capitolo verrà descritto in modo più approfondito
 il funzionamento della piattaforma Moon Cloud e unitamente al 
 motivo dell'implementazione della soluzione proposta.
 
-\section{Perchè Moon Cloud?}
-La diffusione di sistemi ICT (\textit{Information and Communications Technology})
-nella maggiorparte degli ambienti lavorativi e privati in termini di servizi offerti,
-automazione di processi e incremento delle performance. L'uso di questa tecnologia 
+\section{MoonCloud overview}
+La diffusione di sistemi ICT (\textit{Information and Communications Technology})nella maggiorparte degli ambienti lavorativi 
+e privati in termini di servizi offerti, automazione di processi e incremento delle performance. L'uso di questa tecnologia 
 ha assunto importanza a partire dagli anni novanta come effetto del boom di Internet.
-Oggi le professionalità legate all'ICT crescono in numero e si evolvono per 
-specificità, per operare in ambienti fortemente eterogenei ma sempre più interconnessi 
-fra di loro come cloud computing, social newtwork, marketing digitale, IoT, realtà virtuale,
-ecc.
+Oggi le professionalità legate all'ICT crescono in numero e si evolvono per specificità, per operare in ambienti fortemente 
+eterogenei ma sempre più interconnessi fra di loro come cloud computing, social newtwork, marketing digitale, IoT, 
+realtà virtuale, ecc.
+
+Gli immensi benefici del cloud in termini di flessibilità, consumo delle risorse e gestione semplificata, la rende la prima 
+scelta per utenti e industrie per il deploy dei loro sistemi IT. Tuttavia il cloud computing solleva diverse problematiche
+legate alla mancanza di fiducia e trasparenza dove i clienti necessitano di avere delle garanzie sui servizi cloud ai quali 
+si affidano; spesso i fornitori di servizi cloud non fornisco ai clienti le specifiche riguardanti le misure di sicurezza 
+messe in atto.
+
+Negli ultimi anni, sono state sviluppate tecniche e modi per rendere sicuri questi sistemi e proteggere di dati degli utenti 
+dagli diversi angoli; questo ha portato alla diffusione di approcci eterogenei, incrementando la confusione degli utenti.
+Tecniche tradizionali di verifica della sicurezza basati su approcci di analisi statistica non sono più sufficenti e
+devono essere integrati con processi di raccolta di evidence da sistemi cloud in produzione e funzionamento. 
+In generale il \textit{cloud security} definisce i modi (ad esempio criptazione, controllo degli accessi, etc.) per 
+proteggere attivamente gli asset da minaccie interne ed esterne, e fornire un ambiente in cui i clienti possano affidarsi 
+e interagire in totale sicurezza. 
+Ma per rendere il cloud degno di fiducia e trasparente, sono state introdotte tecniche di \textit{security assurance} le 
+quali sono definite come il modo per ottenere la fiducia necessaria nell'infrastruttura e/o nelle applicazioni di 
+dimostrare che siano garantite delle proprietà di sicurezza, e che operi normalmente anche se subisce attacchi; grazie alla 
+raccolta e allo studio di queste evidence è possibile che venga accertata la validità e efficenza delle proprietà di 
+sicurezza.
 
 Il prezzo che paghiamo per i benefici di queste tecnologie è dato dall'incremento di 
 violazione di sicurezza, che oggigiorno preoccupa tutte le aziende, e di conseguenza anche i 
@@ -27,9 +44,9 @@ Per questo motivo anche se vengono usati i sistemi di sicurezza e di controllo m
 garantire la sicurezza; ma è necessario implementare un processo continuo di diagnostica che verifica che 
 controlli sono configurati in modo corretto e il loro comportamento è quello aspettato.
 
-Security assesment diventa allora un aspetto importante specialmente negli ambienti cloud e IoT. Questo 
+Il Security assesment diventa allora un aspetto importante specialmente negli ambienti cloud e IoT. Questo 
 assesment deve essere fatto in modo continuo e olistico, per correlare le prove raccolte da sempre maggiori 
-meccanismi di protezione
+meccanismi di protezione. \cite{mooncloud-semi-automatic-and-trustworthy}
 \newline
 Moon Cloud è una soluzione PaaS (Platform as a Service) che fornice una piattaforma B2B innovativa per verifiche, 
 diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT rispetto alle politiche di sicurezza, in modo continuo 
@@ -79,7 +96,8 @@ le politiche, in base al valore booleano associato ad ogni controllo.
 	\caption{Security Compliance Evaluation}
 \end{figure}
 
-\section{Moon Cloud Architecture}
+
+\section{Processo di evaluation}
 Moon Cloud implementa il processo di compliance in Figura 1 usando controlli di monitoraggio o di test e un sistema
 di security compliance evaluation personalizzabile. Inoltre garantisce tutti i requisisti ad alto livello 
 elencati prima:
