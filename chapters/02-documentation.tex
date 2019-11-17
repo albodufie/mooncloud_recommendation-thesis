@@ -2,47 +2,54 @@
 In questo capitolo verranno descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate
 unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
 
-\section{Gestire dati in modo gerarchico}
-The tables of a relational database are not hierarchical (like XML), but are simply a flat list. Hierarchical data has a parent-child 
-relationship that is not naturally represented in a relational database table. Hierarchical data is a collection of data where each item 
-single parent and zero or more children (with the exception of the root item, which has no parent). Hierarchical data can be found in 
-a variety of database applications, including forum and mailing list threads, business organization charts, content management 
-categories, and product categories.
-\begin{figure}[!htbp]
-    \centering
-	\includegraphics[scale=0.7]{images/Hierarchical_Data_ex.PNG}
+\section{Strutture dati gerarchiche}
+Le tabelle di un database relazione non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
+constituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle dei database relazionali.
+In questo caso, i dati gerarchici sono una collezione di informazioni dove ogni item ha un solo padre e nessuno o più figli
+(ad eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni può essere trovato in 
+diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di organizzazione di un business, 
+categorie per gestire contenuti e categorie di prodotti. 
+
+\begin{figure}[H]
+	\label{fig:Hde}
+	\includegraphics[scale=0.5]{images/Hierarchical_Data_ex.PNG}
 	\caption{Esempio di una gestione di dati in modo gerarchico}
 \end{figure}
 
+Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
+seguenti:
+
 \newpage
 
-There are different models for dealing with hierarchical data:
-
 \subsection{The adjacency list model}
-The first, and most elegant, approach we’ll try is called the ‘adjacency list model’ or the ‘recursion method’. It’s an elegant approach 
-because you’ll need just one, simple function to iterate through your tree.
+Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{‘adjacency list model} o metodo ricorsivo;
+è definito tale perchè per funzionare necessita solo di una funzione che itera per tutto l'albero.
 
-In the adjacency list model, each item in the table contains a pointer to its parent. The topmost element has a NULL value for its parent.
-The adjacency list model has the advantage of being quite simple, it is easy to see the children of a node. 
+In questo modello, ogni item (nodo dell'albero) nella tablla contiene un puntatore al suo item padre; invece il nodo radice avrà un puntatore a un valore
+NULL per l'item padre.
 
-CONS:
-While the adjacency list model can be dealt with fairly easily in client-side code, working with the model can be more problematic in 
-pure SQL.
+\begin{figure}[ht]
+    \centering
+	\includegraphics[scale=0.8]{images/Adjacency_list_model_table.PNG}
+	\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo l' adjacency list model }
+\end{figure}
+ 
+Il vantaggio di usare questo modello sta nella sua semplicità di costruzione sopratutto a livello di codice client-side, 
+e di restituzione dei figli di un nodo. Mentre diventa problematico se si lavora in puro SQL e nella maggior parte dei linguaggi di 
+programmazione, è lento e poco inefficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
+un certo periodo di tempo, questo rende la funzione molto lente quando si lavora con alberi di grandi dimensioni.
 
-In most programming languages, it’s slow and inefficient. This is mainly caused by the recursion. We need one database query for each 
-node in the tree.
-As each query takes some time, this makes the function very slow when dealing with large trees.
+\newpage
 
 \subsection{The nested set model}
 In the Nested Set Model, we can look at our hierarchy in a new way, not as nodes and lines, but as nested containers. 
 
-\begin{figure}[!htbp]
+\begin{figure}[ht!]
     \centering
 	\includegraphics[scale=1]{images/Nested_Tree_Model_ex.PNG}
 	\caption{Esempio di una gestione di dati in modo gerarchico secondo il modello innestato}
 \end{figure}
 
-\newpage
 
 We represent this form of hierarchy in a table through the use of left and right values to represent the nesting of our nodes, 
 and indicate the relationship between each node.
@@ -51,11 +58,7 @@ We start numbering at the leftmost side of the outer node and continue to the ri
 right, one layer at a time, descending to each node’s children before assigning a right-hand number and moving on to the right. 
 This approach is called the modified preorder tree traversal algorithm.
 
-\begin{figure}[!htbp]
-    \centering
-	\includegraphics[scale=1]{images/Nested_Tree_Model_table.PNG}
-	\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo il modello innestato}
-\end{figure}
+
 
 OSS: Note that the words ‘left’ and ‘right’ have a special meaning in SQL. Therefore, we’ll have to use ‘lft’ and ‘rgt’ to identify 
 the columns. Also note that we don’t really need the ‘parent’ column anymore. We now have the lft and rgt values to store the tree 
