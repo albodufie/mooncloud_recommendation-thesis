@@ -36,38 +36,45 @@ NULL per l'item padre.
  
 Il vantaggio di usare questo modello sta nella sua semplicità di costruzione sopratutto a livello di codice client-side, 
 e di restituzione dei figli di un nodo. Mentre diventa problematico se si lavora in puro SQL e nella maggior parte dei linguaggi di 
-programmazione, è lento e poco inefficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
+programmazione, è lento e poco efficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
 un certo periodo di tempo, questo rende la funzione molto lente quando si lavora con alberi di grandi dimensioni.
+Inoltre molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione inizia una nuova istanza di se stessa,
+ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, e più grande è l'albero e più questo 
+processo sarà portato a termine in maggior tempo.
 
 \newpage
 
-\subsection{The nested set model}
-In the Nested Set Model, we can look at our hierarchy in a new way, not as nodes and lines, but as nested containers. 
+\subsection{The Nested set model}
+Il secondo approccio che viene proposto è il \textit{Nested set model}, che permette di osservare la gerarchia in un modo diverso, non 
+come nodi e linee, ma come container innestati.
 
 \begin{figure}[ht!]
     \centering
-	\includegraphics[scale=1]{images/Nested_Tree_Model_ex.PNG}
-	\caption{Esempio di una gestione di dati in modo gerarchico secondo il modello innestato}
+	\includegraphics[scale=0.6]{images/Nested_Tree_Model_ex.PNG}
+	\caption{Esempio di una gestione di dati in modo gerarchico secondo il Nested set model}
 \end{figure}
 
+La gerarchia dei dati viene rappresentata nella tabella attraverso l'uso degli attributi 'left' e 'right' per rappresentare l'annidamento
+dei nodi (il nome delle colonne: left e right, hanno significati speciali in SQL; per questo motivo si identificano questi campi con i 
+nomi 'lft' e 'rght'). 
+Ogni nodo dell'albero viene visitato due volte, assegnando i valori in ordine di visita, e in entrambe le visite. Quindi vengono 
+associati ad ogni nodo due numeri, memorizzato come due attributi. 
+I valori di left e right sono determinati come segue: si inizia a numerare a partire dal lato più a sinistra di ogni nodo e si continua 
+verso destra. Lavorando con un albero, si parte da sinistra e si continua verso destra, un livello alla volta, scendendo per ogni
+nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
+destra.
+Questo approccio è chiamato Modified preorder tree traversal algorithm.
 
-We represent this form of hierarchy in a table through the use of left and right values to represent the nesting of our nodes, 
-and indicate the relationship between each node.
-So how do we determine left and right values? 
-We start numbering at the leftmost side of the outer node and continue to the right. When working with a tree, we work from left to 
-right, one layer at a time, descending to each node’s children before assigning a right-hand number and moving on to the right. 
-This approach is called the modified preorder tree traversal algorithm.
+A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'adjacency list model, ma quest'utlimo metodo è
+molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
+cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
+partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice.
 
-
-
-OSS: Note that the words ‘left’ and ‘right’ have a special meaning in SQL. Therefore, we’ll have to use ‘lft’ and ‘rgt’ to identify 
-the columns. Also note that we don’t really need the ‘parent’ column anymore. We now have the lft and rgt values to store the tree 
-structure.
-
-CONS: At first, the modified preorder tree traversal algorithm seems difficult to understand. It certainly is less simple than the 
-adjacency list method. However, once you’re used to the left and right properties, it becomes clear that you can do almost everything 
-with this technique that you could do with the adjacency list method, and that the modified preorder tree traversal algorithm is much 
-faster. Updating the tree takes more queries, which is slower, but retrieving the nodes is achieved with only one query.
+\begin{figure}[ht!]
+    \centering
+	\includegraphics[scale=0.6]{images/Nested_Tree_Model_table.PNG}
+	\caption{Esempio di una tabelle per la gestione di dati in modo gerarchico secondo il Nested set model}
+\end{figure}
 
 
 \section{Sistemi di raccomandazione}
