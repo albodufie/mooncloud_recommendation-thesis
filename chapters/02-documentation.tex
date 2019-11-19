@@ -42,15 +42,13 @@ Inoltre molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni no
 ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, e più grande è l'albero e più questo 
 processo sarà portato a termine in maggior tempo.
 
-\newpage
-
 \subsection{The Nested set model}
 Il secondo approccio che viene proposto è il \textit{Nested set model}, che permette di osservare la gerarchia in un modo diverso, non 
 come nodi e linee, ma come container innestati.
 
 \begin{figure}[ht!]
     \centering
-	\includegraphics[scale=0.6]{images/Nested_Tree_Model_ex.PNG}
+	\includegraphics[scale=0.55]{images/Nested_Tree_Model_ex.PNG}
 	\caption{Esempio di una gestione di dati in modo gerarchico secondo il Nested set model}
 \end{figure}
 
@@ -76,5 +74,68 @@ partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso p
 	\caption{Esempio di una tabelle per la gestione di dati in modo gerarchico secondo il Nested set model}
 \end{figure}
 
+\newpage
 
 \section{Sistemi di raccomandazione}
+Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti,
+attraverso un procedimento a 3 fasi:
+
+\begin{description}
+	\item[raccolda di dati]: questa è il primo step e anche quello più importante per poter costruire un sistema di 
+	raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente,
+	cioè attraverso i dati che vengono prodotti direttamente dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
+	attarverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma raccolti
+	dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, etc.
+	\item[memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di
+	diventare. Ad esempio, in un sistema di raccomanzione per film, maggiori sono le valutazioni fornite dagli utenti, e 
+	migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
+	anche il supporto di memorizzazione più adatto.   
+	\item[Filtraggio dei dati]: dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre
+	le informazioni rilevanti per poter effettuare le raccomandazioni finali, e sono già disponibili diversi algoritmi che
+	semplificano quest ultima fase. 
+\end{description}
+
+I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie:
+
+\subsection{Content-based filtering}
+Un Content-based filtering è un sistema di raccomandazione in cui vengono suggeriti item simili a un particolare item 
+(oggetti o prodotti). 
+
+Questo approccio sfrutta i metadati dell'item, che possono essere il genere, una descrizione, uno o più autori, etc. per 
+fare queste raccomandazioni; l'idea base che sta dietro questi raccomandatori, è che se ad un utente piace o interessa
+un particolare item allora gli piaceranno anche altri item simili.
+
+Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
+content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del
+contenuto che descrive un item e la rappresentazione del contenuto dell'item interessato dall'utente. 
+
+Questi metodi sono usati quando si sanno a priori delle informazioni sugli item che si vuole suggerire, ma non sugli utenti.
+In questo sistema, delle keyword (parole chiave) sono utilizzate per caratterizzare gli item e un profilo dell'utente è 
+costruito per indicare quali item gli piacciono. In altre parole, questi algoritmi cercano di raccomandare item che 
+all'utente sono piaciuti o ha usato nel passato e sta esaminando nel presente. La costruzione del profilo dell'utente,
+spesso temporaneo, non viene basata su un modulo di registrazione che l'utente stesso deve compilare, ma su informazioni
+lasciate indirettamente dall'utente. Più precisamente, tra vari item candidati da raccomandare all'utente si passa per un 
+processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
+
+
+
+\subsection{Collaborative-based filtering}
+
+
+\paragraph{Memory-based}
+
+
+\subparagraph{User-based filtering}
+
+
+\subparagraph{Item-based filtering}
+
+
+\paragraph{Model-based}
+
+
+\subsection{Hybrid recommendation system}
+
+
+\subsection{Challenges and limitations}
+
