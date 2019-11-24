@@ -11,15 +11,15 @@ diversi ambiti di applicazione di un database, incluse discussioni su forum e ma
 categorie per gestire contenuti e categorie di prodotti. 
 
 \begin{figure}[H]
-	\label{fig:Hde}
-	\includegraphics[scale=0.45]{images/Hierarchical_Data_ex.PNG}
+	\centering
+	\includegraphics[scale=0.7]{images/Hierarchical_Data_ex.PNG}
 	\caption{Esempio di una gestione di dati in modo gerarchico}
+	\label{fig:Hde}
 \end{figure}
 
 Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
 seguenti:
 
-\newpage
 
 \subsection{The adjacency list model}
 Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{‘adjacency list model} o metodo ricorsivo;
@@ -31,7 +31,7 @@ NULL per l'item padre.
 \begin{figure}[ht!]
     \centering
 	\includegraphics[scale=0.75]{images/Adjacency_list_model_table.PNG}
-	\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo l' adjacency list model }
+	\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo l'adjacency list model }
 \end{figure}
  
 Il vantaggio di usare questo modello sta nella sua semplicità di costruzione sopratutto a livello di codice client-side, 
@@ -44,7 +44,7 @@ processo sarà portato a termine in maggior tempo.
 
 \subsection{The Nested set model}
 Il secondo approccio che viene proposto è il \textit{Nested set model}, che permette di osservare la gerarchia in un modo diverso, non 
-come nodi e linee, ma come container innestati.
+come nodi e linee, ma come container innestati. \\
 
 \begin{figure}[ht!]
     \centering
@@ -60,8 +60,7 @@ associati ad ogni nodo due numeri, memorizzato come due attributi.
 I valori di left e right sono determinati come segue: si inizia a numerare a partire dal lato più a sinistra di ogni nodo e si continua 
 verso destra. Lavorando con un albero, si parte da sinistra e si continua verso destra, un livello alla volta, scendendo per ogni
 nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
-destra.
-Questo approccio è chiamato Modified preorder tree traversal algorithm.
+destra. Questo approccio è chiamato Modified preorder tree traversal algorithm.
 
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'adjacency list model, ma quest'utlimo metodo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
@@ -81,7 +80,7 @@ Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccom
 attraverso un procedimento a 3 fasi:
 
 \begin{description}
-	\item[raccolda di dati]: questa è il primo step e anche quello più importante per poter costruire un sistema di 
+	\item[raccolta di dati]: questa è il primo step e anche quello più importante per poter costruire un sistema di 
 	raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente,
 	cioè attraverso i dati che vengono prodotti direttamente dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
 	attarverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma raccolti
@@ -95,15 +94,18 @@ attraverso un procedimento a 3 fasi:
 	semplificano quest ultima fase. 
 \end{description}
 
-I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie:
+I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma speso si preferisco degli approcci imbridi cioè delle
+combinazioni di sistemi di raccomandazione basati sul contenuto (\textit{Content-based filtering}) e 
+quelli collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci sfruttando i pregi di entrambi gli approcci.
+
 
 \subsection{Content-based filtering}
-Un Content-based filtering è un sistema di raccomandazione in cui vengono suggeriti item simili a un particolare item 
-(oggetti o prodotti). 
+Un Content-based filtering è un sistema di raccomandazione in cui vengono suggeriti item simili a un particolare item (oggetti 
+o prodotti). 
 
-Questo approccio sfrutta i metadati dell'item, che possono essere il genere, una descrizione, uno o più autori, etc. per 
-fare queste raccomandazioni; l'idea base che sta dietro questi raccomandatori, è che se ad un utente piace o interessa
-un particolare item allora gli piaceranno anche altri item simili.
+Questo approccio sfrutta i metadati dell'item, che possono essere il genere, una descrizione, uno o più autori, la categoria di 
+appartenenza etc. per fare queste raccomandazioni; l'idea base che sta dietro questi raccomandatori, è che se ad un utente piace 
+o interessa un particolare item allora gli piaceranno anche altri item simili.
 
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
 content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del
@@ -118,30 +120,121 @@ lasciate indirettamente dall'utente. Più precisamente, tra vari item candidati 
 processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
 
 
-\subsection{Collaborative-based filtering}
+\subsection{Collaborative filtering}
 Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su valutazioni passate
 e preferenze di altri utenti. I filtri collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte,
-i filtri content-based.
-A un utente vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
+i filtri content-based. A un utente vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
 
-Si possono trovare due modelli di filtri collaborativi:
-
-
-\paragraph{Memory-based}
-Memory-based methods (the advantage of memory-based techniques is that they are 
-simple to implement and the resulting recommendations are often easy to explain)
-
-\subparagraph{User-based filtering}
+Il principale modello di filtro collaborativo studiato in questo elaborato è il metodo definito come Memory-based e il vantaggio di 
+utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati ottenuti sono altrettanto semplici da 
+spiegare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi Model-based che si basano sulla fattorizzazione di
+matrici e sono molto più funzionali per gestire il problema della sparsità dei dati. Questi ultimi sono sviluppati usando algoritmi
+di data mining e machine learning per predirre le valutazioni di utenti su item senza valutazioni, inoltre sono spesso associati a
+tecniche come la dimensionality reduction per migliorare la precisione.
 
 
-\subparagraph{Item-based filtering}
+\paragraph{Memory-based} \hfill \break
 
 
-\paragraph{Model-based}
+
+Memory-based collaborative filtering is motivated from the observation that users usually trust the recommendations from like-minded 
+neighbors. These methods are aimed at computing unknown relations between users and items by means of nearest neighbor schemes that 
+either identify pairs of items that tend to be rated similarity or users with a similar rating history. Memory-based collaborative 
+filtering became very popular because they are easy-to-implement, very intuitive, avoid the need of training and tuning many parameters, 
+and the user can easily understand the rationale behind each recommendation. Three components characterize this approach: (1) data 
+preprocessing, in which
+input data to the recommender engine is preprocessed to remove global effects, to normalize ratings, etc; (2) neighborhood selection,
+ which consists in selecting the set of K users [items] that are most similar to the active user [to the set of items already rated by 
+ the active user]; and (3) prediction computation, which generates predictions and aggregates items in a top-N recommendation
+Filtri collaborativi che usano metodi Memory-based (definiti anche Neighborhood-based) possono essere classificati in altre due
+categorie:
 
 
-\subsection{Hybrid recommendation system}
+\subparagraph{User-based filtering} \hfill \break
+Questi sistemi raccomandano una serie di item a un utente che utenti simili hanno usato o valutato. Questo algoritmo prima trova un 
+valore che rappresenta la similarità tra utenti. E basandosi su questi valori, prende uno o più utenti tra quelli che risultano simili
+e raccomanda item che questi utenti simili hanno usato o valutato in precedenza.
+Molti di questi approcci possono essere generalizzati dall'algoritmo definito dai seguenti step:
+\begin{enumerate}
+	\item Specificare qual'è il l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare quali utenti possono 
+	avere dato valutazioni o usato item simili al utente target. Piuttosto che recuperare tutti gli utenti, per velocizzare l'esecuzione
+	dell'algoritmo, è possibile selezionare soltanto un gruppo di utenti in modo casuale oppure associare dei valori di similarità tra 
+	tutti gli utenti e confrontando questi valori con quello dell'utente target, selezionare i relativi utenti che superano una soglia
+	scelta, oppure utilizzare tecniche di clustering. 
+	un numero limitato per effettuare la raccomandazione, 
+	\item Estrarre quegli item a cui l'utente target non ha mai interagito e per questo motivo gli possono interessare, e mostrarli 
+	all'utente target.
+\end{enumerate}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/UB_CF_ex.PNG}
+	\caption{Esempio di applicazione di un sistema di raccomandazione User-based}
+	\label{fig:UB_CF}
+\end{figure}
+
+Questi approcci sono facilmente implementabili, indipendenti dal contesto in cui sono applicati e possono essere più accurati rispetto
+a tecniche basate sul content-based dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
+raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo per compiere questo procedimento. Altro 
+problema che affligge questi sistemi, e che verrà approfondito nel prossimo paragrafo, è definito di Cold-start. 
+
+\subparagraph{Item-based filtering} \hfill \break
 
 
-\subsection{Challenges and limitations}
+
+When applied to millions of users and items, conventional neighborhood-based CF algorithms do not scale well, because of the
+ computational complexity of the search for similar users. So as alternative it was introduced the Item-based Filtering: where 
+ rather than matching similar users, they matcha user’s rated items to similar items;
+
+these systems are extremely similar to the content recommendation engine that you built, and identify similar items based on how 
+people have rated it in the past. 
+
+Calculate similarity among the items:
+	Cosine-Based Similarity
+	Correlation-Based Similarity
+	Euclidean distance
+	Pearson’s correlation
+Calculation of Prediction:
+	Weighted Sum
+	Regression
+For example, if Alice, Bob and Eve have given 5 stars to The Lord of the Rings and The Hobbit, the system identifies the items
+ as similar. Therefore, if someone buys The Lord of the Rings, the system also recommends The Hobbit to him or her.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/IB_CF_ex.PNG}
+	\caption{Esempio di applicazione di un sistema di raccomandazione Item-based}
+	\label{fig:IB_CF}
+\end{figure}
+
+
+
+\subsection{Challenges and limitations} \hfill \break
+
+
+
+Cold start problem
+What will happen if a new user or a new item is added in the dataset? It is called a Cold Start. There can be two types of cold start:
+	Visitor Cold Start: means that a new user is introduced in the dataset. Since there is no history of that user, the system does not 
+know the preferences of that user. It becomes harder to recommend products to that user. So, how can we solve this problem? One basic
+approach could be to apply a popularity based strategy, i.e. recommend the most popular products. These can be determined by what has
+been popular recently overall or regionally. Once we know the preferences of the user, recommending products will be easier.
+	Product Cold Start: means that a new product is launched in the market or added to the system. User action is most important to
+determine the value of any product. More the interaction a product receives, the easier it is for our model to recommend that product
+to the right user. We can make use of Content based filtering to solve this problem. The system first uses the content of the new 
+product for recommendations and then eventually the user actions on that product.
+
+
+  Cons
+	Scalability: The more K neighbors we consider (under a certain threshold), the better my classification should be. 
+  Nevertheless, the more users there are in the system, the greater the cost of finding the nearest K neighbors will be.
+	Cold-start: New users will have no to little information about them to be compared with other users.
+	New item: Just like the last point, new items will lack of ratings to create a solid ranking (More of this on ‘How to sort 
+  and rank items’).
+
+Sparsity
+Stated simply, most users do not rate most items and, hence, the user ratings matrix is typically very sparse. is is a problem for 
+collaborative +ltering systems, since it decreases the probability of +nding a set of users with similar ratings. This problem often 
+occurs when a system has a very high item-to-user ratio, or the system is in the initial stages of use. This issue can be mitigated by 
+using additional domain information or making assumptions about the data generation process that allows for high-quality imputation.
 

@@ -86,13 +86,15 @@ per le politiche.
 \begin{figure}
 	\includegraphics[scale=0.5]{images/Security_Compliance_Evaluation.PNG}
 	\caption{Security Compliance Evaluation}
+	\label{fig:Security_Compliance_Evaluation}
 \end{figure}
 
 \newpage
 
 \section{Processo di Evaluation}
-Moon Cloud implementa il processo di Security Compliance Evaluation in Figura 1 usando controlli di monitoraggio o di test 
-personalizzabile. Inoltre garantisce, oltre a tutti i requisisti ad alto livello elencati prima, anche i seguenti:
+Moon Cloud implementa il processo di Security Compliance Evaluation in Figura \ref{fig:Security_Compliance_Evaluation} usando controlli 
+di monitoraggio o di test personalizzabile. Inoltre garantisce, oltre a tutti i requisisti ad alto livello elencati prima, 
+anche i seguenti:
 \begin{description}
 	\item Moon Cloud è una piattaforma cloud centralizzata presentando una visione olistica dello stato di sicurezza di un dato sistema.
 	\item Moon Cloud implementa un sistema di Assurance Evidence-based continuo, implementato come processo di Compliance,
@@ -100,14 +102,14 @@ personalizzabile. Inoltre garantisce, oltre a tutti i requisisti ad alto livello
 	\item Moon Cloud è offerto come un servizio - PaaS, dove le attività di evaluation possono essere facilmente ed efficentemente 
 	configurate su un target asset, senza l'intervento dell'uomo.
 	\item Moon Cloud permette di schedulare delle ispezioni automatiche, grazie all'inventario di asset protetto.
-	\item Moon Cloud evaluation engine può ispezionare dall'interno, gestendo delle minaccie interne; permettendo anche reazioni rapide
-	a incidenti di sicurezza e veloci rimedi, grazie alla raccolta continua di evidence. 
+	\item Moon Cloud evaluation engine può ispezionare dall'interno, gestendo così delle minaccie interne; permettendo anche reazioni 
+	rapide a incidenti di sicurezza e veloci rimedi, grazie alla raccolta continua di evidence. 
 \end{description}
 
 
 L'architettura di Moon Cloud è costituita da un'Assurance Manager che gestisce i processi di Evaluation attraverso un set di 
-\textit{Execution Cluster}; ognuno dei quali gestisce ed esegue un set di probe collezionando le evidence necessarie per le evaluation.
-Tutte le attività di collezione sono eseguite dal probe. Ogni probe è uno script di python fornito come una sigola immagine di Docker, 
+\textit{Execution Cluster}; ognuno dei quali gestisce ed esegue un set di probe che collezionano le evidence necessarie per le evaluation.
+Tutte le attività di collezione sono eseguite dal probe. Ogni probe è uno script di python fornito come una singola immagine di Docker, 
 che viene inizializzata quando è triggerata una evaluation ed è distrutta quando il processo di evaluation è terminato.
 \newline
 Accedendo alla piattaforma di Moon Cloud, l'utente può definire le proprie politiche di sicurezza e attività di evaluation come 
@@ -116,3 +118,8 @@ decidere quando schedulare l'evaluation; e nel momento in cui un processo di eva
 eseguiti e i risultati dell'espressioni booleane vengono memorizzati e restituiti all'utente. A questo punto l'utente può accedere a 
 questi risultati a diversi gradi di precisione: una visione sommaria e generale di tutte le politche implentate e dello stato generale 
 del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence raccolte per una evaluation.
+
+Per poter rendere ancora più intuituivo e semplice da utilizzare un sistema di questa importanza, si è pensato di introdurre un sistema
+che possa raccomandare agli utenti, in base agli asset forniti che vuole proteggere e monitorare, una serie di evaluation o politihe da
+applicare in quei casi; questo permette anche a utenti meno esperti di poter configurare in modo rapido ed efficente dei meccanismi di
+monitoraggio da minaccie.
