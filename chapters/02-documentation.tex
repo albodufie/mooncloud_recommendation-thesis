@@ -134,18 +134,13 @@ tecniche come la dimensionality reduction per migliorare la precisione.
 
 
 \paragraph{Memory-based} \hfill \break
+I filtri collaborativi Memory-based sono stati introdotti per via delle osservazioni che vennero fatti sugl utenti, i quali si fidano
+maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a calcolare le relazioni tra utenti
+e item attraverso lo schema dei vicini che identifica sia coppie di item che tendono ad essere usati insieme o hanno un grado di 
+similarità alto o utenti con uno storico di item usati simile. \cite{taxonomy-of-recommender-agents-on-the-internet}
+Questi approcci divennero molto famosi grazie alla loro semplicità di implementazione, molto intuitivi, non necessitano il training e
+aggiustamento di molti parametri, e l'utente può capire la ragione che sta dietro ogni raccomandazione 
 
-
-
-Memory-based collaborative filtering is motivated from the observation that users usually trust the recommendations from like-minded 
-neighbors. These methods are aimed at computing unknown relations between users and items by means of nearest neighbor schemes that 
-either identify pairs of items that tend to be rated similarity or users with a similar rating history. Memory-based collaborative 
-filtering became very popular because they are easy-to-implement, very intuitive, avoid the need of training and tuning many parameters, 
-and the user can easily understand the rationale behind each recommendation. Three components characterize this approach: (1) data 
-preprocessing, in which
-input data to the recommender engine is preprocessed to remove global effects, to normalize ratings, etc; (2) neighborhood selection,
- which consists in selecting the set of K users [items] that are most similar to the active user [to the set of items already rated by 
- the active user]; and (3) prediction computation, which generates predictions and aggregates items in a top-N recommendation
 Filtri collaborativi che usano metodi Memory-based (definiti anche Neighborhood-based) possono essere classificati in altre due
 categorie:
 
