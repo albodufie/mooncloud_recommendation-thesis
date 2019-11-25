@@ -8,10 +8,11 @@ constituiti da relazioni padre-figlio che non possono essere rappresentate in mo
 In questo caso, i dati gerarchici sono una collezione di informazioni dove ogni item ha un solo padre e nessuno o più figli
 (ad eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni può essere trovato in 
 diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di organizzazione di un business, 
-categorie per gestire contenuti e categorie di prodotti. 
+categorie per gestire contenuti e categorie di prodotti. \\
+
+\newpage
 
 \begin{figure}[H]
-	\centering
 	\includegraphics[scale=0.7]{images/Hierarchical_Data_ex.PNG}
 	\caption{Esempio di una gestione di dati in modo gerarchico}
 	\label{fig:Hde}
@@ -20,11 +21,9 @@ categorie per gestire contenuti e categorie di prodotti.
 Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
 seguenti:
 
-
 \subsection{The adjacency list model}
 Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{‘adjacency list model} o metodo ricorsivo;
-è definito tale perchè per funzionare necessita solo di una funzione che itera per tutto l'albero.
-
+è definito tale perchè per funzionare necessita solo di una funzione che itera per tutto l'albero.\\
 In questo modello, ogni item (nodo dell'albero) nella tablla contiene un puntatore al suo item padre; invece il nodo radice avrà un puntatore a un valore
 NULL per l'item padre.
 
@@ -65,7 +64,7 @@ destra. Questo approccio è chiamato Modified preorder tree traversal algorithm.
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'adjacency list model, ma quest'utlimo metodo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
 cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
-partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice.
+partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice. \\
 
 \begin{figure}[ht!]
     \centering
@@ -121,16 +120,37 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 
 
 \subsection{Collaborative filtering}
-Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su valutazioni passate
-e preferenze di altri utenti. I filtri collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte,
-i filtri content-based. A un utente vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
+I filtri collaborativi (\textit{Collaborative filtering}) lavorano costruendo un database di preferenze di utenti su item (o prodotti).
+Un nuovo utente subisce un processo di matching all'interno del database per scoprire quali sono i possibili vicini (\textit{neighbors}),
+che corrispondo agli altri utenti aventi storicamente simili preferenze al nuovo utente. Agli item maggiormente preferiti dai vicini sono
+raccomandati al nuovo utente, visto che potrebbero essere di suo interesse. 
 
-Il principale modello di filtro collaborativo studiato in questo elaborato è il metodo definito come Memory-based e il vantaggio di 
-utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati ottenuti sono altrettanto semplici da 
-spiegare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi Model-based che si basano sulla fattorizzazione di
-matrici e sono molto più funzionali per gestire il problema della sparsità dei dati. Questi ultimi sono sviluppati usando algoritmi
-di data mining e machine learning per predirre le valutazioni di utenti su item senza valutazioni, inoltre sono spesso associati a
-tecniche come la dimensionality reduction per migliorare la precisione.
+Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri utenti, 
+queste preferenze possono essere ottenute o in modo esplicito dagli utenti o tramite qualche misurazione implicita. 
+I filtri collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri content-based. A un utente 
+vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
+
+Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
+filtraggio collaborativo.
+Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di filtri collaborativi; questi algoritmi sono in grado di cercare
+anche diecimila di potenziali vicini (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
+potenziali vicini. Algoritmi esistenti hanno problemi di performance con i singoli utenti quando essi hanno molte informazioni.
+Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono
+raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item che potrebbero essere di loro gusto.
+Per certi versi questi due obbiettivi sono in conflitto tra di loro e per ottenere dei risultati validi e di una certa importanza è 
+necessario trattarli in contemporanea perchè aumentare solamente la scalabilità diminuirebbe la sua qualità e viceversa. 
+\cite{item-based-collaborative-filtering} 
+
+Il principale modello di filtro collaborativo studiato in questo elaborato è il metodo definito come \textit{Memory-based} e il 
+vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati ottenuti sono altrettanto 
+semplici da spiegare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi Model-based che si basano sulla 
+fattorizzazione di matrici e sono molto più funzionali per gestire il problema della sparsità dei dati. Questi ultimi sono sviluppati
+usando algoritmi di data mining e machine learning per predirre le valutazioni di utenti su item senza valutazioni, inoltre sono spesso 
+associati a tecniche come la dimensionality reduction per migliorare la precisione.
+
+
+
+
 
 
 \paragraph{Memory-based} \hfill \break
@@ -146,9 +166,11 @@ categorie:
 
 
 \subparagraph{User-based filtering} \hfill \break
-Questi sistemi raccomandano una serie di item a un utente che utenti simili hanno usato o valutato. Questo algoritmo prima trova un 
-valore che rappresenta la similarità tra utenti. E basandosi su questi valori, prende uno o più utenti tra quelli che risultano simili
-e raccomanda item che questi utenti simili hanno usato o valutato in precedenza.
+Questi sistemi, definiti anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}) raccomandano una serie di item a 
+un utente che utenti simili hanno usato o valutato. Questo algoritmo prima trova un valore che rappresenta la similarità tra utenti. 
+E basandosi su questi valori, prende uno o più utenti tra quelli che risultano simili e raccomanda item che questi utenti simili 
+hanno usato o valutato in precedenza.
+
 Molti di questi approcci possono essere generalizzati dall'algoritmo definito dai seguenti step:
 \begin{enumerate}
 	\item Specificare qual'è il l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare quali utenti possono 
@@ -176,24 +198,14 @@ problema che affligge questi sistemi, e che verrà approfondito nel prossimo par
 \subparagraph{Item-based filtering} \hfill \break
 
 
+Quando viene applicato per milioni di utenti e item, l'algoritmo UB-CF non è molto efficente, per via della complessa computazione della 
+ricerca di utenti simili; così in alternativa è stato introdotto l'algoritmo di filtraggio Item-based, definito anche IB-CF 
+(\textit{Item-based Collaborative Filter}): dove piuttosto che effetuare il confrotto tra utenti simili, viene fatto un confronto tra 
+gli item dell'utente a cui si vule raccomandare e i possibili item simili.
 
-When applied to millions of users and items, conventional neighborhood-based CF algorithms do not scale well, because of the
- computational complexity of the search for similar users. So as alternative it was introduced the Item-based Filtering: where 
- rather than matching similar users, they matcha user’s rated items to similar items;
+Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come utenti gli
+hanno usati nel passato.
 
-these systems are extremely similar to the content recommendation engine that you built, and identify similar items based on how 
-people have rated it in the past. 
-
-Calculate similarity among the items:
-	Cosine-Based Similarity
-	Correlation-Based Similarity
-	Euclidean distance
-	Pearson’s correlation
-Calculation of Prediction:
-	Weighted Sum
-	Regression
-For example, if Alice, Bob and Eve have given 5 stars to The Lord of the Rings and The Hobbit, the system identifies the items
- as similar. Therefore, if someone buys The Lord of the Rings, the system also recommends The Hobbit to him or her.
 
 \cite{item-based-collaborative-filtering}
 
