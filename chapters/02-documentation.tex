@@ -75,6 +75,45 @@ partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso p
 \newpage
 
 \section{Sistemi di raccomandazione}
+
+
+
+
+
+Recommendation system is a system which recommends items to users among a large number of existing items 
+in database. Item is anything which users consider, such as product, book, and newspaper. There is expectation 
+that recommended item are items that  user will like most; in other words, such items are in accordance with 
+user’s interest. 
+There are two common trends of recommendation systems: content-based filtering (CBF) and collaborative 
+filtering (CF) as follows [1, pp. 3-13]: 
+- CBF recommends an item to a user if such item is similar to other items that she/he likes much in the 
+past (her/his rating for such item is high). Note that each item has contents which are properties and so 
+all items compose a so-called item content matrix. 
+- CF recommends an item to a user if her/his neighbors (other users similar to her/him) are interested in 
+such item.  Note  that  user’s  rating  on  an item  expresses  her/his  interest.  All users’  ratings  on  items 
+compose a so-called rating matrix. 
+Both of them (CBF and CF) have their own strong points and weak points. Namely CBF focuses on content of 
+item and  user’s own interest;  it recommends  different  items  to different  users. Each  user  can  receive unique 
+recommendation; so this is the strong point of CBF. However CBF doesn’t tend towards community like CF. As 
+items that user may like “are hidden under” user community, CBF has no ability to discover such implicit items. 
+This is the most common weak point of CBF. 
+If  there are a  lot  of  content associating with  item  (for  example, items has  many  properties)  then, CF 
+consumes much system resource and  time  in order to analyze items  whereas  CF  doesn’t regard to content  of 
+items.  That  CF only works  on  users’  ratings  on  items  is  strong  point  because CF  doesn’t  encounter  how to 
+analyze rich content items. However it is also weak point because CF can do unexpected recommendation in 
+some situations that items are considered to be suitable to user but they don’t relate to user profile in fact. The 
+problem gets more  serious when there are  many items  that aren’t  rated  and  so rating  matrix becomes spares 
+matrix containing many missing values.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/recommender_systems.jpg}
+	\caption{}
+	\label{fig:RS}
+\end{figure}
+
+
+\cite{model-based-approach-for-collaborative-filtering}
 Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti,
 attraverso un procedimento a 3 fasi:
 
@@ -120,7 +159,9 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 
 
 \subsection{Collaborative filtering}
-I filtri collaborativi (\textit{Collaborative filtering}) lavorano costruendo un database di preferenze di utenti su item (o prodotti).
+I filtri collaborativi (\textit{Collaborative filtering}) lavorano costruendo un database di preferenze di utenti su item (o prodotti),
+sfruttano tecniche di analisi dei dati al problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere producendo una lista
+dei top-N item da raccomandare per un dato utente.
 Un nuovo utente subisce un processo di matching all'interno del database per scoprire quali sono i possibili vicini (\textit{neighbors}),
 che corrispondo agli altri utenti aventi storicamente simili preferenze al nuovo utente. Agli item maggiormente preferiti dai vicini sono
 raccomandati al nuovo utente, visto che potrebbero essere di suo interesse. 
@@ -143,7 +184,7 @@ necessario trattarli in contemporanea perchè aumentare solamente la scalabilit�
 
 Il principale modello di filtro collaborativo studiato in questo elaborato è il metodo definito come \textit{Memory-based} e il 
 vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati ottenuti sono altrettanto 
-semplici da spiegare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi Model-based che si basano sulla 
+semplici da spiegare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi \textit{Model-based} che si basano sulla 
 fattorizzazione di matrici e sono molto più funzionali per gestire il problema della sparsità dei dati. Questi ultimi sono sviluppati
 usando algoritmi di data mining e machine learning per predirre le valutazioni di utenti su item senza valutazioni, inoltre sono spesso 
 associati a tecniche come la dimensionality reduction per migliorare la precisione.
@@ -216,7 +257,15 @@ hanno usati nel passato.
 	\label{fig:IB_CF}
 \end{figure}
 
+\paragraph{Model-based filtering}
 
+
+
+Model-based algorithm tries to compress huge database into a model and 
+performs recommendation task by applying reference mechanism into this model. Model-based CF can response 
+user’s request instantly. This paper surveys common techniques for implementing model-based algorithms. We 
+also give a new idea for model-based approach so as to gain high accuracy and solve the problem of sparse 
+matrix by applying evidence-based inference techniques. 
 
 \subsection{Challenges and limitations} \hfill \break
 
