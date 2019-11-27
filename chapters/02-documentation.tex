@@ -75,35 +75,32 @@ partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso p
 \newpage
 
 \section{Sistemi di raccomandazione}
+Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che raccomanda item ad utenti tra numerosi item esistenti 
+in database. L'item è qualsiasi cosa che possa piacere agli utenti, come prodotti, libri e giornali. Si generano aspettative che 
+l'item raccomandato possa essere tra quelli che sia di maggiore interesse; in altre parole, questi item particolari sono in accordo 
+con i gusti degli utenti. 
+\\
+\\
+Oggigiorno si possono trovare due trend di sistemi di raccomandazione: 
+\begin{description}
+	\item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile agli altri item di interesse o piaciuti
+	nel passato (la valutazione per questi item è alta o sono stati molto utilizzati). Da notare che ogni item ha delle informazioni che
+	ne definiscono le caratteristiche e proprietà (spesso questo insieme di dati viene definito metadati), e sono fondamentali per il 
+	processo di raccomandazione. 
+	\item[Collaborative filtering](CF): un item viene raccomandato ad un utente se i suoi vicini (gli altri utenti simili) sono interessati
+	a quell'item.   
+\end{description}
 
-
-
-
-
-Recommendation system is a system which recommends items to users among a large number of existing items 
-in database. Item is anything which users consider, such as product, book, and newspaper. There is expectation 
-that recommended item are items that  user will like most; in other words, such items are in accordance with 
-user’s interest. 
-There are two common trends of recommendation systems: content-based filtering (CBF) and collaborative 
-filtering (CF) as follows [1, pp. 3-13]: 
-- CBF recommends an item to a user if such item is similar to other items that she/he likes much in the 
-past (her/his rating for such item is high). Note that each item has contents which are properties and so 
-all items compose a so-called item content matrix. 
-- CF recommends an item to a user if her/his neighbors (other users similar to her/him) are interested in 
-such item.  Note  that  user’s  rating  on  an item  expresses  her/his  interest.  All users’  ratings  on  items 
-compose a so-called rating matrix. 
-Both of them (CBF and CF) have their own strong points and weak points. Namely CBF focuses on content of 
-item and  user’s own interest;  it recommends  different  items  to different  users. Each  user  can  receive unique 
-recommendation; so this is the strong point of CBF. However CBF doesn’t tend towards community like CF. As 
-items that user may like “are hidden under” user community, CBF has no ability to discover such implicit items. 
-This is the most common weak point of CBF. 
-If  there are a  lot  of  content associating with  item  (for  example, items has  many  properties)  then, CF 
-consumes much system resource and  time  in order to analyze items  whereas  CF  doesn’t regard to content  of 
-items.  That  CF only works  on  users’  ratings  on  items  is  strong  point  because CF  doesn’t  encounter  how to 
-analyze rich content items. However it is also weak point because CF can do unexpected recommendation in 
-some situations that items are considered to be suitable to user but they don’t relate to user profile in fact. The 
-problem gets more  serious when there are  many items  that aren’t  rated  and  so rating  matrix becomes spares 
-matrix containing many missing values.
+Entrambi gli approcci (CBF e CF) hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e
+sugli interessi del singolo utente; raccomanda iteme differenti a utenti differenti. Ogni utente può ricevere raccomandazioni uniche; e 
+questo è un vantaggio. Tuttavia CBF non si tende verso la comunità di utenti come il CF; per questo motivo si potrebbero tralasciare 
+item di interesse ad un utente parchè nascosti all'interno della comunità, CBF non ha l'abilità di scoprire item in modo implicito; e 
+questa è la sua più grande limitazione.
+Se ci sono molti contenuti associati agli item (per esempio, un item ha molte proprietà) allora, il sistema CF consuma molte risorse e 
+tempo per poter analizzare i dati, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione viene fatta
+sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item; questo è il suo punto di forza 
+perchè non si trova di fronte a dover analizzare item con un ricco contenuto. Allo stesso tempo è anche il suo punto debole, perchè può
+portare a suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti.
 
 \begin{figure}[ht!]
 	\centering
