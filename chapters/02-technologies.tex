@@ -1,6 +1,15 @@
-\chapter{Tecnologie}
+\chapter{Tecnologie utilizzate}
 In questo capitolo verranno descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate
 unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
+
+% - nel capitolo sulle tecnologie parlare di python, django e postgres, docker? -
+
+
+\section{Python}
+
+\section{Django e Postgres}
+
+\section{Docker}
 
 \section{Strutture dati gerarchiche}
 Le tabelle di un database relazione non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
@@ -187,82 +196,6 @@ usando algoritmi di data mining e machine learning per predirre le valutazioni d
 associati a tecniche come la dimensionality reduction per migliorare la precisione.
 
 
-
-
-
-
-\paragraph{Memory-based} \hfill \break
-I filtri collaborativi Memory-based sono stati introdotti per via delle osservazioni che vennero fatti sugl utenti, i quali si fidano
-maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a calcolare le relazioni tra utenti
-e item attraverso lo schema dei vicini che identifica sia coppie di item che tendono ad essere usati insieme o hanno un grado di 
-similarità alto o utenti con uno storico di item usati simile. \cite{taxonomy-of-recommender-agents-on-the-internet}
-Questi approcci divennero molto famosi grazie alla loro semplicità di implementazione, molto intuitivi, non necessitano il training e
-aggiustamento di molti parametri, e l'utente può capire la ragione che sta dietro ogni raccomandazione 
-
-Filtri collaborativi che usano metodi Memory-based (definiti anche Neighborhood-based) possono essere classificati in altre due
-categorie:
-
-
-\subparagraph{User-based filtering} \hfill \break
-Questi sistemi, definiti anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}) raccomandano una serie di item a 
-un utente che utenti simili hanno usato o valutato. Questo algoritmo prima trova un valore che rappresenta la similarità tra utenti. 
-E basandosi su questi valori, prende uno o più utenti tra quelli che risultano simili e raccomanda item che questi utenti simili 
-hanno usato o valutato in precedenza.
-
-Molti di questi approcci possono essere generalizzati dall'algoritmo definito dai seguenti step:
-\begin{enumerate}
-	\item Specificare qual'è il l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare quali utenti possono 
-	avere dato valutazioni o usato item simili al utente target. Piuttosto che recuperare tutti gli utenti, per velocizzare l'esecuzione
-	dell'algoritmo, è possibile selezionare soltanto un gruppo di utenti in modo casuale oppure associare dei valori di similarità tra 
-	tutti gli utenti e confrontando questi valori con quello dell'utente target, selezionare i relativi utenti che superano una soglia
-	scelta, oppure utilizzare tecniche di clustering. 
-	un numero limitato per effettuare la raccomandazione, 
-	\item Estrarre quegli item a cui l'utente target non ha mai interagito e per questo motivo gli possono interessare, e mostrarli 
-	all'utente target.
-\end{enumerate}
-
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.5]{images/UB_CF_ex.PNG}
-	\caption{Esempio di applicazione di un sistema di raccomandazione User-based}
-	\label{fig:UB_CF}
-\end{figure}
-
-Questi approcci sono facilmente implementabili, indipendenti dal contesto in cui sono applicati e possono essere più accurati rispetto
-a tecniche basate sul content-based dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
-raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo per compiere questo procedimento. Altro 
-problema che affligge questi sistemi, e che verrà approfondito nel prossimo paragrafo, è definito di Cold-start. 
-
-\subparagraph{Item-based filtering} \hfill \break
-
-
-Quando viene applicato per milioni di utenti e item, l'algoritmo UB-CF non è molto efficente, per via della complessa computazione della 
-ricerca di utenti simili; così in alternativa è stato introdotto l'algoritmo di filtraggio Item-based, definito anche IB-CF 
-(\textit{Item-based Collaborative Filter}): dove piuttosto che effetuare il confrotto tra utenti simili, viene fatto un confronto tra 
-gli item dell'utente a cui si vule raccomandare e i possibili item simili.
-
-Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come utenti gli
-hanno usati nel passato.
-
-
-\cite{item-based-collaborative-filtering}
-
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.5]{images/IB_CF_ex.PNG}
-	\caption{Esempio di applicazione di un sistema di raccomandazione Item-based}
-	\label{fig:IB_CF}
-\end{figure}
-
-\paragraph{Model-based filtering}
-
-
-
-Model-based algorithm tries to compress huge database into a model and 
-performs recommendation task by applying reference mechanism into this model. Model-based CF can response 
-user’s request instantly. This paper surveys common techniques for implementing model-based algorithms. We 
-also give a new idea for model-based approach so as to gain high accuracy and solve the problem of sparse 
-matrix by applying evidence-based inference techniques. 
 
 \subsection{Challenges and limitations} \hfill \break
 
