@@ -166,16 +166,16 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 
 \subsection{Collaborative filtering}
 I filtri collaborativi (\textit{Collaborative filtering}) lavorano costruendo un database di preferenze di utenti su item (o prodotti),
-sfruttano tecniche di analisi dei dati al problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere producendo una lista
-dei top-N item da raccomandare per un dato utente.
+sfruttano tecniche di analisi dei dati al problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere producendo una 
+lista dei top-N item da raccomandare per un dato utente.
 Un nuovo utente subisce un processo di matching all'interno del database per scoprire quali sono i possibili vicini (\textit{neighbors}),
 che corrispondo agli altri utenti aventi storicamente simili preferenze al nuovo utente. Agli item maggiormente preferiti dai vicini sono
 raccomandati al nuovo utente, visto che potrebbero essere di suo interesse. 
 
-Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri utenti, 
-queste preferenze possono essere ottenute o in modo esplicito dagli utenti o tramite qualche misurazione implicita. 
-I filtri collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri content-based. A un utente 
-vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
+Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
+utenti, queste preferenze possono essere ottenute o in modo esplicito dagli utenti o tramite qualche misurazione implicita. 
+I filtri collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri content-based. A un 
+utente vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
 
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
 filtraggio collaborativo.
@@ -200,7 +200,7 @@ associati a tecniche come la dimensionality reduction per migliorare la precisio
 \subsection{Challenges and limitations} \hfill \break
 
 
-
+\paragraph{Cold start problem}
 Cold start problem
 What will happen if a new user or a new item is added in the dataset? It is called a Cold Start. There can be two types of cold start:
 	Visitor Cold Start: means that a new user is introduced in the dataset. Since there is no history of that user, the system does not 
@@ -220,7 +220,7 @@ product for recommendations and then eventually the user actions on that product
 	New item: Just like the last point, new items will lack of ratings to create a solid ranking (More of this on ‘How to sort 
   and rank items’).
 
-Sparsity
+\paragraph{Sparsity}
 Stated simply, most users do not rate most items and, hence, the user ratings matrix is typically very sparse. is is a problem for 
 collaborative +ltering systems, since it decreases the probability of +nding a set of users with similar ratings. This problem often 
 occurs when a system has a very high item-to-user ratio, or the system is in the initial stages of use. This issue can be mitigated by 
