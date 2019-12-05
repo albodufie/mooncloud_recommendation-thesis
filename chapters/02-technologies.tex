@@ -4,12 +4,113 @@ unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
 
 % - nel capitolo sulle tecnologie parlare di python, django e postgres, docker? -
 
+\section{Python, Django e Postgres}
+Python è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni 
+distribuite, scripting, computazione numerica e system testing.
 
-\section{Python}
+Fu ideato da Guido van Rossum all'inizio degli anni novanta.
 
-\section{Django e Postgres}
+Python è un linguaggio di programmazione ad alto livello, rilasciato pubblicamente per la prima volta nel 1991 dal suo creatore 
+Guido van Rossum, programmatore olandese attualmente operativo in Dropbox.
+
+Python supporta diversi paradigmi di programmazione, come quello object-oriented (con supporto all'ereditarietà multipla), quello 
+imperativo e quello funzionale, ed offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che 
+unitamente alla gestione automatica della memoria e a robusti costrutti per la gestione delle eccezioni fa di Python uno dei linguaggi 
+più ricchi e comodi da usare.
+
+Comodo, ma anche semplice da usare e imparare. Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio 
+immediatamente intuibile. La sua sintassi è pulita e snella così come i suoi costrutti, decisamente chiari e non ambigui. I blocchi 
+logici vengono costruiti semplicemente allineando le righe allo stesso modo, incrementando la leggibilità e l'uniformità del codice 
+anche se vi lavorano diversi autori.
+
+Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
+estensione .py) e, se sintatticamente corretto, di eseguirlo. In Python, non esiste una fase di compilazione separata (come 
+avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente.
+
+Un aspetto inusuale del Python è il metodo che usa per delimitare i blocchi di programma, che lo rende unico fra i linguaggi più diffusi.
+
+\begin{figure}[ht!]
+    \centering
+	\includegraphics[scale=0.5]{images/Python_ex.png}
+	\caption{Esempio di una porzione di codice scritta in Python}
+\end{figure}
+
+Nei linguaggi derivati dall'ALGOL come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
+(il C ed il Perl usano { }; il Pascal usa begin ed end). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
+indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. Invece Python deriva il suo sistema 
+di indentazione dal meno noto linguaggio di programmazione Occam: invece di usare parentesi o parole chiave, usa l'indentazione stessa 
+per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare sia una tabulazione, sia un numero
+arbitrario di spazi, ma lo standard Python è di 4 spazi. \cite{python-documentation}
+
+Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced 
+developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to 
+reinvent the wheel. It is free and open source, has a thriving and active community, great documentation, and many options for free 
+and paid-for support. 
+
+Django helps you write software that is:
+
+Complete
+	Django follows the "Batteries included" philosophy and provides almost everything developers might want to do "out of the box". 
+	Because everything you need is part of the one "product", it all works seamlessly together, follows consistent design principles, 
+	and has extensive and up-to-date documentation.
+Versatile
+	Django can be (and has been) used to build almost any type of website — from content management systems and wikis, through to 
+	social networks and news sites. It can work with any client-side framework, and can deliver content in almost any format 
+	(including HTML, RSS feeds, JSON, XML, etc). The site you are currently reading is based on Django!
+
+	Internally, while it provides choices for almost any functionality you might want (e.g. several popular databases, templating 
+	engines, etc.), it can also be extended to use other components if needed.
+Secure
+	Django helps developers avoid many common security mistakes by providing a framework that has been engineered to "do the right 
+	things" to protect the website automatically. For example, Django provides a secure way to manage user accounts and passwords, 
+	avoiding common mistakes like putting session information in cookies where it is vulnerable (instead cookies just contain a key, 
+	and the actual data is stored in the database) or directly storing passwords rather than a password hash.
+	Scalable
+	Django uses a component-based “shared-nothing” architecture (each part of the architecture is independent of the others, 
+	and can hence be replaced or changed if needed). Having a clear separation between the different parts means that it can 
+	scale for increased traffic by adding hardware at any level: caching servers, database servers, or application servers. Some 
+	of the busiest sites have successfully scaled Django to meet their demands (e.g. Instagram and Disqus, to name just two).
+Maintainable
+	Django code is written using design principles and patterns that encourage the creation of maintainable and reusable code. In 
+	particular, it makes use of the Don't Repeat Yourself (DRY) principle so there is no unnecessary duplication, reducing the amount 
+	of code. Django also promotes the grouping of related functionality into reusable "applications" and, at a lower level, groups 
+	related code into modules (along the lines of the Model View Controller (MVC) pattern).
+Portable
+	Django is written in Python, which runs on many platforms. That means that you are not tied to any particular server platform, 
+	and can run your applications on many flavours of Linux, Windows, and Mac OS X. Furthermore, Django is well-supported by many web 
+	hosting providers, who often provide specific infrastructure and documentation for hosting Django sites.
+
+What does Django code look like?
+
+In a traditional data-driven website, a web application waits for HTTP requests from the web browser (or other client). When a request is received the application works out what is needed based on the URL and possibly information in POST data or GET data. Depending on what is required it may then read or write information from a database or perform other tasks required to satisfy the request. The application will then return a response to the web browser, often dynamically creating an HTML page for the browser to display by inserting the retrieved data into placeholders in an HTML template.
+	
+Django web applications typically group the code that handles each of these steps into separate files:
+
+\begin{figure}[ht!]
+    \centering
+	\includegraphics[scale=0.9]{images/Djnago_doc.png}
+	\caption{Schema di funzionamento generico di un applicativo web sviluppato con Django}
+\end{figure}
+
+URLs: While it is possible to process requests from every single URL via a single function, it is much more maintainable to write 
+a separate view function to handle each resource. A URL mapper is used to redirect HTTP requests to the appropriate view based on 
+the request URL. The URL mapper can also match particular patterns of strings or digits that appear in an URL, and pass these to a 
+view function as data.
+View: A view is a request handler function, which receives HTTP requests and returns HTTP responses. Views access the data needed to 
+satisfy requests via models, and delegate the formatting of the response to templates.
+Models: Models are Python objects that define the structure of an application's data, and provide mechanisms to manage (add, modify, 
+delete) and query records in the database. 
+Templates: A template is a text file defining the structure or layout of a file (such as an HTML page), with placeholders used to 
+represent actual content. A view can dynamically create an HTML page using an HTML template, populating it with data from a model. 
+A template can be used to define the structure of any type of file; it doesn't have to be HTML!
+\cite{mdn-django-documentation} \cite{django-documentation}
+
+
 
 \section{Docker}
+
+
+
 
 \section{Strutture dati gerarchiche}
 Le tabelle di un database relazione non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
@@ -200,7 +301,14 @@ associati a tecniche come la dimensionality reduction per migliorare la precisio
 \subsection{Challenges and limitations} \hfill \break
 
 
-\paragraph{Cold start problem}
+\paragraph{Cold Start problem}
+Cosa succederebbe se un nuovo utente o un nuovo item è aggiunto al dataset? Questa situazione è chiamata \textit{Cold Start}. Ci possono
+essere due tipi di Cold Start:
+\begin{description}
+	\item[Visitor Cold Start]:
+	\item[Product Cold Start]: 
+\end{description}
+
 Cold start problem
 What will happen if a new user or a new item is added in the dataset? It is called a Cold Start. There can be two types of cold start:
 	Visitor Cold Start: means that a new user is introduced in the dataset. Since there is no history of that user, the system does not 
@@ -221,6 +329,8 @@ product for recommendations and then eventually the user actions on that product
   and rank items’).
 
 \paragraph{Sparsity}
+
+
 Stated simply, most users do not rate most items and, hence, the user ratings matrix is typically very sparse. is is a problem for 
 collaborative +ltering systems, since it decreases the probability of +nding a set of users with similar ratings. This problem often 
 occurs when a system has a very high item-to-user ratio, or the system is in the initial stages of use. This issue can be mitigated by 
