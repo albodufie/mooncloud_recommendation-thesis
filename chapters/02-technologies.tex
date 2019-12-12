@@ -2,9 +2,9 @@
 In questo capitolo verranno descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate
 unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
 
-% - nel capitolo sulle tecnologie parlare di python, django e postgres, docker? -
+% - nel capitolo sulle tecnologie parlare di python, django, docker? -
 
-\section{Python, Django e Postgres}
+\section{Python, Django}
 Python è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni 
 distribuite, scripting, computazione numerica e system testing.
 
@@ -108,9 +108,38 @@ A template can be used to define the structure of any type of file; it doesn't h
 
 
 \section{Docker}
+Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
+il software in unità standardizzate chiamate container che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
+strumenti di sistema, codice e runtime. Con Docker, è possibile 
+distribuire e ricalibrare le risorse per un'applicazione in qualsiasi ambiente, tenendo sempre sotto controllo il codice eseguito.
 
+La tecnologia Docker utilizza il kernel di Linux e le sue funzionalità, come Cgroups e namespace, per isolare i processi in modo da poterli 
+eseguire in maniera indipendente. Questa indipendenza è l'obiettivo dei container: la capacità di eseguire più processi e applicazioni in 
+modo separato per sfruttare al meglio l'infrastruttura esistente pur conservando il livello di sicurezza che sarebbe garantito dalla 
+presenza di sistemi separati.
 
+\begin{figure}[]
+	\centering
+	\includegraphics[scale=0.7]{images/Docker_Config_Container.png}
+	\caption{Schematizzazione del contenuto di un Container di Docker}
+	\label{fig:DCC}
+\end{figure}
 
+Gli strumenti per la creazione di container, come Docker, consentono il deployment a partire da un'immagine. Ciò semplifica la 
+condivisione di un'applicazione o di un insieme di servizi, con tutte le loro dipendenze, nei vari ambienti.
+
+Docker, considera i container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
+copiare e spostare i container da un ambiente all'altro, ottimizzando così le app per il cloud.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.7]{images/Hierarchical_Data_ex.PNG}
+	\caption{Esempio di una gestione di dati in modo gerarchico}
+	\label{fig:Hde}
+\end{figure}
+
+I contenitori forniscono una modalità standard per impacchettare il codice della tua applicazione, le configurazioni e le dipendenze, 
+in un oggetto singolo. I contenitori condividono un sistema operativo installato sul server e operano come processi con risorse isolate, 
+assicurando velocità, affidabilità e distribuzioni coerenti, indipendentemente dall’ambiente.
 
 \section{Strutture dati gerarchiche}
 Le tabelle di un database relazione non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
@@ -121,12 +150,6 @@ diversi ambiti di applicazione di un database, incluse discussioni su forum e ma
 categorie per gestire contenuti e categorie di prodotti. \\
 
 \newpage
-
-\begin{figure}[H]
-	\includegraphics[scale=0.7]{images/Hierarchical_Data_ex.PNG}
-	\caption{Esempio di una gestione di dati in modo gerarchico}
-	\label{fig:Hde}
-\end{figure}
 
 Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
 seguenti:
@@ -299,9 +322,6 @@ associati a tecniche come la dimensionality reduction per migliorare la precisio
 
 
 \subsection{Challenges and limitations} \hfill \break
-
-
-\paragraph{Cold Start problem}
 Cosa succederebbe se un nuovo utente o un nuovo item è aggiunto al dataset? Questa situazione è chiamata \textit{Cold Start}. Ci possono
 essere due tipi di Cold Start:
 \begin{description}
@@ -328,8 +348,7 @@ product for recommendations and then eventually the user actions on that product
 	New item: Just like the last point, new items will lack of ratings to create a solid ranking (More of this on ‘How to sort 
   and rank items’).
 
-\paragraph{Sparsity}
-
+SPARSITY
 
 Stated simply, most users do not rate most items and, hence, the user ratings matrix is typically very sparse. is is a problem for 
 collaborative +ltering systems, since it decreases the probability of +nding a set of users with similar ratings. This problem often 
