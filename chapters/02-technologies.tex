@@ -6,34 +6,39 @@ unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
 
 \section{Python, Django}
 Python è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni 
-distribuite, scripting, computazione numerica e system testing.
-
-Fu ideato da Guido van Rossum all'inizio degli anni novanta.
-
-Python è un linguaggio di programmazione ad alto livello, rilasciato pubblicamente per la prima volta nel 1991 dal suo creatore 
-Guido van Rossum, programmatore olandese attualmente operativo in Dropbox.
+distribuite, scripting, computazione numerica e system testing; ideato e rilasciato pubblicamente per la prima volta nel 1991 dal suo 
+creatore Guido van Rossum, programmatore olandese.
 
 Python supporta diversi paradigmi di programmazione, come quello object-oriented (con supporto all'ereditarietà multipla), quello 
 imperativo e quello funzionale, ed offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che 
 unitamente alla gestione automatica della memoria e a robusti costrutti per la gestione delle eccezioni fa di Python uno dei linguaggi 
 più ricchi e comodi da usare.
 
-Comodo, ma anche semplice da usare e imparare. Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio 
+Inoltre è anche semplice da usare e imparare. Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio 
 immediatamente intuibile. La sua sintassi è pulita e snella così come i suoi costrutti, decisamente chiari e non ambigui. I blocchi 
 logici vengono costruiti semplicemente allineando le righe allo stesso modo, incrementando la leggibilità e l'uniformità del codice 
 anche se vi lavorano diversi autori.
 
-Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
-estensione .py) e, se sintatticamente corretto, di eseguirlo. In Python, non esiste una fase di compilazione separata (come 
-avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente.
-
 Un aspetto inusuale del Python è il metodo che usa per delimitare i blocchi di programma, che lo rende unico fra i linguaggi più diffusi.
 
-\begin{figure}[ht!]
-    \centering
-	\includegraphics[scale=0.5]{images/Python_ex.png}
-	\caption{Esempio di una porzione di codice scritta in Python}
-\end{figure}
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, caption={Esempio di programma in Python}]
+def test(got, expected):
+	if got == expected:
+		prefix = ' OK '
+	else:
+		prefix = ' X '
+	print ('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+
+def main():
+	print ('verbing')
+	test(verbing('hail'), 'hailing')
+	test(verbing('swiming'), 'swimingly')
+	test(verbing('do'), 'do')
+
+if __name__ == '__main__':
+	main()
+\end{lstlisting}
 
 Nei linguaggi derivati dall'ALGOL come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
 (il C ed il Perl usano { }; il Pascal usa begin ed end). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
@@ -41,6 +46,12 @@ indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al c
 di indentazione dal meno noto linguaggio di programmazione Occam: invece di usare parentesi o parole chiave, usa l'indentazione stessa 
 per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare sia una tabulazione, sia un numero
 arbitrario di spazi, ma lo standard Python è di 4 spazi. \cite{python-documentation}
+
+
+Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
+estensione .py) e, se sintatticamente corretto, di eseguirlo e non esiste una fase di compilazione separata (come 
+avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente.
+
 
 Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced 
 developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to 
