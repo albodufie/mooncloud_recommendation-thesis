@@ -5,6 +5,7 @@ unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
 % - nel capitolo sulle tecnologie parlare di python, django, docker? -
 
 \section{Perché Python e Django}
+\paragraph{Python}
 Python è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni 
 distribuite, scripting, computazione numerica e system testing; ideato e rilasciato pubblicamente per la prima volta nel 1991 dal suo 
 creatore Guido van Rossum, programmatore olandese.
@@ -51,72 +52,53 @@ Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare i
 estensione .py) e, se sintatticamente corretto, di eseguirlo e non esiste una fase di compilazione separata (come 
 avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente. \cite{python-documentation}
 
+\paragraph{Django}
+Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
+perfettamente mantenibile, Django si occupa della maggiori grane del sviluppo web, così da permetterti di concentrarti sulla scrittura della tua app; inoltre 
+è open-source e ha una comunità attiva, una documentazione completa e sempice da consultare.
+
+Django aiuta a scrivere software con le seguenti caratteristiche \cite{django-documentation}:
+\begin{description}
+	\item[Versatile]: è usato per la creazione di praticamente tutti i tipi di siti web, a partire a sistemi per la gestioni di contenuti e wiki,
+	social network e siti di notizie; può lavorare con qualunque client-side framework, gestire contenuti in quasi tutti i formati (inclusi HTML, 
+	RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, etc.).
+	\item[Sicuro]: aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
+	le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un modo sicuro per gestire gli account degli utenti e le relative
+	password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies dove sarebbero vulnerabili (invece i cookie
+	contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
+	\item[Mantenibile]: il codice di Django è scritto seguedo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre
+	particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
+	Django raggruppa parti di codice legto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
+	\item[Portatile]: Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che
+	sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastructure e 
+	e documentazione per l'hosting di siti web in Django.
+\end{description}
 
 
-Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced 
-developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to 
-reinvent the wheel. It is free and open source, has a thriving and active community, great documentation, and many options for free 
-and paid-for support. 
-
-Django helps you write software that is:
-
-Complete
-	Django follows the "Batteries included" philosophy and provides almost everything developers might want to do "out of the box". 
-	Because everything you need is part of the one "product", it all works seamlessly together, follows consistent design principles, 
-	and has extensive and up-to-date documentation.
-Versatile
-	Django can be (and has been) used to build almost any type of website — from content management systems and wikis, through to 
-	social networks and news sites. It can work with any client-side framework, and can deliver content in almost any format 
-	(including HTML, RSS feeds, JSON, XML, etc). The site you are currently reading is based on Django!
-
-	Internally, while it provides choices for almost any functionality you might want (e.g. several popular databases, templating 
-	engines, etc.), it can also be extended to use other components if needed.
-Secure
-	Django helps developers avoid many common security mistakes by providing a framework that has been engineered to "do the right 
-	things" to protect the website automatically. For example, Django provides a secure way to manage user accounts and passwords, 
-	avoiding common mistakes like putting session information in cookies where it is vulnerable (instead cookies just contain a key, 
-	and the actual data is stored in the database) or directly storing passwords rather than a password hash.
-	Scalable
-	Django uses a component-based “shared-nothing” architecture (each part of the architecture is independent of the others, 
-	and can hence be replaced or changed if needed). Having a clear separation between the different parts means that it can 
-	scale for increased traffic by adding hardware at any level: caching servers, database servers, or application servers. Some 
-	of the busiest sites have successfully scaled Django to meet their demands (e.g. Instagram and Disqus, to name just two).
-Maintainable
-	Django code is written using design principles and patterns that encourage the creation of maintainable and reusable code. In 
-	particular, it makes use of the Don't Repeat Yourself (DRY) principle so there is no unnecessary duplication, reducing the amount 
-	of code. Django also promotes the grouping of related functionality into reusable "applications" and, at a lower level, groups 
-	related code into modules (along the lines of the Model View Controller (MVC) pattern).
-Portable
-	Django is written in Python, which runs on many platforms. That means that you are not tied to any particular server platform, 
-	and can run your applications on many flavours of Linux, Windows, and Mac OS X. Furthermore, Django is well-supported by many web 
-	hosting providers, who often provide specific infrastructure and documentation for hosting Django sites.
-
-What does Django code look like?
-
-In a traditional data-driven website, a web application waits for HTTP requests from the web browser (or other client). When a request is received the application works out what is needed based on the URL and possibly information in POST data or GET data. Depending on what is required it may then read or write information from a database or perform other tasks required to satisfy the request. The application will then return a response to the web browser, often dynamically creating an HTML page for the browser to display by inserting the retrieved data into placeholders in an HTML template.
-	
-Django web applications typically group the code that handles each of these steps into separate files:
+Un tradizionale sito web attende delle richieste HTTP dal browser web (o altri client). Quando viene ricevuta una richiesta, di tipo POST o GET, l'applicazione 
+legge le informazioni contenute nel URL e altri possibili dati a seconda del tipo di richiesta. A seconda della richiesta è possibile che vengano letti o 
+scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta. A quel punto l'applicazione ritorna una risposta al browser 
+web, spesso in modo dinamico, creando una pagina HTML da mostrare in cui è possibile inserire o recuperare dati in placeholder in un template HTML.
 
 \begin{figure}[ht!]
     \centering
 	\includegraphics[scale=0.9]{images/Django_doc.png}
-	\caption{Schema di funzionamento generico di un applicativo web sviluppato con Django}
+	\caption{Schema generico di funzionamento di un applicativo web sviluppato con Django}
 \end{figure}
 
-URLs: While it is possible to process requests from every single URL via a single function, it is much more maintainable to write 
-a separate view function to handle each resource. A URL mapper is used to redirect HTTP requests to the appropriate view based on 
-the request URL. The URL mapper can also match particular patterns of strings or digits that appear in an URL, and pass these to a 
-view function as data.
-View: A view is a request handler function, which receives HTTP requests and returns HTTP responses. Views access the data needed to 
-satisfy requests via models, and delegate the formatting of the response to templates.
-Models: Models are Python objects that define the structure of an application's data, and provide mechanisms to manage (add, modify, 
-delete) and query records in the database. 
-Templates: A template is a text file defining the structure or layout of a file (such as an HTML page), with placeholders used to 
-represent actual content. A view can dynamically create an HTML page using an HTML template, populating it with data from a model. 
-A template can be used to define the structure of any type of file; it doesn't have to be HTML!
-\cite{mdn-django-documentation} \cite{django-documentation}
-
-
+Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi diversi passaggi in file separati \cite{mdn-django-documentation}:
+\begin{description}
+	\item[URL]: mentre è possibile processare richieste da qualsiasi URL attraverso unas singola funzione, è più mantenibile scrivere diverse funzioni chiamate
+	View per gestire ogni risorsa. un URL mapper è usato per reindirizzare le richieste HTTP alla view corretta in base all'URL della richiesta; inoltre è 
+	possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla funzione appropriata
+	come dati da elaborare.
+	\item[View]: una View è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le view accedono ai dati necessari per soddisfare la 
+	richiesta attraverso i Model, e delegano la formattazione delle risposte ai template. 
+	\item[Model]: i Model sono oggetti in Python che definiscono la struttura dei dati dell'applicazione, e provvedono meccanisci per gestirla (add, modify, 
+	delete) e query per interpellare il database.
+	\item[Template]: un template è un file di testo che definisce la struttura o il layout di un file (come una pagina HTML), attraverso placeholder per 
+	rappresentare il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un template HTML, popolandolo con dati presi dal Model. 
+\end{description}
 
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
@@ -129,10 +111,10 @@ eseguire in maniera indipendente. Questa indipendenza è l'obiettivo dei contain
 modo separato per sfruttare al meglio l'infrastruttura esistente pur conservando il livello di sicurezza che sarebbe garantito dalla 
 presenza di sistemi separati.
 
-\begin{figure}
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.7]{images/Docker_Config_Container.png}
-	\caption{Schematizzazione del contenuto di un Container di Docker}
+	\caption{Schematizzazione del contenuto di un Container in Docker}
 	\label{fig:DCC}
 \end{figure}
 
@@ -142,9 +124,10 @@ condivisione di un'applicazione o di un insieme di servizi, con tutte le loro di
 Docker, considera i container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
 copiare e spostare i container da un ambiente all'altro, ottimizzando così le app per il cloud.
 
-\begin{figure}[H]
-	\includegraphics[scale=0.7]{images/Hierarchical_Data_ex.PNG}
-	\caption{Esempio di una gestione di dati in modo gerarchico}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.49]{images/MC_Rec_NTM.png}
+	\caption{Esempio parziale della rappresentazione gerarchica dei dati nel progetto in questione}
 	\label{fig:Hde}
 \end{figure}
 
@@ -160,7 +143,7 @@ In questo caso, i dati gerarchici sono una collezione di informazioni dove ogni 
 diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di organizzazione di un business, 
 categorie per gestire contenuti e categorie di prodotti. \\
 
-\newpage
+%\newpage
 
 Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
 seguenti:
@@ -191,8 +174,8 @@ come nodi e linee, ma come container innestati. \\
 
 \begin{figure}[ht!]
     \centering
-	\includegraphics[scale=0.55]{images/Nested_Tree_Model_ex.PNG}
-	\caption{Esempio di una gestione di dati in modo gerarchico secondo il Nested set model}
+	\includegraphics[scale=0.55]{images/Nested_Tree_Model_ex.png}
+	\caption{Esempio di una gestione di dati in modo gerarchico secondo il Nested Set Model}
 \end{figure}
 
 La gerarchia dei dati viene rappresentata nella tabella attraverso l'uso degli attributi 'left' e 'right' per rappresentare l'annidamento
@@ -216,7 +199,7 @@ partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso p
 	\caption{Esempio di una tabelle per la gestione di dati in modo gerarchico secondo il Nested set model}
 \end{figure}
 
-\newpage
+%\newpage
 
 \section{Sistemi di raccomandazione}
 Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che raccomanda item ad utenti tra numerosi item esistenti 
