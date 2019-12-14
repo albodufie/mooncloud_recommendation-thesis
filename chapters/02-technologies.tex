@@ -4,7 +4,7 @@ unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
 
 % - nel capitolo sulle tecnologie parlare di python, django, docker? -
 
-\section{Python, Django}
+\section{Perché Python e Django}
 Python è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni 
 distribuite, scripting, computazione numerica e system testing; ideato e rilasciato pubblicamente per la prima volta nel 1991 dal suo 
 creatore Guido van Rossum, programmatore olandese.
@@ -23,18 +23,19 @@ Un aspetto inusuale del Python è il metodo che usa per delimitare i blocchi di 
 
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, caption={Esempio di programma in Python}]
+# Testing if two strings are equals
 def test(got, expected):
 	if got == expected:
 		prefix = ' OK '
 	else:
 		prefix = ' X '
-	print ('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+	print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
 
 def main():
-	print ('verbing')
-	test(verbing('hail'), 'hailing')
-	test(verbing('swiming'), 'swimingly')
-	test(verbing('do'), 'do')
+	print('verbing')
+	test('hail', 'hailing')
+	test('swiming', 'swimingly')
+	test('do', 'do')
 
 if __name__ == '__main__':
 	main()
@@ -42,15 +43,14 @@ if __name__ == '__main__':
 
 Nei linguaggi derivati dall'ALGOL come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
 (il C ed il Perl usano { }; il Pascal usa begin ed end). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
-indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. Invece Python deriva il suo sistema 
-di indentazione dal meno noto linguaggio di programmazione Occam: invece di usare parentesi o parole chiave, usa l'indentazione stessa 
-per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare sia una tabulazione, sia un numero
-arbitrario di spazi, ma lo standard Python è di 4 spazi. \cite{python-documentation}
-
+indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. In Python invece di usare parentesi 
+o parole chiave, usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare 
+sia una tabulazione, sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi. 
 
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
 estensione .py) e, se sintatticamente corretto, di eseguirlo e non esiste una fase di compilazione separata (come 
-avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente.
+avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente. \cite{python-documentation}
+
 
 
 Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Built by experienced 
