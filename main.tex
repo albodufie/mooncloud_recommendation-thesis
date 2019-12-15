@@ -10,14 +10,23 @@
 \graphicspath{ {images/} }
 %\usepackage{hyperref} % collegamenti ipertestuali e carica anche il paccheto 'url' (caricato per ultimo)
 \usepackage{listings} % inserire codice sorgente a modo
-\usepackage{xcolor}
- 
+\usepackage[table]{xcolor}
+
+% colori per le parti di codice in python
 \definecolor{codeorange}{rgb}{1,0.5,0}
 \definecolor{codegreen}{rgb}{0,0.7,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codedarkgreen}{rgb}{0,0.4,0}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
- 
+
+% colori per le tabelle in cui identifico il root node, i nodi categoria e i nodi evaluation/control
+\definecolor{rootnodecell}{rgb}{0.68,0.25,0.19}
+\colorlet{rootnodecell}{rootnodecell!50}
+\definecolor{categorycell}{rgb}{0.07,0.66,0.71}
+\colorlet{categorycell}{categorycell!50}
+\definecolor{evaluationcell}{rgb}{0.94,0.57,0.12}   
+\colorlet{evaluationcell}{evaluationcell!50}
+
 \lstdefinestyle{python_code_style}{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
@@ -36,8 +45,8 @@
     showtabs=false,                  
     tabsize=2
 }
- 
- 
+
+
 \usepackage{csquotes}
 \usepackage[backend=biber, style=numeric, sorting=nty]{biblatex}
 \addbibresource{bibliography.bib}
@@ -92,6 +101,7 @@
 % INDICE DELLA TESI
 \tableofcontents
 \listoffigures
+\listoftables
 
 
 %       CONTENUTO DELLA TESI        %

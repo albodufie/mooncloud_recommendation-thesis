@@ -80,10 +80,13 @@ legge le informazioni contenute nel URL e altri possibili dati a seconda del tip
 scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta. A quel punto l'applicazione ritorna una risposta al browser 
 web, spesso in modo dinamico, creando una pagina HTML da mostrare in cui è possibile inserire o recuperare dati in placeholder in un template HTML.
 
+\newpage
+
 \begin{figure}[ht!]
     \centering
-	\includegraphics[scale=0.9]{images/Django_doc.png}
+	\includegraphics[scale=0.3]{images/Django_doc.png}
 	\caption{Schema generico di funzionamento di un applicativo web sviluppato con Django}
+	\label{fig:django_doc}
 \end{figure}
 
 Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi diversi passaggi in file separati \cite{mdn-django-documentation}:
@@ -124,13 +127,6 @@ condivisione di un'applicazione o di un insieme di servizi, con tutte le loro di
 Docker, considera i container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
 copiare e spostare i container da un ambiente all'altro, ottimizzando così le app per il cloud.
 
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.49]{images/MC_Rec_NTM.png}
-	\caption{Esempio parziale della rappresentazione gerarchica dei dati nel progetto in questione}
-	\label{fig:Hde}
-\end{figure}
-
 I contenitori forniscono una modalità standard per impacchettare il codice della tua applicazione, le configurazioni e le dipendenze, 
 in un oggetto singolo. I contenitori condividono un sistema operativo installato sul server e operano come processi con risorse isolate, 
 assicurando velocità, affidabilità e distribuzioni coerenti, indipendentemente dall’ambiente.
@@ -143,23 +139,54 @@ In questo caso, i dati gerarchici sono una collezione di informazioni dove ogni 
 diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di organizzazione di un business, 
 categorie per gestire contenuti e categorie di prodotti. \\
 
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.49]{images/MC_Rec_Tree.png}
+	\caption{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione}
+	\label{fig:MC_Rec_Tree}
+\end{figure}
+
 %\newpage
 
 Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
 seguenti:
 
-\subsection{The adjacency list model}
-Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{‘adjacency list model} o metodo ricorsivo;
+\subsection{The Adjacency List Model}
+Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{‘Adjacency List Model} o metodo ricorsivo;
 è definito tale perchè per funzionare necessita solo di una funzione che itera per tutto l'albero.\\
 In questo modello, ogni item (nodo dell'albero) nella tablla contiene un puntatore al suo item padre; invece il nodo radice avrà un puntatore a un valore
 NULL per l'item padre.
 
-\begin{figure}[ht!]
-    \centering
-	\includegraphics[scale=0.75]{images/Adjacency_list_model_table.PNG}
-	\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo l'adjacency list model }
-\end{figure}
+La Tabella \ref{table:adjacency_list_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato in questo progetto
+secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tree}.
  
+\begin{table}[h!]
+\centering
+\begin{tabular}[c]{| c | l | c |} 
+	\hline
+	id & name & parent \\ [0.5ex] 
+	\hline
+	\rowcolor{rootnodecell} 1 & Moon Cloud & NULL \\ [0.5ex] 
+	\rowcolor{categorycell} 2 & Web & 1 \\ [0.5ex] 
+	\rowcolor{categorycell} 3 & Protocol & 1 \\ [0.5ex] 
+	\rowcolor{categorycell} 4 & Cloud & 1 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 5 & Portscan Report & 2 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 6 & Observatory Check & 2 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 7 & SSH Compliance Check & 3 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 8 & HTTPS Robustness Check & 3 \\ [0.5ex] 
+	\rowcolor{categorycell} 9 & Azure & 4 \\ [0.5ex] 
+	\rowcolor{categorycell} 10 & Aws & 4 \\ [0.5ex] 
+	\rowcolor{categorycell} 11 & Dropbox & 4 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 12 & Sql Services Checker & 9 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 13 & Security Center Report & 9 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 14 & Macie Scanner & 10 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 \\ [0.5ex]
+	\hline
+\end{tabular}
+\caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo l'Adjacency List Model}
+\label{table:adjacency_list_model_table}
+\end{table}
+
 Il vantaggio di usare questo modello sta nella sua semplicità di costruzione sopratutto a livello di codice client-side, 
 e di restituzione dei figli di un nodo. Mentre diventa problematico se si lavora in puro SQL e nella maggior parte dei linguaggi di 
 programmazione, è lento e poco efficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
@@ -168,14 +195,15 @@ Inoltre molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni no
 ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, e più grande è l'albero e più questo 
 processo sarà portato a termine in maggior tempo.
 
-\subsection{The Nested set model}
-Il secondo approccio che viene proposto è il \textit{Nested set model}, che permette di osservare la gerarchia in un modo diverso, non 
+\subsection{The Nested Set Model}
+Il secondo approccio che viene proposto è il \textit{Nested Set Model}, che permette di osservare la gerarchia in un modo diverso, non 
 come nodi e linee, ma come container innestati. \\
 
 \begin{figure}[ht!]
-    \centering
-	\includegraphics[scale=0.55]{images/Nested_Tree_Model_ex.png}
-	\caption{Esempio di una gestione di dati in modo gerarchico secondo il Nested Set Model}
+	\includegraphics[scale=0.30]{images/MC_Rec_NSM.png}
+	\caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando dati presi dal database del 
+	progetto in questione}
+	\label{fig:MC_Rec_NSM}
 \end{figure}
 
 La gerarchia dei dati viene rappresentata nella tabella attraverso l'uso degli attributi 'left' e 'right' per rappresentare l'annidamento
@@ -188,16 +216,40 @@ verso destra. Lavorando con un albero, si parte da sinistra e si continua verso 
 nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
 destra. Questo approccio è chiamato Modified preorder tree traversal algorithm.
 
-A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'adjacency list model, ma quest'utlimo metodo è
+A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'utlimo metodo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
 cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
 partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice. \\
 
-\begin{figure}[ht!]
-    \centering
-	\includegraphics[scale=0.6]{images/Nested_Tree_Model_table.PNG}
-	\caption{Esempio di una tabelle per la gestione di dati in modo gerarchico secondo il Nested set model}
-\end{figure}
+La Tabella \ref{table:nested_set_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato in questo progetto
+secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_NSM}.
+ 
+\begin{table}[h!]
+\centering
+\begin{tabular}[c]{| c | l | c | c |} 
+	\hline
+	id & name & lft & rght \\ [0.5ex] 
+	\hline
+	\rowcolor{rootnodecell} 1 & Moon Cloud & 1 & 100 \\ [0.5ex] 
+	\rowcolor{categorycell} 2 & Web & 86 & 99 \\ [0.5ex] 
+	\rowcolor{categorycell} 3 & Protocol & 80 & 85 \\ [0.5ex] 
+	\rowcolor{categorycell} 4 & Cloud & 4 & 29 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 5 & Portscan Report & 91 & 92 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 6 & Observatory Check & 89 & 90 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 7 & SSH Compliance Check & 83 & 84 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 8 & HTTPS Robustness Check & 81 & 82 \\ [0.5ex] 
+	\rowcolor{categorycell} 9 & Azure & 13 & 26 \\ [0.5ex] 
+	\rowcolor{categorycell} 10 & Aws & 5 & 12 \\ [0.5ex] 
+	\rowcolor{categorycell} 11 & Dropbox & 27 & 28 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 12 & Sql Services Checker & 22 & 23 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 13 & Security Center Report & 20 & 21 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 14 & Macie Scanner & 8 & 9 \\ [0.5ex] 
+	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 & 11 \\ [0.5ex]
+	\hline
+\end{tabular}
+\caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo il Nested Set Model}
+\label{table:nested_set_model_table}
+\end{table}
 
 %\newpage
 
