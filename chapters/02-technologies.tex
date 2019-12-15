@@ -131,12 +131,12 @@ condividono un sistema operativo installato sul server, operando come processi c
 indipendentemente dall’ambiente.
 
 \section{Strutture dati gerarchiche}
-Le tabelle di un database relazione non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
-constituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle dei database relazionali.
+Le tabelle di un database relazionale non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
+constituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle di questo tipo.
 In questo caso, i dati gerarchici sono una collezione di informazioni dove ogni item ha un solo padre e nessuno o più figli
-(ad eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni può essere trovato in 
-diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di organizzazione di un business, 
-categorie per gestire contenuti e categorie di prodotti. \\
+(ad eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni, simili a un albero, 
+può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di 
+organizzazione di un business, categorie per gestire contenuti e categorie di prodotti. \\
 
 \begin{figure}[ht!]
 	\centering
@@ -147,17 +147,16 @@ categorie per gestire contenuti e categorie di prodotti. \\
 
 %\newpage
 
-Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti che sono stati presi in considerazione sono i 
-seguenti:
+Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti  presi in considerazione sono i seguenti:
 
 \subsection{The Adjacency List Model}
-Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{‘Adjacency List Model} o metodo ricorsivo;
-è definito tale perchè per funzionare necessita solo di una funzione che itera per tutto l'albero.\\
-In questo modello, ogni item (nodo dell'albero) nella tablla contiene un puntatore al suo item padre; invece il nodo radice avrà un puntatore a un valore
-NULL per l'item padre.
+Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{Adjacency List Model} o metodo ricorsivo;
+è definito tale perchè il suo funzionamento si basa su una funzione che itera per tutto l'albero.\\
+In questo modello, ogni item (nodo dell'albero) nella tablla contiene un puntatore al suo item padre; invece il nodo radice avrà un 
+puntatore a un valore NULL per l'item padre.
 
-La Tabella \ref{table:adjacency_list_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato in questo progetto
-secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tree}.
+La Tabella \ref{table:adjacency_list_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato 
+in questo progetto secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tree}.
  
 \begin{table}[ht!]
 \centering
@@ -186,43 +185,29 @@ secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tr
 \label{table:adjacency_list_model_table}
 \end{table}
 
-Il vantaggio di usare questo modello sta nella sua semplicità di costruzione sopratutto a livello di codice client-side, 
-e di restituzione dei figli di un nodo. Mentre diventa problematico se si lavora in puro SQL e nella maggior parte dei linguaggi di 
-programmazione, è lento e poco efficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
-un certo periodo di tempo, questo rende la funzione molto lente quando si lavora con alberi di grandi dimensioni.
-Inoltre molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione inizia una nuova istanza di se stessa,
-ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, e più grande è l'albero e più questo 
-processo sarà portato a termine in maggior tempo.
+Il vantaggio di usare questo modello sta nella sua semplicità di costruzione, sopratutto a livello di codice client-side, 
+e di restituzione dei figli di un nodo. Mentre diventa problematico se si lavora in puro codice SQL e nella maggior parte dei linguaggi 
+di programmazione, è lento e poco efficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
+un certo periodo di tempo, questo rende la funzione molto lente quando si lavora con alberi di grandi dimensioni, inoltre molti linguaggi 
+non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa 
+una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
+in maggior tempo.
 
 \subsection{The Nested Set Model}
-Il secondo approccio che viene proposto è il \textit{Nested Set Model}, che permette di osservare la gerarchia in un modo diverso, non 
-come nodi e linee, ma come container innestati. \\
+Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare la gerarchia in un modo diverso, non 
+come nodi e linee (come se fosse un albero), ma come container innestati. \\
 
 \begin{figure}[ht!]
-	\includegraphics[scale=0.30]{images/MC_Rec_NSM.png}
+	\includegraphics[scale=0.30]{images/MC_Rec_NSM_Container.png}
 	\caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando dati presi dal database del 
 	progetto in questione}
-	\label{fig:MC_Rec_NSM}
+	\label{fig:MC_Rec_NSM_Container}
 \end{figure}
 
-La gerarchia dei dati viene rappresentata nella tabella attraverso l'uso degli attributi 'left' e 'right' per rappresentare l'annidamento
-dei nodi (il nome delle colonne: left e right, hanno significati speciali in SQL; per questo motivo si identificano questi campi con i 
-nomi 'lft' e 'rght'). 
-Ogni nodo dell'albero viene visitato due volte, assegnando i valori in ordine di visita, e in entrambe le visite. Quindi vengono 
-associati ad ogni nodo due numeri, memorizzato come due attributi. 
-I valori di left e right sono determinati come segue: si inizia a numerare a partire dal lato più a sinistra di ogni nodo e si continua 
-verso destra. Lavorando con un albero, si parte da sinistra e si continua verso destra, un livello alla volta, scendendo per ogni
-nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
-destra. Questo approccio è chiamato Modified preorder tree traversal algorithm.
+Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene e suoi figli e questa forma di 
+gerarchia viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi come è possibile osservare dalla Tabella 
+\ref{table:nested_set_model_table} seguente. 
 
-A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'utlimo metodo è
-molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
-cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
-partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice. \\
-
-La Tabella \ref{table:nested_set_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato in questo progetto
-secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_NSM}.
- 
 \begin{table}[ht!]
 \centering
 \begin{tabular}[c]{| c | l | c | c |} 
@@ -246,9 +231,35 @@ secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_NS
 	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 & 11 \\ [0.5ex]
 	\hline
 \end{tabular}
-\caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo il Nested Set Model}
+\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo il Nested Set Model}
 \label{table:nested_set_model_table}
 \end{table}
+
+Come è possibile osservare dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rappresentata attraverso l'uso 
+degli attributi 'left' e 'right' per rappresentare l'annidamento dei nodi (il nome delle colonne: 'left' e 'right', hanno significati 
+speciali in SQL; per questo motivo si identificano questi campi con i nomi 'lft' e 'rght'). \\
+
+\begin{figure}[ht!]
+	\includegraphics[scale=0.30]{images/MC_Rec_NSM_Tree.png}
+	\caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando dati presi dal database del 
+	progetto in questione}
+	\label{fig:MC_Rec_NSM_Tree}
+\end{figure}
+
+L'assegnazione di questi valori ad ogni nodo viene effetuata seguendo questo procedimento: ogni nodo dell'albero viene visitato due volte, 
+assegnando i valori in ordine di visita, e in entrambe le visite. Quindi vengono associati ad ogni nodo due numeri, memorizzati come 
+due attributi. 
+Più precisamente si inizia la visita dell'albero partendo da sinistra e continuando verso destra, un livello alla volta, scendendo per ogni
+nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
+destra. Questo approccio è chiamato \textit{Modified preorder tree traversal algorithm} (MPTT).
+
+Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container} possiamo notare che la numerazione dei nodi, viene
+effettuata a partire da container più esterno da sinistra e continua verso destra.
+
+A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'utlimo metodo è
+molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
+cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
+partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice.
 
 \newpage
 
