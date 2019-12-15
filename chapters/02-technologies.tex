@@ -1,8 +1,9 @@
 \chapter{Tecnologie utilizzate}
 In questo capitolo verranno descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate
-unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri.
+unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri. In particolare nel capitolo successivo 
 
-% - nel capitolo sulle tecnologie parlare di python, django, docker? -
+%% AGGIUNGERE RIFERIMENTI AI CAPITOLI SUCCESSIVI E INDICARE QUALI SONO LE PARTI CHE POI SONO STATE IMPLEMENTATE NELLA 
+%% SOLUZIONE DI QUESTO PROGETTO
 
 \section{Perché Python e Django}
 \paragraph{Python}
@@ -240,7 +241,7 @@ degli attributi 'left' e 'right' per rappresentare l'annidamento dei nodi (il no
 speciali in SQL; per questo motivo si identificano questi campi con i nomi 'lft' e 'rght'). \\
 
 \begin{figure}[ht!]
-	\includegraphics[scale=0.30]{images/MC_Rec_NSM_Tree.png}
+	\includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
 	\caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando dati presi dal database del 
 	progetto in questione}
 	\label{fig:MC_Rec_NSM_Tree}
@@ -256,10 +257,11 @@ destra. Questo approccio è chiamato \textit{Modified preorder tree traversal al
 Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container} possiamo notare che la numerazione dei nodi, viene
 effettuata a partire da container più esterno da sinistra e continua verso destra.
 
-A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'utlimo metodo è
-molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre più lento per operazioni di aggiornamento e 
+A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'utlimo è
+molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di aggiornamento e 
 cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
-partire dal caso più semplice, il nodo foglia (nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo radice.
+partire dal caso più semplice, il nodo foglia (un nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo 
+radice.
 
 \newpage
 
@@ -303,12 +305,12 @@ Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccom
 attraverso un procedimento a 3 fasi:
 
 \begin{description}
-	\item[raccolta di dati]: questa è il primo step e anche quello più importante per poter costruire un sistema di 
+	\item[Raccolta di dati]: questa è il primo step e anche quello più importante per poter costruire un sistema di 
 	raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente,
 	cioè attraverso i dati che vengono prodotti direttamente dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
 	attarverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma raccolti
 	dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, etc.
-	\item[memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di
+	\item[Memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di
 	diventare. Ad esempio, in un sistema di raccomanzione per film, maggiori sono le valutazioni fornite dagli utenti, e 
 	migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
 	anche il supporto di memorizzazione più adatto.   
@@ -375,30 +377,23 @@ usando algoritmi di data mining e machine learning per predirre le valutazioni d
 associati a tecniche come la dimensionality reduction per migliorare la precisione.
 
 
+\paragraph{Model-based filtering} 
+Gli algoritmi Model-based tentano di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei
+meccanismi di riferimento all'interno di questo modello. 
+I CF Model-based posssono rispondere alle richieste degli utenti istantaneamente. \cite{model-based-approach-for-collaborative-filtering}
 
-\subsection{Cold Start problem} \hfill \break
+
+\subsection{Cold Start problem} 
 Cosa succederebbe se un nuovo utente o un nuovo item è aggiunto al dataset? Questa situazione è chiamata \textit{Cold Start}. Ci possono
 essere due tipi di Cold Start:
 \begin{description}
-	\item[Visitor Cold Start]:
-	\item[Product Cold Start]: 
+	\item[Visitor Cold Start]: si verifica quando un nuovo utente è stato aggiunto al database, visto che non c'è alcuno storico relativo ad esso, il sistema non
+	sa le le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema,
+	a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una volta che si è venuti a 
+	conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
+	\item[Item Cold Start]: si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare
+	il valore di questo item; maggiore l'interazione un item riceve, più è facile che venga raccomandato all'utente giusto.  
 \end{description}
 
-What will happen if a new user or a new item is added in the dataset? It is called a Cold Start. There can be two types of cold start:
-	Visitor Cold Start: means that a new user is introduced in the dataset. Since there is no history of that user, the system does not 
-know the preferences of that user. It becomes harder to recommend products to that user. So, how can we solve this problem? One basic
-approach could be to apply a popularity based strategy, i.e. recommend the most popular products. These can be determined by what has
-been popular recently overall or regionally. Once we know the preferences of the user, recommending products will be easier.
-	Product Cold Start: means that a new product is launched in the market or added to the system. User action is most important to
-determine the value of any product. More the interaction a product receives, the easier it is for our model to recommend that product
-to the right user. We can make use of Content based filtering to solve this problem. The system first uses the content of the new 
-product for recommendations and then eventually the user actions on that product.
 
-
-  Cons
-	Scalability: The more K neighbors we consider (under a certain threshold), the better my classification should be. 
-  Nevertheless, the more users there are in the system, the greater the cost of finding the nearest K neighbors will be.
-	Cold-start: New users will have no to little information about them to be compared with other users.
-	New item: Just like the last point, new items will lack of ratings to create a solid ranking (More of this on ‘How to sort 
-  and rank items’).
 
