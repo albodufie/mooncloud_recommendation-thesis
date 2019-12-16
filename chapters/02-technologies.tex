@@ -1,6 +1,8 @@
 \chapter{Tecnologie utilizzate}
 In questo capitolo verranno descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate
-unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri. In particolare nel capitolo successivo 
+unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri. In particolare nel capitolo successivo verranno 
+approfonditi a livello pratico i sitemi di raccomandazione Memory-based i quali sono stati utilizzati per l'implementazione della
+soluzione. 
 
 %% AGGIUNGERE RIFERIMENTI AI CAPITOLI SUCCESSIVI E INDICARE QUALI SONO LE PARTI CHE POI SONO STATE IMPLEMENTATE NELLA 
 %% SOLUZIONE DI QUESTO PROGETTO
@@ -252,7 +254,9 @@ assegnando i valori in ordine di visita, e in entrambe le visite. Quindi vengono
 due attributi. 
 Più precisamente si inizia la visita dell'albero partendo da sinistra e continuando verso destra, un livello alla volta, scendendo per ogni
 nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
-destra. Questo approccio è chiamato \textit{Modified preorder tree traversal algorithm} (MPTT).
+destra. Questo approccio è chiamato \textit{Modified preorder tree traversal algorithm} (MPTT). A partire da questa tecnica è stato 
+ideata la struttura della tassonomia delle evaluation e dei controlli implementate nella soluzione proposta in questa tesi, con 
+l'ausilio di un package di Python chiamato MPTT.
 
 Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container} possiamo notare che la numerazione dei nodi, viene
 effettuata a partire da container più esterno da sinistra e continua verso destra.
@@ -266,20 +270,20 @@ radice.
 \newpage
 
 \section{Sistemi di raccomandazione}
-Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che raccomanda item ad utenti tra numerosi item esistenti 
-in database. L'item è qualsiasi cosa che possa piacere agli utenti, come prodotti, libri e giornali. Si generano aspettative che 
-l'item raccomandato possa essere tra quelli che sia di maggiore interesse; in altre parole, questi item particolari sono in accordo 
-con i gusti degli utenti. 
+Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia ad utenti uno o più item esistenti 
+in un database. L'\textit{item} è un qualsiasi cosa di interesse agli utenti, come prodotti, libri o giornali. Quando si eseguire
+una raccomandazione si hanno delle aspettative che l'item raccomandato possa essere tra quelli di maggiore interesse; in altre parole, 
+devono essere in accordo con i gusti degli utenti. 
 \\
 \\
 Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione: 
 \begin{description}
-	\item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile agli altri item di interesse o piaciuti
-	nel passato (la valutazione per questi item è alta o sono stati molto utilizzati). Da notare che ogni item ha delle informazioni che
-	ne definiscono le caratteristiche e proprietà (spesso questo insieme di dati viene definito metadati), e sono fondamentali per il 
-	processo di raccomandazione. 
-	\item[Collaborative filtering](CF): un item viene raccomandato ad un utente se i suoi vicini (gli altri utenti simili) sono interessati
-	a quell'item.   
+	\item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti
+	in passato, vengo presi in considerazione prima gli item con alte valutazioni o quelli molto utilizzati. Ogni item ha associate
+	delle informazioni che lo descrivono, questo insieme di dati viene definito metadati, e sono fondamentali per il processo di 
+	raccomandazione. 
+	\item[Collaborative filtering](CF): un item viene raccomandato ad un utente se i suoi vicini (altri utenti simili) sono 
+	interessati a quello stesso item.   
 \end{description}
 
 \begin{figure}[ht!]
@@ -290,25 +294,28 @@ Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione
 \end{figure}
 
 Entrambi gli approcci (CBF e CF) hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e
-sugli interessi del singolo utente; raccomanda iteme differenti a utenti differenti. Ogni utente può ricevere raccomandazioni uniche; e 
-questo è un vantaggio. Tuttavia CBF non si tende verso la comunità di utenti come il CF; per questo motivo si potrebbero tralasciare 
-item di interesse ad un utente parchè nascosti all'interno della comunità, CBF non ha l'abilità di scoprire item in modo implicito; e 
-questa è la sua più grande limitazione.
-Se ci sono molti contenuti associati agli item (per esempio, un item ha molte proprietà) allora, il sistema CF consuma molte risorse e 
-tempo per poter analizzare i dati, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione viene fatta
-sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item; questo è il suo punto di forza 
-perchè non si trova di fronte a dover analizzare item con un ricco contenuto. Allo stesso tempo è anche il suo punto debole, perchè può
-portare a suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti.
+sugli interessi del singolo utente e propone item differenti a utenti differenti, questo significa che ogni utente può ricevere 
+raccomandazioni uniche; e questo è un vantaggio. 
+Tuttavia la più grande limitazione del CBF è il fatto di non poter determinare se un utente è interessato ad un item in modo implicito,
+perchè analizza solamente direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
+suggerire item che non verrebero notati con questo approccio.
+Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item allora il sistema CF consuma molte 
+risorse e tempo per poter analizzare i dati, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione 
+viene fatta sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item e questo è il suo punto 
+di forza perchè non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perchè può
+portare a suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti. 
+Questo problema è accentuato quando sono presenti nel database molti item che non hanno valutazioni o non sono stati mai usati dagli 
+utenti.
 \cite{model-based-approach-for-collaborative-filtering}
 
-Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti,
-attraverso un procedimento a 3 fasi:
+Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti, attraverso 
+un procedimento a 3 fasi:
 
 \begin{description}
-	\item[Raccolta di dati]: questa è il primo step e anche quello più importante per poter costruire un sistema di 
+	\item[Raccolta di dati]: questo è il primo step e anche quello più importante per poter costruire un sistema di 
 	raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente,
-	cioè attraverso i dati che vengono prodotti direttamente dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
-	attarverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma raccolti
+	cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
+	attarverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti
 	dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, etc.
 	\item[Memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di
 	diventare. Ad esempio, in un sistema di raccomanzione per film, maggiori sono le valutazioni fornite dagli utenti, e 
@@ -316,7 +323,7 @@ attraverso un procedimento a 3 fasi:
 	anche il supporto di memorizzazione più adatto.   
 	\item[Filtraggio dei dati]: dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre
 	le informazioni rilevanti per poter effettuare le raccomandazioni finali, e sono già disponibili diversi algoritmi che
-	semplificano quest ultima fase. 
+	semplificano quest'ultima fase. 
 \end{description}
 
 I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma speso si preferisco degli approcci imbridi cioè delle
