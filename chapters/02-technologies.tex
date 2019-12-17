@@ -327,51 +327,52 @@ un procedimento a 3 fasi:
 \end{description}
 
 I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco degli approcci ibridi, delle
-combinazioni di sistemi di raccomandazione basati sul contenuto (\textit{Content-based filtering}) e di
-quelli collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
+combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di
+quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
 
 
 \subsection{Content-based filtering}
 Un Content-based filtering è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item (oggetti o prodotti), quelli 
-più simili. 
-
-Questo approccio sfrutta i metadati associati all'item, che possono essere il genere, una descrizione, uno o più autori, la categoria di 
-appartenenza etc. per fare queste raccomandazioni; l'idea base che sta dietro questi raccomandatori, è che se ad un utente piace 
-o interessa un particolare item allora gli piaceranno anche altri item simili.
+più simili, il confronto viene effettuato sfruttand i metadati, come il genere, una descrizione, uno o più autori, la categoria di 
+appartenenza, etc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
+item allora gli piaceranno anche altri con caratteristiche o proprietà simili.
 
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
-content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del
+Content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del
 contenuto che descrive un item e la rappresentazione del contenuto dell'item interessato dall'utente. 
 
-Questi metodi sono usati quando si sanno a priori delle informazioni sugli item che si vuole suggerire, ma non sugli utenti.
-In questo sistema, delle keyword (parole chiave) sono utilizzate per caratterizzare gli item e un profilo dell'utente è 
-costruito per indicare quali item gli piacciono. In altre parole, questi algoritmi cercano di raccomandare item che 
-all'utente sono piaciuti o ha usato nel passato e sta esaminando nel presente. La costruzione del profilo dell'utente,
+Questi metodi sono usati quando si conoscono a priori i metadati sugli item che si vuole suggerire, ma nulla sugli utenti.
+In questo sistema, delle \textit{keyword} sono utilizzate per caratterizzare gli item e un profilo dell'utente è 
+costruito per memorizzare quali item sono di suo interesse. In altre parole, questi algoritmi cercano di raccomandare quello che 
+l'utente ha valutato positivamente o usato nel passato e sta esaminando nel presente. La costruzione del profilo dell'utente,
 spesso temporaneo, non viene basata su un modulo di registrazione che l'utente stesso deve compilare, ma su informazioni
-lasciate indirettamente dall'utente. Più precisamente, tra vari item candidati da raccomandare all'utente si passa per un 
+lasciate indirettamente dall'utente, le quali possono essere: i prodotti che ha maggiormente cercato e acquistato, quelli che sono 
+stati inseriti nella lista dei desideri, etc.. Più precisamente, tra vari item candidati da raccomandare all'utente si passa per un 
 processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
 
 
 \subsection{Collaborative filtering}
-I filtri collaborativi (\textit{Collaborative filtering}) lavorano costruendo un database di preferenze di utenti su item (o prodotti),
-sfruttano tecniche di analisi dei dati al problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere producendo una 
-lista dei top-N item da raccomandare per un dato utente.
-Un nuovo utente subisce un processo di matching all'interno del database per scoprire quali sono i possibili vicini (\textit{neighbors}),
-che corrispondo agli altri utenti aventi storicamente simili preferenze al nuovo utente. Agli item maggiormente preferiti dai vicini sono
-raccomandati al nuovo utente, visto che potrebbero essere di suo interesse. 
+I filtri Collaborativi (\textit{Collaborative filtering}) per poter funzionare come prima cosa costruiscono un database di preferenze 
+degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database,
+sfruttano tecniche di analisi dei dati per risolvere il problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere 
+producendo, eventualmente una lista dei top-N item da raccomandare per un dato utente.
+Un utente è sottoposto ad un processo di matching all'interno del database per scoprire quali sono i possibili \textit{neighbors},
+che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune al lui. A questo punto gli item maggiormente 
+preferiti dai neighbors sono raccomandati all'utente visto che potrebbero essere di suo interesse. 
 
 Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
-utenti, queste preferenze possono essere ottenute o in modo esplicito dagli utenti o tramite qualche misurazione implicita. 
-I filtri collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri content-based. A un 
-utente vengono raccomandati item basandosi su valutazioni passate collezionate da altri utenti.
+utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite. 
+Inoltre i filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based. 
 
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
-filtraggio collaborativo.
-Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di filtri collaborativi; questi algoritmi sono in grado di cercare
-anche diecimila di potenziali vicini (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
-potenziali vicini. Algoritmi esistenti hanno problemi di performance con i singoli utenti quando essi hanno molte informazioni.
-Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono
-raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item che potrebbero essere di loro gusto.
+filtraggio Collaborativo.
+\begin{description}
+	\item Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di filtri Collaborativi; questi algoritmi sono in grado di cercare
+	anche diecimila di potenziali neighbors (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
+	potenziali neighbors, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno molte informazioni.
+	\item Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono
+	raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item che potrebbero essere di loro gusto.
+\end{description}
 Per certi versi questi due obbiettivi sono in conflitto tra di loro e per ottenere dei risultati validi e di una certa importanza è 
 necessario trattarli in contemporanea perchè aumentare solamente la scalabilità diminuirebbe la sua qualità e viceversa. 
 \cite{item-based-collaborative-filtering} 
