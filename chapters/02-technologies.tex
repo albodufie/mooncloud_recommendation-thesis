@@ -332,7 +332,7 @@ quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più e
 
 
 \subsection{Content-based filtering}
-Un Content-based filtering è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item (oggetti o prodotti), quelli 
+Un Content-based filtering (acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item (oggetti o prodotti), quelli 
 più simili, il confronto viene effettuato sfruttand i metadati, come il genere, una descrizione, uno o più autori, la categoria di 
 appartenenza, etc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
 item allora gli piaceranno anche altri con caratteristiche o proprietà simili.
@@ -352,7 +352,7 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 
 
 \subsection{Collaborative filtering}
-I filtri Collaborativi (\textit{Collaborative filtering}) per poter funzionare come prima cosa costruiscono un database di preferenze 
+I filtri Collaborativi (\textit{Collaborative filtering}, acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
 degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database,
 sfruttano tecniche di analisi dei dati per risolvere il problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere 
 producendo, eventualmente una lista dei top-N item da raccomandare per un dato utente.
@@ -360,12 +360,12 @@ Un utente è sottoposto ad un processo di matching all'interno del database per 
 che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune al lui. A questo punto gli item maggiormente 
 preferiti dai neighbors sono raccomandati all'utente visto che potrebbero essere di suo interesse. 
 
-Questi sistemi tentano di predirre la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
+Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
 utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite. 
 Inoltre i filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based. 
 
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
-filtraggio Collaborativo.
+filtri Collaborativi.
 \begin{description}
 	\item Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di filtri Collaborativi; questi algoritmi sono in grado di cercare
 	anche diecimila di potenziali neighbors (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
@@ -375,28 +375,25 @@ filtraggio Collaborativo.
 \end{description}
 Per certi versi questi due obbiettivi sono in conflitto tra di loro e per ottenere dei risultati validi e di una certa importanza è 
 necessario trattarli in contemporanea perchè aumentare solamente la scalabilità diminuirebbe la sua qualità e viceversa. 
-\cite{item-based-collaborative-filtering} 
-
-Il principale modello di filtro collaborativo studiato in questo elaborato è il metodo definito come \textit{Memory-based} e il 
-vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati ottenuti sono altrettanto 
-semplici da spiegare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi \textit{Model-based} che si basano sulla 
-fattorizzazione di matrici e sono molto più funzionali per gestire il problema della sparsità dei dati. Questi ultimi sono sviluppati
-usando algoritmi di data mining e machine learning per predirre le valutazioni di utenti su item senza valutazioni, inoltre sono spesso 
-associati a tecniche come la dimensionality reduction per migliorare la precisione.
+\cite{item-based-collaborative-filtering} \\
 
 
-\paragraph{Model-based filtering} 
-Gli algoritmi Model-based tentano di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei
+Il principale modello di filtri Collaborativi studiato in questo elaborato e approfondito nel capitolo successivo, è il metodo definito 
+come \textit{Memory-based} e il  vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati 
+ottenuti sono altrettanto semplici da interpretare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi 
+\textit{Model-based} che si basano sulla fattorizzazione di matrici e sono molto più funzionali per gestire il problema della 
+parsità dei dati. Questi ultimi sono sviluppati usando algoritmi di data mining e machine learning per predire le valutazioni di utenti 
+su item senza valutazioni, tentando di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei
 meccanismi di riferimento all'interno di questo modello. 
-I CF Model-based posssono rispondere alle richieste degli utenti istantaneamente. \cite{model-based-approach-for-collaborative-filtering}
+I CF Model-based possono rispondere alle richieste degli utenti istantaneamente. \cite{model-based-approach-for-collaborative-filtering}
 
 
 \subsection{Cold Start problem} 
-Cosa succederebbe se un nuovo utente o un nuovo item è aggiunto al dataset? Questa situazione è chiamata \textit{Cold Start}. Ci possono
+Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al database? Questa situazione è chiamata \textit{Cold Start}. Ci possono
 essere due tipi di Cold Start:
 \begin{description}
 	\item[Visitor Cold Start]: si verifica quando un nuovo utente è stato aggiunto al database, visto che non c'è alcuno storico relativo ad esso, il sistema non
-	sa le le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema,
+	sa le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema,
 	a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una volta che si è venuti a 
 	conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
 	\item[Item Cold Start]: si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare
