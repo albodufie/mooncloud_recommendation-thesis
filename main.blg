@@ -1,0 +1,24 @@
+[0] Config.pm:304> INFO - This is Biber 2.13
+[0] Config.pm:307> INFO - Logfile is 'main.blg'
+[52] biber-MSWIN64:315> INFO - === 
+[84] Biber.pm:375> INFO - Reading 'main.bcf'
+[267] Biber.pm:905> INFO - Found 8 citekeys in bib section 0
+[296] Biber.pm:4196> INFO - Processing section 0
+[298] Utils.pm:75> INFO - Globbing data source 'bibliography.bib'
+[334] Utils.pm:91> INFO - Globbed data source 'bibliography.bib' to bibliography.bib
+[358] Biber.pm:4373> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[369] bibtex.pm:1462> INFO - LaTeX decoding ...
+[417] bibtex.pm:1281> INFO - Found BibTeX data source 'bibliography.bib'
+[437] Utils.pm:300> WARN - month field 'Dec' in entry 'cloud-Platform-for-ICT-Security-Governance' is not an integer - this will probably not sort properly.
+[523] Utils.pm:300> WARN - month field 'Jun' in entry 'taxonomy-of-recommender-agents-on-the-internet' is not an integer - this will probably not sort properly.
+[531] Utils.pm:300> WARN - BibTeX subsystem: C:\Users\Andrea\AppData\Local\Temp\K8wfDcedzQ\bibliography.bib_6212.utf8, line 43, warning: 1 characters of junk seen at toplevel
+[531] Utils.pm:300> WARN - BibTeX subsystem: C:\Users\Andrea\AppData\Local\Temp\K8wfDcedzQ\bibliography.bib_6212.utf8, line 50, warning: 1 characters of junk seen at toplevel
+[532] Utils.pm:300> WARN - BibTeX subsystem: C:\Users\Andrea\AppData\Local\Temp\K8wfDcedzQ\bibliography.bib_6212.utf8, line 57, warning: 1 characters of junk seen at toplevel
+[532] Utils.pm:300> WARN - BibTeX subsystem: C:\Users\Andrea\AppData\Local\Temp\K8wfDcedzQ\bibliography.bib_6212.utf8, line 170, warning: 1 characters of junk seen at toplevel
+[568] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[569] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[569] Biber.pm:4024> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
+[569] Biber.pm:4030> INFO - No sort tailoring available for locale 'it-IT'
+[595] bbl.pm:648> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[603] bbl.pm:751> INFO - Output to main.bbl
+[610] Biber.pm:110> INFO - WARNINGS: 6

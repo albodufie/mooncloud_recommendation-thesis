@@ -1,0 +1,285 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{mooncloud-semi-automatic-and-trustworthy}{article}{}
+      \name{author}{4}{}{%
+        {{hash=ad233466d08c5aa185ec452f13cd74a5}{%
+           family={Anisetti},
+           familyi={A\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ba1346eaf66624e71c2bd41de3e9b5bd}{%
+           family={Ardagna},
+           familyi={A\bibinitperiod},
+           given={C.\bibnamedelimi A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=0504c7de761f411776998e7eb58f6206}{%
+           family={Damiani},
+           familyi={D\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=88828c7e8a5e25dc4c0f2d4d28042adf}{%
+           family={Gaudenzi},
+           familyi={G\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{fullhash}{130fadb8bf62cd3bfd03e09ba38422b3}
+      \strng{bibnamehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{authorbibnamehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{authornamehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{authorfullhash}{130fadb8bf62cd3bfd03e09ba38422b3}
+      \field{extraname}{1}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE TRANSACTIONS ON SERVICES COMPUTING}
+      \field{title}{A semi-automatic and trustworthy scheme for continuous cloud service certification}
+      \field{year}{2017}
+      \verb{doi}
+      \verb 10.1109/TSC.2017.2657505
+      \endverb
+      \keyw{Assurance; Certification; Cloud; Testing}
+    \endentry
+    \entry{cloud-Platform-for-ICT-Security-Governance}{article}{}
+      \name{author}{6}{}{%
+        {{hash=ad233466d08c5aa185ec452f13cd74a5}{%
+           family={{Anisetti}},
+           familyi={A\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ba1346eaf66624e71c2bd41de3e9b5bd}{%
+           family={{Ardagna}},
+           familyi={A\bibinitperiod},
+           given={C.\bibnamedelimi A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=88828c7e8a5e25dc4c0f2d4d28042adf}{%
+           family={{Gaudenzi}},
+           familyi={G\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+        {{hash=0504c7de761f411776998e7eb58f6206}{%
+           family={{Damiani}},
+           familyi={D\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=04829357a5135d28b84cb0e137340344}{%
+           family={{Diomede}},
+           familyi={D\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=98c03b9ed216ad351e7600aa9d69315d}{%
+           family={{Tufarolo}},
+           familyi={T\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{fullhash}{c4a4d184d244ba838b7ee49d7c46901f}
+      \strng{bibnamehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{authorbibnamehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{authornamehash}{b7338074c8f73164ba74bb15bf696d19}
+      \strng{authorfullhash}{c4a4d184d244ba838b7ee49d7c46901f}
+      \field{extraname}{2}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2018 IEEE Global Communications Conference (GLOBECOM)}
+      \field{month}{12}
+      \field{title}{Moon Cloud: A Cloud Platform for ICT Security Governance}
+      \field{year}{2018}
+      \field{pages}{1\bibrangedash 7}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1109/GLOCOM.2018.8647247
+      \endverb
+      \keyw{cloud computing;Internet of Things; security of data;cloud platform; malicious attacks;ICT security governance; concrete security assessment;private cloud systems;public cloud systems; customizable assurance;Cloud PaaS solution;Moon Cloud; system robustness;continuous assurance process;ICT systems; security solutions;Europe;cybersecurity;Security; Moon; Cloud computing; Probes; Monitoring; Standards; Companies}
+    \endentry
+    \entry{django-documentation}{misc}{}
+      \field{sortinit}{D}
+      \field{sortinithash}{c438b3d5d027251ba63f5ed538d98af5}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{https://docs.djangoproject.com/en/2.2/}}
+      \field{title}{Django documentation}
+      \field{year}{2019}
+    \endentry
+    \entry{model-based-approach-for-collaborative-filtering}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=2d6de2e2c34d2161df9386d8e738174f}{%
+           family={Do},
+           familyi={D\bibinitperiod},
+           given={Minh-Phung},
+           giveni={M\bibinithyphendelim P\bibinitperiod}}}%
+        {{hash=8fbedb048f6c285c4ca28e10acff3774}{%
+           family={Nguyen},
+           familyi={N\bibinitperiod},
+           given={Dung},
+           giveni={D\bibinitperiod}}}%
+        {{hash=3136914455937209b0543912681e86af}{%
+           family={Loc\bibnamedelima Nguyen},
+           familyi={L\bibinitperiod\bibinitdelim N\bibinitperiod},
+           given={Academic\bibnamedelima Network},
+           giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod},
+           prefix={of},
+           prefixi={o\bibinitperiod}}}%
+      }
+      \strng{namehash}{50de50fbc61b012b4348a1315c3bf025}
+      \strng{fullhash}{50de50fbc61b012b4348a1315c3bf025}
+      \strng{bibnamehash}{50de50fbc61b012b4348a1315c3bf025}
+      \strng{authorbibnamehash}{50de50fbc61b012b4348a1315c3bf025}
+      \strng{authornamehash}{50de50fbc61b012b4348a1315c3bf025}
+      \strng{authorfullhash}{50de50fbc61b012b4348a1315c3bf025}
+      \field{sortinit}{D}
+      \field{sortinithash}{c438b3d5d027251ba63f5ed538d98af5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{08}
+      \field{title}{Model-based approach for Collaborative Filtering}
+      \field{year}{2010}
+    \endentry
+    \entry{mdn-django-documentation}{misc}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{https://developer.mozilla.org/it/docs/Learn/Server-side/Django/}}
+      \field{title}{MDN Django documentation}
+      \field{year}{2019}
+    \endentry
+    \entry{taxonomy-of-recommender-agents-on-the-internet}{article}{}
+      \name{author}{3}{}{%
+        {{hash=cedd60118dc614b2ea6f0f8d81bce78b}{%
+           family={Montaner},
+           familyi={M\bibinitperiod},
+           given={Miquel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a60a9914fc772cf30e1603a6b7df411f}{%
+           family={L{ó}pez},
+           familyi={L\bibinitperiod},
+           given={Beatriz},
+           giveni={B\bibinitperiod}}}%
+        {{hash=f89f3bda9a04f0828791aecce3fe2c1d}{%
+           family={Rosa},
+           familyi={R\bibinitperiod},
+           given={Josep\bibnamedelima Llu{í}s},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+           prefix={de\bibnamedelima la},
+           prefixi={d\bibinitperiod\bibinitdelim l\bibinitperiod}}}%
+      }
+      \strng{namehash}{5a7cdf0f55f22cbc3abe8d9b6f1d350a}
+      \strng{fullhash}{5a7cdf0f55f22cbc3abe8d9b6f1d350a}
+      \strng{bibnamehash}{5a7cdf0f55f22cbc3abe8d9b6f1d350a}
+      \strng{authorbibnamehash}{5a7cdf0f55f22cbc3abe8d9b6f1d350a}
+      \strng{authornamehash}{5a7cdf0f55f22cbc3abe8d9b6f1d350a}
+      \strng{authorfullhash}{5a7cdf0f55f22cbc3abe8d9b6f1d350a}
+      \field{sortinit}{M}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1573-7462}
+      \field{journaltitle}{Artificial Intelligence Review}
+      \field{month}{6}
+      \field{number}{4}
+      \field{title}{A Taxonomy of Recommender Agents on the Internet}
+      \field{volume}{19}
+      \field{year}{2003}
+      \field{pages}{285\bibrangedash 330}
+      \range{pages}{46}
+      \verb{doi}
+      \verb 10.1023/A:1022850703159
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1023/A:1022850703159
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1023/A:1022850703159
+      \endverb
+    \endentry
+    \entry{python-documentation}{misc}{}
+      \field{sortinit}{p}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{https://docs.python.org/3.7/}}
+      \field{title}{Python 3.7 documentation}
+      \field{year}{2019}
+    \endentry
+    \entry{item-based-collaborative-filtering}{article}{}
+      \name{author}{4}{}{%
+        {{hash=df97c54d895b3a4f966cc71817673755}{%
+           family={Sarwar},
+           familyi={S\bibinitperiod},
+           given={Badrul},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3db7df6401b206bb040d6735adbe81e2}{%
+           family={Karypis},
+           familyi={K\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+        {{hash=8bad87d5c289efb778eeccbc0a3ce84a}{%
+           family={Konstan},
+           familyi={K\bibinitperiod},
+           given={Joseph},
+           giveni={J\bibinitperiod}}}%
+        {{hash=05e2f63cd94159cec34470131ca35297}{%
+           family={Riedl},
+           familyi={R\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Hong Kong, Hong Kong}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{fb9706c608f2db79c84390f6e0e9600c}
+      \strng{fullhash}{a60eaaeac402f8cfe261a070e583e388}
+      \strng{bibnamehash}{fb9706c608f2db79c84390f6e0e9600c}
+      \strng{authorbibnamehash}{fb9706c608f2db79c84390f6e0e9600c}
+      \strng{authornamehash}{fb9706c608f2db79c84390f6e0e9600c}
+      \strng{authorfullhash}{a60eaaeac402f8cfe261a070e583e388}
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 10th International Conference on World Wide Web}
+      \field{isbn}{1-58113-348-0}
+      \field{series}{WWW '01}
+      \field{title}{Item-based Collaborative Filtering Recommendation Algorithms}
+      \field{year}{2001}
+      \field{pages}{285\bibrangedash 295}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1145/371920.372071
+      \endverb
+      \verb{urlraw}
+      \verb http://doi.acm.org/10.1145/371920.372071
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/371920.372071
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

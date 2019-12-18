@@ -1,0 +1,725 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.11.14)  18 DEC 2019 20:31
+entering extended mode
+**"c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/main.tex"
+("c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/main.tex"
+LaTeX2e <2019-10-01> patch level 3
+("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\book.cls"
+Document Class: book 2019/10/25 v1.4k Standard LaTeX document class
+("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fleqn.clo"
+File: fleqn.clo 2016/12/29 v1.2b Standard LaTeX option (flush left equations)
+\mathindent=\dimen102
+Applying: [2015/01/01] Make \[ robust on input line 50.
+LaTeX Info: Redefining \[ on input line 51.
+Already applied: [0000/00/00] Make \[ robust on input line 62.
+Applying: [2015/01/01] Make \] robust on input line 74.
+LaTeX Info: Redefining \] on input line 75.
+Already applied: [0000/00/00] Make \] robust on input line 83.
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\bk12.clo"
+File: bk12.clo 2019/10/25 v1.4k Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen103
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fontenc.sty"
+Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1enc.def"
+File: t1enc.def 2018/08/11 v2.0j Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.sty"
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.sty"
+Package: babel 2019/10/15 3.35 The Babel package
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\switch.def"
+File: switch.def 2019/10/15 3.35 Babel switching mechanism
+)
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/arabi\bblopts.cfg"
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-italian\italian.ldf"
+Language: italian 2019/01/05 v.1.4.01 Italian support for the babel system
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.def"
+File: babel.def 2019/10/15 3.35 Babel common definitions
+\babel@savecnt=\count89
+\U@D=\dimen104
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\txtbabel.def")
+\bbl@dirlevel=\count90
+)
+\it@lettering=\count91
+\it@doublequoteactive=\count92
+\it@ISOcompliance=\count93
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count94
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count95
+\float@exts=\toks16
+\float@box=\box27
+\@float@everytoks=\toks17
+\@floatcapt=\box28
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
+Package: graphics 2019/11/01 v1.3d Standard LaTeX Graphics (DPC,SPQR)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen105
+\Gin@req@width=\dimen106
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\listings.sty"
+\lst@mode=\count96
+\lst@gtempboxa=\box29
+\lst@token=\toks19
+\lst@length=\count97
+\lst@currlwidth=\dimen107
+\lst@column=\count98
+\lst@pos=\count99
+\lst@lostspace=\dimen108
+\lst@width=\dimen109
+\lst@newlines=\count100
+\lst@lineno=\count101
+\lst@maxwidth=\dimen110
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstmisc.sty"
+File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
+\c@lstnumber=\count102
+\lst@skipnumbers=\count103
+\lst@framebox=\box30
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\listings.cfg"
+File: listings.cfg 2019/09/10 1.8c listings configuration
+))
+Package: listings 2019/09/10 1.8c (Carsten Heinz)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty"
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/colortbl\colortbl.sty"
+Package: colortbl 2018/12/12 v1.0d Color table columns (DPC)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\array.sty"
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen111
+\ar@mcellbox=\box31
+\extrarowheight=\dimen112
+\NC@list=\toks20
+\extratabsurround=\skip43
+\backup@length=\skip44
+\ar@cellbox=\box32
+)
+\everycr=\toks21
+\minrowclearance=\skip45
+)
+\rownum=\count104
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.sty"
+Package: csquotes 2019-11-11 v2.5f context-sensitive quotations (JAW)
+\csq@reset=\count105
+\csq@gtype=\count106
+\csq@glevel=\count107
+\csq@qlevel=\count108
+\csq@maxlvl=\count109
+\csq@tshold=\count110
+\csq@ltx@everypar=\toks22
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.def"
+File: csquotes.def 2019-11-11 v2.5f csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.cfg"
+File: csquotes.cfg 
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.sty"
+Package: biblatex 2019/08/31 v3.13a programmable bibliographies (PK/MW)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2019/07/25 v0.30 Utility functions of pdfTeX for LuaTeX (HO)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifluatex.sty"
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\iftex.sty"
+Package: iftex 2019/11/07 v1.0c TeX engine tests
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifpdf.sty"
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+))) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/logreq\logreq.sty"
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count111
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/logreq\logreq.def"
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+\c@tabx@nest=\count112
+\c@listtotal=\count113
+\c@listcount=\count114
+\c@liststart=\count115
+\c@liststop=\count116
+\c@citecount=\count117
+\c@citetotal=\count118
+\c@multicitecount=\count119
+\c@multicitetotal=\count120
+\c@instcount=\count121
+\c@maxnames=\count122
+\c@minnames=\count123
+\c@maxitems=\count124
+\c@minitems=\count125
+\c@citecounter=\count126
+\c@maxcitecounter=\count127
+\c@savedcitecounter=\count128
+\c@uniquelist=\count129
+\c@uniquename=\count130
+\c@refsection=\count131
+\c@refsegment=\count132
+\c@maxextratitle=\count133
+\c@maxextratitleyear=\count134
+\c@maxextraname=\count135
+\c@maxextradate=\count136
+\c@maxextraalpha=\count137
+\c@abbrvpenalty=\count138
+\c@highnamepenalty=\count139
+\c@lownamepenalty=\count140
+\c@maxparens=\count141
+\c@parenlevel=\count142
+\blx@tempcnta=\count143
+\blx@tempcntb=\count144
+\blx@tempcntc=\count145
+\blx@maxsection=\count146
+\blx@maxsegment@0=\count147
+\blx@notetype=\count148
+\blx@parenlevel@text=\count149
+\blx@parenlevel@foot=\count150
+\blx@sectionciteorder@0=\count151
+\blx@entrysetcounter=\count152
+\labelnumberwidth=\skip46
+\labelalphawidth=\skip47
+\biblabelsep=\skip48
+\bibitemsep=\skip49
+\bibnamesep=\skip50
+\bibinitsep=\skip51
+\bibparsep=\skip52
+\bibhang=\skip53
+\blx@bcfin=\read1
+\blx@bcfout=\write3
+\blx@langwohyphens=\language82
+\c@mincomprange=\count153
+\c@maxcomprange=\count154
+\c@mincompwidth=\count155
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\blx-dm.def"
+File: blx-dm.def 2019/08/31 v3.13a biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'numeric.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count156
+\c@savedafterword=\count157
+\c@annotator=\count158
+\c@savedannotator=\count159
+\c@author=\count160
+\c@savedauthor=\count161
+\c@bookauthor=\count162
+\c@savedbookauthor=\count163
+\c@commentator=\count164
+\c@savedcommentator=\count165
+\c@editor=\count166
+\c@savededitor=\count167
+\c@editora=\count168
+\c@savededitora=\count169
+\c@editorb=\count170
+\c@savededitorb=\count171
+\c@editorc=\count172
+\c@savededitorc=\count173
+\c@foreword=\count174
+\c@savedforeword=\count175
+\c@holder=\count176
+\c@savedholder=\count177
+\c@introduction=\count178
+\c@savedintroduction=\count179
+\c@namea=\count180
+\c@savednamea=\count181
+\c@nameb=\count182
+\c@savednameb=\count183
+\c@namec=\count184
+\c@savednamec=\count185
+\c@translator=\count186
+\c@savedtranslator=\count187
+\c@shortauthor=\count188
+\c@savedshortauthor=\count189
+\c@shorteditor=\count190
+\c@savedshorteditor=\count191
+\c@labelname=\count192
+\c@savedlabelname=\count193
+\c@institution=\count194
+\c@savedinstitution=\count195
+\c@lista=\count196
+\c@savedlista=\count197
+\c@listb=\count198
+\c@savedlistb=\count199
+\c@listc=\count266
+\c@savedlistc=\count267
+\c@listd=\count268
+\c@savedlistd=\count269
+\c@liste=\count270
+\c@savedliste=\count271
+\c@listf=\count272
+\c@savedlistf=\count273
+\c@location=\count274
+\c@savedlocation=\count275
+\c@organization=\count276
+\c@savedorganization=\count277
+\c@origlocation=\count278
+\c@savedoriglocation=\count279
+\c@origpublisher=\count280
+\c@savedorigpublisher=\count281
+\c@publisher=\count282
+\c@savedpublisher=\count283
+\c@language=\count284
+\c@savedlanguage=\count285
+\c@origlanguage=\count286
+\c@savedoriglanguage=\count287
+\c@pageref=\count288
+\c@savedpageref=\count289
+\shorthandwidth=\skip54
+\shortjournalwidth=\skip55
+\shortserieswidth=\skip56
+\shorttitlewidth=\skip57
+\shortauthorwidth=\skip58
+\shorteditorwidth=\skip59
+\locallabelnumberwidth=\skip60
+\locallabelalphawidth=\skip61
+\localshorthandwidth=\skip62
+\localshortjournalwidth=\skip63
+\localshortserieswidth=\skip64
+\localshorttitlewidth=\skip65
+\localshortauthorwidth=\skip66
+\localshorteditorwidth=\skip67
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\blx-compat.def"
+File: blx-compat.def 2019/08/31 v3.13a biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.def"
+File: biblatex.def 2019/08/31 v3.13a biblatex compatibility (PK/MW)
+\c@textcitecount=\count290
+\c@textcitetotal=\count291
+\c@textcitemaxnames=\count292
+\c@biburlbigbreakpenalty=\count293
+\c@biburlbreakpenalty=\count294
+\c@biburlnumpenalty=\count295
+\c@biburlucpenalty=\count296
+\c@biburllcpenalty=\count297
+\biburlbigskip=\muskip11
+\biburlnumskip=\muskip12
+\biburlucskip=\muskip13
+\biburllcskip=\muskip14
+\c@smartand=\count298
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/bbx\numeric.bbx"
+File: numeric.bbx 2019/08/31 v3.13a biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/bbx\standard.bbx"
+File: standard.bbx 2019/08/31 v3.13a biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count299
+\c@bbx:relatedtotal=\count300
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/cbx\numeric.cbx"
+File: numeric.cbx 2019/08/31 v3.13a biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.cfg"
+File: biblatex.cfg 
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/imakeidx\imakeidx.sty"
+Package: imakeidx 2016/10/15 v1.3e Package for typesetting indices in a synchronous mode
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xkeyval\xkeyval.sty"
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkeyval.tex" ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkvutils.tex"
+\XKV@toks=\toks23
+\XKV@tempa@toks=\toks24
+)
+\XKV@depth=\count301
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\ifxetex.sty"
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\multicol.sty"
+Package: multicol 2019/03/01 v1.8w multicolumn formatting (FMi)
+\c@tracingmulticols=\count302
+\mult@box=\box33
+\multicol@leftmargin=\dimen113
+\c@unbalance=\count303
+\c@collectmore=\count304
+\doublecol@number=\count305
+\multicoltolerance=\count306
+\multicolpretolerance=\count307
+\full@width=\dimen114
+\page@free=\dimen115
+\premulticols=\dimen116
+\postmulticols=\dimen117
+\multicolsep=\skip68
+\multicolbaselineskip=\skip69
+\partial@page=\box34
+\last@line=\box35
+\maxbalancingoverflow=\dimen118
+\mult@rightbox=\box36
+\mult@grightbox=\box37
+\mult@gfirstbox=\box38
+\mult@firstbox=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\c@minrows=\count308
+\c@columnbadness=\count309
+\c@finalcolumnbadness=\count310
+\last@try=\dimen119
+\multicolovershoot=\dimen120
+\multicolundershoot=\dimen121
+\mult@nat@firstbox=\box57
+\colbreak@box=\box58
+\mc@col@check@num=\count311
+))
+\main@idxfile=\write4
+\openout4 = `main.idx'.
+
+
+Writing index file main.idx
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+Package csquotes Info: Adjusting default style.
+Package csquotes Info: Redefining alias 'default' -> 'italian'.
+Package biblatex Info: Trying to load language 'italian'...
+Package biblatex Info: ... file 'italian.lbx' found.
+("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\italian.lbx"
+File: italian.lbx 2019/08/31 v3.13a biblatex localization (PK/MW)
+) ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.aux")
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Info: Redefining \it@ocap on input line 61.
+LaTeX Info: Redefining \it@ccap on input line 61.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count312
+\scratchdimen=\dimen122
+\scratchbox=\box59
+\nofMPsegments=\count313
+\nofMParguments=\count314
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count315
+\MPscratchDim=\dimen123
+\MPnumerator=\count316
+\makeMPintoPDFobject=\count317
+\everyMPtoPDFconversion=\toks26
+) ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 438.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+\c@lstlisting=\count318
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `main.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'main.bbl' found.
+ ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.bbl")
+Package biblatex Info: Reference section=0 on input line 61.
+Package biblatex Info: Reference segment=0 on input line 61.
+<images/logo.jpg, id=1, 398.4486pt x 156.585pt>
+File: images/logo.jpg Graphic file (type jpg)
+<use images/logo.jpg>
+Package pdftex.def Info: images/logo.jpg  used on input line 68.
+(pdftex.def)             Requested size: 362.01727pt x 142.26378pt.
+ [1
+
+
+
+{C:/Users/Andrea/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/logo.jpg>] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/00-thanks.tex" [2
+
+]) ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/00-prefaction.tex" [3] [4
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 4--23
+
+ []
+
+[5]) [6] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.toc"
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 9.
+)
+\tf@toc=\write5
+\openout5 = `main.toc'.
+
+ [7
+
+] [8
+
+] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.lof")
+\tf@lof=\write6
+\openout6 = `main.lof'.
+
+ [9] [10
+
+] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.lot")
+\tf@lot=\write7
+\openout7 = `main.lot'.
+
+ [11] [12
+
+] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/01-introduction.tex"
+Capitolo 1.
+[1
+
+] [2] [3]
+<images/Security_Compliance_Evaluation.PNG, id=58, 744.53156pt x 258.21469pt>
+File: images/Security_Compliance_Evaluation.PNG Graphic file (type png)
+<use images/Security_Compliance_Evaluation.PNG>
+Package pdftex.def Info: images/Security_Compliance_Evaluation.PNG  used on input line 95.
+(pdftex.def)             Requested size: 372.26486pt x 129.10703pt.
+ [4 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/Security_Compliance_Evaluation.PNG>]) [5] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/02-technologies.tex" [6]
+Capitolo 2.
+
+Overfull \hbox (6.69606pt too wide) in paragraph at lines 17--21
+[]\T1/cmr/m/n/12 Python sup-por-ta di-ver-si pa-ra-dig-mi di pro-gram-ma-zio-ne, co-me quel-lo object-
+ []
+
+("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.sty"
+File: lstlang1.sty 2019/09/10 1.8c listings language file
+) [7
+
+]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 30.
+ ("C:\Users\Andrea\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1cmtt.fd"
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [8] [9]
+<images/Django_doc.png, id=82, 533.995pt x 805.0075pt>
+File: images/Django_doc.png Graphic file (type png)
+<use images/Django_doc.png>
+Package pdftex.def Info: images/Django_doc.png  used on input line 91.
+(pdftex.def)             Requested size: 160.19974pt x 241.50412pt.
+ [10 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/Django_doc.png>]
+<images/Docker_Config_Container.png, id=87, 341.77687pt x 242.40562pt>
+File: images/Docker_Config_Container.png Graphic file (type png)
+<use images/Docker_Config_Container.png>
+Package pdftex.def Info: images/Docker_Config_Container.png  used on input line 123.
+(pdftex.def)             Requested size: 239.24217pt x 169.68277pt.
+ [11 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/Docker_Config_Container.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 138--144
+
+ []
+
+<images/MC_Rec_Tree.png, id=92, 952.55875pt x 515.9275pt>
+File: images/MC_Rec_Tree.png Graphic file (type png)
+<use images/MC_Rec_Tree.png>
+Package pdftex.def Info: images/MC_Rec_Tree.png  used on input line 147.
+(pdftex.def)             Requested size: 466.75787pt x 252.80669pt.
+
+Overfull \hbox (76.75787pt too wide) in paragraph at lines 147--148
+ [][] 
+ []
+
+[12 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/MC_Rec_Tree.png>] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 201--203
+
+ []
+
+<images/MC_Rec_NSM_Container.png, id=102, 1457.445pt x 348.30125pt>
+File: images/MC_Rec_NSM_Container.png Graphic file (type png)
+<use images/MC_Rec_NSM_Container.png>
+Package pdftex.def Info: images/MC_Rec_NSM_Container.png  used on input line 205.
+(pdftex.def)             Requested size: 437.23688pt x 104.49118pt.
+
+Overfull \hbox (47.23688pt too wide) in paragraph at lines 205--207
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 242--245
+
+ []
+
+<images/MC_Rec_NSM_Tree.png, id=103, 991.705pt x 487.8225pt>
+File: images/MC_Rec_NSM_Tree.png Graphic file (type png)
+<use images/MC_Rec_NSM_Tree.png>
+Package pdftex.def Info: images/MC_Rec_NSM_Tree.png  used on input line 247.
+(pdftex.def)             Requested size: 396.67497pt x 195.12553pt.
+
+Overfull \hbox (6.67497pt too wide) in paragraph at lines 247--249
+[][] 
+ []
+
+[14 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/MC_Rec_NSM_Container.png>]
+
+LaTeX Warning: Text page 15 contains only floats.
+
+
+Overfull \vbox (3.24593pt too high) has occurred while \output is active []
+
+ [15 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/MC_Rec_NSM_Tree.png>] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 274--281
+
+ []
+
+<images/recommender_systems.png, id=115, 532.99126pt x 362.35374pt>
+File: images/recommender_systems.png Graphic file (type png)
+<use images/recommender_systems.png>
+Package pdftex.def Info: images/recommender_systems.png  used on input line 292.
+(pdftex.def)             Requested size: 266.49498pt x 181.17642pt.
+[17 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/recommender_systems.png>] [18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 377--380
+
+ []
+
+[20]) ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/03-recommendationSystems.tex" [21] [22
+
+]
+Capitolo 3.
+
+Overfull \hbox (35.51265pt too wide) in paragraph at lines 16--18
+[]\T1/cmr/m/n/12 Questa ca-te-go-ria di si-ste-mi di rac-co-man-da-zio-ne so-no de-fi-ni-ti an-che \T1/cmr/m/it/12 Neighborhood-
+ []
+
+[23]
+<images/UB_CF_ex.PNG, id=139, 301.8778pt x 332.74312pt>
+File: images/UB_CF_ex.PNG Graphic file (type png)
+<use images/UB_CF_ex.PNG>
+Package pdftex.def Info: images/UB_CF_ex.PNG  used on input line 39.
+(pdftex.def)             Requested size: 150.93852pt x 166.37114pt.
+ [24 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/UB_CF_ex.PNG>]
+<images/IB_CF_ex.PNG, id=144, 310.15875pt x 335.00156pt>
+File: images/IB_CF_ex.PNG Graphic file (type png)
+<use images/IB_CF_ex.PNG>
+Package pdftex.def Info: images/IB_CF_ex.PNG  used on input line 60.
+(pdftex.def)             Requested size: 155.079pt x 167.50037pt.
+) ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/04-solution.tex" [25 <c:/Users/Andrea/Desktop/MyPc(10-11)/Università/Tirocinio & Tesi/Tesi_MoonCloud/mooncloud_recommendation-thesis/images/IB_CF_ex.PNG>] [26
+
+]
+Capitolo 4.
+) ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\chapters/05-conclusion.tex" [27] [28
+
+]
+Capitolo 5.
+) [29] [30
+
+] [31
+
+] ("c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.aux")
+Package logreq Info: Writing requests to 'main.run.xml'.
+\openout1 = `main.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 12944 strings out of 492450
+ 223811 string characters out of 3119537
+ 712613 words of memory out of 3000000
+ 17102 multiletter control sequences out of 15000+200000
+ 17559 words of font info for 39 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 39i,9n,76p,993b,1349s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1200.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1728.pk> <C:\Users\Andrea\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk>
+Output written on "c:/Users\Andrea\Desktop\MyPc(10-11)\Università\Tirocinio & Tesi\Tesi_MoonCloud\mooncloud_recommendation-thesis\main.pdf" (43 pages, 864348 bytes).
+PDF statistics:
+ 669 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+
