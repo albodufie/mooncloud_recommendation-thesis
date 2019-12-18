@@ -5,22 +5,16 @@ codice e spiegando i vari passagi che portano ad ottenere delle raccomandazioni.
 % - nel capitolo dei recommendation system parlare dei collaborative filter in modo più dettagliato e legato al progetto -
 
 
-
-
-
-
-
-
 \section{Memory-based} 
-I filtri collaborativi Memory-based sono stati introdotti per via delle osservazioni che vennero fatti sugl utenti, i quali si fidano
-maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a calcolare le relazioni tra utenti
-e item attraverso lo schema dei vicini che identifica sia coppie di item che tendono ad essere usati insieme o hanno un grado di 
-similarità alto o utenti con uno storico di item usati simile. \cite{taxonomy-of-recommender-agents-on-the-internet}
-Questi approcci divennero molto famosi grazie alla loro semplicità di implementazione, molto intuitivi, non necessitano il training e
-aggiustamento di molti parametri, e l'utente può capire la ragione che sta dietro ogni raccomandazione 
+I Filtri Collaborativi Memory-based sono stati introdotti per via delle osservazioni che vennero fatte dalla comunità, dicenddo che
+gli utenti si fidano maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a calcolare 
+le relazioni tra utenti e item attraverso lo schema dei vicini che identifica sia coppie di item che tendono ad essere usati insieme 
+o hanno un grado di similarità alto o utenti con uno storico di item usati simile. \cite{taxonomy-of-recommender-agents-on-the-internet}
+Questi approcci divennero molto famosi grazie alla loro semplicità di implementazione, molto intuitivi, non necessitano di operazioni
+di training sui dati e regolazione di molti parametri, inoltre l'utente può capire la ragione che sta dietro ogni raccomandazione. 
 
-Filtri collaborativi che usano metodi Memory-based (definiti anche \textit{Neighborhood-based}) possono essere classificati in altre due
-categorie:
+Questa categoria di sistemi di raccomandazione sono definiti anche \textit{Neighborhood-based} e possono essere ulteriormente classificati 
+in due sottocategorie:
 
 
 \subsection{User-based filtering} 
@@ -31,7 +25,7 @@ hanno usato o valutato in precedenza.
 
 Molti di questi approcci possono essere generalizzati dall'algoritmo definito dai seguenti step:
 \begin{enumerate}
-	\item Specificare qual'è il l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare quali utenti possono 
+	\item Specificare qual'è l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare quali utenti possono 
 	avere dato valutazioni o usato item simili al utente target. Piuttosto che recuperare tutti gli utenti, per velocizzare l'esecuzione
 	dell'algoritmo, è possibile selezionare soltanto un gruppo di utenti in modo casuale oppure associare dei valori di similarità tra 
 	tutti gli utenti e confrontando questi valori con quello dell'utente target, selezionare i relativi utenti che superano una soglia
@@ -49,7 +43,7 @@ Molti di questi approcci possono essere generalizzati dall'algoritmo definito da
 \end{figure}
 
 Questi approcci sono facilmente implementabili, indipendenti dal contesto in cui sono applicati e possono essere più accurati rispetto
-a tecniche basate sul Content-based dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
+a tecniche basate sul Content-based filtering; dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
 raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo per compiere questo procedimento. Altro 
 problema che affligge questi sistemi, e che verrà approfondito nel prossimo paragrafo, è definito di Cold-start. 
 

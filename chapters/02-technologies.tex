@@ -353,7 +353,7 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 
 
 \subsection{Collaborative filtering}
-I filtri Collaborativi (\textit{Collaborative filtering}, acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
+I Filtri Collaborativi (\textit{Collaborative filtering}, acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
 degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database,
 sfruttano tecniche di analisi dei dati per risolvere il problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere 
 producendo, eventualmente una lista dei top-N item da raccomandare per un dato utente.
@@ -363,12 +363,12 @@ preferiti dai neighbors sono raccomandati all'utente visto che potrebbero essere
 
 Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
 utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite. 
-Inoltre i filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based. 
+Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based. 
 
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
-filtri Collaborativi.
+Filtri Collaborativi.
 \begin{description}
-	\item Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di filtri Collaborativi; questi algoritmi sono in grado di cercare
+	\item Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di Filtri Collaborativi; questi algoritmi sono in grado di cercare
 	anche diecimila di potenziali neighbors (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
 	potenziali neighbors, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno molte informazioni.
 	\item Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono
@@ -379,9 +379,9 @@ necessario trattarli in contemporanea perchè aumentare solamente la scalabilit�
 \cite{item-based-collaborative-filtering} \\
 
 
-Il principale modello di filtri Collaborativi studiato in questo elaborato e approfondito nel capitolo successivo, è il metodo definito 
+Il principale modello di Filtri Collaborativi studiato in questo elaborato e approfondito nel capitolo successivo, è il metodo definito 
 come \textit{Memory-based} e il  vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati 
-ottenuti sono altrettanto semplici da interpretare; mentre ci possono essere anche filtri collaborativi che sfruttano metodi 
+ottenuti sono altrettanto semplici da interpretare; mentre ci possono essere anche Filtri Collaborativi che sfruttano metodi 
 \textit{Model-based} che si basano sulla fattorizzazione di matrici e sono molto più funzionali per gestire il problema della 
 parsità dei dati. Questi ultimi sono sviluppati usando algoritmi di data mining e machine learning per predire le valutazioni di utenti 
 su item senza valutazioni, tentando di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei
