@@ -1,6 +1,7 @@
 \chapter{Collaborative filtering}
 \label{chp:03-recommendationSystems}
-
+In questo capitolo verranno approfonditi gli algoritmi di raccomandazione implementati nella soluzione, mostrando le porzioni di 
+codice e spiegando i vari passagi che portano ad ottenere delle raccomandazioni.
 % - nel capitolo dei recommendation system parlare dei collaborative filter in modo più dettagliato e legato al progetto -
 
 
@@ -10,7 +11,7 @@
 
 
 
-\section{Memory-based} \hfill \break
+\section{Memory-based} 
 I filtri collaborativi Memory-based sono stati introdotti per via delle osservazioni che vennero fatti sugl utenti, i quali si fidano
 maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a calcolare le relazioni tra utenti
 e item attraverso lo schema dei vicini che identifica sia coppie di item che tendono ad essere usati insieme o hanno un grado di 
@@ -22,7 +23,7 @@ Filtri collaborativi che usano metodi Memory-based (definiti anche \textit{Neigh
 categorie:
 
 
-\subsection{User-based filtering} \hfill \break
+\subsection{User-based filtering} 
 Questi sistemi, definiti anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}) raccomandano una serie di item a 
 un utente che utenti simili hanno usato o valutato. Questo algoritmo prima trova un valore che rappresenta la similarità tra utenti. 
 E basandosi su questi valori, prende uno o più utenti tra quelli che risultano simili e raccomanda item che questi utenti simili 
@@ -52,7 +53,7 @@ a tecniche basate sul Content-based dall'altra parte all'aumentare del numero di
 raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo per compiere questo procedimento. Altro 
 problema che affligge questi sistemi, e che verrà approfondito nel prossimo paragrafo, è definito di Cold-start. 
 
-\subsection{Item-based filtering} \hfill \break
+\subsection{Item-based filtering} 
 
 
 Quando viene applicato per milioni di utenti e item, l'algoritmo UB-CF non è molto efficente, per via della complessa computazione della 
@@ -73,3 +74,5 @@ hanno usati nel passato.
 	\label{fig:IB_CF}
 \end{figure}
 
+
+\subsection{Hybrid filtering} 
