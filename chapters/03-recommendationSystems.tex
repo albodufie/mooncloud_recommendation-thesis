@@ -29,10 +29,9 @@ Molti di questi approcci possono essere generalizzati dall'algoritmo definito da
 	avere dato valutazioni o usato item simili al utente target. Piuttosto che recuperare tutti gli utenti, per velocizzare l'esecuzione
 	dell'algoritmo, è possibile selezionare soltanto un gruppo di utenti in modo casuale oppure associare dei valori di similarità tra 
 	tutti gli utenti e confrontando questi valori con quello dell'utente target, selezionare i relativi utenti che superano una soglia
-	scelta, oppure utilizzare tecniche di clustering. 
-	un numero limitato per effettuare la raccomandazione, 
+	scelta, oppure utilizzare tecniche di clustering.
 	\item Estrarre quegli item a cui l'utente target non ha mai interagito e per questo motivo gli possono interessare, e mostrarli 
-	all'utente target.
+	sottoforma di raccomandazioni.
 \end{enumerate}
 
 \begin{figure}[ht!]
@@ -44,22 +43,17 @@ Molti di questi approcci possono essere generalizzati dall'algoritmo definito da
 
 Questi approcci sono facilmente implementabili, indipendenti dal contesto in cui sono applicati e possono essere più accurati rispetto
 a tecniche basate sul Content-based filtering; dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
-raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo per compiere questo procedimento. Altro 
-problema che affligge questi sistemi, e che verrà approfondito nel prossimo paragrafo, è definito di Cold-start. 
+raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo in termini di tempo.  
+
 
 \subsection{Item-based filtering} 
-
-
 Quando viene applicato per milioni di utenti e item, l'algoritmo UB-CF non è molto efficente, per via della complessa computazione della 
 ricerca di utenti simili; così in alternativa è stato introdotto l'algoritmo di filtraggio Item-based, definito anche IB-CF 
-(\textit{Item-based Collaborative Filter}): dove piuttosto che effetuare il confrotto tra utenti simili, viene fatto un confronto tra 
-gli item dell'utente a cui si vule raccomandare e i possibili item simili.
+(\textit{Item-based Collaborative Filter}) dove piuttosto che effetuare il confronto tra utenti simili, viene fatto un confronto tra 
+gli item dell'utente a cui si vuole raccomandare e i possibili item simili.
 
 Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come utenti gli
-hanno usati nel passato.
-
-
-\cite{item-based-collaborative-filtering}
+hanno usati nel passato. \cite{item-based-collaborative-filtering}
 
 \begin{figure}[ht!]
 	\centering
