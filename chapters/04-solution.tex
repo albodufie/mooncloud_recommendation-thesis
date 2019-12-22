@@ -104,30 +104,72 @@ A partire da questo Model vennero introdotte nel database le seguenti tabelle, l
 	\item[TargetType]: specifica quali sono i tipi di Target supportati da Moon Cloud.
 \end{description}
 
-\begin{figure}[ht!]
+\begin{figure}
 	\centering
 	\includegraphics[scale=0.7]{images/MoonCloudRecommendation_ER.png}
 	\caption{Struttura del database}
 	\label{fig:str_db_project}
 \end{figure}
 
+\newpage
 
-% ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
+% VIEW A SCOPO DIDATTICO
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
-implementata un'interfaccia a scopo didattico che potesse navigare la tassonomia e per ogni singolo nodo recuperare: i 
-discendenti, la famiglia, i fratelli o sorelle, e gli antenati; è anche possibile scaricare un file scritto in linguaggio
-DOT e un'immagine in formato .png rappresentante la gerarchia dei dati contenuti nella base dati. 
+implementata un'interfaccia Web a scopo didattico.
+Avviando il server, la home page che viene prooposta è mostrata nella Figura \ref{fig:MCRS_homepage}, dalla quale è possibile 
+accedere alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; inoltre 
+tramite la barra di navigazione è possibile tornare a questa home page o accedere alla admin page generata da Django, e
+succesivamente personalizzata, per poter manipolare la base di dati.\\
+
+\begin{figure}[ht!]
+	\includegraphics[scale=0.3]{images/MCRS_homepage.png}
+	\caption{Home page}
+	\label{fig:MCRS_homepage}
+\end{figure}
+
+\lstset{style=python_code_style}
+\label{lst:view_homepage}
+\begin{lstlisting}[language=Python, caption={Parte principale del codice delle View della soluzione per gestire l'accesso
+	alla home page}]
+# Index page where you can choose to navigate the evaluation taxonomy or the control taxonomy
+def index(request):
+	return render(request, "recommendation_app/index.html")
+\end{lstlisting}
+
+
+Una volta scelta la tassonomia su cui si vuole navigare, è possibile, per ogni singolo nodo, recuperare: i 
+discendenti, la famiglia, i fratelli, e gli antenati; ed è anche possibile scaricare un file scritto in linguaggio
+DOT e un'immagine in formato png rappresentante la gerarchia dei dati contenuti nella base dati. 
 Inoltre è possibile osservare in maniera più approfondita le informazioni rilevanti sulla tassonomia contenute nelle tabelle
-del database e nel caso delle Evaluation, simulare il processo di Item Recommendation.
+del database.\\
+
+\begin{figure}
+	\includegraphics[scale=0.3]{images/MCRS_taxindex.png}
+	\caption{Home page per la navigazione della tassonomia}
+	\label{fig:MCRS_taxindex}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[scale=0.3]{images/MCRS_taxdetails.png}
+	\caption{Dettagli della tassonomia sottoforma di tabella come nella base di dati}
+	\label{fig:MCRS_taxdetails}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[scale=0.3]{images/MCRS_taxnodedetails.png}
+	\caption{Risultato dell'operazione selezionata sul nodo in questione}
+	\label{fig:MCRS_taxnodedetails}
+\end{figure}
+
+\newpage
+
+Qui di seguito \ref{lst:view} è possibile trovare il codice scritto all'interno delle View per poter eseguire tutte le 
+operazioni descritte sopra.
 
 \lstset{style=python_code_style}
 \label{lst:view}
 \begin{lstlisting}[language=Python, caption={Parti principali del codice delle View della soluzione per gestire la navigazione 
 	delle tassonomie, quella delle Evaluation e quella dei Controlli}]
-# Index page where you can choose to navigate the evaluation taxonomy or the control taxonomy
-def index(request):
-	return render(request, "recommendation_app/index.html")
-
 
 # The home page shows all taxonomy and a form to make operations on it
 def tax_index(request, parameter):
@@ -196,8 +238,9 @@ def tax_details(request, parameter):
 	else:
 		tax_details_obj = Control.objects.all()
 
-	return render(request, "recommendation_app/tax_details.html", {'tax_details': tax_details_obj,
-																	'parameter': parameter})
+	return render(request, "recommendation_app/tax_details.html",
+				  {'tax_details': tax_details_obj,
+				  'parameter': parameter})
 
 
 # Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
@@ -257,11 +300,11 @@ def show_descendants(request, nodename, parameter):
 		q_result_num = Control.objects.get(name=nodename).get_descendant_count()
 
 	return render(request, "recommendation_app/tax_node_details.html",
-					{'tax_type': (str(parameter)).capitalize(),
-					'descendants': q_result,
-					'node_exe': nodename,
-					'method': 'descendants',
-					'num_descendants': q_result_num})
+				  {'tax_type': (str(parameter)).capitalize(),
+				  'descendants': q_result,
+				  'node_exe': nodename,
+				  'method': 'descendants',
+				  'num_descendants': q_result_num})
 
 
 # Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
@@ -271,12 +314,11 @@ def show_children(request, nodename, parameter):
 	else:
 		q_result = Control.objects.get(name=nodename).get_children()
 
-	return render(request,
-					"recommendation_app/tax_node_details.html",
-					{'tax_type': (str(parameter)).capitalize(),
-					'children': q_result,
-					'node_exe': nodename,
-					'method': 'children'})
+	return render(request, "recommendation_app/tax_node_details.html",
+				  {'tax_type': (str(parameter)).capitalize(),
+				  'children': q_result,
+				  'node_exe': nodename,
+				  'method': 'children'})
 
 
 # Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
@@ -287,12 +329,11 @@ def show_family(request, nodename, parameter):
 	else:
 		q_result = Control.objects.get(name=nodename).get_family()
 
-	return render(request,
-					"recommendation_app/tax_node_details.html",
-					{'tax_type': (str(parameter)).capitalize(),
-					'family': q_result,
-					'node_exe': nodename,
-					'method': 'family'})
+	return render(request, "recommendation_app/tax_node_details.html",
+				  {'tax_type': (str(parameter)).capitalize(),
+				  'family': q_result,
+				  'node_exe': nodename,
+				  'method': 'family'})
 
 
 # Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
@@ -303,16 +344,39 @@ def show_siblings(request, nodename, parameter):
 	else:
 		q_result = Control.objects.get(name=nodename).get_siblings()
 
-	return render(request,
-					"recommendation_app/tax_node_details.html",
-					{'tax_type': (str(parameter)).capitalize(),
-					'siblings': q_result,
-					'node_exe': nodename,
-					'method': 'siblings'})	
+	return render(request, "recommendation_app/tax_node_details.html",
+				  {'tax_type': (str(parameter)).capitalize(),
+				  'siblings': q_result,
+				  'node_exe': nodename,
+				  'method': 'siblings'})
 \end{lstlisting}
 
 
-% URLS e VIEW A SCOPO DIDATTICO
+% ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
+Per poter agilmente manipolare la base di dati, Django mette a disposizione la cosidetta Admin Page mostrata in 
+Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile
+effetuare modifiche, e per ognuna vengono mostrate le informazioni più rilevanti, come mostrato dalla 
+Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile 
+effetuare ricerche, eliminare direttamente i dati contenuti nel database e aggiungere
+nuovi dati, come mostrato in Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.\\
+
+\begin{figure}
+	\includegraphics[scale=0.3]{images/MCRS_adminpage.png}
+	\caption{Admin page}
+	\label{fig:MCRS_adminpage}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[scale=0.3]{images/MCRS_adminpage_evaluationEX.png}
+	\caption{Esempio di Admin page per le Evaluation}
+	\label{fig:MCRS_adminpage_evaluationEX}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.png}
+	\caption{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation}
+	\label{fig:MCRS_adminpage_evaluationEX_add}
+\end{figure}
 
 % VIEW PER LE RACCOMANDAZIONI
 
