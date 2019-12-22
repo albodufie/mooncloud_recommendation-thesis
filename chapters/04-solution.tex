@@ -2,11 +2,12 @@
 \label{chp:04-solution}
 In questo capitolo verrà approfondito l'aspetto puramente pratico e le fasi che hanno portato alla realizzazione della soluzione; 
 inoltre verranno mostrate le applicazioni pratiche degli aspetti teorici enunciati nei capitoli precedenti, unitamente alle difficoltà 
-principali incontrate.
+principali incontrate.\\ \\
 
-\section{Operazioni preliminari}
+
 Prima di poter costruire il sistema di raccomandandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari
 per poter impostare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione.\\
+
 
 % TASSONOMIE E DATABASE CON I MODELS (package MPTT)
 Come annunciato nei capitoli precendenti per procedere alla costruzione di un sistema di raccomandazione bisogna avere a disposizione
@@ -17,13 +18,13 @@ rispecchiano questa struttura, sulla base delle considerazioni sulle tecniche ad
 Per implementare un modified pre-order trasversal tree in Django, si è fatto uso del package MPTT, come detto in precendenza, questa
 tecnica è usata per memorizzare dati gerarchici in un database, puntando all'efficenza nelle operazioni di recupero dei dati e 
 scendendo a compromessi per quanto riguarda le operazioni di inserimento e spostamento dei nodi all'interno della struttura.
-Grazie all'usilio di questa utility la costruzione dei Model del progetto sono stati semplificati e qui di seguito \ref{lst:models}
+Grazie all'usilio di questa utility la costruzione dei Model del progetto sono stati semplificati e qui di seguito \ref{lst:model}
 è possibile trovare le porzioni principali del codice costituente i Model, i quali poi vengono utilizzati da Django per la 
 generazione della base di dati. 
 
 % MODELS CODES
 \lstset{style=python_code_style}
-\label{lst:models}
+\label{lst:model}
 \begin{lstlisting}[language=Python, caption={Parti principali del codice dei Models della soluzione}]
 # Target supported by Moon Cloud
 class TargetType(models.Model):
@@ -111,10 +112,205 @@ A partire da questo Model vennero introdotte nel database le seguenti tabelle, l
 \end{figure}
 
 
-
-
-
 % ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
+Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
+implementata un'interfaccia a scopo didattico che potesse navigare la tassonomia e per ogni singolo nodo recuperare: i 
+discendenti, la famiglia, i fratelli o sorelle, e gli antenati; è anche possibile scaricare un file scritto in linguaggio
+DOT e un'immagine in formato .png rappresentante la gerarchia dei dati contenuti nella base dati. 
+Inoltre è possibile osservare in maniera più approfondita le informazioni rilevanti sulla tassonomia contenute nelle tabelle
+del database e nel caso delle Evaluation, simulare il processo di Item Recommendation.
+
+\lstset{style=python_code_style}
+\label{lst:view}
+\begin{lstlisting}[language=Python, caption={Parti principali del codice delle View della soluzione per gestire la navigazione 
+	delle tassonomie, quella delle Evaluation e quella dei Controlli}]
+# Index page where you can choose to navigate the evaluation taxonomy or the control taxonomy
+def index(request):
+	return render(request, "recommendation_app/index.html")
+
+
+# The home page shows all taxonomy and a form to make operations on it
+def tax_index(request, parameter):
+	# If this is a POST request we need to process the form data
+	if request.method == 'POST':
+		# Create a form instance and populate it with data from depending on the parameter
+		if (parameter == "evaluation"):
+			form = EvaluationOperationForm(request.POST)
+		else:
+			form = ControlEvaluationForm(request.POST)
+		# Check whether it's valid:
+		if form.is_valid():
+			# Process the data in form.cleaned_data as required
+			nodename_form = form.cleaned_data['nodeName']
+			taxonomy_operation_form = form.cleaned_data['actionTax']
+			# Redirect to a new URL (page that show a part of the taxonomy, depending on the action user has chosen):
+			return redirect(
+				reverse('rec:tax_index', args=[parameter]) + str(nodename_form) + '_' + taxonomy_operation_form)
+	# If id's a GET method we'll create a blank form
+	else:
+		if (parameter == "evaluation"):
+			form = EvaluationOperationForm()
+		else:
+			form = ControlEvaluationForm()
+
+	# Depending on the parameter, I'm getting all the categories of Evaluations or Controls taxonomy and save it in a
+	# list called "categories_list"
+	if (parameter == "evaluation"):
+		q_categories = Evaluation.objects.filter(node_type='cat')
+	else:
+		q_categories = Control.objects.filter(node_type='cat')
+	categories_list = []
+	for node in q_categories:
+		categories_list.append(node.name)
+
+	# Depending on the parameter, I'm getting all the categories of Evaluations or Controls node in the taxonomy
+	# and save it in a list called "node_list"
+	if (parameter == "evaluation"):
+		q_nodes = Evaluation.objects.filter(node_type='eva')
+	else:
+		q_nodes = Control.objects.filter(node_type='con')
+	node_list = []
+	for node in q_nodes:
+		node_list.append(node.name)
+
+	# Depending on the parameter, I'm getting all the Evaluations or Controls taxonomy
+	if (parameter == "evaluation"):
+		tax = Evaluation.objects.all()
+	else:
+		tax = Control.objects.all()
+
+	# Passing the complete taxonomy and data to fill the form so you can operate on the taxonomy
+	args = {'tax': tax,
+			'categories': categories_list,
+			'nodes': node_list,
+			'form': form,
+			'request_path': parameter}
+
+	return render(request, "recommendation_app/tax_index.html", args)
+
+
+# Show the taxonomy's details page showing an overview of the taxonomy
+def tax_details(request, parameter):
+	if (parameter == 'evaluation'):
+		tax_details_obj = Evaluation.objects.all()
+	else:
+		tax_details_obj = Control.objects.all()
+
+	return render(request, "recommendation_app/tax_details.html", {'tax_details': tax_details_obj,
+																	'parameter': parameter})
+
+
+# Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
+def dot_graph(request, parameter):
+	# Create a graph object
+	taxonomy_dot_object = Graph(comment='Taxonomy', format='png')
+	# Fill the graph with every node in the database (evaluations/controls node and categories nodes), 
+	# and create a link with the parent node
+	if (parameter == 'evaluation'):
+		taxonomy_nodes = Evaluation.objects.all()
+	else:
+		taxonomy_nodes = Control.objects.all()
+	i = 0
+	for node in taxonomy_nodes.order_by('level'):
+		# This If construct will prevent the adding of an empty node to the root node in the graph
+		if (i == 0):
+			# Insert the root node
+			taxonomy_dot_object.node(str(node.id), label=str(node.name))
+		else:
+			# Insert the other nodes
+			taxonomy_dot_object.node(str(node.id), label=str(node.name))
+			taxonomy_dot_object.edge(str(node.parent_id), str(node.id))
+		i += 1
+	# Specify where I want to save the .png image and the .dot file
+	taxonomy_dot_object.render('taxonomy_output/taxonomy.dot')
+
+	# This function is used to zip a directory
+	def make_zipdir(path, ziph):
+		# Ziph is zipfile handle
+		for root, dirs, files in os.walk(path):
+			for file in files:
+				ziph.write(os.path.join(root, file))
+
+	# Making the zip file
+	zip_file = zipfile.ZipFile('taxonomy_output.zip', 'w', compression=zipfile.ZIP_DEFLATED)
+	make_zipdir('taxonomy_output/', zip_file)
+	zip_file.close()
+
+	# Remove the directory which was zipped and all files inside
+	shutil.rmtree("taxonomy_output/")
+
+	return redirect(reverse('rec:index'))
+
+
+# Method to navigate the taxonomy
+
+
+# Based on the MPTT's method 'get descendants' that return the descendants of a model instance, in tree order
+def show_descendants(request, nodename, parameter):
+	if (parameter == 'evaluation'):
+		q_result = Evaluation.objects.get(name=nodename).get_descendants(include_self=False)
+		# Get the count of descendants of the model instance
+		q_result_num = Evaluation.objects.get(name=nodename).get_descendant_count()
+	else:
+		q_result = Control.objects.get(name=nodename).get_descendants(include_self=False)
+		# Get the count of descendants of the model instance
+		q_result_num = Control.objects.get(name=nodename).get_descendant_count()
+
+	return render(request, "recommendation_app/tax_node_details.html",
+					{'tax_type': (str(parameter)).capitalize(),
+					'descendants': q_result,
+					'node_exe': nodename,
+					'method': 'descendants',
+					'num_descendants': q_result_num})
+
+
+# Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
+def show_children(request, nodename, parameter):
+	if (parameter == 'evaluation'):
+		q_result = Evaluation.objects.get(name=nodename).get_children()
+	else:
+		q_result = Control.objects.get(name=nodename).get_children()
+
+	return render(request,
+					"recommendation_app/tax_node_details.html",
+					{'tax_type': (str(parameter)).capitalize(),
+					'children': q_result,
+					'node_exe': nodename,
+					'method': 'children'})
+
+
+# Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
+# in tree order
+def show_family(request, nodename, parameter):
+	if (parameter == 'evaluation'):
+		q_result = Evaluation.objects.get(name=nodename).get_family()
+	else:
+		q_result = Control.objects.get(name=nodename).get_family()
+
+	return render(request,
+					"recommendation_app/tax_node_details.html",
+					{'tax_type': (str(parameter)).capitalize(),
+					'family': q_result,
+					'node_exe': nodename,
+					'method': 'family'})
+
+
+# Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
+# to be siblings of other root nodes)
+def show_siblings(request, nodename, parameter):
+	if (parameter == 'evaluation'):
+		q_result = Evaluation.objects.get(name=nodename).get_siblings()
+	else:
+		q_result = Control.objects.get(name=nodename).get_siblings()
+
+	return render(request,
+					"recommendation_app/tax_node_details.html",
+					{'tax_type': (str(parameter)).capitalize(),
+					'siblings': q_result,
+					'node_exe': nodename,
+					'method': 'siblings'})	
+\end{lstlisting}
+
 
 % URLS e VIEW A SCOPO DIDATTICO
 
