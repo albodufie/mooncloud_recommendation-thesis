@@ -23,7 +23,7 @@ comunità di utenti, maggiore è la sua dimensione e l'attività degli utenti co
 raccomandazioni. Questo algoritmo fornisce dei suggerimenti ad un utente sulla base di uno o più vicini, e la similarità tra utenti può
 essere determinata sulla base degli item che l'utente ha utilizzato o valutato.
 
-Molti di questi approcci possono essere generalizzati dall'algoritmo definito dai seguenti step:
+Molti di questi approcci possono essere generalizzati dall'algoritmo organizzato nei seguenti passi:
 \begin{enumerate}
 	\item Specificare qual'è l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare quali utenti possono 
 	avere dato valutazioni o usato item simili al utente target. Piuttosto che recuperare tutti gli utenti, per velocizzare l'esecuzione
@@ -45,10 +45,72 @@ Questi approcci sono facilmente implementabili, indipendenti dal contesto in cui
 a tecniche basate sul Content-based filtering; dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
 raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo in termini di tempo.  
 
-%% CODICE 
+Nella soluzione proposta in questa tesi, l'algoritmo UB-CF viene implentato come funzione che prende in ingresso un parametro 
+(\textit{user\_other\_id}), come è possibile osservare da \ref{lst:UB_CF_1} corrispondente all'identificativo per l'utente, 
+e restituisce una lista di raccomandazioni (\textit{similar\_user\_evaluations}) corrispondenti alle Evaluation simili a quelle usate da altri utenti. 
 
-%% ESEMPIO DI UNA CHIAMATA
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:UB_CF_1]
+# User recommendation algortihm
+def user_recommendation_alg(user_other_id):
+\end{lstlisting}
 
+Più precisamente come funziona l'algoritmo si suddivide nei seguenti passi:
+\begin{description}
+	\item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione, lo user\_other\_id,
+	tutte le evaluation che l'utente in questione ha utilizzato;
+	\begin{lstlisting}[language=Python, label=lst:UB_CF_2]
+		# Select the target user and its evaluations
+		target_user_evaluations = User.objects.get(other_id=user_other_id).evaluations.all()\
+																					.values('other_id', 'id', 'parent_id')\
+																					.order_by('other_id')
+	\end{lstlisting}
+	\item il secondo passo consiste nel selezionare le Evaluation usate dagli altri utenti, e viene create una lista di queste Evaluation;
+	\begin{lstlisting}[language=Python, label=lst:UB_CF_3]
+		# Select all other users and theirs evaluations
+		other_users = User.objects.exclude(other_id=user_other_id)
+		# Creating a list with all the evaluations of other users
+		other_users_evaluations = []
+		for o_users_evaluation in other_users:
+			for evaluation in o_users_evaluation.evaluations.all().values('other_id', 'id', 'parent_id')\
+																	.order_by('other_id'):
+				other_users_evaluations.append(evaluation)
+	\end{lstlisting}
+	\item il terzo passo consiste nell'andare a determinare quali tra le Evaluation dell'utente a cui si vuole raccomandare quali sono quelle 
+	simili usate dagli altri utenti. Per determinare le Evaluation simili si è andato a confrontare il paramentro \textit{parent\_id} (identifica
+	all'interno della tassonomia quale sia il nodo padre per quella Evaluation), associato ad ogni Evaluation, in questo modo si è andati a selezionare
+	soltanto gli item appartenenti a una stessa categoria, eliminando eventuali nodi duplicati. E componendo una lista finale con le Evaluation
+	restanti.
+	\begin{lstlisting}[language=Python, label=lst:UB_CF_4]
+		# Comparing target user's evaluations and other user's evaluations, and if there is a match the evaluation is
+		# added to the 'similar_evaluations' list (the matching is made comparing the 'parent_id')
+		similar_user_evaluations = []
+		for t_user_evaluation in target_user_evaluations:
+			for o_users_evaluation in other_users_evaluations:
+				# Taking only the evaluations that have: different other_id (excluding the target evaluation
+				# in the recommendation) and same parent_id and the evaluations that weren't added to 'target_user_evaluations'
+				# list and to 'similar_user_evaluations'
+				if ((t_user_evaluation['other_id'] != o_users_evaluation['other_id']) and  # Evaluations must have different 'other_id'
+						(t_user_evaluation['parent_id'] == o_users_evaluation['parent_id']) and  # Evaluations must have the same 'parent_id'
+						# Evaluation in all_other_evals list mustn't be already added to \
+						not (o_users_evaluation in target_user_evaluations) and  # the 'target_user_evaluations' list or
+						not (o_users_evaluation in similar_user_evaluations)):  # the 'similar_user_evaluations' list
+					similar_user_evaluations.append(o_users_evaluation)
+	\end{lstlisting}
+	
+\end{description}
+
+%% ESEMPIO DI UNA CHIAMATA CON VALORE DI RITORNO
+%\begin{figure}[ht!]
+%	\centering
+%	\includegraphics[scale=0.5]{images/UB_CF_test.png}
+%	\caption{Esempio di esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione UB-CF.}
+%	\label{fig:UB_CF_resp_json}
+%\end{figure}
+\ \\
+Nel capitolo successivo verrano mostrati degli esempio pratici in cui è stato applicato questo algoritmo.
+
+\newpage
 
 \subsection{Item-based filtering} 
 Quando viene applicato per milioni di utenti e item, l'algoritmo UB-CF non è molto efficente, per via della complessa computazione della 
@@ -56,22 +118,163 @@ ricerca di utenti simili; così in alternativa è stato introdotto l'algoritmo d
 (\textit{Item-based Collaborative Filter}) dove piuttosto che effetuare il confronto tra utenti simili, viene fatto un confronto tra 
 gli item dell'utente a cui si vuole raccomandare e i possibili item simili.
 
-Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come utenti gli
-hanno usati nel passato. \cite{item-based-collaborative-filtering}
-
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.5]{images/IB_CF_ex.png}
-	\caption{Esempio di applicazione di un sistema di raccomandazione Item-based}
+	\caption{Esempio di applicazione di un sistema di raccomandazione IB-CF.}
 	\label{fig:IB_CF}
 \end{figure}
+\ \\
+Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come utenti gli
+hanno usati nel passato \cite{item-based-collaborative-filtering}.
+
 
 %% CODICE 
+\lstset{style=python_code_style}
+\label{lst:CF_IB_Evaluation}
+\begin{lstlisting}[language=Python, caption={Implementazione del CF-IB per le Evaluation presenti in Moon Cloud.}]
+# Item recommendation algortihm
+def item_recommendation_alg(item_other_id):
+	"""
+	For a 'target' evaluation this algorithm suggest other evaluations that belong to the same category (this means
+	that they have the same 'parent_id').
+	:param item_other_id: value representing the other_id of the evaluation.
+	:return: a list of evaluations.
+	"""
+	# Selecting the evaluation, which is applied this algorithm, from its other_id
+	# SELECT * FROM recommendation_app_evaluation WHERE other_id = %(item_other_id)s AND node_type = 'eva'
+	target_eval = \
+		Evaluation.objects.filter(Q(other_id=item_other_id) & Q(node_type="eva"))\
+							.values('other_id', 'id', 'parent_id')[0]
 
-%% ESEMPIO DI UNA CHIAMATA CON VALORE DI RITORNO
+	# Selecting the other evaluations, excluding the target evaluation
+	# SELECT * FROM recommendation_app_evaluation WHERE other_id != %(item_other_id)s AND node_type = 'eva'
+	all_other_evals = Evaluation.objects.filter(~Q(other_id=item_other_id) & Q(node_type="eva"))\
+										.values('other_id', 'id', 'parent_id').order_by('other_id')
+
+	# Creating a list with all the evaluations that are similar to the target evaluation (comparing the parent_id)
+	similar_item_evaluations = []
+	for evaluation in all_other_evals:
+		# Taking only the evaluations that have: different other_id (excluding the target evaluation
+		# in the recommendation) and same parent_id and the evaluations that weren't added to similar_item_evaluations
+		# list
+		if ((target_eval['other_id'] != evaluation['other_id']) and  # Evaluations must have different 'other_id'
+				(target_eval['parent_id'] == evaluation['parent_id']) and  # Evaluations must have same 'parent_id'
+				# Evaluation in all_other_evals list mustn't be already added to \
+				not (evaluation in similar_item_evaluations)): # the 'similar_item_evaluations' list
+			similar_item_evaluations.append(evaluation)
+
+	return similar_item_evaluations	
+\end{lstlisting}
+
+%% ESEMPIO DI UNA CHIAMATA
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/IB_CF_Evaluation_test.png}
+	\caption{Esempio di esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione IB-CF per le Evaluation
+	supportate da Moon Cloud.}
+	\label{fig:IB_CF_Eval_resp_json}
+\end{figure}
+
+
+\lstset{style=python_code_style}
+\label{lst:IB_CF_Target}
+\begin{lstlisting}[language=Python, caption={Implementazione del IB-CF per i Target supportati da Moon Cloud.}]
+def target_recommendation_alg(target_id):
+	"""
+	For a target chose by a user this algorithm search the possible evaluations that can be recommended for that user.
+	:param target_id: identifier of a particular target.
+	:return: a list of evaluations.
+	"""
+	# Retriving all the evaluations in the database
+	evaluations = Evaluation.objects.filter(node_type="eva")
+
+	# Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_id
+	target_evaluations = []
+	for evaluation in evaluations: # Scanning all the evaluations
+		for evaluation_controls in evaluation.controls.filter(target_type_id=target_id):
+			if not(evaluation in target_evaluations): # Excluding evaluations duplicated
+				target_evaluations.append(evaluation)
+
+	# Converting the Evaluation model's instance in a dict and putting the evaluation, as a dict, in a list
+	target_evaluations_serializer = EvaluationSerializer(target_evaluations, many=True)
+
+	return target_evaluations_serializer.data
+\end{lstlisting}
+
+%% ESEMPIO DI UNA CHIAMATA
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/IB_CF_Target_test.png}
+	\caption{Esempio di esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione IB-CF per i 
+	Target supportarti da Moon Cloud.}
+	\label{fig:IB_CF_Target_resp_json}
+\end{figure}
+
 
 \subsection{Hybrid filtering} 
 
 %% CODICE
+\lstset{style=python_code_style}
+\label{lst:CF_Hybrid}
+\begin{lstlisting}[language=Python, caption={Implementazione di un sistema raccomandazione ibrido
+	che metta insieme le Raccomandazioni generate dagli algoritmi Item-based e User-based per le Evaluation presenti in Moon Cloud.}]
+# HYBRID IMPLEMENTATION OF USER RECOMMENDATION ALGORTIHM AND ITEM RECOMMENDATION ALGORITHM
+@api_view(['GET'])
+def hybrid_recommendation(request, user_other_id):
+	"""
+	For a User-X this algorithm compare his evaluations with other users's evaluations and return all the evaluations
+	that are similiar (same 'parent_id') to User-X's evaluations; then from all the evaluations used by the User-X other
+	recommendation are computed using the item recommendation algorithm; and all the recommendations from the first step
+	(here is used the user_recommendation_alg) and the second step (here is used the item_recommendation_alg)
+	are put together.
+	:param request: http GET request.
+	:param user_other_id: value representing the other_id of a User.
+	:return: json response with the evaluations to recommend.
+	"""
+
+	# Trying to retrive the actual User with user_other_id
+	user = User.objects.get(other_id=user_other_id)
+
+	# Taking from the user_recommendation_alg the evaluation recommended from this approach (similar_user_evaluations)
+	# and the user's evaluations (target_user_evaluations)
+	target_user_evaluations, similar_user_evaluations = user_recommendation_alg(user_other_id)
+
+	# For every evaluation used by users is extracted all other possible evaluations that have the same 'parent_id'
+	similar_item_evaluations = []
+	for t_user_evaluation in target_user_evaluations:  # for every target user's evaluations
+		for item_evaluation in item_recommendation_alg(t_user_evaluation['other_id']):  # is applied the item_recommendation algorithm
+			# Taking only the evaluations that have: different other_id (excluding the target evaluation
+			# in the recommendation) and same parent_id and the evaluations that weren't added to 'similar_item_evaluations'
+			# list or to 'similar_user_evaluations' or to 'target_user_evaluations'
+			if ((t_user_evaluation['other_id'] != item_evaluation['other_id']) and # Evaluations must have different 'id'
+					(t_user_evaluation['parent_id'] == item_evaluation['parent_id']) and # Evaluations must have the same 'parent_id'
+					# Evaluation in all_other_evals list mustn't be already added to \
+					not (item_evaluation in similar_item_evaluations) and # the 'similar_item_evaluations' list,
+					not (item_evaluation in similar_user_evaluations) and # the 'similar_user_evaluations' list or
+					not (item_evaluation in target_user_evaluations)): # the 'target_user_evaluations' list
+				similar_item_evaluations.append(item_evaluation)
+
+	# Putting together the evaluations recommended in similar_user_evaluations list and similar_item_evaluations list
+	similar_evaluations = []
+	# Adding to similar_evaluations list the evaluation in the similar_user_evaluations list
+	for s_user_evaluation in similar_user_evaluations:
+		similar_evaluations.append(s_user_evaluation)
+	# Adding to similar_evaluations list the evaluation in the similar_item_evaluations list
+	for item_evaluation in similar_item_evaluations:
+		# Taking only the evaluations that weren't added to \
+		if (not (item_evaluation in similar_evaluations) and # the 'similar_evaluations' list or
+				not (item_evaluation in target_user_evaluations)): # the 'target_user_evaluations' list
+			similar_evaluations.append(item_evaluation)
+	similar_evaluations = sorted(similar_evaluations, key=lambda i: i['other_id'])
+
+	return JsonResponse(similar_evaluations, safe=False)
+\end{lstlisting}
 
 %% ESEMPIO DI UNA CHIAMATA
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/CF_Hybrid_test.png}
+	\caption{Esempio di esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione Ibrido.}
+	\label{fig:CF_Hybrid_resp_json}
+\end{figure}
