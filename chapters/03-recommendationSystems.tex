@@ -133,11 +133,11 @@ del item su cui si vuole ottenere altri item simili; in generale per determinare
 l'attributo parent\_id associato ad ogni item, che determina quale sia il nodo padre all'interno della tassonomia, quindi alla fine 
 vengono selezionati quegli item che appartengono alla stessa categoria.\\
 
-In generale CF-IB ideato per determinare Evaluation simi funziona seguendo i seguenti passi:
+In generale CF-IB ideato per determinare Evaluation simili funziona seguendo i seguenti passi:
 \begin{itemize}
 	\item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione, lo item\_other\_id,
 	l'Evaluation su cui si vuole determinare le altre Evaluation simili;
-	\begin{lstlisting}[language=Python, label=lst:CF_IB_Evaluation_1]
+	\begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_1]
 	def item_recommendation_alg(item_other_id):
 
 		# Selecting the evaluation, which is applied this algorithm, from its other_id
@@ -146,7 +146,7 @@ In generale CF-IB ideato per determinare Evaluation simi funziona seguendo i seg
 										.values('other_id', 'id', 'parent_id')[0]
 	\end{lstlisting} 
 	\item il secondo passo è quello di recuperare tutte le Evaluation, escludendo la prima recuperata, presenti nella base di dati;
-	\begin{lstlisting}[language=Python, label=lst:CF_IB_Evaluation_2]
+	\begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_2]
 		# Selecting the other evaluations, excluding the target evaluation
 		# SELECT * FROM recommendation_app_evaluation WHERE other_id != %(item_other_id)s AND node_type = 'eva'
 		all_other_evals = Evaluation.objects.filter(~Q(other_id=item_other_id) & Q(node_type="eva"))\
@@ -155,7 +155,7 @@ In generale CF-IB ideato per determinare Evaluation simi funziona seguendo i seg
 	\item il terzo ed ultimo passo consiste nel andare a determinare le Evaluation che hanno lo stesso parent\_id, quindi
 	quelle appartenenti alla stessa categoria, dell'Evaluation ottenuta nel primo passo; inoltre, se presenti, vengono 
 	eliminati eventuali duplicati;
-	\begin{lstlisting}[language=Python, label=lst:CF_IB_Evaluation_3]
+	\begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_3]
 		# Creating a list with all the evaluations that are similar to the target evaluation (comparing the parent_id)
 		similar_item_evaluations = []
 		for evaluation in all_other_evals:
@@ -181,26 +181,36 @@ In generale CF-IB ideato per determinare Evaluation simi funziona seguendo i seg
 %	\label{fig:IB_CF_Eval_resp_json}
 %\end{figure}
 
+Altro algoritmo del tipo IB-CF implementato in questa tesi sulla falsa riga di quello appena riportato qua sopra, è quello ideato per
+determinare quali Evaluation possono essere raccomandate per un Target inserito da un utente tra quelli supportati da Moon Cloud,
+che sono: Host avente Windows come sistema operativo, Host avente Linux come sistema operativo, sistemi che sfruttano 
+servizi di Aws o di Azure e Url di siti web. \\
+In Python questo algoritmo viene implementato come funzione che prende in ingresso l'id (identificativo univoco) del Target, e 
+restituisce l'insieme delle Evaluation raccomandate per quel Target, il tutto viene eseguito seguendo questi passi:
+\begin{itemize}
+	\item il primo passo è quello di recuperare tutte le Evaluation presenti nel database;
+	\begin{lstlisting}[language=Python, label=lst:IB_CF_Target_1]
+	def target_recommendation_alg(target_id):
+		# Retriving all the evaluations in the database
+		evaluations = Evaluation.objects.filter(node_type="eva")
+	\end{lstlisting} 
+	\item il secondo ed ultimo passo è quello di andare a determinare quali sono i Controlli che hanno lo stesso target\_type\_id
+	del Target id passato come parametro della funzione, e da quei Controlli determinare le Evaluation che li utilizzano, 
+	eliminando eventuali duplicati; determinando così le possibili Evaluation applicabili per quel Target.
+	\begin{lstlisting}[language=Python, label=lst:IB_CF_Target_2]
+		# Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_id
+		target_evaluations = []
+		for evaluation in evaluations: # Scanning all the evaluations
+			for evaluation_controls in evaluation.controls.filter(target_type_id=target_id):
+				if not(evaluation in target_evaluations): # Excluding evaluations duplicated
+					target_evaluations.append(evaluation)
+	
+		# Converting the Evaluation model's instance in a dict and putting the evaluation, as a dict, in a list
+		target_evaluations_serializer = EvaluationSerializer(target_evaluations, many=True)
 
-\lstset{style=python_code_style}
-\label{lst:IB_CF_Target}
-\begin{lstlisting}[language=Python, caption={Implementazione del IB-CF per i Target supportati da Moon Cloud.}]
-def target_recommendation_alg(target_id):
-	# Retriving all the evaluations in the database
-	evaluations = Evaluation.objects.filter(node_type="eva")
-
-	# Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_id
-	target_evaluations = []
-	for evaluation in evaluations: # Scanning all the evaluations
-		for evaluation_controls in evaluation.controls.filter(target_type_id=target_id):
-			if not(evaluation in target_evaluations): # Excluding evaluations duplicated
-				target_evaluations.append(evaluation)
-
-	# Converting the Evaluation model's instance in a dict and putting the evaluation, as a dict, in a list
-	target_evaluations_serializer = EvaluationSerializer(target_evaluations, many=True)
-
-	return target_evaluations_serializer.data
-\end{lstlisting}
+		return target_evaluations_serializer.data
+	\end{lstlisting} 
+\end{itemize}
 
 %% ESEMPIO DI UNA CHIAMATA
 %\begin{figure}[ht!]
@@ -211,6 +221,7 @@ def target_recommendation_alg(target_id):
 %	\label{fig:IB_CF_Target_resp_json}
 %\end{figure}
 
+Nel capitolo successivo verrano mostrati anche degli esempi dei valori di risposta di queste funzioni.
 
 \subsection{Hybrid filtering} 
 
@@ -272,9 +283,9 @@ def hybrid_recommendation(request, user_other_id):
 \end{lstlisting}
 
 %% ESEMPIO DI UNA CHIAMATA
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.5]{images/CF_Hybrid_test.png}
-	\caption{Esempio di esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione Ibrido.}
-	\label{fig:CF_Hybrid_resp_json}
-\end{figure}
+%\begin{figure}[ht!]
+%	\centering
+%	\includegraphics[scale=0.5]{images/CF_Hybrid_test.png}
+%	\caption{Esempio di esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione Ibrido.}
+%	\label{fig:CF_Hybrid_resp_json}
+%\end{figure}
