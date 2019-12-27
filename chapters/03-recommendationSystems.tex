@@ -6,22 +6,24 @@ codice e spiegando i vari passagi che portano ad ottenere delle raccomandazioni.
 
 
 \section{Memory-based} 
-I Filtri Collaborativi Memory-based sono stati introdotti per via delle osservazioni che vennero fatte dalla comunità, dicenddo che
-gli utenti si fidano maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a calcolare 
-le relazioni tra utenti e item attraverso lo schema dei vicini che identifica sia coppie di item che tendono ad essere usati insieme 
-o hanno un grado di similarità alto o utenti con uno storico di item usati simile. \cite{taxonomy-of-recommender-agents-on-the-internet}
+I Filtri Collaborativi Memory-based sono stati introdotti per via delle osservazioni e studi dimostrando che
+gli utenti si fidano maggiormente delle raccomandazioni di altri che la pensano allo stesso modo. Questi metodi mirano a determinare 
+il grado o il tipo di relazione tra utenti e item identificando o coppie di item che tendono ad essere usati insieme 
+o che hanno un grado di similarità alto oppure utenti con uno storico di item usati simile
+\cite{taxonomy-of-recommender-agents-on-the-internet}.
 Questi approcci divennero molto famosi grazie alla loro semplicità di implementazione, molto intuitivi, non necessitano di operazioni
-di training sui dati e regolazione di molti parametri, inoltre l'utente può capire la ragione che sta dietro ogni raccomandazione. 
+di training sui dati e regolazione di molti parametri, inoltre l'utente può comprendere la ragione che si cela dietro
+ad ogni raccomandazione. 
 
-Questa categoria di sistemi di raccomandazione sono definiti anche \\\textit{Neighborhood-based} e possono essere ulteriormente classificati 
-in due sottocategorie:
+Questa categoria di sistemi di raccomandazione è definita anche \\\textit{Neighborhood-based} e può essere ulteriormente 
+classificata in due sottocategorie:
 
 
 \subsection{User-based filtering} 
-Questo sistema, definiti anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}) basa tutto il suo funzionamento sulla 
+Questo sistema, definito anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}), basa tutto il suo funzionamento sulla 
 comunità di utenti, maggiore è la sua dimensione e l'attività degli utenti con item o servizi e migliori potranno essere le 
-raccomandazioni. Questo algoritmo fornisce dei suggerimenti ad un utente sulla base di uno o più vicini, e la similarità tra utenti può
-essere determinata sulla base degli item che l'utente ha utilizzato o valutato.
+raccomandazioni. Questo algoritmo fornisce dei suggerimenti ad un utente sulla base di uno o più vicini (neighbours), e la similarità 
+tra utenti può essere determinata sulla base degli item che l'utente ha utilizzato o valutato.
 
 Molti di questi approcci possono essere generalizzati dall'algoritmo organizzato nei seguenti passi:
 \begin{enumerate}
@@ -40,33 +42,33 @@ Molti di questi approcci possono essere generalizzati dall'algoritmo organizzato
 	\caption{Esempio di applicazione di un sistema di raccomandazione User-based}
 	\label{fig:UB_CF}
 \end{figure}
-
+\ \\
 Questi approcci sono facilmente implementabili, indipendenti dal contesto in cui sono applicati e possono essere più accurati rispetto
 a tecniche basate sul Content-based filtering; dall'altra parte all'aumentare del numero di utenti che vado a considerare per fare le 
-raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo in termini di tempo.  
+raccomandazioni migliore è la precisione di questo processo ma anche è maggiore il costo in termini di tempo.\\  
 
-Nella soluzione proposta in questa tesi, l'algoritmo UB-CF viene implentato come funzione che prende in ingresso un parametro 
-(\textit{user\_other\_id}), come è possibile osservare da \ref{lst:UB_CF_1} corrispondente all'identificativo per l'utente, 
-e restituisce una lista di raccomandazioni (\textit{similar\_user\_evaluations}) corrispondenti alle Evaluation simili a quelle usate 
+Nella soluzione proposta in questa tesi, l'algoritmo UB-CF viene implementato come funzione che prende in ingresso un parametro 
+\textit{user\_other\_id}, come è possibile osservare dal Codice \ref{lst:UB_CF_1} corrispondente all'identificativo dell'utente, 
+e restituisce una lista di raccomandazioni \textit{similar\_user\_evaluations} corrispondenti alle Evaluation simili a quelle usate 
 da altri utenti. 
-
 \lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:UB_CF_1]
+\begin{lstlisting}[language=Python, label=lst:UB_CF_1, caption={\ }]
 # User recommendation algortihm
 def user_recommendation_alg(user_other_id):
 \end{lstlisting}
 \ \\
 Più precisamente il funzionamento dell'algoritmo si svolge seguendo i seguenti passi:
 \begin{itemize}
-	\item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione, lo user\_other\_id,
-	tutte le Evaluation che l'utente in questione ha utilizzato;
+	\item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione, lo \textit{user\_other\_id},
+	tutte le Evaluation utilizzate dall'utente in questione
 	\begin{lstlisting}[language=Python, label=lst:UB_CF_2]
 		# Select the target user and its evaluations
 		target_user_evaluations = User.objects.get(other_id=user_other_id).evaluations.all()\
 																					.values('other_id', 'id', 'parent_id')\
 																					.order_by('other_id')
 	\end{lstlisting}
-	\item il secondo passo consiste nel selezionare le Evaluation usate dagli altri utenti, e viene create una lista di queste Evaluation;
+	\item il secondo passo consiste nel selezionare le Evaluation usate dagli altri utenti, e creare una lista di queste Evaluation
+	\textit{other\_users\_evaluations};
 	\begin{lstlisting}[language=Python, label=lst:UB_CF_3]
 		# Select all other users and theirs evaluations
 		other_users = User.objects.exclude(other_id=user_other_id)
@@ -77,11 +79,13 @@ Più precisamente il funzionamento dell'algoritmo si svolge seguendo i seguenti 
 																	.order_by('other_id'):
 				other_users_evaluations.append(evaluation)
 	\end{lstlisting}
-	\item il terzo passo consiste nell'andare a determinare quali tra le Evaluation dell'utente a cui si vuole raccomandare quali sono quelle 
-	simili usate dagli altri utenti. Per determinare le Evaluation simili si è andato a confrontare il paramentro \textit{parent\_id} (identifica
-	all'interno della tassonomia quale sia il nodo padre per quella Evaluation), associato ad ogni Evaluation, in questo modo si è andati a selezionare
-	soltanto gli item appartenenti a una stessa categoria, eliminando eventuali nodi duplicati. E componendo una lista finale con le Evaluation
-	restanti.
+	\item il terzo passo consiste nell'andare a determinare quali tra le Evaluation, dell'utente a cui si vuole raccomandare, quali sono quelle 
+	simili usate dagli altri utenti. Per determinare le Evaluation simili si è andato a confrontare il paramentro \textit{parent\_id} (che identifica
+	all'interno della base di dati quale sia il nodo padre per quella Evaluation), associato ad ogni Evaluation, in questo modo si è andati a selezionare
+	soltanto gli item appartenenti a una stessa categoria, inoltre vengono eliminanti eventuali nodi duplicati. E componendo una lista finale 
+	\textit{similar\_user\_evaluations} con le Evaluation restanti. 
+	In definitiva ciò che ritorna questa funzione sono due liste: \textit{target\_user\_evaluations}, contenente le Evaluation usate dall'utente 
+	in questione e \textit{similar\_user\_evaluations}.
 	\begin{lstlisting}[language=Python, label=lst:UB_CF_4]
 		# Comparing target user's evaluations and other user's evaluations, and if there is a match the evaluation is
 		# added to the 'similar_evaluations' list (the matching is made comparing the 'parent_id')
@@ -97,6 +101,8 @@ Più precisamente il funzionamento dell'algoritmo si svolge seguendo i seguenti 
 						not (o_users_evaluation in target_user_evaluations) and  # the 'target_user_evaluations' list or
 						not (o_users_evaluation in similar_user_evaluations)):  # the 'similar_user_evaluations' list
 					similar_user_evaluations.append(o_users_evaluation)
+					
+    	return target_user_evaluations, similar_user_evaluations
 	\end{lstlisting}
 \end{itemize}
 
@@ -108,13 +114,13 @@ Più precisamente il funzionamento dell'algoritmo si svolge seguendo i seguenti 
 %	\label{fig:UB_CF_resp_json}
 %\end{figure}
 \ \\
-Nel capitolo successivo verrano mostrati degli esempio pratici in cui è stato applicato questo algoritmo.
+Nel capitolo successivo verrano mostrati degli esempi pratici in cui è stato applicato questo algoritmo.
 
 \newpage
 
 \subsection{Item-based filtering} 
-Quando viene applicato per milioni di utenti e item, l'algoritmo UB-CF non è molto efficente, per via della complessa computazione della 
-ricerca di utenti simili; così in alternativa è stato introdotto l'algoritmo di filtraggio Item-based, definito anche IB-CF 
+Quando viene applicato per milioni di utenti e item l'algoritmo UB-CF non è molto efficente per via della complessa computazione della 
+ricerca di utenti simili; così in alternativa è stato introdotto l'algoritmo di Filtraggio Item-based, definito anche IB-CF 
 (\textit{Item-based Collaborative Filter}) dove piuttosto che effetuare il confronto tra utenti simili, viene fatto un confronto tra 
 gli item dell'utente a cui si vuole raccomandare e i possibili item simili.
 
