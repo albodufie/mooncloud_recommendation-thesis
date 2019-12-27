@@ -230,17 +230,17 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target; il tutto vi
 \ \\
 Nel capitolo successivo verrano mostrati anche degli esempi dei valori di risposta di queste funzioni.
 
-\subsection{Hybrid filtering} 
-Nei sistemi di raccomandazione ibridi si tende a voler combinare più tecniche di raccomandazione, cercando di raggruppare i 
-pregi di ciascuna tecnica; infatti se uno compara i sistemi di raccomandazione ibridi con i sistemi Collaborativi o 
+\subsection{Hybrid Filtering} 
+Nei Sistemi di Raccomandazione Ibridi si tende a voler combinare più tecniche di raccomandazione, cercando di raggruppare i 
+pregi di ciascun approccio; infatti se uno compara i Sistemi di Raccomandazione Ibridi con i Sistemi Collaborativi o 
 Content-based, la precisione dei suggerimenti è solitamente maggiore.\\
-Nella soluzione proposta in questa tesi, questo algoritmo viene direttamente implementato come Api Rest, alla quale viene 
-passato come parametri la request, l'oggetto HTTP che il browser invia al server contenente la richiesta HTTP attraverso
-un certo URL e lo user\_other\_id è un valore che viene preso dall'URL, e rappresenta l'other\_id dell'utente su cui si andrà
-a raccomandare. Inoltre il tutto viene limitato ad essere richiamato solo tramite richieste HTTP con metodo GET.\\ 
-Nel codice \ref{lst:CF_Hybrid_Evaluation_1} possiamo vedere come vengono limitate le richieste al metodo GET e come 
+Nella soluzione proposta in questa tesi, questo algoritmo viene direttamente implementato come Api Rest, alla quale vengono 
+passati come parametri la \textit{request}, l'oggetto HTTP che il browser invia al server contenente la richiesta HTTP tramite
+un certo URL e lo \textit{user\_other\_id}, un valore che viene preso dall'URL e rappresenta l'\textit{other\_id} (attributo
+associato ad ogni utente) che rappresenta un identificativo per l'utente. Inoltre il tutto viene limitato ad essere richiamato 
+solo tramite richieste HTTP con metodo GET.\\ 
+Nel Codice \ref{lst:CF_Hybrid_Evaluation_1} possiamo vedere come vengono limitate le richieste al metodo GET e come 
 viene definita la funzione.
-
 \begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_1, caption={\ }]
 @api_view(['GET'])
 def hybrid_recommendation(request, user_other_id)
@@ -255,17 +255,17 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi:
 		user = User.objects.get(other_id=user_other_id)
 	\end{lstlisting} 
 	\item il secondo passo è applicare l'algoritmo di User Recommandation, descritto nella sezione precendete, per le Evaluation e ottenere due liste,
-	la prima target\_user\_evaluations contiene le Evaluation che l'utente ha utilizzato, mentre nella seconda similar\_user\_evaluations si avranno
-	le Evaluation che gli altri utenti hanno utilizzato e che sono simili alle Evaluation del primo utente;
+	la prima \textit{target\_user\_evaluations} contiene le Evaluation che l'utente ha utilizzato, mentre nella seconda \textit{similar\_user\_evaluations}
+	si avranno le Evaluation che gli altri utenti hanno utilizzato e che sono simili alle Evaluation del primo utente;
 	\begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_3]
 		# Taking from the user_recommendation_alg the evaluation recommended from this approach (similar_user_evaluations)
 		# and the user's evaluations (target_user_evaluations)
 		target_user_evaluations, similar_user_evaluations = user_recommendation_alg(user_other_id)
 	\end{lstlisting} 
 	\item il terzo passo consiste nell'applicazione dell'algoritmo Item-based per ogni Evaluation usata dall'utente in questione così da ottenere 
-	delle raccomandazioni che sono compatibili con le Evaluation usate dall'Utente; la similarità o appartenenza alla stessa categoria viene 
-	ottenuta osservando il valore del parent\_id; anche in questo caso vengono eliminati eventuali duplicati e viene formata una lista 
-	similar\_item\_evaluations contenente le Evaluation simili ottenute dall'applicazione dell'algoritmo di raccomandazione Item-based;
+	delle raccomandazioni che sono compatibili con le Evaluation usate dall'utente; la similarità o appartenenza alla stessa categoria viene 
+	ottenuta osservando il valore del \textit{parent\_id}; anche in questo caso vengono eliminati eventuali duplicati e viene formata una lista 
+	\textit{similar\_item\_evaluations} contenente le Evaluation simili ottenute dall'applicazione dell'algoritmo di raccomandazione Item-based;
 	\begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_4]
 		# For every evaluation used by users is extracted all other possible evaluations that have the same 'parent_id'
 		similar_item_evaluations = []
@@ -283,7 +283,7 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi:
 					similar_item_evaluations.append(item_evaluation)
 	\end{lstlisting} 
 	\item il quarto passo consiste nel raggruppare le due liste contenenti le Evaluation raccomandate per l'utente secondo l'applicazione dei
-	due algoritmi, eliminando anche eventuali duplicati, così da ottenere un'unica lista similar\_evaluations la quale viene ritornata dalla 
+	due algoritmi, eliminando anche eventuali duplicati, così da ottenere un'unica lista \textit{similar\_evaluations} la quale viene ritornata dalla 
 	funzione sottoforma di risposta HTTP in formato Json;
 	\begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_5]
 		# Putting together the evaluations recommended in similar_user_evaluations list and similar_item_evaluations list
