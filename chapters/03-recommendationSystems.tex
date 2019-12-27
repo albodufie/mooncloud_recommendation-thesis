@@ -131,18 +131,18 @@ gli item dell'utente a cui si vuole raccomandare e i possibili item simili.
 	\label{fig:IB_CF}
 \end{figure}
 \ \\
-Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come utenti gli
-hanno usati nel passato \cite{item-based-collaborative-filtering}.
+Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come sono
+stati usati dagli utenti in passato \cite{item-based-collaborative-filtering}.
 
 A livello pratico nella soluzione proposta, questo algoritmo è stato implementato come funzione che prende in ingresso un 
-parametro item\_other\_id rappresentante l'other\_id, un attributo associato ad ogni nodo della tassonomia che lo identifica,
-del item su cui si vuole ottenere altri item simili; in generale per determinare la similarità tra due oggetti, si osserva 
-l'attributo parent\_id associato ad ogni item, che determina quale sia il nodo padre all'interno della tassonomia, quindi alla fine 
+parametro \textit{item\_other\_id} rappresentante l'\textit{other\_id}, un attributo associato ad ogni item all'interno della base di dati
+che lo identifica, del item su cui si vuole ottenere altri item simili; in generale per determinare la similarità tra due oggetti, si osserva 
+l'attributo \textit{parent\_id} associato ad ogni item, che determina quale sia il nodo padre all'interno della tassonomia, in sostanza 
 vengono selezionati quegli item che appartengono alla stessa categoria.\\
 
-In generale CF-IB ideato per determinare Evaluation simili funziona seguendo i seguenti passi:
+In generale il CF-IB ideato per determinare Evaluation simili funziona seguendo i seguenti passi:
 \begin{itemize}
-	\item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione, lo item\_other\_id,
+	\item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione (item\_other\_id)
 	l'Evaluation su cui si vuole determinare le altre Evaluation simili;
 	\begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_1]
 	def item_recommendation_alg(item_other_id):
@@ -161,7 +161,7 @@ In generale CF-IB ideato per determinare Evaluation simili funziona seguendo i s
 	\end{lstlisting}
 	\item il terzo ed ultimo passo consiste nel andare a determinare le Evaluation che hanno lo stesso parent\_id, quindi
 	quelle appartenenti alla stessa categoria, dell'Evaluation ottenuta nel primo passo; inoltre, se presenti, vengono 
-	eliminati eventuali duplicati;
+	eliminati eventuali duplicati; e la funzione ritorna una lista \textit{similar\_item\_evaluations} contente le Evaluation simili.
 	\begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_3]
 		# Creating a list with all the evaluations that are similar to the target evaluation (comparing the parent_id)
 		similar_item_evaluations = []
@@ -187,13 +187,13 @@ In generale CF-IB ideato per determinare Evaluation simili funziona seguendo i s
 %	supportate da Moon Cloud.}
 %	\label{fig:IB_CF_Eval_resp_json}
 %\end{figure}
-
+\ \\
 Altro algoritmo del tipo IB-CF implementato in questa tesi sulla falsa riga di quello appena riportato qua sopra, è quello ideato per
 determinare quali Evaluation possono essere raccomandate per un Target inserito da un utente tra quelli supportati da Moon Cloud,
 che sono: Host avente Windows come sistema operativo, Host avente Linux come sistema operativo, sistemi che sfruttano 
-servizi di Aws o di Azure e Url di siti web. \\
-In Python questo algoritmo viene implementato come funzione che prende in ingresso l'id (identificativo univoco) del Target, e 
-restituisce l'insieme delle Evaluation raccomandate per quel Target, il tutto viene eseguito seguendo questi passi:
+servizi di Aws o di Azure e Url di siti web.\\
+In Python questo algoritmo viene implementato come funzione che prende in ingresso l'\textit{id} (identificativo univoco) del Target, e 
+restituisce l'insieme delle Evaluation raccomandate per quel Target; il tutto viene eseguito seguendo questi passi:
 \begin{itemize}
 	\item il primo passo è quello di recuperare tutte le Evaluation presenti nel database;
 	\begin{lstlisting}[language=Python, label=lst:IB_CF_Target_1]
@@ -201,8 +201,8 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target, il tutto vi
 		# Retriving all the evaluations in the database
 		evaluations = Evaluation.objects.filter(node_type="eva")
 	\end{lstlisting} 
-	\item il secondo ed ultimo passo è quello di andare a determinare quali sono i Controlli che hanno lo stesso target\_type\_id
-	del Target id passato come parametro della funzione, e da quei Controlli determinare le Evaluation che li utilizzano, 
+	\item il secondo ed ultimo passo è quello di andare a determinare quali sono i Controlli che hanno il valore dell'attributo \textit{target\_type\_id}
+	pari al parametro in ingresso della funzione \textit{target\_id}, e da quei Controlli determinare le Evaluation che li utilizzano, 
 	eliminando eventuali duplicati; determinando così le possibili Evaluation applicabili per quel Target.
 	\begin{lstlisting}[language=Python, label=lst:IB_CF_Target_2]
 		# Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_id
@@ -227,14 +227,13 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target, il tutto vi
 %	Target supportarti da Moon Cloud.}
 %	\label{fig:IB_CF_Target_resp_json}
 %\end{figure}
-
+\ \\
 Nel capitolo successivo verrano mostrati anche degli esempi dei valori di risposta di queste funzioni.
 
 \subsection{Hybrid filtering} 
 Nei sistemi di raccomandazione ibridi si tende a voler combinare più tecniche di raccomandazione, cercando di raggruppare i 
 pregi di ciascuna tecnica; infatti se uno compara i sistemi di raccomandazione ibridi con i sistemi Collaborativi o 
 Content-based, la precisione dei suggerimenti è solitamente maggiore.\\
-
 Nella soluzione proposta in questa tesi, questo algoritmo viene direttamente implementato come Api Rest, alla quale viene 
 passato come parametri la request, l'oggetto HTTP che il browser invia al server contenente la richiesta HTTP attraverso
 un certo URL e lo user\_other\_id è un valore che viene preso dall'URL, e rappresenta l'other\_id dell'utente su cui si andrà
@@ -246,7 +245,7 @@ viene definita la funzione.
 @api_view(['GET'])
 def hybrid_recommendation(request, user_other_id)
 \end{lstlisting} 
-
+\ \\
 Il funzionamento di questo algoritmo si svolge nei seguenti passi:
 \begin{itemize}
 	\item il primo passo è quello di verificare se l'utente esiste nel database altrimenti viene generata un eccezione (errore) che viene gestito in
