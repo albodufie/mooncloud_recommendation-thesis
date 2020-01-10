@@ -61,7 +61,7 @@ Django è un web framework di alto livello basato su Pyhton che permette di svil
 perfettamente mantenibile, Django si occupa della maggiori grane del sviluppo web, così da permetterti di concentrarti sulla scrittura della tua app; inoltre 
 è open-source e ha una comunità attiva, una documentazione completa e sempice da consultare.
 \ \\
-Django aiuta a scrivere software con le seguenti caratteristiche \cite{django-documentation}:
+Django aiuta a scrivere software con le seguenti caratteristiche \cite{django-documentation}.
 \begin{description}
 	\item[Versatile]: è usato per la creazione di praticamente tutti i tipi di siti web, a partire a sistemi per la gestioni di contenuti e wiki,
 	social network e siti di notizie; può lavorare con qualunque client-side framework, gestire contenuti in quasi tutti i formati (inclusi HTML, 
@@ -92,7 +92,7 @@ web, spesso in modo dinamico, creando una pagina HTML da mostrare in cui è poss
 	\label{fig:django_doc}
 \end{figure}
 \ \\
-Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi diversi passaggi in file separati \cite{mdn-django-documentation}:
+Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi diversi passaggi in file separati \cite{mdn-django-documentation}.
 \begin{description}
 	\item[URL]: mentre è possibile processare richieste da qualsiasi URL attraverso unas singola funzione, è più mantenibile scrivere diverse funzioni chiamate
 	View per gestire ogni risorsa. un URL mapper è usato per reindirizzare le richieste HTTP alla view corretta in base all'URL della richiesta; inoltre è 
@@ -271,7 +271,7 @@ una raccomandazione si hanno delle aspettative che l'item raccomandato possa ess
 devono essere in accordo con i gusti degli utenti. 
 \ \\
 \ \\
-Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione: 
+Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione.
 \begin{description}
 	\item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti
 	in passato, vengo presi in considerazione prima gli item con alte valutazioni o quelli molto utilizzati. Ogni item ha associate
@@ -303,7 +303,7 @@ Questo problema è accentuato quando sono presenti nel database molti item che n
 utenti \cite{model-based-approach-for-collaborative-filtering}.
 
 Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti, attraverso 
-un procedimento a 3 fasi:
+un procedimento a 3 fasi.
 \begin{description}
 	\item[Raccolta di dati]: questo è il primo step e anche quello più importante per poter costruire un sistema di 
 	raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente,
@@ -380,8 +380,8 @@ I CF Model-based possono rispondere alle richieste degli utenti istantaneamente 
 
 
 \subsection{Cold Start problem} 
-Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al database? Questa situazione è chiamata \textit{Cold Start}. Ci possono
-essere due tipi di Cold Start:
+Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al database? Questa situazione è chiamata \textit{Cold Start} ed
+è possibile trovarne di due tipi.
 \begin{description}
 	\item[Visitor Cold Start]: si verifica quando un nuovo utente è stato aggiunto al database, visto che non c'è alcuno storico relativo ad esso, il sistema non
 	sa le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema,
