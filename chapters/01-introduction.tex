@@ -42,9 +42,10 @@ supervisionando il loro comportamento, accertandosi che sia quello aspettato.\\
 Il \textit{Security Assessment} diventa allora un aspetto importante specialmente negli ambienti Cloud e IoT. Questo proccesso, costituito
 da un insieme di attività mirate alla valutazione del rischio in sistemi IT, deve essere portato avanti in modo continuo e olistico, per 
 correlare le evidence raccolte da sempre maggiori meccanismi di protezione \cite{mooncloud-semi-automatic-and-trustworthy}.\\
-Moon Cloud è una soluzione PaaS (acronimo inglese di Platform as a Service) che fornice una piattaforma B2B (Business To Business) 
-innovativa per verifiche, diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT rispetto alle politiche di sicurezza, in modo 
-continuo e su larga scala. Moon Cloud supporta una semplice ed efficente \textit{ICT Security Governance}, dove le politiche di sicurezza 
+Moon Cloud è una soluzione PaaS (acronimo inglese di \textit{Platform as a Service}) che fornice una piattaforma B2B 
+(\textit{Business To Business}) innovativa per verifiche, diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT rispetto alle politiche di 
+sicurezza, in modo continuo e su larga scala. 
+Moon Cloud supporta una semplice ed efficente \textit{ICT Security Governance}, dove le politiche di sicurezza 
 possono essere definite dalle compagnie stesse (a partire da un semplice controllo sulle vulnerabilità a linee guida di
 sicurezza interna), da entità esterne, imposte da standard oppure da regolamentazioni nazionali o internazionali.\\
 La sicurezza di un sistema o di un insieme di asset dipende solo parzialmente dalla forza dei singoli meccanismi di protezione isolati
@@ -70,7 +71,7 @@ I requisiti ad alto livello fondamentali per poter garantire la Security Assuran
 	\label{list:security-assurance-fondamentals}
 \end{description}
 \ \\
-Moon Cloud è un framework di Security Assurance garantendo che tutte le attività aziendali si compiano seguendo i requisiti 
+Moon Cloud è un framework di \textit{Security Assurance} il quale garantisce che tutte le attività aziendali si compiano seguendo i requisiti 
 prestabiliti da appropriate politiche e procedure precedentemente definite.\\
 Viene definita una \textit{Security Compliance Evaluation}, un processo di verifica a cui un target viene sottoposto e il cui risultato 
 deve soddisfare i requisiti richiesti da standard e politiche. A partire da questi processi di controllo, che devono a loro volta essere 
@@ -108,9 +109,9 @@ i processi di valutazione.
 Tutte le attività di collezione sono eseguite dal probe, ognuno dei quali è uno script Python fornito come una singola immagine di Docker, 
 che viene inizializzata quando viene triggerata una Evaluation ed è distrutta quando il processo di Evaluation è terminato.\\
 Accedendo alla piattaforma di Moon Cloud, l'utente può definire le proprie politiche di sicurezza e attività di Evaluation come 
-espressioni booleane di controlli di sicurezza e altre politiche predefinite. Una volta che una politica viene definita, l'utente può 
+una serie di controlli di sicurezza e altre politiche predefinite. Una volta che una politica viene definita, l'utente può 
 decidere quando schedulare l'Evaluation; e nel momento in cui un processo di Evaluation viene inizializzato, tutti i controlli vengono 
-eseguiti e i risultati dell'espressioni booleane vengono memorizzati e restituiti all'utente. A questo punto l'utente può accedere a 
+eseguiti e i risultati vengono memorizzati e restituiti all'utente. A questo punto l'utente può accedere a 
 questi risultati a diversi gradi di precisione: una visione sommaria e generale di tutte le politche implentate e dello stato generale 
 del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence raccolte per una Evaluation.\\
 Per poter rendere ancora più intuituivo e semplice da utilizzare un sistema di questa importanza, si è pensato di introdurre un sistema
