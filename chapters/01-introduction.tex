@@ -38,7 +38,7 @@ violazioni di sicurezza; piuttosto, la mal configurazione e l'errata integrazion
 L'utilizzo di sistemi di sicurezza e di controllo migliori non garantisce in modo assoluto la sicurezza dell'infrastruttura; 
 per garantire ciò è necessario implementare un processo continuo di diagnostica e verifica della corretta configurazione dei controlli, 
 supervisionando il loro comportamento, accertandosi che sia quello aspettato. \vspace{0.5cm}\hfill\break
-Il \textit{Security Assessment} diventa allora un aspetto importante specialmente negli ambienti Cloud e IoT. Questo processo, costituito
+La \textit{Security Assessment} diventa allora un aspetto importante specialmente negli ambienti Cloud e IoT. Questo processo, costituito
 da un insieme di attività mirate alla valutazione del rischio in sistemi IT, deve essere portato avanti in modo continuo e olistico, per 
 correlare le evidence raccolte da sempre maggiori meccanismi di protezione \cite{mooncloud-semi-automatic-and-trustworthy}.\hfill\break
 Moon Cloud è una soluzione PaaS (acronimo inglese di \textit{Platform as a Service}) che fornice una piattaforma B2B 
@@ -68,7 +68,7 @@ I requisiti ad alto livello fondamentali per poter garantire la Security Assuran
     continuo permette di venire a conoscenza di questi problemi in breve tempo e agire di conseguenza.
     \label{list:security-assurance-fondamentals}
 \end{description}
-Moon Cloud è un framework di \textit{Security Assurance} il quale garantisce che tutte le attività aziendali si compiano seguendo i requisiti 
+Moon Cloud è un framework di \textit{Security Assurance} il quale garantisce che un sistema ICT soddisfi certi requisiti 
 prestabiliti da appropriate politiche e procedure precedentemente definite.
 Una \textit{Security Compliance Evaluation} è un processo di verifica a cui un target è sottoposto e il cui risultato 
 deve soddisfare i requisiti richiesti da standard e politiche. A partire da questi processi di controllo, che devono a loro volta essere 
@@ -77,10 +77,6 @@ menzionato, sottoponendo il target a scenari critici o di testing.\hfill\break
 In particolare, una Security Compliance Evaluation è un processo di verifica dell'uniformità di un certo target a una o più politiche 
 attraverso una serie di controlli che a seconda delle caratteristiche e proprietà del target, può avere successo o meno. Di 
 conseguenza se un target supera tutti i controlli a cui è sottoposto allora significa che rispetta la politica scelta.
-%In particolare, una Security Compliance Evaluation è un processo di verifica dell'uniformità di un certo target a una o più politiche 
-%attraverso una serie di controlli che a seconda del valore booleano (successo pari a 1 o insuccesso pari a 0) associato ad ogni controllo viene prodotto 
-%un valore booleano per le politiche; se un target supera tutti i controlli, quindi tutti i valori booleani associati ad ogni controllo
-%è pari al successo, a cui è sottoposto allora significa che rispetta la politica scelta. 
 \begin{figure}[ht!]
     \includegraphics[scale=0.5]{images/Security_Compliance_Evaluation.png}
     \caption{Security Compliance Evaluation}
@@ -89,22 +85,20 @@ conseguenza se un target supera tutti i controlli a cui è sottoposto allora sig
 %
 \section{Processo di Evaluation}
 Moon Cloud implementa il processo di Security Compliance Evaluation in Figura \ref{fig:Security_Compliance_Evaluation} usando controlli 
-di monitoraggio o di test personalizzabili. Inoltre garantisce, oltre a tutti i requisisti ad alto livello elencati precedentemente 
-\ref{list:security-assurance-fondamentals}, anche i seguenti.
-\begin{description}
-    \item Moon Cloud è una piattaforma Cloud centralizzata presentando una visione olistica dello stato di sicurezza di un dato sistema.
+di monitoraggio o di test personalizzabili. Inoltre è dotato delle seguenti caratteristiche, le quali vanno a completare i requisiti 
+elencati nella Sezione \ref{list:security-assurance-fondamentals}.
+\begin{itemize}
     \item Moon Cloud implementa un sistema di Security Assurance Evidence-based continuo, implementato come processo di Compliance,
-    basato su politiche custom o standard.
-    \item Moon Cloud è offerto come un servizio (PaaS), dove le attività di Evaluation possono essere facilmente ed efficientemente 
-    configurate su un target asset, senza l'intervento dell'uomo.
-    \item Moon Cloud permette di schedulare delle ispezioni automatiche, grazie all'inventario di asset protetto.
+    basato su politiche custom o standard; inoltre presenta una visione olistica dello stato di sicurezza di un dato sistema.
+    \item Moon Cloud permette di schedulare e configurare delle ispezioni automatiche, grazie all'inventario di asset protetto e senza
+    l'intervento dell'uomo.
     \item Moon Cloud Evaluation Engine può ispezionare dall'interno un sistema, gestendo così delle minaccie interne; permettendo anche 
     reazioni rapide a incidenti di sicurezza e veloci rimedi, grazie alla raccolta continua di evidence. 
-\end{description}
+\end{itemize}
 In generale, l'architettura di Moon Cloud è costituita da un'Assurance Manager che gestisce i processi di Evaluation attraverso un set di 
 \textit{Execution Cluster}; ognuno dei quali gestisce ed esegue un set di probe che collezionano le evidence necessarie per effettuare 
 i processi di valutazione.
-Tutte le attività di collezione sono eseguite dal probe, ognuno dei quali è uno script Python fornito come una singola immagine di Docker, 
+Tutte le attività di collezione sono eseguite dalla probe, ognuno dei quali è uno script Python fornito come una singola immagine di Docker, 
 che viene inizializzata quando viene triggerata una Evaluation ed è distrutta quando il processo di Evaluation è terminato.\hfill\break
 Accedendo alla piattaforma di Moon Cloud, l'utente può definire le proprie politiche di sicurezza e attività di Evaluation come 
 una serie di controlli di sicurezza e altre politiche predefinite. Una volta che una politica viene definita, l'utente può 
