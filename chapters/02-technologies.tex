@@ -1,165 +1,155 @@
-\chapter{Tecnologie utilizzate}
-\label{chp:02-technologies}
-In questo capitolo verranno descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate
-unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri. In particolare nel capitolo successivo verranno 
-approfonditi a livello pratico i sitemi di raccomandazione Memory-based i quali sono stati utilizzati per l'implementazione della
-soluzione. 
-
-%% AGGIUNGERE RIFERIMENTI AI CAPITOLI SUCCESSIVI E INDICARE QUALI SONO LE PARTI CHE POI SONO STATE IMPLEMENTATE NELLA 
-%% SOLUZIONE DI QUESTO PROGETTO
-
+\chapter{Tecnologie utilizzate}\label{chp:02-technologies}
+In questo capitolo sono descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate 
+unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri. In particolare nel capitolo successivo vengono 
+approfonditi a livello pratico i sistemi di raccomandazione Memory-based i quali sono stati utilizzati per l'implementazione della 
+soluzione.
+% SISTEMARE POSIZIONE TABELLA E FOTO DELLA SEZIONE NESTED SET MODEL 
+%
 \section{Perché Python e Django}
 \paragraph{Python}
 Python è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni 
 distribuite, scripting, computazione numerica e system testing; ideato e rilasciato pubblicamente per la prima volta nel 1991 dal suo 
-creatore Guido van Rossum, programmatore olandese.
-
+creatore Guido van Rossum, programmatore olandese.\hfill\break
 Python supporta diversi paradigmi di programmazione, come quello object-oriented (con supporto all'ereditarietà multipla), quello 
-imperativo e quello funzionale, ed offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che 
-unitamente alla gestione automatica della memoria e a robusti costrutti per la gestione delle eccezioni fa di Python uno dei linguaggi 
+imperativo e quello funzionale, e offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che 
+unitamente alla gestione automatica della memoria e a robusti costrutti per il controllo delle eccezioni fa di Python uno dei linguaggi 
 più ricchi e comodi da usare.
-
 Inoltre è anche semplice da usare e imparare. Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio 
 immediatamente intuibile. La sua sintassi è pulita e snella così come i suoi costrutti, decisamente chiari e non ambigui. I blocchi 
 logici vengono costruiti semplicemente allineando le righe allo stesso modo, incrementando la leggibilità e l'uniformità del codice 
-anche se vi lavorano diversi autori.
-
-Un aspetto inusuale del Python è il metodo che usa per delimitare i blocchi di programma, che lo rende unico fra i linguaggi più diffusi.
-
+anche se vi lavorano diversi autori.\hfill\break
+Un aspetto inusuale del Python è il metodo che usa per delimitare i blocchi di codice, che lo rende unico fra i linguaggi più diffusi.
+%
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, caption={Esempio di programma scritto in Python}]
 # Testing if two strings are equals
 def test(got, expected):
-	if got == expected:
-		prefix = ' OK '
-	else:
-		prefix = ' X '
-	print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+    if got == expected:
+        result = ' OK '
+    else:
+        result = ' X '
+    print('%s got: %s expected: %s' % (result, repr(got), repr(expected)))
 
 def main():
-	print('verbing')
-	test('hail', 'hailing')
-	test('swiming', 'swimingly')
-	test('do', 'do')
+    test('hail', 'hailing')
+    test('swiming', 'swimingly')
+    test('do', 'do')
 
 if __name__ == '__main__':
-	main()
+    main()
 \end{lstlisting}
-\ \\
-Nei linguaggi derivati dall'ALGOL come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
-(il C ed il Perl usano { }; il Pascal usa begin ed end). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
+%
+Nei linguaggi come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
+(il C e il Perl usano { }; il Pascal usa begin ed end). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
 indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. In Python invece di usare parentesi 
 o parole chiave, usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare 
-sia una tabulazione, sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi. 
-
+sia una tabulazione, sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
 estensione .py) e, se sintatticamente corretto, di eseguirlo e non esiste una fase di compilazione separata (come 
 avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
-
+%
 \paragraph{Django}
 Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
 perfettamente mantenibile, Django si occupa della maggiori grane del sviluppo web, così da permetterti di concentrarti sulla scrittura della tua app; inoltre 
-è open-source e ha una comunità attiva, una documentazione completa e sempice da consultare.
-\ \\
+è open-source e ha una comunità attiva, una documentazione completa e sempice da consultare.\hfill\break
 Django aiuta a scrivere software con le seguenti caratteristiche \cite{django-documentation}.
 \begin{description}
-	\item[Versatile]: è usato per la creazione di praticamente tutti i tipi di siti web, a partire a sistemi per la gestioni di contenuti e wiki,
-	social network e siti di notizie; può lavorare con qualunque client-side framework, gestire contenuti in quasi tutti i formati (inclusi HTML, 
-	RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, etc.).
-	\item[Sicuro]: aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
-	le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un modo sicuro per gestire gli account degli utenti e le relative
-	password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies dove sarebbero vulnerabili (invece i cookie
-	contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
-	\item[Mantenibile]: il codice di Django è scritto seguedo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre
-	particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
-	Django raggruppa parti di codice legto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
-	\item[Portatile]: Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che
-	sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastructure e 
-	e documentazione per l'hosting di siti web in Django.
+    \item[Versatile]: è usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti e wiki,
+    a social network e siti di notizie; può lavorare con qualunque client-side framework, e gestire contenuti in quasi tutti i formati (inclusi HTML, 
+    RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, etc.).
+    \item[Sicuro]: aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
+    le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un modo sicuro per gestire gli account degli utenti e le relative 
+    password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies dove sarebbero vulnerabili (invece i cookie 
+    contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
+    \item[Mantenibile]: il codice di Django è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
+    particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
+    Django raggruppa parti di codice letto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
+    \item[Portatile]: Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
+    sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastructure 
+    e documentazione per l'hosting di siti web in Django.
 \end{description}
-\ \\
 Un tradizionale sito web attende delle richieste HTTP dal browser web (o altri client). Quando viene ricevuta una richiesta, di tipo POST o GET, l'applicazione 
 legge le informazioni contenute nel URL e altri possibili dati a seconda del tipo di richiesta. A seconda della richiesta è possibile che vengano letti o 
 scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta. A quel punto l'applicazione ritorna una risposta al browser 
 web, spesso in modo dinamico, creando una pagina HTML da mostrare in cui è possibile inserire o recuperare dati in placeholder in un template HTML.
-
+%
 \newpage
-
+%
 \begin{figure}[ht!]
     \centering
-	\includegraphics[scale=0.3]{images/Django_doc.png}
-	\caption{Schema generico di funzionamento di un applicativo web sviluppato con Django}
-	\label{fig:django_doc}
+    \includegraphics[scale=0.3]{images/Django_doc.png}
+    \caption{Schema generico di funzionamento di un applicativo web sviluppato con Django.}
+    \label{fig:django_doc}
 \end{figure}
-\ \\
+\hfill \break
 Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi diversi passaggi in file separati \cite{mdn-django-documentation}.
 \begin{description}
-	\item[URL]: mentre è possibile processare richieste da qualsiasi URL attraverso unas singola funzione, è più mantenibile scrivere diverse funzioni chiamate
-	View per gestire ogni risorsa. un URL mapper è usato per reindirizzare le richieste HTTP alla view corretta in base all'URL della richiesta; inoltre è 
-	possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla funzione appropriata
-	come dati da elaborare.
-	\item[View]: una View è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le view accedono ai dati necessari per soddisfare la 
-	richiesta attraverso i Model, e delegano la formattazione delle risposte ai template. 
-	\item[Model]: i Model sono oggetti in Python che definiscono la struttura dei dati dell'applicazione, e provvedono meccanisci per gestirla (add, modify, 
-	delete) e query per interpellare il database.
-	\item[Template]: un template è un file di testo che definisce la struttura o il layout di un file (come una pagina HTML), attraverso placeholder per 
-	rappresentare il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un template HTML, popolandolo con dati presi dal Model. 
+    \item[URL]: mentre è possibile processare richieste da qualsiasi URL attraverso unas singola funzione, è più mantenibile scrivere diverse funzioni chiamate
+    View per gestire ogni risorsa. un URL mapper è usato per reindirizzare le richieste HTTP alla view corretta in base all'URL della richiesta; inoltre è 
+    possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla funzione appropriata
+    come dati da elaborare.
+    \item[View]: una View è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le view accedono ai dati necessari per soddisfare la 
+    richiesta attraverso i Model, e delegano la formattazione delle risposte ai template. 
+    \item[Model]: i Model sono oggetti in Python che definiscono la struttura dei dati dell'applicazione, e provvedono meccanismi per gestirla (add, modify, 
+    delete) e query per interpellare il database.
+    \item[Template]: un template è un file di testo che definisce la struttura o il layout di un file (come una pagina HTML), attraverso placeholder per
+    rappresentare il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un template HTML, popolandolo con dati presi dal Model.
 \end{description}
-
+%
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
-il software in unità standardizzate chiamate \textit{container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
+il software in unità standardizzate chiamate \textit{Container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
 strumenti di sistema, codice e runtime. Con Docker, è possibile distribuire e ricalibrare le risorse per un'applicazione in qualsiasi ambiente, 
-tenendo sempre sotto controllo il codice eseguito.\\
+tenendo sempre sotto controllo il codice eseguito.\hfill\break
 La tecnologia Docker utilizza solitamente il kernel di Linux e le sue funzionalità, come Cgroups e namespace, per isolare i processi in modo da poterli 
 eseguire in maniera indipendente. Questa indipendenza è l'obiettivo dei container: la capacità di eseguire più processi e applicazioni in 
 modo separato per sfruttare al meglio l'infrastruttura esistente pur conservando il livello di sicurezza che sarebbe garantito dalla 
 presenza di sistemi separati.
-
+%
 \begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.7]{images/Docker_Config_Container.png}
-	\caption{Schematizzazione del contenuto di un Container in Docker}
-	\label{fig:DCC}
+    \centering
+    \includegraphics[scale=0.7]{images/Docker_Config_Container.png}
+    \caption{Schematizzazione del contenuto di un Container in Docker}
+    \label{fig:DCC}
 \end{figure}
-\ \\
+\hfill \break
 Gli strumenti per la creazione di container, come Docker, consentono il deployment a partire da un'\textit{immagine}, ciò semplifica la condivisione di 
 un'applicazione o di un insieme di servizi, con tutte le loro dipendenze, nei vari ambienti.
 Docker, considera i container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
-copiare e spostare i container da un ambiente all'altro, ottimizzando così le app per il cloud.\\
+copiare e spostare i container da un ambiente all'altro, ottimizzando così le app per il cloud.\hfill\break
 I contenitori forniscono una modalità standard per impacchettare il codice della tua applicazione, le configurazioni e le dipendenze, in un oggetto singolo e 
 condividono un sistema operativo installato sul server, operando come processi con risorse isolate, assicurando velocità, affidabilità e distribuzioni coerenti, 
 indipendentemente dall’ambiente.
-
+%
 \section{Strutture dati gerarchiche}
 Le tabelle di un database relazionale non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
 constituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle di questo tipo.
-In questo caso, i dati gerarchici sono una collezione di informazioni dove ogni item ha un solo padre e nessuno o più figli
-(ad eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni, simili a un albero, 
+In questo caso, i dati gerarchici sono una collezione d'informazioni dove ogni item ha un solo padre e nessuno o più figli 
+(a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni, simili a un albero, 
 può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di 
 organizzazione di un business, categorie per gestire contenuti e categorie di prodotti.
-
+%
 \begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.49]{images/MC_Rec_Tree.png}
-	\caption{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione}
-	\label{fig:MC_Rec_Tree}
+    \centering
+    \includegraphics[scale=0.46]{images/MC_Rec_Tree.png}
+    \caption{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
+    \label{fig:MC_Rec_Tree}
 \end{figure}
-\ \\
-Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti  presi in considerazione sono i seguenti:
-
+\hfill \break
+Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti presi in considerazione sono i seguenti:
+%
 \subsection{The Adjacency List Model}
-Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{Adjacency List Model} o metodo ricorsivo;
-è definito tale perchè il suo funzionamento si basa su una funzione che itera per tutto l'albero.\\
-In questo modello, ogni item (nodo dell'albero) nella tablla contiene un puntatore al suo item padre; invece il nodo radice avrà un 
-puntatore a un valore NULL per l'item padre.\\
+Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{Adjacency List Model} o metodo ricorsivo; 
+è definito tale perché il suo funzionamento si basa su una funzione che itera per tutto l'albero.\hfill\break
+In questo modello, ogni item (nodo dell'albero) nella tabella contiene un puntatore al suo item padre; invece il nodo radice avrà un 
+puntatore a un valore NULL per l'item padre.\hfill\break
 La Tabella \ref{table:adjacency_list_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato 
 in questo progetto secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tree}.
- 
+%
 \begin{table}[ht!]
 \centering
 \begin{tabular}[c]{| c | l | c |} 
-	\hline
+    \hline
 	id & name & parent \\ [0.5ex] 
 	\hline
 	\rowcolor{rootnodecell} 1 & Moon Cloud & NULL \\ [0.5ex] 
@@ -179,39 +169,36 @@ in questo progetto secondo questo approccio, seguendo come riferimento la Figura
 	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 \\ [0.5ex]
 	\hline
 \end{tabular}
-\caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo l'Adjacency List Model}
+\caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo l'Adjacency List Model.}
 \label{table:adjacency_list_model_table}
 \end{table}
-\ \\
+\hfill\break
 Il vantaggio di usare questo modello sta nella sua semplicità di costruzione, sopratutto a livello di codice client-side, 
-e di restituzione dei figli di un nodo. Mentre diventa problematico se si lavora in puro codice SQL e nella maggior parte dei linguaggi 
-di programmazione, è lento e poco efficente, perchè è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
+e di restituzione dei figli di un nodo. Diventa problematico se si lavora in puro codice SQL e nella maggior parte dei linguaggi 
+di programmazione, è lento e poco efficiente, perché è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
 un certo periodo di tempo, questo rende la funzione molto lente quando si lavora con alberi di grandi dimensioni, inoltre molti linguaggi 
 non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa 
 una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
 in maggior tempo.
-
-\newpage
-
+%
 \subsection{The Nested Set Model}
 Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare la gerarchia in un modo diverso, non 
 come nodi e linee (come se fosse un albero), ma come container innestati.
-
+%
 \begin{figure}[ht!]
-	\includegraphics[scale=0.30]{images/MC_Rec_NSM_Container.png}
-	\caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando dati presi dal database del 
-	progetto in questione}
-	\label{fig:MC_Rec_NSM_Container}
+    \includegraphics[scale=0.30]{images/MC_Rec_NSM_Container.png}
+    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
+    progetto in questione.}
+    \label{fig:MC_Rec_NSM_Container}
 \end{figure}
-\ \\
+%
 Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene e suoi figli e questa forma di 
 gerarchia viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi come è possibile osservare dalla Tabella 
-\ref{table:nested_set_model_table} seguente. 
-
+\ref{table:nested_set_model_table} seguente.
 \begin{table}[ht!]
 \centering
 \begin{tabular}[c]{| c | l | c | c |} 
-	\hline
+    \hline
 	id & name & lft & rght \\ [0.5ex] 
 	\hline
 	\rowcolor{rootnodecell} 1 & Moon Cloud & 1 & 100 \\ [0.5ex] 
@@ -231,165 +218,151 @@ gerarchia viene mantenuta in tabella attraverso l'uso di due attributi aggiuntiv
 	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 & 11 \\ [0.5ex]
 	\hline
 \end{tabular}
-\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo il Nested Set Model}
+\caption{Esempio di una tabella per gestire dati in modo gerarchico secondo il Nested Set Model.}
 \label{table:nested_set_model_table}
 \end{table}
-\ \\
-Come è possibile osservare dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rappresentata attraverso l'uso 
+\hfill\break
+Dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rappresentata attraverso l'uso 
 degli attributi 'left' e 'right' per rappresentare l'annidamento dei nodi (il nome delle colonne: 'left' e 'right', hanno significati 
 speciali in SQL; per questo motivo si identificano questi campi con i nomi 'lft' e 'rght').
-
+%
 \begin{figure}[ht!]
-	\includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
-	\caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando dati presi dal database del 
-	progetto in questione}
-	\label{fig:MC_Rec_NSM_Tree}
+    \includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
+    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
+    progetto in questione.}
+    \label{fig:MC_Rec_NSM_Tree}
 \end{figure}
-\ \\
-L'assegnazione di questi valori ad ogni nodo viene effetuata seguendo questo procedimento: ogni nodo dell'albero viene visitato due volte, 
-assegnando i valori in ordine di visita, e in entrambe le visite. Quindi vengono associati ad ogni nodo due numeri, memorizzati come 
-due attributi. 
+\hfill\break
+L'assegnazione di questi valori viene effettuata ad ogni nodo visitandolo due volte e assegnando i valori in ordine di visita, e in entrambe le visite. 
+Quindi vengono associati ad ogni nodo due numeri, memorizzati come due attributi.
 Più precisamente si inizia la visita dell'albero partendo da sinistra e continuando verso destra, un livello alla volta, scendendo per ogni
 nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
 destra. Questo approccio è chiamato \textit{Modified preorder tree traversal algorithm} (MPTT). A partire da questa tecnica è stato 
 ideata la struttura della tassonomia delle evaluation e dei controlli implementate nella soluzione proposta in questa tesi, con 
-l'ausilio di un package di Python chiamato MPTT.\\
+l'ausilio di un package di Python chiamato MPTT.\hfill\break
 Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container} possiamo notare che la numerazione dei nodi, viene
-effettuata a partire da container più esterno da sinistra e continua verso destra.\\
-A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'utlimo è
+effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
+A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di aggiornamento e 
-cancellazione dei nodi; in quest ultimo il grado di complicatezza dell'operazione è determinato dal nodo che si vuole cancellare, a 
+cancellazione dei nodi; in quest ultimo il grado di complessità dell'operazione è determinato dal nodo che si vuole cancellare, a 
 partire dal caso più semplice, il nodo foglia (un nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo 
 radice.
-
+%
 \newpage
-
+%
 \section{Sistemi di raccomandazione}
 Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia ad utenti uno o più item esistenti 
-in un database. L'\textit{item} è un qualsiasi cosa di interesse agli utenti, come prodotti, libri o giornali. Quando si eseguire
+in un database. L'\textit{item} è una qualsiasi cosa di interesse agli utenti, come prodotti, libri o giornali. Quando si eseguire 
 una raccomandazione si hanno delle aspettative che l'item raccomandato possa essere tra quelli di maggiore interesse; in altre parole, 
-devono essere in accordo con i gusti degli utenti. 
-\ \\
-\ \\
+devono essere in accordo con i gusti degli utenti.\hfill\break
 Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione.
 \begin{description}
-	\item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti
-	in passato, vengo presi in considerazione prima gli item con alte valutazioni o quelli molto utilizzati. Ogni item ha associate
-	delle informazioni che lo descrivono, questo insieme di dati viene definito metadati, e sono fondamentali per il processo di 
-	raccomandazione. 
-	\item[Collaborative filtering](CF): un item viene raccomandato ad un utente se i suoi vicini (altri utenti simili) sono 
-	interessati a quello stesso item.   
+    \item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti 
+    in passato, vengo presi in considerazione prima gli item con alte valutazioni o quelli molto utilizzati. Ogni item ha associate 
+    delle informazioni che lo descrivono, questo insieme di dati viene definito metadati, e sono fondamentali per il processo di 
+    raccomandazione.
+    \item[Collaborative filtering](CF): un item viene raccomandato ad un utente se i suoi vicini (altri utenti simili) sono 
+    interessati a quello stesso item.
 \end{description}
-
+%
 \begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.5]{images/recommender_systems.png}
-	\caption{Categorizzazione generale dei sistemi di raccomandazione}
-	\label{fig:recommender_systems}
+    \centering
+    \includegraphics[scale=0.5]{images/recommender_systems.png}
+    \caption{Categorizzazione generale dei sistemi di raccomandazione.}
+    \label{fig:recommender_systems}
 \end{figure}
-\ \\
 Entrambi gli approcci (CBF e CF) hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e
 sugli interessi del singolo utente e propone item differenti a utenti differenti, questo significa che ogni utente può ricevere 
 raccomandazioni uniche; e questo è un vantaggio. 
 Tuttavia la più grande limitazione del CBF è il fatto di non poter determinare se un utente è interessato ad un item in modo implicito,
-perchè analizza solamente direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
-suggerire item che non verrebero notati con questo approccio.
+perché analizza solamente direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
+suggerire item che non verrebbero notati con questo approccio.
 Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item allora il sistema CF consuma molte 
 risorse e tempo per poter analizzarli, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione 
 viene fatta sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item e questo è il suo punto 
-di forza perchè non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perchè può
+di forza perché non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perché può
 portare a suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti. 
 Questo problema è accentuato quando sono presenti nel database molti item che non hanno valutazioni o non sono stati mai usati dagli 
 utenti \cite{model-based-approach-for-collaborative-filtering}.
-
+\vspace{0.5cm}
+\hfill\break
 Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti, attraverso 
 un procedimento a 3 fasi.
 \begin{description}
-	\item[Raccolta di dati]: questo è il primo step e anche quello più importante per poter costruire un sistema di 
-	raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente,
-	cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
-	attarverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti
-	dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, etc.
-	\item[Memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di
-	diventare. Ad esempio, in un sistema di raccomanzione per film, maggiori sono le valutazioni fornite dagli utenti, e 
-	migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
-	anche il supporto di memorizzazione più adatto.   
-	\item[Filtraggio dei dati]: dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre
-	le informazioni rilevanti per poter effettuare le raccomandazioni finali, e sono già disponibili diversi algoritmi che
-	semplificano quest'ultima fase. 
+    \item[Raccolta di dati]: questo è il primo step e anche quello più importante per poter costruire un sistema di 
+    raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente, 
+    cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
+    attraverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti 
+    dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, etc.
+    \item[Memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
+    diventare. Ad esempio, in un sistema di raccomandazione per film, maggiori sono le valutazioni fornite dagli utenti, e 
+    migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
+    anche il supporto di memorizzazione più adatto.   
+    \item[Filtraggio dei dati]: dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre 
+    le informazioni rilevanti per poter effettuare le raccomandazioni finali, e sono già disponibili diversi algoritmi che 
+    semplificano quest'ultima fase. 
 \end{description}
-\ \\
-I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco degli approcci ibridi, delle
-combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di
+I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco degli approcci ibridi, delle 
+combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di 
 quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
-
-
+%
 \subsection{Content-based filtering}
 Un Content-based filtering (acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item (oggetti o prodotti), quelli 
-più simili, il confronto viene effettuato sfruttand i metadati, come il genere, una descrizione, uno o più autori, la categoria di 
+più simili, il confronto viene effettuato sfruttando i metadati, come il genere, una descrizione, uno o più autori, la categoria di 
 appartenenza, etc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
-item allora gli piaceranno anche altri con caratteristiche o proprietà simili.\\
+item allora gli piaceranno anche altri con caratteristiche o proprietà simili.\hfill\break
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
-Content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del
-contenuto che descrive un item e la rappresentazione del contenuto dell'item interessato dall'utente.\\
+Content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del 
+contenuto che descrive un item e la rappresentazione del contenuto dell'item interessato dall'utente.\hfill\break
 Questi metodi sono usati quando si conoscono a priori i metadati sugli item che si vuole suggerire, ma nulla sugli utenti.
 In questo sistema, delle \textit{keyword} sono utilizzate per caratterizzare gli item e un profilo dell'utente è 
 costruito per memorizzare quali item sono di suo interesse. In altre parole, questi algoritmi cercano di raccomandare quello che 
-l'utente ha valutato positivamente o usato nel passato e sta esaminando nel presente. La costruzione del profilo dell'utente,
-spesso temporaneo, non viene basata su un modulo di registrazione che l'utente stesso deve compilare, ma su informazioni
+l'utente ha valutato positivamente o usato nel passato e sta esaminando nel presente. La costruzione del profilo dell'utente, 
+spesso temporaneo, non viene basata su un modulo di registrazione che l'utente stesso deve compilare, ma su informazioni 
 lasciate indirettamente dall'utente, le quali possono essere: i prodotti che ha maggiormente cercato e acquistato, quelli che sono 
 stati inseriti nella lista dei desideri, etc.. Più precisamente, tra vari item candidati da raccomandare all'utente si passa per un 
 processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
-
-
+%
 \subsection{Collaborative filtering}
 I Filtri Collaborativi (\textit{Collaborative filtering}, acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
-degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database,
+degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database, 
 sfruttano tecniche di analisi dei dati per risolvere il problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere 
 producendo, eventualmente una lista dei top-N item da raccomandare per un dato utente.
 Un utente è sottoposto ad un processo di matching all'interno del database per scoprire quali sono i possibili \textit{neighbors},
 che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune al lui. A questo punto gli item maggiormente 
-preferiti dai neighbors sono raccomandati all'utente visto che potrebbero essere di suo interesse.\\ 
+preferiti dai neighbors sono raccomandati all'utente visto che potrebbero essere di suo interesse.\hfill\break
 Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
-utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite. 
-Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based.\\
-
+utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite.
+Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based.\hfill\break
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
 Filtri Collaborativi.
 \begin{description}
-	\item Il primo obbiettivo è quello di migliorare la scalabilità degli algoritmi di Filtri Collaborativi; questi algoritmi sono in grado di cercare
-	anche diecimila di potenziali neighbors (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
-	potenziali neighbors, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno molte informazioni.
-	\item Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono
-	raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item che potrebbero essere di loro gusto.
+    \item Il \textbf{primo obbiettivo} è quello di migliorare la scalabilità degli algoritmi di Filtri Collaborativi; questi algoritmi sono in grado di cercare 
+    anche diecimila di potenziali neighbors (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
+    potenziali neighbors, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno molte informazioni.
+    \item Il \textbf{secondo obbiettivo} è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono 
+    raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item che potrebbero essere di loro gusto.
 \end{description}
-\ \\
 Per certi versi questi due obbiettivi sono in conflitto tra di loro e per ottenere dei risultati validi e di una certa importanza è 
-necessario trattarli in contemporanea perchè aumentare solamente la scalabilità diminuirebbe la sua qualità e viceversa 
-\cite{item-based-collaborative-filtering}.\\
-
-
+necessario trattarli in contemporanea perché aumentare solamente la scalabilità diminuirebbe la sua qualità e viceversa 
+\cite{item-based-collaborative-filtering}.\hfill\break
 Il principale modello di Filtri Collaborativi studiato in questo elaborato e approfondito nel capitolo successivo, è il metodo definito 
 come \textit{Memory-based} e il  vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati 
 ottenuti sono altrettanto semplici da interpretare; mentre ci possono essere anche Filtri Collaborativi che sfruttano metodi 
 \textit{Model-based} che si basano sulla fattorizzazione di matrici e sono molto più funzionali per gestire il problema della 
-parsità dei dati. Questi ultimi sono sviluppati usando algoritmi di data mining e machine learning per predire le valutazioni di utenti 
-su item senza valutazioni, tentando di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei
-meccanismi di riferimento all'interno di questo modello. 
+sparsità dei dati. Questi ultimi sono sviluppati usando algoritmi di data mining e machine learning per predire le valutazioni di utenti 
+su item senza valutazioni, tentando di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei 
+meccanismi di riferimento all'interno di questo modello.
 I CF Model-based possono rispondere alle richieste degli utenti istantaneamente \cite{model-based-approach-for-collaborative-filtering}.
-
-
+%
 \subsection{Cold Start problem} 
-Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al database? Questa situazione è chiamata \textit{Cold Start} ed
+Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al database? Questa situazione è chiamata \textit{Cold Start} ed 
 è possibile trovarne di due tipi.
 \begin{description}
-	\item[Visitor Cold Start]: si verifica quando un nuovo utente è stato aggiunto al database, visto che non c'è alcuno storico relativo ad esso, il sistema non
-	sa le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema,
-	a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una volta che si è venuti a 
-	conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
-	\item[Item Cold Start]: si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare
-	il valore di questo item; maggiore l'interazione un item riceve, più è facile che venga raccomandato all'utente giusto.  
+    \item[Visitor Cold Start]: si verifica quando un nuovo utente è stato aggiunto al database, visto che non c'è alcuno storico relativo ad esso, il sistema non 
+    sa le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema, 
+    a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una volta che si è venuti a 
+    conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
+    \item[Item Cold Start]: si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare 
+    il valore di questo item; maggiore l'interazione un item riceve, più è facile che venga raccomandato all'utente giusto.
 \end{description}
-
-
-
