@@ -1,8 +1,8 @@
-\chapter{Scenario e motivazioni}\label{chp:01-overview}
+\chapter{Introduzione a Moon Cloud}\label{chp:01-introduction}
 In questo capitolo verrà descritto in modo più approfondito il funzionamento della piattaforma Moon Cloud unitamente al 
 motivo dell'implementazione della soluzione proposta.
 %
-\section{Introduzione}
+\section{Moon Cloud overview}
 La diffusione di sistemi \textit{Information and Communications Technology} (acronimo ICT) ha avuto luogo nella maggior parte degli ambienti 
 lavorativi e privati in termini di servizi offerti, automazione di processi e incremento delle performance. L'uso di questa tecnologia 
 ha assunto importanza a partire dagli anni novanta come effetto del boom d'Internet e al giorno d'oggi le professionalità legate al
@@ -19,9 +19,9 @@ utenti e industrie per il deploy dei loro sistemi IT. Tuttavia il Cloud Computin
 fiducia e trasparenza dove i clienti necessitano di avere delle garanzie sui servizi Cloud ai quali si affidano; spesso i fornitori di 
 questi servizi non fornisco ai clienti le specifiche riguardanti le misure di sicurezza messe in atto.\hfill\break
 Negli ultimi anni, sono state sviluppate tecniche e modi per rendere sicuri questi sistemi e proteggere i dati degli utenti, portando 
-alla diffusione di approcci eterogenei che incrementarono la confusione negli utenti.
+alla diffusione di approcci eterogenei che incrementarono la confusione negli utenti. 
 Tecniche tradizionali di verifica della sicurezza basati su metodi di analisi statistica non sono più sufficienti e devono essere integrati 
-con processi di raccolta di prove (in inglese \textit{evidence}) da sistemi Cloud in produzione e funzionanti.
+con processi di raccolta di prove (in inglese \textit{evidence}) da sistemi Cloud in produzione e funzionanti. 
 In generale la \textit{Cloud Security} definisce i modi, come criptazione e controllo degli accessi, per proteggere attivamente gli asset 
 da minacce interne ed esterne, e fornire un ambiente in cui i clienti possano affidarsi e interagire in totale sicurezza.\hfill\break
 Tutto questo non basta a rendere il Cloud fidato e trasparente, per questo sono state introdotte tecniche di
@@ -35,14 +35,22 @@ dovuti a violazioni della privacy e al furto di dati.
 Il mercato sta lentamente notando che non è l'inadeguatezza tecnologica dei sistemi di sicurezza che incrementa il rischio delle 
 violazioni di sicurezza; piuttosto, la mal configurazione e l'errata integrazione di questi sistemi nei processi di business 
 \cite{cloud-Platform-for-ICT-Security-Governance}.\hfill\break
-%
-\section{Security Assurance}
 L'utilizzo di sistemi di sicurezza e di controllo migliori non garantisce in modo assoluto la sicurezza dell'infrastruttura; 
 per garantire ciò è necessario implementare un processo continuo di diagnostica e verifica della corretta configurazione dei controlli, 
 supervisionando il loro comportamento, accertandosi che sia quello aspettato. \vspace{0.5cm}\hfill\break
 La \textit{Security Assessment} diventa allora un aspetto importante specialmente negli ambienti Cloud e IoT. Questo processo, costituito
 da un insieme di attività mirate alla valutazione del rischio in sistemi IT, deve essere portato avanti in modo continuo e olistico, per 
 correlare le evidence raccolte da sempre maggiori meccanismi di protezione \cite{mooncloud-semi-automatic-and-trustworthy}.\hfill\break
+% SEC: MOONCLOUD
+Moon Cloud è una soluzione PaaS (acronimo inglese di \textit{Platform as a Service}) che fornice una piattaforma B2B 
+(\textit{Business To Business}) innovativa per verifiche, diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT rispetto alle politiche di 
+sicurezza, in modo continuo e su larga scala. Essa supporta una semplice ed efficiente \textit{ICT Security Governance}, dove le politiche 
+di sicurezza possono essere definite dalle compagnie stesse (a partire da un semplice controllo sulle vulnerabilità a linee guida di
+sicurezza interna), da entità esterne, imposte da standard oppure da regolamentazioni nazionali o internazionali.
+La sicurezza di un sistema o di un insieme di asset dipende solo parzialmente dalla forza dei singoli meccanismi di protezione isolati
+l'uno dall'altro; infatti, dipende anche dall'abilità di questi meccanismi di lavorare continuamente in sinergia per provvedere una 
+protezione olistica.\hfill\break
+%
 In più, quando i sistemi Cloud e i servizi IoT sono coinvolti, le dinamiche di questi servizi e la loro rapida evoluzione rende il 
 controllo dei processi all'interno dell'azienda e le politiche di sicurezza più complesse e prone ad errori. \vspace{0.5cm}\hfill\break
 I requisiti ad alto livello fondamentali per poter garantire la Security Assurance sono i seguenti.
@@ -62,16 +70,6 @@ I requisiti ad alto livello fondamentali per poter garantire la Security Assuran
     continuo permette di venire a conoscenza di questi problemi in breve tempo e agire di conseguenza.
     \label{list:security-assurance-fondamentals}
 \end{description}
-%
-\section{Moon Cloud}
-Moon Cloud è una soluzione PaaS (acronimo inglese di \textit{Platform as a Service}) che fornice una piattaforma B2B 
-(\textit{Business To Business}) innovativa per verifiche, diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT rispetto alle politiche di 
-sicurezza, in modo continuo e su larga scala. Essa supporta una semplice ed efficiente \textit{ICT Security Governance}, dove le politiche 
-di sicurezza possono essere definite dalle compagnie stesse (a partire da un semplice controllo sulle vulnerabilità a linee guida di
-sicurezza interna), da entità esterne, imposte da standard oppure da regolamentazioni nazionali o internazionali.
-La sicurezza di un sistema o di un insieme di asset dipende solo parzialmente dalla forza dei singoli meccanismi di protezione isolati
-l'uno dall'altro; infatti, dipende anche dall'abilità di questi meccanismi di lavorare continuamente in sinergia per provvedere una 
-protezione olistica.\hfill\break
 Moon Cloud è un framework di \textit{Security Assurance} il quale garantisce che un sistema ICT soddisfi certi requisiti 
 prestabiliti da appropriate politiche e procedure precedentemente definite.
 Una \textit{Security Compliance Evaluation} è un processo di verifica a cui un target è sottoposto e il cui risultato 
@@ -86,6 +84,8 @@ conseguenza se un target supera tutti i controlli a cui è sottoposto allora sig
     \caption{Security Compliance Evaluation}
     \label{fig:Security_Compliance_Evaluation}
 \end{figure}
+%
+\section{Processo di Evaluation}
 Moon Cloud implementa il processo di Security Compliance Evaluation in Figura \ref{fig:Security_Compliance_Evaluation} usando controlli 
 di monitoraggio o di test personalizzabili. Inoltre è dotato delle seguenti caratteristiche, le quali vanno a completare i requisiti 
 elencati nella Sezione \ref{list:security-assurance-fondamentals}.
@@ -95,27 +95,20 @@ elencati nella Sezione \ref{list:security-assurance-fondamentals}.
     \item Moon Cloud permette di schedulare e configurare delle ispezioni automatiche, grazie all'inventario di asset protetto e senza
     l'intervento dell'uomo.
     \item Moon Cloud Evaluation Engine può ispezionare dall'interno un sistema, gestendo così delle minaccie interne; permettendo anche 
-    reazioni rapide a incidenti di sicurezza e veloci rimedi, grazie alla raccolta continua di evidence.
+    reazioni rapide a incidenti di sicurezza e veloci rimedi, grazie alla raccolta continua di evidence. 
 \end{itemize}
-In generale, Moon Cloud gestisce i processi di Evaluation attraverso un set di \textit{Execution Cluster}; ognuno dei quali gestisce 
-ed esegue un set di \textit{probe} che collezionano le evidence necessarie per effettuare i processi di valutazione. 
+In generale, l'architettura di Moon Cloud è costituita da un'Assurance Manager che gestisce i processi di Evaluation attraverso un set di 
+\textit{Execution Cluster}; ognuno dei quali gestisce ed esegue un set di probe che collezionano le evidence necessarie per effettuare 
+i processi di valutazione.
 Tutte le attività di collezione sono eseguite dalla probe, ognuno dei quali è uno script Python fornito come una singola immagine di Docker, 
-che viene inizializzata quando è triggerata una Evaluation ed è distrutta quando il processo di Evaluation è terminato.\hfill\break
+che viene inizializzata quando viene triggerata una Evaluation ed è distrutta quando il processo di Evaluation è terminato.\hfill\break
 Accedendo alla piattaforma di Moon Cloud, l'utente può definire le proprie politiche di sicurezza e attività di Evaluation come 
 una serie di controlli di sicurezza e altre politiche predefinite. Una volta che una politica viene definita, l'utente può 
-decidere quando schedulare l'Evaluation; e nel momento in cui un processo di Evaluation viene inizializzato, tutti i controlli e/o le 
-politiche legate ad essa, vengono eseguiti e i risultati, raccolti dalla probe, vengono memorizzati e restituiti all'utente. 
-A questo punto l'utente può accedere a questi risultati a diversi gradi di precisione: una visione sommaria e generale di tutte le 
-politche implentate e dello stato generale del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence 
-raccolte per una Evaluation.\hfill\break
-%
-\vspace{0.5cm}
-\hfill\break
-Per poter rendere ancora più intuitivo e semplice da utilizzare un sistema di questa importanza, si è pensato d'introdurre un sistema
+decidere quando schedulare l'Evaluation; e nel momento in cui un processo di Evaluation viene inizializzato, tutti i controlli vengono 
+eseguiti e i risultati vengono memorizzati e restituiti all'utente. A questo punto l'utente può accedere a 
+questi risultati a diversi gradi di precisione: una visione sommaria e generale di tutte le politche implentate e dello stato generale 
+del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence raccolte per una Evaluation.\hfill\break
+Per poter rendere ancora più intuitivo e semplice da utilizzare un sistema di questa importanza, si è pensato di introdurre un sistema
 che possa raccomandare agli utenti, in base agli asset che vuole proteggere e monitorare, una serie di Evaluation o politiche da
 applicare in quei casi; questo permette anche a utenti meno esperti di poter configurare in modo rapido ed efficiente meccanismi di
-protezione da minacce. Un sistema di raccomandazione permette di selezionare all’interno  di un ampio catalogo, un numero limitato di prodotti 
-personalizzati sulla base delle preferenze dell’utente attivo. La ricerca in questo ambito si è sempre concentrata sulla qualità delle 
-raccomandazioni di questi sistemi, tralasciando un aspetto fondamentale: la fiducia che un utente deve avere verso questi ultimi.
-E ciò è ottenibile se si è il più possibile trasparenti nei processi che portano alla nascita dei suggerimenti, partendo da questo 
-si può ottenere l'ambita fiducia da parte degli utenti.
+protezione da minacce.
