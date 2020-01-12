@@ -186,10 +186,10 @@ Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di
 come nodi e linee (come se fosse un albero), ma come container innestati.
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.30]{images/MC_Rec_NSM_Container.png}
+    \includegraphics[scale=0.66]{images/MC_Rec_NSM_Container(R).png}
     \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
-    progetto in questione.}
-    \label{fig:MC_Rec_NSM_Container}
+    progetto in questione (ridotto).}
+    \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
 %
 Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene e suoi figli e questa forma di 
@@ -240,13 +240,21 @@ nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valo
 destra. Questo approccio è chiamato \textit{Modified preorder tree traversal algorithm} (MPTT). A partire da questa tecnica è stato 
 ideata la struttura della tassonomia delle evaluation e dei controlli implementate nella soluzione proposta in questa tesi, con 
 l'ausilio di un package di Python chiamato MPTT.\hfill\break
-Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container} possiamo notare che la numerazione dei nodi, viene
+Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} possiamo notare che la numerazione dei nodi, viene
 effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di aggiornamento e 
 cancellazione dei nodi; in quest ultimo il grado di complessità dell'operazione è determinato dal nodo che si vuole cancellare, a 
 partire dal caso più semplice, il nodo foglia (un nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo 
 radice.
+%
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[scale=0.4]{images/MC_Rec_NSM_Container.png}
+    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
+    progetto in questione.}
+    \label{fig:MC_Rec_NSM_Container}
+\end{sidewaysfigure}
 %
 \newpage
 %

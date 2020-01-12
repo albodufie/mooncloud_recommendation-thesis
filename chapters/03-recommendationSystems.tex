@@ -68,8 +68,7 @@ Più precisamente il funzionamento dell'algoritmo si svolge seguendo i seguenti 
         # Creating a list with all the evaluations of other users
         other_users_evaluations = []
         for o_users_evaluation in other_users:
-            for evaluation in o_users_evaluation.evaluations.all().values('other_id', 'id', 'parent_id')\
-                                                                    .order_by('other_id'):
+            for evaluation in o_users_evaluation.evaluations.all().values('other_id', 'parent_id').order_by('other_id'):
                 other_users_evaluations.append(evaluation)
     \end{lstlisting}
     \item il terzo passo consiste nell'andare a determinare quali tra le Evaluation, dell'utente a cui si vuole raccomandare, quali sono quelle 
@@ -135,18 +134,17 @@ In generale il CF-IB ideato per determinare Evaluation simili funziona seguendo 
     l'Evaluation su cui si vuole determinare le altre Evaluation simili;
     \begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_1]
     def item_recommendation_alg(item_other_id):
-        
         # Selecting the evaluation, which is applied this algorithm, from its other_id
         # SELECT * FROM recommendation_app_evaluation WHERE other_id = %(item_other_id)s AND node_type = 'eva'
         target_eval = Evaluation.objects.filter(Q(other_id=item_other_id) & Q(node_type="eva"))\
-                                        .values('other_id', 'id', 'parent_id')[0]
+                                        .values('other_id', 'parent_id')[0]
     \end{lstlisting} 
     \item il secondo passo è quello di recuperare tutte le Evaluation, escludendo la prima recuperata, presenti nella base di dati;
     \begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_2]
         # Selecting the other evaluations, excluding the target evaluation
         # SELECT * FROM recommendation_app_evaluation WHERE other_id != %(item_other_id)s AND node_type = 'eva'
         all_other_evals = Evaluation.objects.filter(~Q(other_id=item_other_id) & Q(node_type="eva"))\
-                                            .values('other_id', 'id', 'parent_id').order_by('other_id')
+                                        .values('other_id', 'parent_id').order_by('other_id')
     \end{lstlisting}
     \item il terzo e ultimo passo consiste nel andare a determinare le Evaluation che hanno lo stesso parent\_id, quindi 
     quelle appartenenti alla stessa categoria, dell'Evaluation ottenuta nel primo passo; inoltre, se presenti, vengono 
@@ -279,8 +277,8 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi:
         # Adding to similar_evaluations list the evaluation in the similar_item_evaluations list
         for item_evaluation in similar_item_evaluations:
             # Taking only the evaluations that weren't added to \
-            if (not (item_evaluation in similar_evaluations) and # the 'similar_evaluations' list or
-                    not (item_evaluation in target_user_evaluations)): # the 'target_user_evaluations' list
+            if (not (item_evaluation in similar_evaluations) and  # the 'similar_evaluations' list or
+                    not (item_evaluation in target_user_evaluations)):  # the 'target_user_evaluations' list
                 similar_evaluations.append(item_evaluation)
         similar_evaluations = sorted(similar_evaluations, key=lambda i: i['other_id'])
         

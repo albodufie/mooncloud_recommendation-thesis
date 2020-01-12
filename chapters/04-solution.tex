@@ -23,8 +23,12 @@ generazione della base di dati.
 % MODELS CODES
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:model, caption={Parti principali del codice dei Models della soluzione.}]
-# Target supported by Moon Cloud
+# TARGET TYPE MODEL
+
 class TargetType(models.Model):
+    """
+    Target supported by Moon Cloud system
+    """
     TYPES = (
         ('host', 'host'),
         ('windows', 'windows'),
@@ -33,11 +37,21 @@ class TargetType(models.Model):
         ('aws', 'aws')
     )
     name = models.CharField(max_length=150, choices=TYPES, default="host")
-    descr = models.TextField(max_length=1000, default="none")  # Description of a targe
- 
- 
-# Control that can be part of evaluations
+    descr = models.TextField(max_length=1000, default="none")  # Description of a target
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        ordering = ["id"]
+
+
+# CONTROL MODEL
+
 class Control(MPTTModel):
+    """
+    Controls that can be part of Evaluations
+    """
     other_id = models.IntegerField(default=-1, unique=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     name = models.CharField(max_length=150, unique=True)
@@ -48,11 +62,25 @@ class Control(MPTTModel):
     )
     # Possible node type of the taxonomy (category node or control node)
     node_type = models.CharField(max_length=3, choices=TYPES, default='cat')
-    target_type = models.ForeignKey(TargetType, null=True, blank=True, on_delete=models.CASCADE)  # It's null for the root node and category nodes
- 
- 
-# Evaluation used by users (group of controls)
+    target_type = models.ForeignKey(TargetType, blank=True, null=True, on_delete=models.CASCADE)  # It's null for the root node and category nodes
+
+    def __str__(self):
+        return str(self.name)
+
+    class MPTTMeta:
+        level_attr = 'level'
+        order_insertion_by = ['name']
+
+    class Meta:
+        ordering = ['tree_id', 'lft']
+
+
+# EVALUATION MODEL
+
 class Evaluation(MPTTModel):
+    """
+    Evaluation is composed by one or more Controls, and can be used by Users
+    """
     other_id = models.IntegerField(default=-1, unique=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     name = models.CharField(max_length=150, unique=True)
@@ -64,20 +92,50 @@ class Evaluation(MPTTModel):
     # Possible node types of the taxonomy (category node or evaluation node)
     node_type = models.CharField(max_length=3, choices=TYPES, default='cat')
     controls = models.ManyToManyField(Control)  # Evaluation can be composed of one or more controls
- 
- 
-# Users with a Moon Cloud account who can use evaluations
+
+    def __str__(self):
+        return str(self.name)
+
+    class MPTTMeta:
+        level_attr = 'level'
+        order_insertion_by = ['name']
+
+    class Meta:
+        ordering = ['tree_id', 'lft']
+
+
+# USER MODEL
+
 class User(models.Model):
+    """
+    User registered to MoonCloud with an email address, and can insert Target and launch Evaluations
+    """
     other_id = models.IntegerField(default=-1, unique=True)
     email = models.EmailField(max_length=50, unique=True)
     evaluations = models.ManyToManyField(Evaluation, blank=True)  # Evaluations chosen by user
- 
- 
-# Target table to save the targets type (more than one) that a user can have
+
+    def __str__(self):
+        return str(self.email)
+
+    class Meta:
+        ordering = ["other_id", "id"]
+
+
+# TARGET MODEL
+
 class Target(models.Model):
-    user = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)  # User has chosen some target_type
+    """
+    Targets (can be more than one) chosen by users
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User has chosen some target_type
     other_id = models.IntegerField(default=-1, unique=True)
-    target_type = models.ForeignKey(TargetType, blank=True, on_delete=models.CASCADE)  # TargetType Id
+    target_type = models.ForeignKey(TargetType, on_delete=models.CASCADE)  # TargetType Id
+
+    def __str__(self):
+        return str(self.user) + " " + str(self.other_id) + " " + str(self.target_type)
+
+    class Meta:
+        ordering = ["user"]
 \end{lstlisting}
 %
 A partire da questo Model vennero introdotte nel database le seguenti tabelle, le quali è possibile visionare nella Figura 
@@ -124,8 +182,12 @@ succesivamente personalizzata, per poter manipolare la base di dati.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_homepage, caption={Parte principale del codice delle View della soluzione per gestire l'accesso 
     alla home page.}]
-# Index page where you can choose to navigate the evaluation taxonomy or the control taxonomy
 def index(request):
+    """
+    Index page where you can choose to navigate the evaluation taxonomy or the control taxonomy.
+    :param request: HTTP request
+    :return: HTTP response with the template to show to the user
+    """
     return render(request, "recommendation_app/index.html")
 \end{lstlisting}
 %
@@ -161,13 +223,17 @@ operazioni descritte sopra.
 \label{lst:view}
 \begin{lstlisting}[language=Python, caption={Parti principali del codice delle View della soluzione per gestire la navigazione 
     delle tassonomie, quella delle Evaluation e quella dei Controlli}]
- 
-# The home page shows all taxonomy and a form to make operations on it
-def tax_index(request, parameter):
+def tax_index(request, taxonomy_used):
+    """
+    The home page shows all taxonomy and a form to make operations on it.
+    :param request: HTTP request
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
     # If this is a POST request we need to process the form data
     if request.method == 'POST':
-        # Create a form instance and populate it with data from depending on the parameter
-        if (parameter == "evaluation"):
+        # Create a form instance and populate it with data from depending on the taxonomy_used
+        if (taxonomy_used == "evaluation"):
             form = EvaluationOperationForm(request.POST)
         else:
             form = ControlEvaluationForm(request.POST)
@@ -178,69 +244,79 @@ def tax_index(request, parameter):
             taxonomy_operation_form = form.cleaned_data['actionTax']
             # Redirect to a new URL (page that show a part of the taxonomy, depending on the action user has chosen):
             return redirect(
-                reverse('rec:tax_index', args=[parameter]) + str(nodename_form) + '_' + taxonomy_operation_form)
+                reverse('rec:tax_index', args=[taxonomy_used]) + str(nodename_form) + '_' + taxonomy_operation_form)
     # If id's a GET method we'll create a blank form
     else:
-        if (parameter == "evaluation"):
+        if (taxonomy_used == "evaluation"):
             form = EvaluationOperationForm()
         else:
             form = ControlEvaluationForm()
- 
-    # Depending on the parameter, I'm getting all the categories of Evaluations or Controls taxonomy and save it in a
+
+    # Depending on the taxonomy_used, I'm getting all the categories of Evaluations or Controls taxonomy and save it in a
     # list called "categories_list"
-    if (parameter == "evaluation"):
+    if (taxonomy_used == "evaluation"):
         q_categories = Evaluation.objects.filter(node_type='cat')
     else:
         q_categories = Control.objects.filter(node_type='cat')
     categories_list = []
     for node in q_categories:
         categories_list.append(node.name)
- 
-    # Depending on the parameter, I'm getting all the categories of Evaluations or Controls node in the taxonomy
+
+    # Depending on the taxonomy_used, I'm getting all the categories of Evaluations or Controls node in the taxonomy
     # and save it in a list called "node_list"
-    if (parameter == "evaluation"):
+    if (taxonomy_used == "evaluation"):
         q_nodes = Evaluation.objects.filter(node_type='eva')
     else:
         q_nodes = Control.objects.filter(node_type='con')
     node_list = []
     for node in q_nodes:
         node_list.append(node.name)
- 
-    # Depending on the parameter, I'm getting all the Evaluations or Controls taxonomy
-    if (parameter == "evaluation"):
+
+    # Depending on the taxonomy_used, I'm getting all the Evaluations or Controls taxonomy
+    if (taxonomy_used == "evaluation"):
         tax = Evaluation.objects.all()
     else:
         tax = Control.objects.all()
- 
+
     # Passing the complete taxonomy and data to fill the form so you can operate on the taxonomy
     args = {'tax': tax,
             'categories': categories_list,
             'nodes': node_list,
             'form': form,
-            'request_path': parameter}
- 
+            'request_path': taxonomy_used}
+
     return render(request, "recommendation_app/tax_index.html", args)
- 
- 
-# Show the taxonomy's details page showing an overview of the taxonomy
-def tax_details(request, parameter):
-    if (parameter == 'evaluation'):
+
+
+def tax_details(request, taxonomy_used):
+    """
+    Show the taxonomy's details page showing an overview of the taxonomy
+    :param request: HTTP request
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
+    if (taxonomy_used == 'evaluation'):
         tax_details_obj = Evaluation.objects.all()
     else:
         tax_details_obj = Control.objects.all()
- 
+
     return render(request, "recommendation_app/tax_details.html",
                   {'tax_details': tax_details_obj,
-                  'parameter': parameter})
- 
- 
-# Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
-def dot_graph(request, parameter):
+                   'taxonomy_used': taxonomy_used})
+
+
+def dot_graph(request, taxonomy_used):
+    """
+    Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
+    :param request: HTTP request
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
     # Create a graph object
     taxonomy_dot_object = Graph(comment='Taxonomy', format='png')
     # Fill the graph with every node in the database (evaluations/controls node and categories nodes), 
     # and create a link with the parent node
-    if (parameter == 'evaluation'):
+    if (taxonomy_used == 'evaluation'):
         taxonomy_nodes = Evaluation.objects.all()
     else:
         taxonomy_nodes = Control.objects.all()
@@ -257,31 +333,36 @@ def dot_graph(request, parameter):
         i += 1
     # Specify where I want to save the .png image and the .dot file
     taxonomy_dot_object.render('taxonomy_output/taxonomy.dot')
- 
+
     # This function is used to zip a directory
     def make_zipdir(path, ziph):
         # Ziph is zipfile handle
         for root, dirs, files in os.walk(path):
             for file in files:
                 ziph.write(os.path.join(root, file))
- 
+
     # Making the zip file
     zip_file = zipfile.ZipFile('taxonomy_output.zip', 'w', compression=zipfile.ZIP_DEFLATED)
     make_zipdir('taxonomy_output/', zip_file)
     zip_file.close()
- 
+
     # Remove the directory which was zipped and all files inside
     shutil.rmtree("taxonomy_output/")
- 
+
     return redirect(reverse('rec:index'))
 
 
-# Method to navigate the taxonomy
+# Methods to navigate the taxonomy
 
-
-# Based on the MPTT's method 'get descendants' that return the descendants of a model instance, in tree order
-def show_descendants(request, nodename, parameter):
-    if (parameter == 'evaluation'):
+def show_descendants(request, nodename, taxonomy_used):
+    """
+    Based on the MPTT's method 'get descendants' that return the descendants of a model instance, in tree order
+    :param request: HTTP request
+    :param nodename: name (it's unique for each node) of a node in the taxonomy
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
+    if (taxonomy_used == 'evaluation'):
         q_result = Evaluation.objects.get(name=nodename).get_descendants(include_self=False)
         # Get the count of descendants of the model instance
         q_result_num = Evaluation.objects.get(name=nodename).get_descendant_count()
@@ -289,57 +370,75 @@ def show_descendants(request, nodename, parameter):
         q_result = Control.objects.get(name=nodename).get_descendants(include_self=False)
         # Get the count of descendants of the model instance
         q_result_num = Control.objects.get(name=nodename).get_descendant_count()
-    
+
     return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(parameter)).capitalize(),
-                  'descendants': q_result,
-                  'node_exe': nodename,
-                  'method': 'descendants',
-                  'num_descendants': q_result_num})
+                  {'tax_type': (str(taxonomy_used)).capitalize(),
+                   'descendants': q_result,
+                   'node_exe': nodename,
+                   'method': 'descendants',
+                   'num_descendants': q_result_num})
 
 
-# Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
-def show_children(request, nodename, parameter):
-    if (parameter == 'evaluation'):
+def show_children(request, nodename, taxonomy_used):
+    """
+    Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
+    :param request: HTTP request
+    :param nodename: name (it's unique for each node) of a node in the taxonomy
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
+    if (taxonomy_used == 'evaluation'):
         q_result = Evaluation.objects.get(name=nodename).get_children()
     else:
         q_result = Control.objects.get(name=nodename).get_children()
-    
+
     return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(parameter)).capitalize(),
-                  'children': q_result,
-                  'node_exe': nodename,
-                  'method': 'children'})
+                  {'tax_type': (str(taxonomy_used)).capitalize(),
+                   'children': q_result,
+                   'node_exe': nodename,
+                   'method': 'children'})
 
 
-# Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
-# in tree order
-def show_family(request, nodename, parameter):
-    if (parameter == 'evaluation'):
+def show_family(request, nodename, taxonomy_used):
+    """
+    Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
+    in tree order
+    :param request: HTTP request
+    :param nodename: name (it's unique for each node) of a node in the taxonomy
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
+    if (taxonomy_used == 'evaluation'):
         q_result = Evaluation.objects.get(name=nodename).get_family()
     else:
         q_result = Control.objects.get(name=nodename).get_family()
 
     return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(parameter)).capitalize(),
-                  'family': q_result,
-                  'node_exe': nodename,
-                  'method': 'family'})
+                  {'tax_type': (str(taxonomy_used)).capitalize(),
+                   'family': q_result,
+                   'node_exe': nodename,
+                   'method': 'family'})
 
 
-# Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
-# to be siblings of other root nodes)
-def show_siblings(request, nodename, parameter):
-    if (parameter == 'evaluation'):
+def show_siblings(request, nodename, taxonomy_used):
+    """
+    Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
+    to be siblings of other root nodes)
+    :param request: HTTP request
+    :param nodename: name (it's unique for each node) of a node in the taxonomy
+    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+    :return: HTTP response with the template to show to the user
+    """
+    if (taxonomy_used == 'evaluation'):
         q_result = Evaluation.objects.get(name=nodename).get_siblings()
     else:
         q_result = Control.objects.get(name=nodename).get_siblings()
-    
+
     return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(parameter)).capitalize(),
-                  'siblings': q_result,
-                  'node_exe': nodename,
-                  'method': 'siblings'})
+                  {'tax_type': (str(taxonomy_used)).capitalize(),
+                   'siblings': q_result,
+                   'node_exe': nodename,
+                   'method': 'siblings'})
 \end{lstlisting}
 %
 % ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE

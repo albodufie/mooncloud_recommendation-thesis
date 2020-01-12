@@ -5,7 +5,8 @@
 \usepackage[italian]{babel} % lingua del documento
 \usepackage{float}
 \usepackage{graphicx}
-\graphicspath{ {images/} }
+\graphicspath{{images/}}
+\usepackage{rotating} % rotate an image
 %\usepackage{hyperref} % collegamenti ipertestuali e carica anche il paccheto 'url' (caricato per ultimo)
 \usepackage{listings} % inserire codice sorgente a modo
 \usepackage[table]{xcolor}
@@ -22,25 +23,25 @@
 \colorlet{rootnodecell}{rootnodecell!50}
 \definecolor{categorycell}{rgb}{0.07,0.66,0.71}
 \colorlet{categorycell}{categorycell!50}
-\definecolor{evaluationcell}{rgb}{0.94,0.57,0.12}   
+\definecolor{evaluationcell}{rgb}{0.94,0.57,0.12}
 \colorlet{evaluationcell}{evaluationcell!50}
 
 \lstdefinestyle{python_code_style}{
-    backgroundcolor=\color{backcolour},   
+    backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{codeorange},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codedarkgreen},
     basicstyle=\ttfamily\tiny,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
 
@@ -52,7 +53,7 @@
 \usepackage{imakeidx}
 \makeindex
 
-\title{Sistema di raccomandazione basato su Collaborative Filter per piattaforma Moon Cloud
+\title{Sistema di raccomandazione basato su Collaborative Filter per piattaforma Moon Cloud 
 facente parte dell'ambito della Security Assurance}
 \author{Andrea Michele Albonico}
 
@@ -63,16 +64,16 @@ facente parte dell'ambito della Security Assurance}
 
 \begin{titlepage}
     \begin{figure}
-    	\centering
-    	\includegraphics[height=5.0 cm]{logo.jpg}
-    	\vspace{0.5 cm}
+        \centering
+        \includegraphics[height=5.0 cm]{logo.jpg}
+        \vspace{0.5 cm}
     \end{figure}
     \begin{center}
         {\Large Corso di Laurea in Informatica Musicale}
     \end{center}
     \begin{center}
         \vspace{2 cm}
-        {\Large \textsc{Sistema di raccomandazione basato su Collaborative Filter per piattaforma Moon Cloud
+        {\Large \textsc{Sistema di raccomandazione basato su Collaborative Filter per piattaforma Moon Cloud 
         facente parte dell'ambito della Security Assurance} }
     \end{center}
     \par
@@ -87,7 +88,7 @@ facente parte dell'ambito della Security Assurance}
     \end{flushright}
     \vfill
     \begin{center}
-    	{\Large Anno Accademico 2018/2019}
+        {\Large Anno Accademico 2018/2019}
     \end{center}
 \end{titlepage}
 
