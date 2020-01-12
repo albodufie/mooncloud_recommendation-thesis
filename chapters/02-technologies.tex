@@ -150,24 +150,24 @@ in questo progetto secondo questo approccio, seguendo come riferimento la Figura
 \centering
 \begin{tabular}[c]{| c | l | c |} 
     \hline
-	id & name & parent \\ [0.5ex] 
-	\hline
-	\rowcolor{rootnodecell} 1 & Moon Cloud & NULL \\ [0.5ex] 
-	\rowcolor{categorycell} 2 & Web & 1 \\ [0.5ex] 
-	\rowcolor{categorycell} 3 & Protocol & 1 \\ [0.5ex] 
-	\rowcolor{categorycell} 4 & Cloud & 1 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 5 & Portscan Report & 2 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 6 & Observatory Check & 2 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 7 & SSH Compliance Check & 3 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 8 & HTTPS Robustness Check & 3 \\ [0.5ex] 
-	\rowcolor{categorycell} 9 & Azure & 4 \\ [0.5ex] 
-	\rowcolor{categorycell} 10 & Aws & 4 \\ [0.5ex] 
-	\rowcolor{categorycell} 11 & Dropbox & 4 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 12 & Sql Services Checker & 9 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 13 & Security Center Report & 9 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 14 & Macie Scanner & 10 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 \\ [0.5ex]
-	\hline
+    id & name & parent \\ [0.5ex] 
+    \hline
+    \rowcolor{rootnodecell} 1 & Moon Cloud & NULL \\ [0.5ex] 
+    \rowcolor{categorycell} 2 & Web & 1 \\ [0.5ex] 
+    \rowcolor{categorycell} 3 & Protocol & 1 \\ [0.5ex] 
+    \rowcolor{categorycell} 4 & Cloud & 1 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 5 & Portscan Report & 2 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 6 & Observatory Check & 2 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 7 & SSH Compliance Check & 3 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 8 & HTTPS Robustness Check & 3 \\ [0.5ex] 
+    \rowcolor{categorycell} 9 & Azure & 4 \\ [0.5ex] 
+    \rowcolor{categorycell} 10 & Aws & 4 \\ [0.5ex] 
+    \rowcolor{categorycell} 11 & Dropbox & 4 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 12 & Sql Services Checker & 9 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 13 & Security Center Report & 9 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 14 & Macie Scanner & 10 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 15 & Sqs Checker & 10 \\ [0.5ex]
+    \hline
 \end{tabular}
 \caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo l'Adjacency List Model.}
 \label{table:adjacency_list_model_table}
@@ -199,24 +199,24 @@ gerarchia viene mantenuta in tabella attraverso l'uso di due attributi aggiuntiv
 \centering
 \begin{tabular}[c]{| c | l | c | c |} 
     \hline
-	id & name & lft & rght \\ [0.5ex] 
-	\hline
-	\rowcolor{rootnodecell} 1 & Moon Cloud & 1 & 100 \\ [0.5ex] 
-	\rowcolor{categorycell} 2 & Web & 86 & 99 \\ [0.5ex] 
-	\rowcolor{categorycell} 3 & Protocol & 80 & 85 \\ [0.5ex] 
-	\rowcolor{categorycell} 4 & Cloud & 4 & 29 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 5 & Portscan Report & 91 & 92 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 6 & Observatory Check & 89 & 90 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 7 & SSH Compliance Check & 83 & 84 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 8 & HTTPS Robustness Check & 81 & 82 \\ [0.5ex] 
-	\rowcolor{categorycell} 9 & Azure & 13 & 26 \\ [0.5ex] 
-	\rowcolor{categorycell} 10 & Aws & 5 & 12 \\ [0.5ex] 
-	\rowcolor{categorycell} 11 & Dropbox & 27 & 28 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 12 & Sql Services Checker & 22 & 23 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 13 & Security Center Report & 20 & 21 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 14 & Macie Scanner & 8 & 9 \\ [0.5ex] 
-	\rowcolor{evaluationcell} 15 & Sqs Checker & 10 & 11 \\ [0.5ex]
-	\hline
+    id & name & lft & rght \\ [0.5ex] 
+    \hline
+    \rowcolor{rootnodecell} 1 & Moon Cloud & 1 & 100 \\ [0.5ex] 
+    \rowcolor{categorycell} 2 & Web & 86 & 99 \\ [0.5ex] 
+    \rowcolor{categorycell} 3 & Protocol & 80 & 85 \\ [0.5ex] 
+    \rowcolor{categorycell} 4 & Cloud & 4 & 29 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 5 & Portscan Report & 91 & 92 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 6 & Observatory Check & 89 & 90 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 7 & SSH Compliance Check & 83 & 84 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 8 & HTTPS Robustness Check & 81 & 82 \\ [0.5ex] 
+    \rowcolor{categorycell} 9 & Azure & 13 & 26 \\ [0.5ex] 
+    \rowcolor{categorycell} 10 & Aws & 5 & 12 \\ [0.5ex] 
+    \rowcolor{categorycell} 11 & Dropbox & 27 & 28 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 12 & Sql Services Checker & 22 & 23 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 13 & Security Center Report & 20 & 21 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 14 & Macie Scanner & 8 & 9 \\ [0.5ex] 
+    \rowcolor{evaluationcell} 15 & Sqs Checker & 10 & 11 \\ [0.5ex]
+    \hline
 \end{tabular}
 \caption{Esempio di una tabella per gestire dati in modo gerarchico secondo il Nested Set Model.}
 \label{table:nested_set_model_table}
