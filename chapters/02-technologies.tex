@@ -11,12 +11,11 @@ Python è un linguaggio di programmazione ad alto livello, orientato agli oggett
 distribuite, scripting, computazione numerica e system testing; ideato e rilasciato pubblicamente per la prima volta nel 1991 dal suo 
 creatore Guido van Rossum, programmatore olandese.\hfill\break
 Python supporta diversi paradigmi di programmazione, come quello object-oriented (con supporto all'ereditarietà multipla), quello 
-imperativo e quello funzionale, e offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che, 
+imperativo e quello funzionale, e offre una tipizzazione dinamica forte. È fornito di una standard library estremamente ricca, che, 
 unitamente alla gestione automatica della memoria e a robusti costrutti per il controllo delle eccezioni, rendono Python uno dei linguaggi 
 più ricchi e comodi da usare; inoltre è anche semplice da usare e imparare. 
 Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio immediatamente intuibile. La sua sintassi è pulita e snella 
-così come i suoi costrutti, decisamente chiari e non ambigui. I blocchi logici vengono costruiti semplicemente allineando le righe allo 
-stesso modo, incrementando la leggibilità e l'uniformità del codice anche se vi lavorano diversi autori.\hfill\break
+così come i suoi costrutti, decisamente chiari e non ambigui.\hfill\break
 Un aspetto inusuale e unico di Python è il metodo che viene usato per delimitare i blocchi di codice.
 %
 \lstset{style=python_code_style}
@@ -39,40 +38,40 @@ if __name__ == '__main__':
 \end{lstlisting}
 %
 Nei linguaggi come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
-(il C e il Perl usano { }; il Pascal usa begin ed end). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
+(il C e il Perl usano \textbf{{ }}; il Pascal usa \textbf{begin} ed \textbf{end}). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
 indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. In Python invece di usare parentesi 
-o parole chiave, usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare 
-sia una tabulazione, sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
+o parole chiave, si usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si usa 
+sia una tabulazione sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
 estensione .py) e, se sintatticamente corretto, di eseguirlo, non esiste una fase di compilazione separata (come 
 avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
 %
 \paragraph{Django}
 Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
-perfettamente mantenibile, esso si occupa della maggiori difficoltà dello sviluppo web, così da permetterti di concentrarti sulla scrittura della tua app; inoltre 
+perfettamente mantenibile. Esso si occupa della maggiori difficoltà dello sviluppo web, così da permettere di concentrarsi sulla scrittura dell'app; inoltre 
 è open-source e ha una comunità attiva, una documentazione completa e semplice da consultare.\hfill\break
 Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{django-documentation}.
 \begin{description}
-    \item[Versatile]: è usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti,
+    \item[Versatile:] può essere usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti,
     a social network e siti di notizie; può lavorare con qualunque client-side framework, e gestire contenuti in quasi tutti i formati (inclusi HTML, 
-    RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, etc.).
-    \item[Sicuro]: aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
+    RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, ecc.).
+    \item[Sicuro:] aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
     le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un metodo sicuro per gestire gli account degli utenti e le relative 
     password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies, dove sarebbero vulnerabili (invece i cookie 
     contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
-    \item[Mantenibile]: il codice di Django è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
+    \item[Mantenibile:] il codice di Django è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
     particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
     Django raggruppa parti di codice letto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
-    \item[Portatile]: Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
+    \item[Portabile:] Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
     sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
     e documentazione per l'hosting di siti web in Django.
 \end{description}
-In generale, un tradizionale sito web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
+In generale, un tradizionale server web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
 una richiesta (solitamente di tipo POST o GET) 
 l'applicazione legge le informazioni contenute in essa, all'interno dell'intestaizone e/o del corpo, e nell'URL. A seconda della richiesta è possibile che 
 vengano letti o scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta stessa, a questo punto l'applicazione restituisce una 
-risposta al browser web dell'utente che ne ha fatto richiesta, spesso in modo dinamico, creando una pagina HTML da mostrare in cui può essere data 
-la possibilità di inserire o recuperare dati in placeholder in un Template HTML o semplicemente mostrare delle informazioni.
+risposta al browser web dell'utente che ne ha fatto richiesta, spesso in modo dinamico, creando una pagina HTML, sulla base del Template,
+da mostrare, in cui può essere data la possibilità di inserire dati dall'utente in appositi campi compilabili o semplicemente mostrare delle informazioni.
 %
 \newpage
 %
@@ -83,20 +82,52 @@ la possibilità di inserire o recuperare dati in placeholder in un Template HTML
     \label{fig:django_doc}
 \end{figure}
 \hfill\break
-Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi passaggi in file separati \cite{mdn-django-documentation}.
+Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi passaggi in file separati, secondo la 
+suddivisione in riquadri verdi della Figura \ref{fig:django_doc} \cite{mdn-django-documentation}, in cui ognuno di questi
+gruppi di file svolge delle operazioni ben precise.
 \begin{description}
-    \item[URL]: un URL mapper è usato per reindirizzare le richieste HTTP alla View corretta in base all'URL della richiesta; è possibile processare 
-    richieste da qualsiasi URL attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa.
-    Inoltre è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla funzione appropriata
-    come dati da elaborare.
-    \item[View]: una View è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le View accedono ai dati necessari per soddisfare la 
-    richiesta attraverso i Model, e delegano la formattazione delle risposte ai Template. 
-    \item[Model]: i Model sono oggetti in Python che definiscono la struttura dei dati dell'applicazione, e provvedono meccanismi per gestirla (add, modify, 
+    \item Un \textbf{URL mapper} è usato per reindirizzare le richieste HTTP alla View corretta in base all'URL della richiesta; è possibile processare 
+    richieste da qualsiasi URL attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa. 
+    Inoltre è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
+    funzione appropriata come dati da elaborare.
+    \item Una \textbf{View} è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le View accedono ai dati necessari per soddisfare la 
+    richiesta, anche attraverso i Model, e si delega la formattazione delle risposte ai Template.
+    \item I \textbf{Model} sono oggetti in Python che definiscono la struttura dei dati dell'applicazione, e provvedono meccanismi per gestirla (add, modify, 
     delete) e query per interpellare il database.
-    \item[Template]: un Template è un file di testo che definisce la struttura o il layout di un altro file (come una pagina HTML), attraverso placeholder per
+    \item Un \textbf{Template} è un file di testo che definisce la struttura o il layout di un altro file (come una pagina HTML), attraverso placeholder per
     rappresentare la posizione e il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un Template HTML, popolandolo con dati presi dal Model, 
     che a sua volta può recuperli dal database.
 \end{description}
+Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un URL e come si interfaccia con una View; in questo caso nel 
+momento in cui viene fatta una richiesta HTTP a questo URL \textit{recommendation/item/<str:item\_other\_id>/} viene richiamata la 
+View \textit{recommendation\_views.item\_recommendation} passando il parametro \textit{<str:item\_other\_id>}.
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:URLex1]
+# URL Example 'recommendation/item/35/'
+path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
+\end{lstlisting}
+A questo punto, come viene mostrato nel Listing \ref{lst:URLex2}, viene richiamata la View, essa prende i valori che gli vengono passati in ingresso e 
+restituisce un risultato, in questo caso viene richiamata la View che implementa il sistema di raccomandazione Item-based, la quale si effettua una ricerca 
+nel database per il valore del parametro \textit{<str:item\_other\_id>} in ingresso, verificando l'esistenza di quell'item, questo è possibile
+grazie all'ausilio dei Model i quali sono stati utilizzati precedentemente per definire la struttura delle tabelle e dei relativi campi 
+contenuti nel database e ora attraverso i cosiddetti QuerySet, messi a disposizione da Django, è possibile accedere a quei dati; successivamente vengono 
+determinati tramite l'agoritmo di raccomandazione quali sono i possibili item simili e vengono salvati nella variabile \textit{similar\_item\_evaluations}, 
+infine, dopo aver ripulito i dati da informazioni poco rilevanti, viene restiuita una risposta in formato Json al browser web che ha effettuato la richiesta.
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:URLex2]
+# Item recommendation Api Rest
+@api_view(['GET'])
+def item_recommendation(request, item_other_id):
+    # Trying to retrieve the actual node with item_other_id
+    item = Evaluation.objects.get(other_id=item_other_id)
+
+    similar_item_evaluations = item_recommendation_alg(item_other_id)
+
+    # Cleaning the data, deleting all the keys except 'other_id'
+    similar_item_evaluations_serilized = EvaluationSerializerRecommendation(similar_item_evaluations, many=True).data
+
+    return JsonResponse(similar_item_evaluations_serilized, safe=False)
+\end{lstlisting}
 %
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
@@ -110,8 +141,8 @@ presenza di sistemi separati.
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.7]{images/Docker_Config_Container.png}
-    \caption{Schematizzazione del contenuto di un Container in Docker}
+    \includegraphics[scale=0.5]{images/Docker_Config_Container.png}
+    \caption{Schematizzazione di Container in Docker e di Virtual Machine.}
     \label{fig:DCC}
 \end{figure}
 \hfill\break
@@ -119,12 +150,16 @@ Gli strumenti per la creazione di Container, come Docker, consentono il deployme
 un'applicazione o di un insieme di servizi, con tutte le loro dipendenze, nei vari ambienti.
 Docker, considera i Container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
 copiare e spostare i Container da un ambiente all'altro, ottimizzando così le app per il cloud.\hfill\break
-I contenitori forniscono una modalità standard per impacchettare il codice della tua applicazione, le configurazioni e le dipendenze, in un oggetto singolo e 
+I Container forniscono una modalità standard per impacchettare il codice delle applicazioni, le configurazioni e le dipendenze, in un singolo oggetto e 
 condividono un sistema operativo installato sul server, operando come processi con risorse isolate, assicurando velocità, affidabilità e distribuzioni coerenti, 
-indipendentemente dall’ambiente.
+indipendentemente dall’ambiente.\hfill\break
+%
+Questo sistema crea un livello di astrazione fra i Container e il sistema operativo ospitante e gestisce l’attivazione e la disattivazione dei Contenitori. 
+Un'altra grande differenza è che la virtualizzazione permette di eseguire più sistemi operativi contemporaneamente in un singolo sistema, mentre i Container 
+condividono lo stesso kernel del sistema operativo e isolano i processi applicativi dal resto dell’infrastruttura.
 %
 \section{Strutture dati gerarchiche}
-Le tabelle di un database relazionale non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
+Le tabelle di un database relazionale non sono gerarchiche (come nell'XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
 costituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle di questo tipo.
 In questo caso, i dati gerarchici sono una collezione d'informazioni dove ogni item ha un solo padre e nessuno o più figli 
 (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni, simili a un albero, 
@@ -304,7 +339,7 @@ un procedimento a 3 fasi.
     raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente, 
     cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
     attraverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti 
-    dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, etc.
+    dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, ecc.
     \item[Memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
     diventare. Ad esempio, in un sistema di raccomandazione per film, maggiori sono le valutazioni fornite dagli utenti, e 
     migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
@@ -320,7 +355,7 @@ quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più e
 \subsection{Content-based filtering}
 Un Content-based filtering (acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item (oggetti o prodotti), quelli 
 più simili, il confronto viene effettuato sfruttando i metadati, come il genere, una descrizione, uno o più autori, la categoria di 
-appartenenza, etc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
+appartenenza, ecc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
 item allora gli piaceranno anche altri con caratteristiche o proprietà simili.\hfill\break
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
 Content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del 
@@ -331,7 +366,7 @@ costruito per memorizzare quali item sono di suo interesse. In altre parole, que
 l'utente ha valutato positivamente o usato nel passato e sta esaminando nel presente. La costruzione del profilo dell'utente, 
 spesso temporaneo, non viene basata su un modulo di registrazione che l'utente stesso deve compilare, ma su informazioni 
 lasciate indirettamente dall'utente, le quali possono essere: i prodotti che ha maggiormente cercato e acquistato, quelli che sono 
-stati inseriti nella lista dei desideri, etc.. Più precisamente, tra vari item candidati da raccomandare all'utente si passa per un 
+stati inseriti nella lista dei desideri, ecc.. Più precisamente, tra vari item candidati da raccomandare all'utente si passa per un 
 processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
 %
 \subsection{Collaborative filtering}
