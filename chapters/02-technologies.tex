@@ -1,8 +1,8 @@
 \chapter{Tecnologie utilizzate}\label{chp:02-technologies}
-In questo capitolo sono descritte le attività preliminari per la realizzazione di questo progetto, le tecnologie utilizzate 
-unitamente alle motivazioni legate all'uso di questi sistemi rispetto ad altri. In particolare nel capitolo successivo vengono 
-approfonditi a livello pratico i sistemi di raccomandazione Memory-based i quali sono stati utilizzati per l'implementazione della 
-soluzione.
+In questo capitolo sono descritte le tecnologie utilizzate per la realizzazione del progetto unitamente alle motivazioni legate all'uso 
+di certi sistemi rispetto ad altri. In particolare viene fornita una panoramica dei sistemi di raccomandazione analizzati e studiati,
+nel capitolo successivo vengono approfonditi a livello pratico i sistemi di raccomandazione Memory-based i quali sono stati utilizzati 
+per l'implementazione della soluzione.
 % SISTEMARE POSIZIONE TABELLA E FOTO DELLA SEZIONE NESTED SET MODEL
 %
 \section{Perché Python e Django}
@@ -11,14 +11,13 @@ Python è un linguaggio di programmazione ad alto livello, orientato agli oggett
 distribuite, scripting, computazione numerica e system testing; ideato e rilasciato pubblicamente per la prima volta nel 1991 dal suo 
 creatore Guido van Rossum, programmatore olandese.\hfill\break
 Python supporta diversi paradigmi di programmazione, come quello object-oriented (con supporto all'ereditarietà multipla), quello 
-imperativo e quello funzionale, e offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che 
-unitamente alla gestione automatica della memoria e a robusti costrutti per il controllo delle eccezioni fa di Python uno dei linguaggi 
-più ricchi e comodi da usare.
-Inoltre è anche semplice da usare e imparare. Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio 
-immediatamente intuibile. La sua sintassi è pulita e snella così come i suoi costrutti, decisamente chiari e non ambigui. I blocchi 
-logici vengono costruiti semplicemente allineando le righe allo stesso modo, incrementando la leggibilità e l'uniformità del codice 
-anche se vi lavorano diversi autori.\hfill\break
-Un aspetto inusuale del Python è il metodo che usa per delimitare i blocchi di codice, che lo rende unico fra i linguaggi più diffusi.
+imperativo e quello funzionale, e offre una tipizzazione dinamica forte. È fornito di una libreria built-in estremamente ricca, che, 
+unitamente alla gestione automatica della memoria e a robusti costrutti per il controllo delle eccezioni, rendono Python uno dei linguaggi 
+più ricchi e comodi da usare; inoltre è anche semplice da usare e imparare. 
+Python, nelle intenzioni di Guido van Rossum, è nato per essere un linguaggio immediatamente intuibile. La sua sintassi è pulita e snella 
+così come i suoi costrutti, decisamente chiari e non ambigui. I blocchi logici vengono costruiti semplicemente allineando le righe allo 
+stesso modo, incrementando la leggibilità e l'uniformità del codice anche se vi lavorano diversi autori.\hfill\break
+Un aspetto inusuale e unico di Python è il metodo che viene usato per delimitare i blocchi di codice.
 %
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, caption={Esempio di programma scritto in Python}]
@@ -45,33 +44,35 @@ indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al c
 o parole chiave, usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si può usare 
 sia una tabulazione, sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
-estensione .py) e, se sintatticamente corretto, di eseguirlo e non esiste una fase di compilazione separata (come 
+estensione .py) e, se sintatticamente corretto, di eseguirlo, non esiste una fase di compilazione separata (come 
 avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
 %
 \paragraph{Django}
 Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
-perfettamente mantenibile, Django si occupa della maggiori grane del sviluppo web, così da permetterti di concentrarti sulla scrittura della tua app; inoltre 
-è open-source e ha una comunità attiva, una documentazione completa e sempice da consultare.\hfill\break
-Django aiuta a scrivere software con le seguenti caratteristiche \cite{django-documentation}.
+perfettamente mantenibile, esso si occupa della maggiori difficoltà dello sviluppo web, così da permetterti di concentrarti sulla scrittura della tua app; inoltre 
+è open-source e ha una comunità attiva, una documentazione completa e semplice da consultare.\hfill\break
+Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{django-documentation}.
 \begin{description}
-    \item[Versatile]: è usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti e wiki,
+    \item[Versatile]: è usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti,
     a social network e siti di notizie; può lavorare con qualunque client-side framework, e gestire contenuti in quasi tutti i formati (inclusi HTML, 
     RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, etc.).
     \item[Sicuro]: aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
-    le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un modo sicuro per gestire gli account degli utenti e le relative 
-    password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies dove sarebbero vulnerabili (invece i cookie 
+    le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un metodo sicuro per gestire gli account degli utenti e le relative 
+    password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies, dove sarebbero vulnerabili (invece i cookie 
     contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
     \item[Mantenibile]: il codice di Django è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
     particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
     Django raggruppa parti di codice letto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
     \item[Portatile]: Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
-    sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastructure 
+    sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
     e documentazione per l'hosting di siti web in Django.
 \end{description}
-Un tradizionale sito web attende delle richieste HTTP dal browser web (o altri client). Quando viene ricevuta una richiesta, di tipo POST o GET, l'applicazione 
-legge le informazioni contenute nel URL e altri possibili dati a seconda del tipo di richiesta. A seconda della richiesta è possibile che vengano letti o 
-scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta. A quel punto l'applicazione ritorna una risposta al browser 
-web, spesso in modo dinamico, creando una pagina HTML da mostrare in cui è possibile inserire o recuperare dati in placeholder in un template HTML.
+In generale, un tradizionale sito web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
+una richiesta (solitamente di tipo POST o GET) 
+l'applicazione legge le informazioni contenute in essa, all'interno dell'intestaizone e/o del corpo, e nell'URL. A seconda della richiesta è possibile che 
+vengano letti o scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta stessa, a questo punto l'applicazione restituisce una 
+risposta al browser web dell'utente che ne ha fatto richiesta, spesso in modo dinamico, creando una pagina HTML da mostrare in cui può essere data 
+la possibilità di inserire o recuperare dati in placeholder in un Template HTML o semplicemente mostrare delle informazioni.
 %
 \newpage
 %
@@ -82,27 +83,28 @@ web, spesso in modo dinamico, creando una pagina HTML da mostrare in cui è poss
     \label{fig:django_doc}
 \end{figure}
 \hfill\break
-Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi diversi passaggi in file separati \cite{mdn-django-documentation}.
+Un'applicazione web in Django tipicamente raggruppa il codice che gestisce questi passaggi in file separati \cite{mdn-django-documentation}.
 \begin{description}
-    \item[URL]: mentre è possibile processare richieste da qualsiasi URL attraverso unas singola funzione, è più mantenibile scrivere diverse funzioni chiamate
-    View per gestire ogni risorsa. un URL mapper è usato per reindirizzare le richieste HTTP alla view corretta in base all'URL della richiesta; inoltre è 
-    possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla funzione appropriata
+    \item[URL]: un URL mapper è usato per reindirizzare le richieste HTTP alla View corretta in base all'URL della richiesta; è possibile processare 
+    richieste da qualsiasi URL attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa.
+    Inoltre è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla funzione appropriata
     come dati da elaborare.
-    \item[View]: una View è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le view accedono ai dati necessari per soddisfare la 
-    richiesta attraverso i Model, e delegano la formattazione delle risposte ai template. 
+    \item[View]: una View è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le View accedono ai dati necessari per soddisfare la 
+    richiesta attraverso i Model, e delegano la formattazione delle risposte ai Template. 
     \item[Model]: i Model sono oggetti in Python che definiscono la struttura dei dati dell'applicazione, e provvedono meccanismi per gestirla (add, modify, 
     delete) e query per interpellare il database.
-    \item[Template]: un template è un file di testo che definisce la struttura o il layout di un file (come una pagina HTML), attraverso placeholder per
-    rappresentare il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un template HTML, popolandolo con dati presi dal Model.
+    \item[Template]: un Template è un file di testo che definisce la struttura o il layout di un altro file (come una pagina HTML), attraverso placeholder per
+    rappresentare la posizione e il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un Template HTML, popolandolo con dati presi dal Model, 
+    che a sua volta può recuperli dal database.
 \end{description}
 %
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
-il software in unità standardizzate chiamate \textit{Container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
+le applicazioni in unità standardizzate chiamate \textit{Container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
 strumenti di sistema, codice e runtime. Con Docker, è possibile distribuire e ricalibrare le risorse per un'applicazione in qualsiasi ambiente, 
 tenendo sempre sotto controllo il codice eseguito.\hfill\break
-La tecnologia Docker utilizza solitamente il kernel di Linux e le sue funzionalità, come Cgroups e namespace, per isolare i processi in modo da poterli 
-eseguire in maniera indipendente. Questa indipendenza è l'obiettivo dei container: la capacità di eseguire più processi e applicazioni in 
+Questa tecnologia utilizza solitamente il kernel di Linux e le sue funzionalità, come Cgroups e namespace, per isolare i processi in modo da poterli 
+eseguire in maniera indipendente. Questa indipendenza è l'obbiettivo dei Container: la capacità di eseguire più processi e applicazioni in 
 modo separato per sfruttare al meglio l'infrastruttura esistente pur conservando il livello di sicurezza che sarebbe garantito dalla 
 presenza di sistemi separati.
 %
@@ -113,10 +115,10 @@ presenza di sistemi separati.
     \label{fig:DCC}
 \end{figure}
 \hfill\break
-Gli strumenti per la creazione di container, come Docker, consentono il deployment a partire da un'\textit{immagine}, ciò semplifica la condivisione di 
+Gli strumenti per la creazione di Container, come Docker, consentono il deployment a partire da un'\textit{immagine}, ciò semplifica la condivisione di 
 un'applicazione o di un insieme di servizi, con tutte le loro dipendenze, nei vari ambienti.
-Docker, considera i container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
-copiare e spostare i container da un ambiente all'altro, ottimizzando così le app per il cloud.\hfill\break
+Docker, considera i Container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
+copiare e spostare i Container da un ambiente all'altro, ottimizzando così le app per il cloud.\hfill\break
 I contenitori forniscono una modalità standard per impacchettare il codice della tua applicazione, le configurazioni e le dipendenze, in un oggetto singolo e 
 condividono un sistema operativo installato sul server, operando come processi con risorse isolate, assicurando velocità, affidabilità e distribuzioni coerenti, 
 indipendentemente dall’ambiente.
@@ -183,7 +185,7 @@ in maggior tempo.
 %
 \subsection{The Nested Set Model}
 Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare la gerarchia in un modo diverso, non 
-come nodi e linee (come se fosse un albero), ma come container innestati.
+come nodi e linee (come se fosse un albero), ma come Container innestati.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.66]{images/MC_Rec_NSM_Container(R).png}
@@ -241,7 +243,7 @@ destra. Questo approccio è chiamato \textit{Modified preorder tree traversal al
 ideata la struttura della tassonomia delle evaluation e dei controlli implementate nella soluzione proposta in questa tesi, con 
 l'ausilio di un package di Python chiamato MPTT.\hfill\break
 Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} possiamo notare che la numerazione dei nodi, viene
-effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
+effettuata a partire da Container più esterno da sinistra e continua verso destra.\hfill\break
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di aggiornamento e 
 cancellazione dei nodi; in quest ultimo il grado di complessità dell'operazione è determinato dal nodo che si vuole cancellare, a 
