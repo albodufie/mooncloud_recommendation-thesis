@@ -125,11 +125,11 @@ indipendentemente dall’ambiente.
 %
 \section{Strutture dati gerarchiche}
 Le tabelle di un database relazionale non sono gerarchiche (come nel XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
-constituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle di questo tipo.
+costituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle di questo tipo.
 In questo caso, i dati gerarchici sono una collezione d'informazioni dove ogni item ha un solo padre e nessuno o più figli 
 (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni, simili a un albero, 
 può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di 
-organizzazione di un business, categorie per gestire contenuti e categorie di prodotti.
+organizzazione di un business, categorie per gestire contenuti e di prodotti.
 %
 \begin{figure}[ht!]
     \centering
@@ -138,13 +138,14 @@ organizzazione di un business, categorie per gestire contenuti e categorie di pr
     \label{fig:MC_Rec_Tree}
 \end{figure}
 \hfill\break
-Ci sono differenti modelli per poter gestire dati in modo gerarchico, i più importanti presi in considerazione sono i seguenti:
+Ci sono differenti modelli per poter gestire le informazioni in modo gerarchico, i più importanti che sono stati
+presi in considerazione sono i seguenti.
 %
 \subsection{The Adjacency List Model}
-Il primo approccio, e quello di più semplice implementazione, qui descritto è chiamato \textit{Adjacency List Model} o metodo ricorsivo; 
-è definito tale perché il suo funzionamento si basa su una funzione che itera per tutto l'albero.\hfill\break
-In questo modello, ogni item (nodo dell'albero) nella tabella contiene un puntatore al suo item padre; invece il nodo radice avrà un 
-puntatore a un valore NULL per l'item padre.\hfill\break
+Il primo approccio, e quello più semplice da implementare, è chiamato \textit{Adjacency List Model} o metodo ricorsivo; 
+viene definito tale perché il suo funzionamento si basa su una funzione che itera per tutto l'albero.\hfill\break
+In questo modello, ogni item (nodo dell'albero), contenuto nella tabella, ha associato un puntatore al suo item padre, in particolare 
+il nodo radice ha un puntatore a un valore NULL per l'item padre, visto che è il nodo di partenza.\hfill\break
 La Tabella \ref{table:adjacency_list_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato 
 in questo progetto secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tree}.
 %
