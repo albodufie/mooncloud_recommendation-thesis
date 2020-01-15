@@ -228,12 +228,14 @@ non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una
 una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
 in maggior tempo.
 %
+\newpage
+%
 \subsection{The Nested Set Model}
 Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare le gerarchie di dati in un modo diverso, non 
 come nodi e linee, come se fosse un albero, ma come container innestati.
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.66]{images/MC_Rec_NSM_Container(R).png}
+    \includegraphics[scale=0.6]{images/MC_Rec_NSM_Container(R).png}
     \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione (ridotto).}
     \label{fig:MC_Rec_NSM_Container_R}
@@ -273,12 +275,16 @@ Dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rap
 degli attributi \textit{left} e \textit{right} per rappresentare l'annidamento dei nodi (il nome delle colonne: \textit{left} e \textit{right}, hanno significati 
 speciali in SQL; per questo motivo si identificano questi campi con i nomi \textit{lft} e \textit{rght}).
 %
+\newpage
+%
 \begin{figure}[ht!]
+    \centering
     \includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
     \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Tree}
 \end{figure}
+\vspace{-0.5 cm}
 \hfill\break
 L'assegnazione di questi valori viene effettuata ad ogni nodo visitandolo due volte e assegnando i valori in ordine di visita, e in entrambe le visite. 
 Quindi vengono associati ad ogni nodo due numeri, memorizzati come due attributi.
@@ -296,9 +302,9 @@ partire dal caso più semplice, un nodo foglia, quel nodo senza figli, fino al c
 radice.
 %
 %\begin{sidewaysfigure}
-\begin{figure}[ht!]
+\begin{figure}
     \centering
-    \includegraphics[scale=0.4]{images/MC_Rec_NSM_Container.png}
+    \includegraphics[scale=0.56]{images/MC_Rec_NSM_Container.png}
     \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
@@ -365,7 +371,7 @@ quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più e
 \subsection{Content-based filtering}
 Un Content-based filtering (definito anche con l'acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item, quelli 
 più simili, confrontando le informazioni contenute nei metadati, come il genere, una descrizione, uno o più autori, la categoria di 
-appartenenza, ecc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
+appartenenza, ecc.; l'idea base che si trova dietro questi sistemi, è il fatto che se ad un utente piace o interessa un particolare 
 item allora gli piaceranno anche altri con caratteristiche o proprietà simili.\hfill\break
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
 Content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del 
@@ -380,45 +386,47 @@ stati inseriti nella lista dei desideri, ecc.. Più precisamente, tra vari item 
 processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
 %
 \subsection{Collaborative filtering}
-I Filtri Collaborativi (definito anche con l'acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
-degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database, 
-sfruttano tecniche di analisi dei dati per risolvere il problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere 
-producendo, eventualmente una lista dei top-N item da raccomandare per un dato utente.
-Un utente è sottoposto ad un processo di matching all'interno del database per scoprire quali sono i possibili \textit{neighbors},
-che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune al lui. A questo punto gli item maggiormente 
-preferiti dai neighbors sono raccomandati all'utente visto che potrebbero essere di suo interesse.\hfill\break
-Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi su preferenze date da altri 
+Il Filtraggio Collaborativo (definito anche con l'acronimo CF) per poter funzionare, si appoggia ad un database che raccoglie le 
+preferenze degli utenti sulla base di un insieme di item, che a loro volta possono essere presenti nella stessa base di dati; 
+vengono sfruttate tecniche di analisi dei dati per poter ottenere delle raccomandazioni che consiglino gli utenti a trovare gli item 
+che gli potrebbero piacere,eventualmente producendo una lista dei migliori N item.\hfill\break
+Un utente è sottoposto ad un processo di matching per poter scoprire quali sono i possibili \textit{neighbours},
+che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune al lui; a questo punto gli item maggiormente 
+preferiti dai \textit{neighbours} sono raccomandati all'utente.\hfill\break
+Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
 utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite.
-Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item come nella loro controparte, i filtri Content-based.\hfill\break
+Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item, come nei Filtri Content-based.\hfill\break
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
-Filtri Collaborativi.
+Filtraggio Collaborativo.
 \begin{description}
-    \item Il \textbf{primo obbiettivo} è quello di migliorare la scalabilità degli algoritmi di Filtri Collaborativi; questi algoritmi sono in grado di cercare 
-    anche diecimila di potenziali neighbors (utenti simili) in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni di 
-    potenziali neighbors, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno molte informazioni.
-    \item Il \textbf{secondo obbiettivo} è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Gli utenti vogliono 
-    raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item che potrebbero essere di loro gusto.
+    \item Il \textbf{primo obbiettivo} è quello di migliorare la scalabilità di questi algoritmi; essi sono in grado di cercare 
+    anche diecimila potenziali \textit{neighbours} in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni 
+    potenziali \textit{neighbours}, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno 
+    molte informazioni associate.
+    \item Il \textbf{secondo obbiettivo} è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Questi ultimi vogliono 
+    raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item di loro gusto e interesse.
 \end{description}
-Per certi versi questi due obbiettivi sono in conflitto tra di loro e per ottenere dei risultati validi e di una certa importanza è 
-necessario trattarli in contemporanea perché aumentare solamente la scalabilità diminuirebbe la sua qualità e viceversa 
+Per certi versi questi due obbiettivi sono in conflitto tra di loro; per ottenere dei risultati validi e di una certa importanza è 
+necessario trattarli in contemporanea perché aumentare solamente la scalabilità diminuirebbe la qualità delle raccomandazioni e viceversa 
 \cite{item-based-collaborative-filtering}.\hfill\break
 Il principale modello di Filtri Collaborativi studiato in questo elaborato e approfondito nel capitolo successivo, è il metodo definito 
-come \textit{Memory-based} e il  vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati 
-ottenuti sono altrettanto semplici da interpretare; mentre ci possono essere anche Filtri Collaborativi che sfruttano metodi 
+come \textit{Memory-based} e il vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati 
+ottenuti sono altrettanto semplici da interpretare; mentre si possono trovare anche Filtri Collaborativi che sfruttano metodi 
 \textit{Model-based} che si basano sulla fattorizzazione di matrici e sono molto più funzionali per gestire il problema della 
 sparsità dei dati. Questi ultimi sono sviluppati usando algoritmi di data mining e machine learning per predire le valutazioni di utenti 
 su item senza valutazioni, tentando di comprimere grandi database in un modello ed effettuare il processo di raccomandazione applicando dei 
-meccanismi di riferimento all'interno di questo modello.
-I CF Model-based possono rispondere alle richieste degli utenti istantaneamente \cite{model-based-approach-for-collaborative-filtering}.
+meccanismi di riferimento all'interno di questo modello, questo permette ai CF Model-based di rispondere alle richieste degli utenti 
+istantaneamente \cite{model-based-approach-for-collaborative-filtering}.
 %
 \subsection{Il problema della Cold Start}
 Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al database? Questa situazione è chiamata \textit{Cold Start} ed 
 è possibile trovarne di due tipi.
 \begin{description}
-    \item[Visitor Cold Start]: si verifica quando un nuovo utente è stato aggiunto al database, visto che non c'è alcuno storico relativo ad esso, il sistema non 
-    sa le sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. Per risolvere questo problema, 
-    a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una volta che si è venuti a 
-    conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
-    \item[Item Cold Start]: si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare 
-    il valore di questo item; maggiore l'interazione un item riceve, più è facile che venga raccomandato all'utente giusto.
+    \item[Visitor Cold Start:] si verifica quando un nuovo utente viene aggiunto al database, e visto che non è presente alcuno storico relativo, 
+    il sistema non è a conoscenza delle sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. 
+    Per risolvere questo problema, a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una 
+    volta che si è venuti a conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
+    \item[Item Cold Start:] si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare 
+    il valore di questo item all'interno dell'ecosistema; quindi maggiore è l'interazione che un item riceve, e più è facile che venga raccomandato 
+    all'utente interessato.
 \end{description}
