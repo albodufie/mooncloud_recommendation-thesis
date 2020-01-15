@@ -159,12 +159,17 @@ Un'altra grande differenza è che la virtualizzazione permette di eseguire più 
 condividono lo stesso kernel del sistema operativo e isolano i processi applicativi dal resto dell’infrastruttura.
 %
 \section{Strutture dati gerarchiche}
-Le tabelle di un database relazionale non sono gerarchiche (come nell'XML), ma sono delle semplici liste piatte. I dati gerarchici sono 
-costituiti da relazioni padre-figlio che non possono essere rappresentate in modo naturale nelle tabelle di questo tipo.
-In questo caso, i dati gerarchici sono una collezione d'informazioni dove ogni item ha un solo padre e nessuno o più figli 
-(a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione delle informazioni, simili a un albero, 
-può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, grafici di 
-organizzazione di un business, categorie per gestire contenuti e di prodotti.
+Il Modello Relazionale è un modello logico di rappresentazione dei dati di un database, in cui ogni riga di una tabella è un record identificato univocamente
+da un Id, e le colonne contengono gli attributi dei dati e in genere ogni record ha un valore per ogni attributo.\hfill\break
+In questa tesi si è lavorato su un database SQL, in cui i dati normalmente sono conservati come semplici "flat table", e gestito attraverso PostgreSQL, 
+un sistema di gestione di database relazionali ad oggetti (ORDBMS). In generale le tabelle contenute in questo tipo di base di dati non permettono la 
+memorizzazione secondo un modello gerarchico (come nell'XML).\hfill\break
+Nel caso di questa tesi si vogliono memorizzare due tassonomie, aventi struttura ad albero, in cui ogni nodo corrisponde, all'interno di una tabella, ad un 
+record; quindi in dati gerarchici si instaurano delle relazioni padre-figlio tra le quali non possono essere rappresentate in modo naturale 
+all'interno di un database relazionale.\hfill\break
+In questo caso ogni nodo ha un solo padre e nessuno o più figli (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione 
+delle informazioni, può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, 
+grafici di organizzazione di un business, categorie per gestire contenuti e prodotti.
 %
 \begin{figure}[ht!]
     \centering
@@ -173,16 +178,20 @@ organizzazione di un business, categorie per gestire contenuti e di prodotti.
     \label{fig:MC_Rec_Tree}
 \end{figure}
 \hfill\break
-Ci sono differenti modelli per poter gestire le informazioni in modo gerarchico, i più importanti che sono stati
-presi in considerazione sono i seguenti.
+Durante lo studio compiuto per la realizzazione di questa testi sono stati analizzati diversi approcci per poter gestire le informazioni in modo gerarchico, 
+i più importanti presi in considerazione sono i seguenti: 
+\begin{itemize}
+    \item The Adjacency List Model.
+    \item The Nested Set Model.
+\end{itemize}
 %
 \subsection{The Adjacency List Model}
-Il primo approccio, e quello più semplice da implementare, è chiamato \textit{Adjacency List Model} o metodo ricorsivo; 
-viene definito tale perché il suo funzionamento si basa su una funzione che itera per tutto l'albero.\hfill\break
-In questo modello, ogni item (nodo dell'albero), contenuto nella tabella, ha associato un puntatore al suo item padre, in particolare 
-il nodo radice ha un puntatore a un valore NULL per l'item padre, visto che è il nodo di partenza.\hfill\break
-La Tabella \ref{table:adjacency_list_model_table} è un esempio di possibile rappresentazione parziale dei dati nel database implementato 
-in questo progetto secondo questo approccio, seguendo come riferimento la Figura \ref{fig:MC_Rec_Tree}.
+Il primo approccio è chiamato \textit{Adjacency List Model} o metodo ricorsivo; viene definito tale perché il suo funzionamento si basa su una funzione che 
+itera per tutto l'albero.\hfill\break
+In questo modello, ogni nodo dell'albero contenuto nella tabella ha associato un puntatore al suo nodo padre, e in particolare il nodo radice ha un puntatore 
+a un valore NULL per quest'ultimo valore visto che è il nodo di partenza.\hfill\break
+La Tabella \ref{table:adjacency_list_model_table} mostra un esempio di possibile rappresentazione parziale dei dati nel database implementato in questo progetto 
+secondo questo approccio, utilizzando come riferimento la Figura \ref{fig:MC_Rec_Tree}.
 %
 \begin{table}[ht!]
 \centering
@@ -211,17 +220,17 @@ in questo progetto secondo questo approccio, seguendo come riferimento la Figura
 \label{table:adjacency_list_model_table}
 \end{table}
 \hfill\break
-Il vantaggio di usare questo modello sta nella sua semplicità di costruzione, sopratutto a livello di codice client-side, 
+Il vantaggio di usare questo modello sta nella sua semplicità di costruzione, soprattutto a livello di codice client-side, 
 e di restituzione dei figli di un nodo. Diventa problematico se si lavora in puro codice SQL e nella maggior parte dei linguaggi 
-di programmazione, è lento e poco efficiente, perché è necessaria una query per ogni nodo dell'albero, e visto che ogni query impiega 
-un certo periodo di tempo, questo rende la funzione molto lente quando si lavora con alberi di grandi dimensioni, inoltre molti linguaggi 
+di programmazione, è lento e poco efficiente, perché necessita di una query per ogni nodo dell'albero, e visto che ogni query impiega 
+un certo periodo di tempo, questo rende la funzione molto lenta quando si lavora con alberi di grandi dimensioni; inoltre, molti linguaggi 
 non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa 
 una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
 in maggior tempo.
 %
 \subsection{The Nested Set Model}
-Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare la gerarchia in un modo diverso, non 
-come nodi e linee (come se fosse un albero), ma come Container innestati.
+Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare le gerarchie di dati in un modo diverso, non 
+come nodi e linee, come se fosse un albero, ma come container innestati.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.66]{images/MC_Rec_NSM_Container(R).png}
@@ -230,9 +239,9 @@ come nodi e linee (come se fosse un albero), ma come Container innestati.
     \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
 %
-Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene e suoi figli e questa forma di 
-gerarchia viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi come è possibile osservare dalla Tabella 
-\ref{table:nested_set_model_table} seguente.
+Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene e suoi figli e questa struttura 
+viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi come è possibile osservare dalla Tabella \ref{table:nested_set_model_table} 
+seguente, la quale fa riferimento alla Figura \ref{fig:MC_Rec_NSM_Container} posta alla fine della sezione.
 \begin{table}[ht!]
 \centering
 \begin{tabular}[c]{| c | l | c | c |}
@@ -261,8 +270,8 @@ gerarchia viene mantenuta in tabella attraverso l'uso di due attributi aggiuntiv
 \end{table}
 \hfill\break
 Dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rappresentata attraverso l'uso 
-degli attributi 'left' e 'right' per rappresentare l'annidamento dei nodi (il nome delle colonne: 'left' e 'right', hanno significati 
-speciali in SQL; per questo motivo si identificano questi campi con i nomi 'lft' e 'rght').
+degli attributi \textit{left} e \textit{right} per rappresentare l'annidamento dei nodi (il nome delle colonne: \textit{left} e \textit{right}, hanno significati 
+speciali in SQL; per questo motivo si identificano questi campi con i nomi \textit{lft} e \textit{rght}).
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
@@ -274,39 +283,40 @@ speciali in SQL; per questo motivo si identificano questi campi con i nomi 'lft'
 L'assegnazione di questi valori viene effettuata ad ogni nodo visitandolo due volte e assegnando i valori in ordine di visita, e in entrambe le visite. 
 Quindi vengono associati ad ogni nodo due numeri, memorizzati come due attributi.
 Più precisamente si inizia la visita dell'albero partendo da sinistra e continuando verso destra, un livello alla volta, scendendo per ogni
-nodo i suoi figli, assegnando i valori al campo left, prima di assegnare un valore al campo right, e successivamente si continua verso 
+nodo i suoi figli, assegnando i valori al campo \textit{left}, prima di assegnare un valore al campo \textit{right}, e successivamente si continua verso 
 destra. Questo approccio è chiamato \textit{Modified preorder tree traversal algorithm} (MPTT). A partire da questa tecnica è stato 
 ideata la struttura della tassonomia delle evaluation e dei controlli implementate nella soluzione proposta in questa tesi, con 
-l'ausilio di un package di Python chiamato MPTT.\hfill\break
-Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} possiamo notare che la numerazione dei nodi, viene
-effettuata a partire da Container più esterno da sinistra e continua verso destra.\hfill\break
+l'ausilio di un package di Python chiamato MPTT, del quale verrà illustrato il funzionamento nel capitolo \ref{chp:04-solution}.\hfill\break
+Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} si può notare che la numerazione dei nodi, viene
+effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di aggiornamento e 
-cancellazione dei nodi; in quest ultimo il grado di complessità dell'operazione è determinato dal nodo che si vuole cancellare, a 
-partire dal caso più semplice, il nodo foglia (un nodo senza figli) fino al caso più complicato, quando si vuole cancellare il nodo 
+cancellazione dei nodi; in quest'ultima il grado di complessità dell'operazione è determinato dal nodo che si vuole cancellare, a 
+partire dal caso più semplice, un nodo foglia, quel nodo senza figli, fino al caso più complicato, quando si vuole cancellare il nodo 
 radice.
 %
-\begin{sidewaysfigure}
+%\begin{sidewaysfigure}
+\begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.4]{images/MC_Rec_NSM_Container.png}
     \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
-\end{sidewaysfigure}
+\end{figure}
+%\end{sidewaysfigure}
 %
 \newpage
 %
 \section{Sistemi di raccomandazione}
-Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia ad utenti uno o più item esistenti 
-in un database. L'\textit{item} è una qualsiasi cosa di interesse agli utenti, come prodotti, libri o giornali. Quando si esegue 
+Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia a un utente uno o più item esistenti 
+in un database e l'\textit{item} è inteso come una qualsiasi cosa di interesse all'utente, come prodotti, libri o giornali. Quando si esegue 
 una raccomandazione si hanno delle aspettative che l'item raccomandato possa essere tra quelli di maggiore interesse; in altre parole, 
-devono essere in accordo con i gusti degli utenti.\hfill\break
+devono essere in accordo con i gusti dell'utente.\hfill\break
 Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione.
 \begin{description}
     \item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti 
-    in passato, vengo presi in considerazione prima gli item con alte valutazioni o quelli molto utilizzati. Ogni item ha associate 
-    delle informazioni che lo descrivono, questo insieme di dati viene definito metadati, e sono fondamentali per il processo di 
-    raccomandazione.
+    in passato, prendendo in considerazione prima gli item con alte valutazioni o quelli molto utilizzati; questo è possibile perché ad 
+    ogni item sono associate delle informazioni che lo descrivono, e questo insieme di dati viene definito metadati.
     \item[Collaborative filtering](CF): un item viene raccomandato ad un utente se i suoi vicini (altri utenti simili) sono 
     interessati a quello stesso item.
 \end{description}
@@ -317,44 +327,44 @@ Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione
     \caption{Categorizzazione generale dei sistemi di raccomandazione.}
     \label{fig:recommender_systems}
 \end{figure}
-Entrambi gli approcci (CBF e CF) hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e
+Entrambi gli approcci hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e
 sugli interessi del singolo utente e propone item differenti a utenti differenti, questo significa che ogni utente può ricevere 
-raccomandazioni uniche; e questo è un vantaggio. 
+raccomandazioni uniche. 
 Tuttavia la più grande limitazione del CBF è il fatto di non poter determinare se un utente è interessato ad un item in modo implicito,
 perché analizza solamente direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
 suggerire item che non verrebbero notati con questo approccio.
-Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item allora il sistema CF consuma molte 
+Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item allora vengono consumate molte 
 risorse e tempo per poter analizzarli, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione 
 viene fatta sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item e questo è il suo punto 
 di forza perché non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perché può
-portare a suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti. 
+portare suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti. 
 Questo problema è accentuato quando sono presenti nel database molti item che non hanno valutazioni o non sono stati mai usati dagli 
 utenti \cite{model-based-approach-for-collaborative-filtering}.
 \vspace{0.5 cm}
 \hfill\break
-Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti, attraverso 
+Un sistema di raccomandazione filtra i dati usando differenti algoritmi e raccomanda gli item più rilevanti agli utenti attraverso 
 un procedimento a 3 fasi.
 \begin{description}
-    \item[Raccolta di dati]: questo è il primo step e anche quello più importante per poter costruire un sistema di 
+    \item[Raccolta di dati:] il primo step è anche quello più importante per poter costruire un sistema di 
     raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente, 
     cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
-    attraverso l'approccio implicito, vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti 
+    attraverso l'approccio implicito vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti 
     dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, ecc.
-    \item[Memorizzazione di dati]: la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
+    \item[Memorizzazione di dati:] la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
     diventare. Ad esempio, in un sistema di raccomandazione per film, maggiori sono le valutazioni fornite dagli utenti, e 
     migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
-    anche il supporto di memorizzazione più adatto.   
-    \item[Filtraggio dei dati]: dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre 
-    le informazioni rilevanti per poter effettuare le raccomandazioni finali, e sono già disponibili diversi algoritmi che 
-    semplificano quest'ultima fase. 
+    anche il supporto di memorizzazione più adatto.
+    \item[Filtraggio dei dati:] dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre 
+    le informazioni rilevanti e poter effettuare le raccomandazioni finali, inoltre sono già disponibili diversi algoritmi che 
+    semplificano quest'ultima fase.
 \end{description}
-I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco degli approcci ibridi, delle 
+I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco anche degli approcci ibridi, 
 combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di 
 quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
 %
 \subsection{Content-based filtering}
-Un Content-based filtering (acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item (oggetti o prodotti), quelli 
-più simili, il confronto viene effettuato sfruttando i metadati, come il genere, una descrizione, uno o più autori, la categoria di 
+Un Content-based filtering (definito anche con l'acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item, quelli 
+più simili, confrontando le informazioni contenute nei metadati, come il genere, una descrizione, uno o più autori, la categoria di 
 appartenenza, ecc.; l'idea base che si trova dietro questi sistemi, si basa sul fatto che se ad un utente piace o interessa un particolare 
 item allora gli piaceranno anche altri con caratteristiche o proprietà simili.\hfill\break
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
@@ -370,7 +380,7 @@ stati inseriti nella lista dei desideri, ecc.. Più precisamente, tra vari item 
 processo di confronto con gli item piaciuti dall'utente e gli item migliori vengono suggeriti.
 %
 \subsection{Collaborative filtering}
-I Filtri Collaborativi (\textit{Collaborative filtering}, acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
+I Filtri Collaborativi (definito anche con l'acronimo CF) per poter funzionare come prima cosa costruiscono un database di preferenze 
 degli utenti sulla base di un insieme di item (o prodotti), che a loro volta possono essere presenti un database, 
 sfruttano tecniche di analisi dei dati per risolvere il problema di aiutare gli utenti a trovare gli item che gli potrebbero piacere 
 producendo, eventualmente una lista dei top-N item da raccomandare per un dato utente.
