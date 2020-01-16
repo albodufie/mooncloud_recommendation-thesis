@@ -1,24 +1,29 @@
 \chapter{Descrizione della soluzione}\label{chp:04-solution}
-In questo capitolo viene approfondito l'aspetto puramente pratico e le fasi che hanno portato alla realizzazione della soluzione; 
+In questo capitolo è approfondito l'aspetto puramente pratico e le fasi che hanno portato alla realizzazione della soluzione; 
 inoltre vengono mostrate le applicazioni pratiche degli aspetti teorici enunciati nei capitoli precedenti, unitamente alle difficoltà 
 principali incontrate.
-\vspace{1.5 cm}
-\hfill\break
+%\vspace{1.5 cm}
+%\hfill\break
+\section*{Preparazione della base di dati}
 Prima di poter costruire il sistema di raccomandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari 
 per poter impostare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione.
 %
 % TASSONOMIE E DATABASE CON I MODELS (package MPTT)
 Come annunciato nei capitoli precedenti per procedere alla costruzione di un sistema di raccomandazione bisogna avere a disposizione 
 una base di dati solida da cui attingere tutte le informazioni; ed è proprio questo il primo passo che è stato seguito, disegnare 
-e progettare una base di dati da cui partire per la realizzazione degli algoritmi proposti.
-In generale Moon Cloud possiede una struttura delle Evaluation ad albero, quindi anche di conseguenza anche le tabelle del database 
-rispecchiano questa struttura, sulla base delle considerazioni sulle tecniche adottate sono state fatte nei capitoli precedenti.\hfill\break
-Per implementare un modified pre-order trasversal tree in Django, si è fatto uso del package MPTT, come detto in precedenza, questa 
-tecnica è usata per memorizzare dati gerarchici in un database, puntando all'efficienza nelle operazioni di recupero dei dati e 
-scendendo a compromessi per quanto riguarda le operazioni di inserimento e spostamento dei nodi all'interno della struttura.
-Grazie all'ausilio di questa utility la costruzione dei Model del progetto sono stati semplificati e qui di seguito nel Listing \ref{lst:model} 
-è possibile trovare le porzioni principali del codice costituente i Model, i quali poi vengono utilizzati da Django per la 
-generazione della base di dati.
+e progettare un database da cui partire per la realizzazione degli algoritmi proposti.
+In generale Moon Cloud possiede una struttura delle Evaluation e dei Control ad albero, di conseguenza anche le tabelle del database 
+rispecchiano questa struttura, partendo dalle considerazioni fatte sulle tecniche descritte nei capitoli precedenti si è deciso, che 
+per implementare un database relazionale che gestisse dati gerarchici, di utilizzare la tecnica
+definita come \textit{Modified Preorder Tree Traversal Algorithm}, la quale permette di massimizzare l'efficienza nelle 
+operazioni di recupero dei dati, e quindi velocizzare i processi di raccomandazione, ma scendendo a compromessi per quanto riguarda le 
+operazioni di inserimento e spostamento dei nodi all'interno della struttura. 
+Grazie al package MPTT, il quale è una app di Django che ha come obbiettivo semplificare il più possibile la realizzazione dei 
+Model, utilizzati per la generazione della base di dati, e la 
+gestione della struttura di dati ad albero; si prende cura di tutti i dettagli riguardanti la realizzazione delle tabelle e dei 
+campi \textit{left} e \textit{right} associati ad ogni nodo della tassonomia, e vengono messi a disposizione dei tool per poter 
+lavorare con le istanze dei Model. Qui di seguito nel Listing \ref{lst:model} è possibile trovare le porzioni principali del codice 
+costituenti i Model.
 %
 % MODELS CODES
 \lstset{style=python_code_style}
@@ -125,9 +130,9 @@ class User(models.Model):
 
 class Target(models.Model):
     """
-    Targets (can be more than one) chosen by users
+    Target (can be more than one) chosen by the user
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User has chosen some target_type
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User has chosen a target_type
     other_id = models.IntegerField(default=-1, unique=True)
     target_type = models.ForeignKey(TargetType, on_delete=models.CASCADE)  # TargetType Id
 
@@ -138,24 +143,27 @@ class Target(models.Model):
         ordering = ["user"]
 \end{lstlisting}
 %
-A partire da questo Model vennero introdotte nel database le seguenti tabelle, le quali è possibile visionare nella Figura 
+A partire da questi Model vennero introdotte nel database le seguenti tabelle, le quali è possibile visionare nella Figura 
 \ref{fig:str_db_project}.
 \begin{description}
-    \item[Control]: contiene l'insieme dei software che vengono poi effettivamente eseguiti all'interno di una Evaluation, 
-    i campi other\_id (identificativo che fa riferimento al database effettivo di Moon Cloud), 
+    \item[Control:] è contenuto l'insieme dei software, o soltanto i riferimenti, che vengono poi effettivamente eseguiti all'interno 
+    di una Evaluation, i campi other\_id (identificativo dell'Evaluation che fa riferimento al database effettivo di Moon Cloud), 
     descr (una descrizione del funzionamento del controllo), node\_type (definisce se il nodo è un Evaluation o un nodo Categoria) 
     definiscono le caratteristiche del controllo mentre lft, rght, tree\_id, level e parent sono introdotti 
     automaticamente dal package MPTT per poter rappresentare i dati in modo gerarchico, infine target\_type\_id rappresenta, quel 
     controllo a quale Target viene associato.
-    \item[Evaluation]: contiene l'insieme di Evaluation che un utente può eseguire per un certo Target, e allo stesso modo 
-    i campi contenuti nella tabella Control. La tabella intermedia evaluation\_controls permette di memorizzare quali controlli 
+    \item[Evaluation:] è contenuto l'insieme di Evaluation che un utente può eseguire per un certo Target, e allo stesso modo 
+    i campi contenuti nella tabella Control. La tabella intermedia evaluation\_controls permette di memorizzare quali Controlli 
     sono associati a quali Evaluation.
-    \item[User]: contiene gli utenti registrati alla piattaforma Moon Cloud, e sono anche loro, come con le tabelle precedenti, 
+    \item[User:] sono contenuti gli utenti registrati alla piattaforma Moon Cloud, e sono anche loro, come con le tabelle precedenti, 
     identificati con un campo other\_id, e distinti da un email. La tabella intermedia user\_evaluations permette di memorizzare 
     quali Evaluation un utente ha selezionato e usato.
-    \item[Target]: è utilizzata per memorizzare quali Target un utente ha inserito e sui quali vuole effettuare dei processi 
-    di Evaluation.
-    \item[TargetType]: specifica quali sono i tipi di Target supportati da Moon Cloud.
+    \item[Target:] è utilizzata per memorizzare quali Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
+    di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
+    \item[TargetType:] vengono specificati quali sono i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{Url}, 
+    rappresentante l'Url dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e viene fatta una 
+    distizione tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
+    gruppo Amazon, e \textit{Azure}, definisce un servizio cloud fornito da Microsoft.
 \end{description}
 \begin{figure}
     \centering
@@ -167,13 +175,15 @@ A partire da questo Model vennero introdotte nel database le seguenti tabelle, l
 \newpage
 %
 % VIEW A SCOPO DIDATTICO
-\hfill\break
+%\hfill\break
+\section*{Realizzazione delle View}
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
 implementata un'interfaccia Web a scopo didattico.
 Avviando il server, la home page che viene proposta è mostrata nella Figura \ref{fig:MCRS_homepage}, dalla quale è possibile 
 accedere alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; inoltre 
 tramite la barra di navigazione è possibile tornare a questa home page o accedere alla admin page generata da Django, e 
 succesivamente personalizzata, per poter manipolare la base di dati.
+%
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_homepage.png}
     \caption{Home page.}
@@ -468,7 +478,13 @@ nuovi dati, come mostrato in Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.
 \end{figure}
 
 % VIEW PER LE RACCOMANDAZIONI
+\section*{View per i processi di raccomandazione}
+%METTO ANCHE DEGLI ESEMPI
 
 % VIEW PER MANTERE LA CONSISTENZA COL MIO DATABASE
+\section*{Consistenza tra i database}
 
 % IMPLEMENTAZIONE CON DOCKER
+\section*{Implementazione in Docker}
+
+% Documentazione con Postman e parlo dei test
