@@ -159,14 +159,15 @@ Un'altra grande differenza è che la virtualizzazione permette di eseguire più 
 condividono lo stesso kernel del sistema operativo e isolano i processi applicativi dal resto dell’infrastruttura.
 %
 \section{Strutture dati gerarchiche}
-Il Modello Relazionale è un modello logico di rappresentazione dei dati di un database, in cui ogni riga di una tabella è un record identificato univocamente
-da un Id, e le colonne contengono gli attributi dei dati e in genere ogni record ha un valore per ogni attributo.\hfill\break
-In questa tesi si è lavorato su un database SQL, in cui i dati normalmente sono conservati come semplici "flat table", e gestito attraverso PostgreSQL, 
-un sistema di gestione di database relazionali ad oggetti (ORDBMS). In generale le tabelle contenute in questo tipo di base di dati non permettono la 
-memorizzazione secondo un modello gerarchico (come nell'XML).\hfill\break
 Nel caso di questa tesi si vogliono memorizzare due tassonomie, aventi struttura ad albero, in cui ogni nodo corrisponde, all'interno di una tabella, ad un 
 record; quindi in dati gerarchici si instaurano delle relazioni padre-figlio tra le quali non possono essere rappresentate in modo naturale 
-all'interno di un database relazionale.\hfill\break
+all'interno di un database relazionale, il quale, per l'appunto, segue il Modello Relazionale.\hfill\break
+Esso è un modello logico di rappresentazione dei dati all'interno di un database, in cui ogni riga di una tabella è un record identificato univocamente
+da una chiave primaria, e le colonne contengono gli attributi dei dati e in genere ogni record ha un valore per ogni attributo.\hfill\break
+In questa tesi si è lavorato su un database SQL, in cui i dati normalmente sono conservati come semplici "flat table", e in particolare si è usato il DBMS 
+PostgreSQL, un sistema di gestione di database relazionali ad oggetti (ORDBMS). In generale le tabelle contenute in questo tipo di base di dati non permettono la 
+memorizzazione secondo un modello gerarchico (come nell'XML).\hfill\break
+Per questo motivo è sorta la necessità di cercare un metodo alternativo per poter rappresentare queste strutture all'interno di database tradizionali.
 In questo caso ogni nodo ha un solo padre e nessuno o più figli (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione 
 delle informazioni, può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, 
 grafici di organizzazione di un business, categorie per gestire contenuti e prodotti.
@@ -241,9 +242,10 @@ come nodi e linee, come se fosse un albero, ma come container innestati.
     \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
 %
-Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene e suoi figli e questa struttura 
-viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi come è possibile osservare dalla Tabella \ref{table:nested_set_model_table} 
-seguente, la quale fa riferimento alla Figura \ref{fig:MC_Rec_NSM_Container} posta alla fine della sezione.
+Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene i suoi figli. Questa struttura 
+viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi, \textit{lft} e \textit{rght}, come è possibile osservare 
+dalla Tabella \ref{table:nested_set_model_table} seguente, la quale fa riferimento alla Figura \ref{fig:MC_Rec_NSM_Container} 
+posta alla fine della sezione.
 \begin{table}[ht!]
 \centering
 \begin{tabular}[c]{| c | l | c | c |}
@@ -315,9 +317,9 @@ radice.
 %
 \section{Sistemi di raccomandazione}
 Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia a un utente uno o più item esistenti 
-in un database e l'\textit{item} è inteso come una qualsiasi cosa di interesse all'utente, come prodotti, libri o giornali. Quando si esegue 
-una raccomandazione si hanno delle aspettative che l'item raccomandato possa essere tra quelli di maggiore interesse; in altre parole, 
-devono essere in accordo con i gusti dell'utente.\hfill\break
+presenti in un database; l'\textit{item} è inteso come una qualsiasi cosa di interesse all'utente, come prodotti, libri o giornali. 
+Quando si esegue una raccomandazione si ha come obbiettivo quello di consigliare l'item che possa essere tra quelli di maggiore 
+interesse; in altre parole, devono essere in accordo con i gusti dell'utente.\hfill\break
 Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione.
 \begin{description}
     \item[Content-based filtering](CBF): un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti 
@@ -337,9 +339,9 @@ Entrambi gli approcci hanno i loro punti di forza e di debolezza. Il primo algor
 sugli interessi del singolo utente e propone item differenti a utenti differenti, questo significa che ogni utente può ricevere 
 raccomandazioni uniche. 
 Tuttavia la più grande limitazione del CBF è il fatto di non poter determinare se un utente è interessato ad un item in modo implicito,
-perché analizza solamente direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
+perché analizza direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
 suggerire item che non verrebbero notati con questo approccio.
-Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item allora vengono consumate molte 
+Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item, allora vengono consumate molte 
 risorse e tempo per poter analizzarli, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione 
 viene fatta sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item e questo è il suo punto 
 di forza perché non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perché può
@@ -353,28 +355,28 @@ un procedimento a 3 fasi.
 \begin{description}
     \item[Raccolta di dati:] il primo step è anche quello più importante per poter costruire un sistema di 
     raccomandazione che produca risultanti rilevanti e consistenti. I dati possono essere raccolti in due modi: esplicitamente, 
-    cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto; mentre 
-    attraverso l'approccio implicito vengono raccolti dati che non sono prodotti in modo intenzionale dall'utente ma ottenuti 
+    cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto oppure 
+    implicitamente. In questo caso vengono raccolti dati che, non sono prodotti in modo intenzionale dall'utente, ma sono ottenuti 
     dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, ecc.
     \item[Memorizzazione di dati:] la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
     diventare. Ad esempio, in un sistema di raccomandazione per film, maggiori sono le valutazioni fornite dagli utenti, e 
     migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
     anche il supporto di memorizzazione più adatto.
     \item[Filtraggio dei dati:] dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre 
-    le informazioni rilevanti e poter effettuare le raccomandazioni finali, inoltre sono già disponibili diversi algoritmi che 
-    semplificano quest'ultima fase.
+    le informazioni rilevanti e poter effettuare le raccomandazioni finali, inoltre vi sono diversi algoritmi standard per 
+    realizzare quest'ultima fase..
 \end{description}
-I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco anche degli approcci ibridi, 
-combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di 
-quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
+%I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco anche degli approcci ibridi, 
+%combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di 
+%quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
 %
 \subsection{Content-based filtering}
 Un Content-based filtering (definito anche con l'acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item, quelli 
-più simili, confrontando le informazioni contenute nei metadati, come il genere, una descrizione, uno o più autori, la categoria di 
-appartenenza, ecc.; l'idea base che si trova dietro questi sistemi, è il fatto che se ad un utente piace o interessa un particolare 
+più simili, confrontando le informazioni contenute nei metadati, come una descrizione, uno o più autori, la categoria di 
+appartenenza, ecc.. L'idea base che si trova dietro questi sistemi, è il fatto che se ad un utente piace o interessa un particolare 
 item allora gli piaceranno anche altri con caratteristiche o proprietà simili.\hfill\break
 Questo algoritmo suggerisce prodotti che piacevano all'utente nel passato ed è limitato a item dello stesso tipo. Un 
-Content-based recommender fa riferimento a quegli approcci, che provvedono raccomandazioni comparano la rappresentazione del 
+Content-based recommender fa riferimento a quegli approcci che provvedono raccomandazioni comparano la rappresentazione del 
 contenuto che descrive un item e la rappresentazione del contenuto dell'item interessato dall'utente.\hfill\break
 Questi metodi sono usati quando si conoscono a priori i metadati sugli item che si vuole suggerire, ma nulla sugli utenti.
 In questo sistema, delle \textit{keyword} sono utilizzate per caratterizzare gli item e un profilo dell'utente è 
@@ -387,11 +389,11 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 %
 \subsection{Collaborative filtering}
 Il Filtraggio Collaborativo (definito anche con l'acronimo CF) per poter funzionare, si appoggia ad un database che raccoglie le 
-preferenze degli utenti sulla base di un insieme di item, che a loro volta possono essere presenti nella stessa base di dati; 
-vengono sfruttate tecniche di analisi dei dati per poter ottenere delle raccomandazioni che consiglino gli utenti a trovare gli item 
+preferenze degli utenti sulla base di un insieme di item, che a loro volta possono essere presenti nella stessa base di dati. 
+Si sfruttano tecniche di analisi dei dati per poter ottenere delle raccomandazioni che consiglino gli utenti a trovare gli item 
 che gli potrebbero piacere,eventualmente producendo una lista dei migliori N item.\hfill\break
 Un utente è sottoposto ad un processo di matching per poter scoprire quali sono i possibili \textit{neighbours},
-che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune al lui; a questo punto gli item maggiormente 
+che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune ad egli. Infine, gli item maggiormente 
 preferiti dai \textit{neighbours} sono raccomandati all'utente.\hfill\break
 Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
 utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite.
@@ -410,7 +412,7 @@ Per certi versi questi due obbiettivi sono in conflitto tra di loro; per ottener
 necessario trattarli in contemporanea perché aumentare solamente la scalabilità diminuirebbe la qualità delle raccomandazioni e viceversa 
 \cite{item-based-collaborative-filtering}.\hfill\break
 Il principale modello di Filtri Collaborativi studiato in questo elaborato e approfondito nel capitolo successivo, è il metodo definito 
-come \textit{Memory-based} e il vantaggio di utilizzare queste tecniche sta nel fatto di essere semplici da implementare e i risultati 
+come \textit{Memory-based} e il vantaggio di utilizzare questa tecnica sta nel fatto di essere semplici da implementare e i risultati 
 ottenuti sono altrettanto semplici da interpretare; mentre si possono trovare anche Filtri Collaborativi che sfruttano metodi 
 \textit{Model-based} che si basano sulla fattorizzazione di matrici e sono molto più funzionali per gestire il problema della 
 sparsità dei dati. Questi ultimi sono sviluppati usando algoritmi di data mining e machine learning per predire le valutazioni di utenti 
@@ -427,6 +429,6 @@ Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al databas
     Per risolvere questo problema, a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una 
     volta che si è venuti a conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
     \item[Item Cold Start:] si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare 
-    il valore di questo item all'interno dell'ecosistema; quindi maggiore è l'interazione che un item riceve, e più è facile che venga raccomandato 
+    il valore di questo item all'interno dell'ecosistema; quindi maggiore è l'interazione che un item riceve maggiore è la facilità che venga raccomandato 
     all'utente interessato.
 \end{description}
