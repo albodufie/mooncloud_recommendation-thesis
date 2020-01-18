@@ -179,10 +179,11 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 \section*{Realizzazione delle View}
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
 implementata un'interfaccia Web a scopo didattico.
-Avviando il server, la home page che viene proposta è mostrata nella Figura \ref{fig:MCRS_homepage}, dalla quale è possibile 
+Avviando il server, la home page che viene proposta è mostrata nella Figura \ref{fig:MCRS_homepage}, e subito 
+sotto è possible trovare il Listing \ref{lst:view_homepage}, dalla quale è possibile 
 accedere alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; inoltre 
 tramite la barra di navigazione è possibile tornare a questa home page o accedere alla admin page generata da Django, e 
-succesivamente personalizzata, per poter manipolare la base di dati.
+succesivamente personalizzata, per poter manipolare la base di dati, e aggiungere, eliminare item o utenti.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_homepage.png}
@@ -201,38 +202,19 @@ def index(request):
     return render(request, "recommendation_app/index.html")
 \end{lstlisting}
 %
-Una volta scelta la tassonomia su cui si vuole navigare, è possibile, per ogni singolo nodo, recuperare: i 
-discendenti, la famiglia, i fratelli, e gli antenati; ed è anche possibile scaricare un file scritto in linguaggio 
-DOT e un'immagine in formato .png rappresentante la gerarchia dei dati contenuti nella base dati.
-Inoltre è possibile osservare in maniera più approfondita le informazioni rilevanti sulla tassonomia contenute nelle tabelle 
-del database.
-\begin{figure}
+Una volta scelta la tassonomia, di Controlli o delle Evaluation, su cui si vuole navigare, è possibile svolgere diverse attività. 
+Dalla Figura \ref{fig:MCRS_taxindex} è possibile osservare l'interfaccia dalla quale si eseguono le operazioni di seguito descritte, e
+immediatamente sotto al Listing \ref{lst:view_tax_homepage} è visibile il codice che implementa questa pagina web.\hfill\break
+%
+\begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_taxindex.png}
     \caption{Home page per la navigazione della tassonomia.}
     \label{fig:MCRS_taxindex}
 \end{figure}
 %
-\begin{figure}
-    \includegraphics[scale=0.3]{images/MCRS_taxdetails.png}
-    \caption{Dettagli della tassonomia sotto forma di tabella come nella base di dati.}
-    \label{fig:MCRS_taxdetails}
-\end{figure}
-%
-\begin{figure}
-    \includegraphics[scale=0.3]{images/MCRS_taxnodedetails.png}
-    \caption{Risultato dell'operazione selezionata sul nodo in questione.}
-    \label{fig:MCRS_taxnodedetails}
-\end{figure}
-%
-\newpage
-%
-\hfill\break
-Qui di seguito nel Listing \ref{lst:view} è possibile trovare il codice scritto all'interno delle View per poter eseguire tutte le 
-operazioni descritte sopra.
 \lstset{style=python_code_style}
-\label{lst:view}
-\begin{lstlisting}[language=Python, caption={Parti principali del codice delle View della soluzione per gestire la navigazione 
-    delle tassonomie, quella delle Evaluation e quella dei Controlli}]
+\begin{lstlisting}[language=Python, label=lst:view_tax_homepage, caption={Home page dalla quale è possibile richiamare 
+    diverse operazioni svolgibili sulla tassonomia.}]
 def tax_index(request, taxonomy_used):
     """
     The home page shows all taxonomy and a form to make operations on it.
@@ -296,160 +278,225 @@ def tax_index(request, taxonomy_used):
             'request_path': taxonomy_used}
 
     return render(request, "recommendation_app/tax_index.html", args)
-
-
-def tax_details(request, taxonomy_used):
-    """
-    Show the taxonomy's details page showing an overview of the taxonomy
-    :param request: HTTP request
-    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
-    :return: HTTP response with the template to show to the user
-    """
-    if (taxonomy_used == 'evaluation'):
-        tax_details_obj = Evaluation.objects.all()
-    else:
-        tax_details_obj = Control.objects.all()
-
-    return render(request, "recommendation_app/tax_details.html",
-                  {'tax_details': tax_details_obj,
-                   'taxonomy_used': taxonomy_used})
-
-
-def dot_graph(request, taxonomy_used):
-    """
-    Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
-    :param request: HTTP request
-    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
-    :return: HTTP response with the template to show to the user
-    """
-    # Create a graph object
-    taxonomy_dot_object = Graph(comment='Taxonomy', format='png')
-    # Fill the graph with every node in the database (evaluations/controls node and categories nodes), 
-    # and create a link with the parent node
-    if (taxonomy_used == 'evaluation'):
-        taxonomy_nodes = Evaluation.objects.all()
-    else:
-        taxonomy_nodes = Control.objects.all()
-    i = 0
-    for node in taxonomy_nodes.order_by('level'):
-        # This If construct will prevent the adding of an empty node to the root node in the graph
-        if (i == 0):
-            # Insert the root node
-            taxonomy_dot_object.node(str(node.id), label=str(node.name))
-        else:
-            # Insert the other nodes
-            taxonomy_dot_object.node(str(node.id), label=str(node.name))
-            taxonomy_dot_object.edge(str(node.parent_id), str(node.id))
-        i += 1
-    # Specify where I want to save the .png image and the .dot file
-    taxonomy_dot_object.render('taxonomy_output/taxonomy.dot')
-
-    # This function is used to zip a directory
-    def make_zipdir(path, ziph):
-        # Ziph is zipfile handle
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                ziph.write(os.path.join(root, file))
-
-    # Making the zip file
-    zip_file = zipfile.ZipFile('taxonomy_output.zip', 'w', compression=zipfile.ZIP_DEFLATED)
-    make_zipdir('taxonomy_output/', zip_file)
-    zip_file.close()
-
-    # Remove the directory which was zipped and all files inside
-    shutil.rmtree("taxonomy_output/")
-
-    return redirect(reverse('rec:index'))
-
-
-# Methods to navigate the taxonomy
-
-def show_descendants(request, nodename, taxonomy_used):
-    """
-    Based on the MPTT's method 'get descendants' that return the descendants of a model instance, in tree order
-    :param request: HTTP request
-    :param nodename: name (it's unique for each node) of a node in the taxonomy
-    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
-    :return: HTTP response with the template to show to the user
-    """
-    if (taxonomy_used == 'evaluation'):
-        q_result = Evaluation.objects.get(name=nodename).get_descendants(include_self=False)
-        # Get the count of descendants of the model instance
-        q_result_num = Evaluation.objects.get(name=nodename).get_descendant_count()
-    else:
-        q_result = Control.objects.get(name=nodename).get_descendants(include_self=False)
-        # Get the count of descendants of the model instance
-        q_result_num = Control.objects.get(name=nodename).get_descendant_count()
-
-    return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(taxonomy_used)).capitalize(),
-                   'descendants': q_result,
-                   'node_exe': nodename,
-                   'method': 'descendants',
-                   'num_descendants': q_result_num})
-
-
-def show_children(request, nodename, taxonomy_used):
-    """
-    Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
-    :param request: HTTP request
-    :param nodename: name (it's unique for each node) of a node in the taxonomy
-    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
-    :return: HTTP response with the template to show to the user
-    """
-    if (taxonomy_used == 'evaluation'):
-        q_result = Evaluation.objects.get(name=nodename).get_children()
-    else:
-        q_result = Control.objects.get(name=nodename).get_children()
-
-    return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(taxonomy_used)).capitalize(),
-                   'children': q_result,
-                   'node_exe': nodename,
-                   'method': 'children'})
-
-
-def show_family(request, nodename, taxonomy_used):
-    """
-    Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
-    in tree order
-    :param request: HTTP request
-    :param nodename: name (it's unique for each node) of a node in the taxonomy
-    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
-    :return: HTTP response with the template to show to the user
-    """
-    if (taxonomy_used == 'evaluation'):
-        q_result = Evaluation.objects.get(name=nodename).get_family()
-    else:
-        q_result = Control.objects.get(name=nodename).get_family()
-
-    return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(taxonomy_used)).capitalize(),
-                   'family': q_result,
-                   'node_exe': nodename,
-                   'method': 'family'})
-
-
-def show_siblings(request, nodename, taxonomy_used):
-    """
-    Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
-    to be siblings of other root nodes)
-    :param request: HTTP request
-    :param nodename: name (it's unique for each node) of a node in the taxonomy
-    :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
-    :return: HTTP response with the template to show to the user
-    """
-    if (taxonomy_used == 'evaluation'):
-        q_result = Evaluation.objects.get(name=nodename).get_siblings()
-    else:
-        q_result = Control.objects.get(name=nodename).get_siblings()
-
-    return render(request, "recommendation_app/tax_node_details.html",
-                  {'tax_type': (str(taxonomy_used)).capitalize(),
-                   'siblings': q_result,
-                   'node_exe': nodename,
-                   'method': 'siblings'})
 \end{lstlisting}
+%
+Le attività che è possibile svolgere sulla tassonomia, sia dei Controlli sia delle Evaluation, sono i seguenti, mentre le operazioni 
+di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'ausilo della admin page messa a disposizione da Django.\hfill\break
+\begin{itemize}
+    \item Per ogni singolo nodo è possibile recuperare: i discendenti, i figli, la famiglia o i fratelli. Si ottiene un risultato come nella
+    Figura \ref{fig:MCRS_taxnodedetails} nel caso in cui si è scelti l'Evaluation Http robustness check e si vuole ritornare tutta label
+    famiglia di quel nodo.
+    %
+    \begin{figure}[ht!]
+        \includegraphics[scale=0.3]{images/MCRS_taxnodedetails.png}
+        \caption{Risultato dell'operazione selezionata sul nodo in questione.}
+        \label{fig:MCRS_taxnodedetails}
+    \end{figure}
+    %
+    \lstset{style=python_code_style}
+    \begin{lstlisting}[language=Python, label=lst:view_tax_nodedetails, caption={Codice utilizzato all'interno delle View per 
+        implementare le operazioni per restituire i discendenti, i figli, la famiglia o i fratelli.}]
+    # Methods to navigate the taxonomy
+
+    def show_descendants(request, nodename, taxonomy_used):
+        """
+        Based on the MPTT's method 'get descendants' that return the descendants of a model instance, in tree order
+        :param request: HTTP request
+        :param nodename: name (it's unique for each node) of a node in the taxonomy
+        :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+        :return: HTTP response with the template to show to the user
+        """
+        if (taxonomy_used == 'evaluation'):
+            q_result = Evaluation.objects.get(name=nodename).get_descendants(include_self=False)
+            # Get the count of descendants of the model instance
+            q_result_num = Evaluation.objects.get(name=nodename).get_descendant_count()
+        else:
+            q_result = Control.objects.get(name=nodename).get_descendants(include_self=False)
+            # Get the count of descendants of the model instance
+            q_result_num = Control.objects.get(name=nodename).get_descendant_count()
+
+        return render(request, "recommendation_app/tax_node_details.html",
+                    {'tax_type': (str(taxonomy_used)).capitalize(),
+                    'descendants': q_result,
+                    'node_exe': nodename,
+                    'method': 'descendants',
+                    'num_descendants': q_result_num})
+
+
+    def show_children(request, nodename, taxonomy_used):
+        """
+        Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
+        :param request: HTTP request
+        :param nodename: name (it's unique for each node) of a node in the taxonomy
+        :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+        :return: HTTP response with the template to show to the user
+        """
+        if (taxonomy_used == 'evaluation'):
+            q_result = Evaluation.objects.get(name=nodename).get_children()
+        else:
+            q_result = Control.objects.get(name=nodename).get_children()
+
+        return render(request, "recommendation_app/tax_node_details.html",
+                    {'tax_type': (str(taxonomy_used)).capitalize(),
+                    'children': q_result,
+                    'node_exe': nodename,
+                    'method': 'children'})
+
+
+    def show_family(request, nodename, taxonomy_used):
+        """
+        Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
+        in tree order
+        :param request: HTTP request
+        :param nodename: name (it's unique for each node) of a node in the taxonomy
+        :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+        :return: HTTP response with the template to show to the user
+        """
+        if (taxonomy_used == 'evaluation'):
+            q_result = Evaluation.objects.get(name=nodename).get_family()
+        else:
+            q_result = Control.objects.get(name=nodename).get_family()
+
+        return render(request, "recommendation_app/tax_node_details.html",
+                    {'tax_type': (str(taxonomy_used)).capitalize(),
+                    'family': q_result,
+                    'node_exe': nodename,
+                    'method': 'family'})
+
+
+    def show_siblings(request, nodename, taxonomy_used):
+        """
+        Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
+        to be siblings of other root nodes)
+        :param request: HTTP request
+        :param nodename: name (it's unique for each node) of a node in the taxonomy
+        :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+        :return: HTTP response with the template to show to the user
+        """
+        if (taxonomy_used == 'evaluation'):
+            q_result = Evaluation.objects.get(name=nodename).get_siblings()
+        else:
+            q_result = Control.objects.get(name=nodename).get_siblings()
+
+        return render(request, "recommendation_app/tax_node_details.html",
+                    {'tax_type': (str(taxonomy_used)).capitalize(),
+                    'siblings': q_result,
+                    'node_exe': nodename,
+                    'method': 'siblings'})
+    \end{lstlisting}
+    \item Attraverso il pulsante \textit{request schema} nella home page della tassonomia si può effetuare una richiesta di stampa in formato .png e del 
+    relativo file scritto in notazione DOT rappresentante la tassonomia stesso sotto forma di albero, che contiene i relativi dati salvati all'interno 
+    della base di dati.\hfill\break
+    Il DOT è un linguaggio descrittivo per grafi, tipicamente i file hanno estensione .gv o .dot, che in combinazione con il software Graphivz è possibile 
+    effetuare il rendere della sintassi dot in un immagine più significativa. Qui di seguito nel Listing \ref{lst:DOT_eval} viene mostrato un esempio di 
+    scrittura con linguaggio DOT.
+    \lstset{style=python_code_style}
+    \begin{lstlisting}[language=Python, label=lst:DOT_eval, caption={Codice parziale utilizzato per realizzare lo schema della tassonomia
+        per le Evaluation.}]
+    graph {
+        1 [label="moon cloud"]
+        12 [label="protocol"]
+        1 -- 12
+        11 [label="infrastructure"]
+        1 -- 11
+        4 [label="cloud"]
+        1 -- 4
+        16 [label="backup"]
+        1 -- 16
+        2 [label="database"]
+        1 -- 2
+        13 [label="web"]
+        1 -- 13
+        9 [label="human"]
+        1 -- 9
+        8 [label="custom"]
+        1 -- 8
+        3 [label="operating system"]
+    }
+    \end{lstlisting}
+    %
+    \lstset{style=python_code_style}
+    \begin{lstlisting}[language=Python, label=lst:view_DOT_eval, caption={Codice utilizzato per la realizzazione del
+        file .dot e relativa immagine .png.}]
+    def dot_graph(request, taxonomy_used):
+        """
+        Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
+        :param request: HTTP request
+        :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+        :return: HTTP response with the template to show to the user
+        """
+        # Create a graph object
+        taxonomy_dot_object = Graph(comment='Taxonomy', format='png')
+        # Fill the graph with every node in the database (evaluations/controls node and categories nodes), 
+        # and create a link with the parent node
+        if (taxonomy_used == 'evaluation'):
+            taxonomy_nodes = Evaluation.objects.all()
+        else:
+            taxonomy_nodes = Control.objects.all()
+        i = 0
+        for node in taxonomy_nodes.order_by('level'):
+            # This If construct will prevent the adding of an empty node to the root node in the graph
+            if (i == 0):
+                # Insert the root node
+                taxonomy_dot_object.node(str(node.id), label=str(node.name))
+            else:
+                # Insert the other nodes
+                taxonomy_dot_object.node(str(node.id), label=str(node.name))
+                taxonomy_dot_object.edge(str(node.parent_id), str(node.id))
+            i += 1
+        # Specify where I want to save the .png image and the .dot file
+        taxonomy_dot_object.render('taxonomy_output/taxonomy.dot')
+
+        # This function is used to zip a directory
+        def make_zipdir(path, ziph):
+            # Ziph is zipfile handle
+            for root, dirs, files in os.walk(path):
+                for file in files:
+                    ziph.write(os.path.join(root, file))
+
+        # Making the zip file
+        zip_file = zipfile.ZipFile('taxonomy_output.zip', 'w', compression=zipfile.ZIP_DEFLATED)
+        make_zipdir('taxonomy_output/', zip_file)
+        zip_file.close()
+
+        # Remove the directory which was zipped and all files inside
+        shutil.rmtree("taxonomy_output/")
+
+        return redirect(reverse('rec:index'))
+    \end{lstlisting}
+    \item Inoltre è possibile osservare in maniera più approfondita le informazioni rilevanti sulla tassonomia contenute nelle 
+    tabelle del database; e nel caso, della tassonomia delle Evaluation, è possibile simulare il processo di Item Recommendation, 
+    premendo il relativo tasto al nodo su cui si vuole determinare le altre Evaluation simili.
+    %
+    \begin{figure}[ht!]
+        \includegraphics[scale=0.3]{images/MCRS_taxdetails.png}
+        \caption{Dettagli della tassonomia sotto forma di tabella come nella base di dati.}
+        \label{fig:MCRS_taxdetails}
+    \end{figure}
+    %
+    \lstset{style=python_code_style}
+    \begin{lstlisting}[language=Python, label=lst:view_taxdetails, caption={Codice utilizzato per la realizzazione della View che 
+        implementa la pagina web del dettaglio della Tassonomia.}]
+    def tax_details(request, taxonomy_used):
+        """
+        Show the taxonomy's details page showing an overview of the taxonomy
+        :param request: HTTP request
+        :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
+        :return: HTTP response with the template to show to the user
+        """
+        if (taxonomy_used == 'evaluation'):
+            tax_details_obj = Evaluation.objects.all()
+        else:
+            tax_details_obj = Control.objects.all()
+
+        return render(request, "recommendation_app/tax_details.html",
+                    {'tax_details': tax_details_obj,
+                    'taxonomy_used': taxonomy_used})
+    \end{lstlisting}
+\end{itemize}
+%
+% --------------------------------------------------------------------------------------------------------------------
+%\newpage
 %
 % ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
 Per poter agilmente manipolare la base di dati, Django mette a disposizione la cosiddetta Admin Page mostrata in 
