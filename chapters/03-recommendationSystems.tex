@@ -42,7 +42,10 @@ effettuare le raccomandazioni migliore è la precisione di questo processo ma ma
 Nella soluzione proposta in questa tesi, l'algoritmo UB-CF viene implementato sotto forma di funzione che prende in ingresso un parametro 
 \textit{user\_other\_id}, come è possibile osservare dal Codice \ref{lst:UB_CF_1}, corrispondente all'identificativo dell'utente, 
 e restituisce una lista di raccomandazioni \textit{similar\_user\_evaluations} corrispondenti alle Evaluation simili a quelle usate 
-da altri utenti.
+da altri utenti.\hfill\break
+Per Evaluation si intende quel processo di verifica di uniformità di un certo target o asset, fornito dall'utente, a una o più politiche 
+attraverso una serie di Controlli che a seconda delle caratteristiche e proprietà del target, può avere successo o meno. In altre parole, 
+si può dire che un Evaluation è costituita da uno o più Controlli.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:UB_CF_1, caption={\ }]
 # User recommendation algortihm
@@ -101,7 +104,7 @@ Più precisamente il funzionamento dell'algoritmo si svolge come segue.
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/UB_CF_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione UB-CF.}
+%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione UB-CF.}
 %   \label{fig:UB_CF_resp_json}
 %\end{figure}
 Nel capitolo successivo vengono mostrati degli esempi pratici in cui è stato applicato questo algoritmo.
@@ -169,7 +172,7 @@ In generale il IB-CF ideato per determinare Evaluation simili funziona seguendo 
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/IB_CF_Evaluation_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione IB-CF per le Evaluation
+%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione IB-CF per le Evaluation
 %   supportate da Moon Cloud.}
 %   \label{fig:IB_CF_Eval_resp_json}
 %\end{figure}
@@ -207,7 +210,7 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funziona
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/IB_CF_Target_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione IB-CF per i 
+%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione IB-CF per i 
 %   Target supportarti da Moon Cloud.}
 %   \label{fig:IB_CF_Target_resp_json}
 %\end{figure}
@@ -291,6 +294,6 @@ Nel capitolo successivo viene mostrato un esempio di risposta per quando si effe
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/CF_Hybrid_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata Rest all'algoritmo di raccomandazione Ibrido.}
+%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione Ibrido.}
 %   \label{fig:CF_Hybrid_resp_json}
 %\end{figure}
