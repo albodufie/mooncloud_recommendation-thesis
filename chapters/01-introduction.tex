@@ -38,7 +38,7 @@ violazioni di sicurezza; piuttosto, la mal configurazione e l'errata integrazion
 %
 \section{Security Assurance}
 L'utilizzo di sistemi di sicurezza e di controllo migliori non garantisce in modo assoluto la sicurezza dell'infrastruttura; 
-per garantire ciò è necessario implementare un processo continuo di diagnostica e verifica della corretta configurazione dei controlli, 
+per garantire ciò è necessario implementare un processo continuo di diagnostica e verifica della corretta configurazione dei Controlli, 
 supervisionando il loro comportamento, accertandosi che sia quello aspettato. \vspace{0.5 cm}\hfill\break
 La \textit{Security Assessment} diventa allora un aspetto importante specialmente negli ambienti Cloud e IoT. Questo processo, costituito
 da un insieme di attività mirate alla valutazione del rischio in sistemi IT, deve essere portato avanti in modo continuo e olistico, per 
@@ -79,14 +79,14 @@ deve soddisfare i requisiti richiesti da standard e politiche. A partire da ques
 affidabili, si ottengono delle evidence; queste ultime possono essere raccolte monitorando l'attività del target oppure, come già 
 menzionato, sottoponendo il target a scenari critici o di testing.\hfill\break
 In particolare, una Security Compliance Evaluation è un processo di verifica dell'uniformità di un certo target a una o più politiche 
-attraverso una serie di controlli che a seconda delle caratteristiche e proprietà del target, può avere successo o meno. Di 
-conseguenza se un target supera tutti i controlli a cui è sottoposto allora significa che rispetta la politica scelta.
+attraverso una serie di Controlli che a seconda delle caratteristiche e proprietà del target, può avere successo o meno. Di 
+conseguenza se un target supera tutti i Controlli a cui è sottoposto allora significa che rispetta la politica scelta.
 \begin{figure}[ht!]
     \includegraphics[scale=0.5]{images/Security_Compliance_Evaluation.png}
     \caption{Security Compliance Evaluation}
     \label{fig:Security_Compliance_Evaluation}
 \end{figure}
-Moon Cloud implementa il processo di Security Compliance Evaluation in Figura \ref{fig:Security_Compliance_Evaluation} usando controlli 
+Moon Cloud implementa il processo di Security Compliance Evaluation in Figura \ref{fig:Security_Compliance_Evaluation} usando Controlli 
 di monitoraggio o di test personalizzabili. Inoltre è dotato delle seguenti caratteristiche, le quali vanno a completare i requisiti 
 elencati nella Sezione \ref{list:security-assurance-fondamentals}.
 \begin{itemize}
@@ -102,8 +102,8 @@ ed esegue un set di \textit{probe} che collezionano le evidence necessarie per e
 Tutte le attività di collezione sono eseguite dalla probe, ognuno dei quali è uno script Python fornito come una singola immagine di Docker, 
 che viene inizializzata quando è triggerata una Evaluation ed è distrutta quando il processo di Evaluation è terminato.\hfill\break
 Accedendo alla piattaforma di Moon Cloud, l'utente può definire le proprie politiche di sicurezza e attività di Evaluation come 
-una serie di controlli di sicurezza e altre politiche predefinite. Una volta che una politica viene definita, l'utente può 
-decidere quando schedulare l'Evaluation; e nel momento in cui un processo di Evaluation viene inizializzato, tutti i controlli e/o le 
+una serie di Controlli di sicurezza e altre politiche predefinite. Una volta che una politica viene definita, l'utente può 
+decidere quando schedulare l'Evaluation; e nel momento in cui un processo di Evaluation viene inizializzato, tutti i Controlli e/o le 
 politiche legate ad essa, vengono eseguiti e i risultati, raccolti dalla probe, vengono memorizzati e restituiti all'utente. 
 A questo punto l'utente può accedere a questi risultati a diversi gradi di precisione: una visione sommaria e generale di tutte le 
 politche implentate e dello stato generale del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence 

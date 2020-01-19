@@ -234,7 +234,7 @@ def tax_index(request, taxonomy_used):
             # Process the data in form.cleaned_data as required
             nodename_form = form.cleaned_data['nodeName']
             taxonomy_operation_form = form.cleaned_data['actionTax']
-            # Redirect to a new URL (page that show a part of the taxonomy, depending on the action user has chosen):
+            # Redirect to a new Url (page that show a part of the taxonomy, depending on the action user has chosen):
             return redirect(
                 reverse('rec:tax_index', args=[taxonomy_used]) + str(nodename_form) + '_' + taxonomy_operation_form)
     # If id's a GET method we'll create a blank form

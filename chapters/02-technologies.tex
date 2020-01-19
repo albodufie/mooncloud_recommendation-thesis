@@ -68,7 +68,7 @@ Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{djang
 \end{description}
 In generale, un tradizionale server web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
 una richiesta (solitamente di tipo POST o GET) 
-l'applicazione legge le informazioni contenute in essa, all'interno dell'intestaizone e/o del corpo, e nell'URL. A seconda della richiesta è possibile che 
+l'applicazione legge le informazioni contenute in essa, all'interno dell'intestazione e/o del corpo, e nell'Url. A seconda della richiesta è possibile che 
 vengano letti o scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta stessa, a questo punto l'applicazione restituisce una 
 risposta al browser web dell'utente che ne ha fatto richiesta, spesso in modo dinamico, creando una pagina HTML, sulla base del Template,
 da mostrare, in cui può essere data la possibilità di inserire dati dall'utente in appositi campi compilabili o semplicemente mostrare delle informazioni.
@@ -86,9 +86,9 @@ Un'applicazione web in Django tipicamente raggruppa il codice che gestisce quest
 suddivisione in riquadri verdi della Figura \ref{fig:django_doc} \cite{mdn-django-documentation}, in cui ognuno di questi
 gruppi di file svolge delle operazioni ben precise.
 \begin{description}
-    \item Un \textbf{URL mapper} è usato per reindirizzare le richieste HTTP alla View corretta in base all'URL della richiesta; è possibile processare 
-    richieste da qualsiasi URL attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa. 
-    Inoltre è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
+    \item Un \textbf{Url mapper} è usato per reindirizzare le richieste HTTP alla View corretta in base all'Url della richiesta; è possibile processare 
+    richieste da qualsiasi Url attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa. 
+    Inoltre è possibile controllare se nell'Url è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
     funzione appropriata come dati da elaborare.
     \item Una \textbf{View} è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le View accedono ai dati necessari per soddisfare la 
     richiesta, anche attraverso i Model, e si delega la formattazione delle risposte ai Template.
@@ -98,12 +98,12 @@ gruppi di file svolge delle operazioni ben precise.
     rappresentare la posizione e il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un Template HTML, popolandolo con dati presi dal Model, 
     che a sua volta può recuperli dal database.
 \end{description}
-Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un URL e come si interfaccia con una View; in questo caso nel 
-momento in cui viene fatta una richiesta HTTP a questo URL \textit{recommendation/item/<str:item\_other\_id>/} viene richiamata la 
+Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un Url e come si interfaccia con una View; in questo caso nel 
+momento in cui viene fatta una richiesta HTTP a questo Url \textit{recommendation/item/<str:item\_other\_id>/} viene richiamata la 
 View \textit{recommendation\_views.item\_recommendation} passando il parametro \textit{<str:item\_other\_id>}.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:URLex1]
-# URL Example 'recommendation/item/35/'
+# Url Example 'recommendation/item/35/'
 path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
 \end{lstlisting}
 A questo punto, come viene mostrato nel Listing \ref{lst:URLex2}, viene richiamata la View, essa prende i valori che gli vengono passati in ingresso e 
@@ -164,7 +164,7 @@ record; quindi in dati gerarchici si instaurano delle relazioni padre-figlio tra
 all'interno di un database relazionale, il quale, per l'appunto, segue il Modello Relazionale.\hfill\break
 Esso è un modello logico di rappresentazione dei dati all'interno di un database, in cui ogni riga di una tabella è un record identificato univocamente
 da una chiave primaria, e le colonne contengono gli attributi dei dati e in genere ogni record ha un valore per ogni attributo.\hfill\break
-In questa tesi si è lavorato su un database SQL, in cui i dati normalmente sono conservati come semplici "flat table", e in particolare si è usato il DBMS 
+In questa tesi si è lavorato su un database Sql, in cui i dati normalmente sono conservati come semplici "flat table", e in particolare si è usato il DBMS 
 PostgreSQL, un sistema di gestione di database relazionali ad oggetti (ORDBMS). In generale le tabelle contenute in questo tipo di base di dati non permettono la 
 memorizzazione secondo un modello gerarchico (come nell'XML).\hfill\break
 Per questo motivo è sorta la necessità di cercare un metodo alternativo per poter rappresentare queste strutture all'interno di database tradizionali.
@@ -222,18 +222,34 @@ secondo questo approccio, utilizzando come riferimento la Figura \ref{fig:MC_Rec
 \end{table}
 \hfill\break
 Il vantaggio di usare questo modello sta nella sua semplicità di costruzione, soprattutto a livello di codice client-side, 
-e di restituzione dei figli di un nodo. Diventa problematico se si lavora in puro codice SQL e nella maggior parte dei linguaggi 
-di programmazione, è lento e poco efficiente, perché necessita di una query per ogni nodo dell'albero, e visto che ogni query impiega 
-un certo periodo di tempo, questo rende la funzione molto lenta quando si lavora con alberi di grandi dimensioni; inoltre, molti linguaggi 
-non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa 
-una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
+e di restituzione dei figli di un nodo. Questo approccio diventa problematico nella maggior parte dei linguaggi 
+di programmazione perché necessita di una query per ogni nodo dell'albero, e visto che ogni query impiega 
+un certo periodo di tempo, questo rende la funzione molto lenta e poco efficiente quando si lavora con alberi di grandi dimensioni. 
+Nel Esempio \ref{lst:ex_ALM_query} è possibile osservare come viene recuparata in puro Sql l'intera tassonomia per le Evaluation; 
+è possibile notare che la maggiore limitazione di questo approccio è che si necessità di un operazione di JOIN per ogni livello 
+della gerarchia, e naturalmente questo porta a un degrado delle performance all'aumentare della complessità; nel caso di questo progetto
+si ha una tassonomia a tre livelli, quindi il problema è limitato, ma volendo avere una visione al futuro questo sistema col tempo diventerebbe 
+sempre meno performante.
+\begin{lstlisting}[language=SQL, label=lst:ex_ALM_query, caption={Query in puro Sql per recuperare l'intera tassonomia delle Evaluation, 
+    secondo l'Adjacency List Model.}]
+SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3
+    FROM Evaluation AS t1
+        LEFT JOIN Evaluation AS t2 ON t2.parent = t1.id
+        LEFT JOIN Evaluation AS t3 ON t3.parent = t2.id
+    WHERE t1.name = "moon cloud";
+\end{lstlisting}
+Questa query si può tradurre in codice client-side attraverso una furnzione ricorsiva la quale determina per ogni nodo i suoi figli, per ogni figlio
+i suoi figli e così via finchè non si arriva ai nodi foglie.
+Inoltre, molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e 
+ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
 in maggior tempo.
 %
 \newpage
 %
 \subsection{The Nested Set Model}
-Il secondo approccio analizzato è il \textit{Nested Set Model}, che permette di osservare le gerarchie di dati in un modo diverso, non 
-come nodi e linee, come se fosse un albero, ma come container innestati.
+Il secondo approccio analizzato è il \textit{Nested Set Model}, il quale è stato utilizzato per l'implementazione delle tassonomie per le Evaluation e 
+i Controlli (o politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) all'interno del progetto.\hfill\break
+Questo approccio permette di osservare le gerarchie di dati in un modo diverso, non come nodi e linee, come se fosse un albero, ma come container innestati.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.6]{images/MC_Rec_NSM_Container(R).png}
@@ -241,6 +257,8 @@ come nodi e linee, come se fosse un albero, ma come container innestati.
     progetto in questione (ridotto).}
     \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
+%
+\hfill\break
 %
 Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene i suoi figli. Questa struttura 
 viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi, \textit{lft} e \textit{rght}, come è possibile osservare 
@@ -275,7 +293,7 @@ posta alla fine della sezione.
 \hfill\break
 Dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rappresentata attraverso l'uso 
 degli attributi \textit{left} e \textit{right} per rappresentare l'annidamento dei nodi (il nome delle colonne: \textit{left} e \textit{right}, hanno significati 
-speciali in SQL; per questo motivo si identificano questi campi con i nomi \textit{lft} e \textit{rght}).
+speciali in Sql; per questo motivo si identificano questi campi con i nomi \textit{lft} e \textit{rght}).
 %
 \newpage
 %
@@ -289,21 +307,72 @@ speciali in SQL; per questo motivo si identificano questi campi con i nomi \text
 \vspace{-0.5 cm}
 \hfill\break
 L'assegnazione di questi valori viene effettuata ad ogni nodo visitandolo due volte e assegnando i valori in ordine di visita, e in entrambe le visite. 
-Quindi vengono associati ad ogni nodo due numeri, memorizzati come due attributi.
-Più precisamente si inizia la visita dell'albero partendo da sinistra e continuando verso destra, un livello alla volta, scendendo per ogni
+Quindi vengono associati ad ogni nodo due numeri, memorizzati come due attributi. 
+Più precisamente si inizia la visita dell'albero partendo da sinistra e continuando verso destra, un livello alla volta, scendendo per ogni 
 nodo i suoi figli, assegnando i valori al campo \textit{left}, prima di assegnare un valore al campo \textit{right}, e successivamente si continua verso 
 destra. Questo approccio è chiamato \textit{Modified Preorder Tree Traversal Algorithm} (MPTT). A partire da questa tecnica è stato 
-ideata la struttura della tassonomia delle evaluation e dei controlli implementate nella soluzione proposta in questa tesi, con 
+ideata la struttura della tassonomia delle evaluation e dei Controlli implementate nella soluzione proposta in questa tesi, con 
 l'ausilio di un package di Python chiamato MPTT, del quale verrà illustrato il funzionamento nel capitolo \ref{chp:04-solution}.\hfill\break
-Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} si può notare che la numerazione dei nodi, viene
+Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} si può notare che la numerazione dei nodi, viene 
 effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
-A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è
-molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di aggiornamento e 
-cancellazione dei nodi; in quest'ultima il grado di complessità dell'operazione è determinato dal nodo che si vuole cancellare, a 
-partire dal caso più semplice, un nodo foglia, quel nodo senza figli, fino al caso più complicato, quando si vuole cancellare il nodo 
-radice.
+A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è 
+molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di inserimento e 
+cancellazione dei nodi; il Listing \ref{lst:ex_NSM_query} qui di seguito mostra come è possibile recuperare l'itera tassonomia delle Evaluation; si 
+può notare che questa query funziona in modo indipendente dalla profondità della tassonomia; inoltre, non è necessario preoccuparsi del valore \textit{rght} 
+del nodo all'interno della clausola \textit{BETWEEN} della query perché il valore cadrà sempre all'interno dello stesso nodo padre come anche il 
+valore di \textit{lft}.
+\begin{lstlisting}[language=SQL, label=lst:ex_NSM_query, caption={Query in puro Sql per recuperare l'intera tassonomia delle Evaluation, 
+    secondo il Nested Set Model.}]
+SELECT node.name
+    FROM Evaluation AS node, Evaluation AS parent
+    WHERE node.lft BETWEEN parent.lft AND parent.rgt
+        AND parent.name = "moon cloud"
+    ORDER BY node.lft;
+\end{lstlisting}
+Altro esempio è il caso in cui si vuole recuperare tutti i nodi foglia della tassonomia come mostra il Listing \ref{lst:ex_NSM_query2}, in cui è ancora 
+più semplice rispetto nell'Adjacency List Model. Nel Nested Set Model, il valori di \textit{lft} e \textit{rght} per i nodi foglia hanno valori 
+consecutivi; quindi per trovare i nodi foglia basta cercare quei nodi dove il valore di \textit{rght} è pari a quello di \textit{lft} incrementato di uno.
+\begin{lstlisting}[language=SQL, label=lst:ex_NSM_query2, caption={Query in puro Sql per recuperare tutti i nodi foglia della tassonomia delle Evaluation, 
+    secondo il Nested Set Model.}]
+SELECT name
+    FROM Evaluation
+    WHERE rgt = lft + 1;
+\end{lstlisting}
+Infine nel caso di inserimento o cancellazione di un nodo il grado di complessità dell'operazione è determinato dalla posizione del nodo che si 
+vuole inserire o cancellare; a partire dal caso più semplice, quando si vuole inserire o cancellare un nodo foglia, quel nodo senza figli, fino 
+al caso più complesso, quando si vuole cancellare un nodo padre perchè bisogna anche gestire i suoi nodi figli.
+Nel primo caso, è sufficente per poter cancellare un nodo senza figli eseguire una query come mostrata nel Listing \ref{lst:ex_NSM_query3}, si determinano 
+prima i valori dei campi \textit{lft} e \textit{rght} e la loro differenza, \textit{width}, successivamente cancellato il nodo si sottrae la sua 
+differenza da ogni nodo alla sua destra.
+\begin{lstlisting}[language=SQL, label=lst:ex_NSM_query3, caption={Query in puro Sql per eliminare un nodo foglia dalla tassonomia delle Evaluation, 
+    secondo il Nested Set Model.}]
+SELECT @myLeft := lft, @myRight := rgt, @myWidth := rgt - lft + 1
+    FROM Evaluation
+    WHERE name = "Sqs Checker";
+
+DELETE FROM Evaluation WHERE lft BETWEEN @myLeft AND @myRight;
+
+UPDATE Evaluation SET rgt = rgt - @myWidth WHERE rgt > @myRight;
+UPDATE Evaluation SET lft = lft - @myWidth WHERE lft > @myRight;
+\end{lstlisting}
 %
-%\begin{sidewaysfigure}
+Nel secondo caso, in cui voglio eliminare il nodo padre ma non i suoi nodi figli si può decidere che i figli vengano spostati allo stesso livello del 
+nodo padre eliminato, ciò viene mostrato dal Listing \ref{lst:ex_NSM_query4}. In questo caso si sottrae due da tutti gli elementi a destra di tale nodo 
+(visto che i figli avranno una dimensione, \textit{width}, di due) e uno da tutti i nodi che sono suoi figli (per chiudere il gap creato dalla perdita 
+del nodo padre e dal valore associato al campo \textit{lft}).
+\begin{lstlisting}[language=SQL, label=lst:ex_NSM_query4, caption={Query in puro Sql per eliminare un nodo padre dalla tassonomia delle Evaluation, 
+    secondo il Nested Set Model.}]
+SELECT @myLeft := lft, @myRight := rgt, @myWidth := rgt - lft + 1
+    FROM Evaluation
+    WHERE name = "Web";
+
+DELETE FROM Evaluation WHERE lft = @myLeft;
+
+UPDATE Evaluation SET rgt = rgt - 1, lft = lft - 1 WHERE lft BETWEEN @myLeft AND @myRight;
+UPDATE Evaluation SET rgt = rgt - 2 WHERE rgt > @myRight;
+UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
+\end{lstlisting}
+%
 \begin{figure}
     \centering
     \includegraphics[scale=0.56]{images/MC_Rec_NSM_Container.png}
@@ -311,7 +380,6 @@ radice.
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
 \end{figure}
-%\end{sidewaysfigure}
 %
 \newpage
 %
@@ -399,15 +467,13 @@ Questi sistemi tentano di predire la valutazione o la preferenza che un utente d
 utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite.
 Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item, come nei Filtri Content-based.\hfill\break
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
-Filtraggio Collaborativo.
-\begin{description}
-    \item Il \textbf{primo obbiettivo} è quello di migliorare la scalabilità di questi algoritmi; essi sono in grado di cercare 
-    anche diecimila potenziali \textit{neighbours} in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni 
-    potenziali \textit{neighbours}, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno 
-    molte informazioni associate.
-    \item Il \textbf{secondo obbiettivo} è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Questi ultimi vogliono 
-    raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item di loro gusto e interesse.
-\end{description}
+Filtraggio Collaborativo.\hfill\break
+Il primo obbiettivo è quello di migliorare la scalabilità di questi algoritmi; essi sono in grado di cercare 
+anche diecimila potenziali \textit{neighbours} in tempo reale, ma la richiesta dei sistemi moderni è di cercare dieci milioni 
+potenziali \textit{neighbours}, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno 
+molte informazioni associate.\hfill\break
+Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Questi ultimi vogliono 
+raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item di loro gusto e interesse.
 Per certi versi questi due obbiettivi sono in conflitto tra di loro; per ottenere dei risultati validi e di una certa importanza è 
 necessario trattarli in contemporanea perché aumentare solamente la scalabilità diminuirebbe la qualità delle raccomandazioni e viceversa 
 \cite{item-based-collaborative-filtering}.\hfill\break
