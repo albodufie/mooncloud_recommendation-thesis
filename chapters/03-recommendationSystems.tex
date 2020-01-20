@@ -104,8 +104,8 @@ Più precisamente il funzionamento dell'algoritmo si svolge come segue.
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/UB_CF_test.png}
-%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione UB-CF.}
-%   \label{fig:UB_CF_resp_json}
+%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione UB-CF.}
+%   \label{fig:UB_CF_resp_JSON}
 %\end{figure}
 Nel capitolo successivo vengono mostrati degli esempi pratici in cui è stato applicato questo algoritmo.
 %
@@ -172,14 +172,14 @@ In generale il IB-CF ideato per determinare Evaluation simili funziona seguendo 
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/IB_CF_Evaluation_test.png}
-%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione IB-CF per le Evaluation
+%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione IB-CF per le Evaluation
 %   supportate da Moon Cloud.}
-%   \label{fig:IB_CF_Eval_resp_json}
+%   \label{fig:IB_CF_Eval_resp_JSON}
 %\end{figure}
 Altro algoritmo del tipo IB-CF implementato in questa tesi sulla falsa riga di quello appena riportato nel Listing \ref{lst:IB_CF_Evaluation_1}, 
 è quello ideato per determinare quali Evaluation possono essere raccomandate per un Target inserito da un utente tra quelli supportati da Moon Cloud
 (Host avente Windows come sistema operativo, Host avente Linux come sistema operativo, sistemi che sfruttano 
-servizi di Aws o di Azure e Url di siti web).\hfill\break
+servizi di Aws o di Azure e URL di siti web).\hfill\break
 In Python questo algoritmo viene implementato come funzione che prende in ingresso l'identificativo univoco (\textit{id}) del Target, e 
 restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funzionamento dell'algoritmo si svolge come segue:
 \begin{itemize}
@@ -210,9 +210,9 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funziona
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/IB_CF_Target_test.png}
-%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione IB-CF per i 
+%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione IB-CF per i 
 %   Target supportarti da Moon Cloud.}
-%   \label{fig:IB_CF_Target_resp_json}
+%   \label{fig:IB_CF_Target_resp_JSON}
 %\end{figure}
 Nel capitolo successivo vengono mostrati anche degli esempi dei valori di risposta di queste funzioni.
 %
@@ -220,9 +220,9 @@ Nel capitolo successivo vengono mostrati anche degli esempi dei valori di rispos
 Nei Sistemi di Raccomandazione Ibridi si tende a voler combinare più tecniche di raccomandazione, raggruppando i 
 pregi di ciascun approccio; infatti se si comparano i Sistemi di Raccomandazione Ibridi con quelli Collaborativi o 
 Content-based, la precisione dei suggerimenti è solitamente maggiore.\hfill\break
-Nella soluzione proposta in questa tesi, questo algoritmo viene direttamente implementato come Api Rest, alla quale vengono 
+Nella soluzione proposta in questa tesi, questo algoritmo viene direttamente implementato come API REST, alla quale vengono 
 passati come parametri la \textit{request}, l'oggetto HTTP che il browser invia al server contenente la richiesta HTTP 
-(attraverso un particolare Url) e lo \textit{user\_other\_id}, un valore recuperato come parametro dall'Url e rappresenta 
+(attraverso un particolare URL) e lo \textit{user\_other\_id}, un valore recuperato come parametro dall'URL e rappresenta 
 l'\textit{other\_id}, un attributo associato a ogni utente che rappresenta un identificativo per l'utente stesso. Inoltre il 
 tutto viene limitato a essere richiamato solo tramite richieste HTTP con metodo GET.\hfill\break
 Nel Codice \ref{lst:CF_Hybrid_Evaluation_1} si possono vedere come vengono limitate le richieste al metodo GET e come 
@@ -270,7 +270,7 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi.
     \end{lstlisting} 
     \item il quarto passo consiste nel raggruppare le due liste contenenti le Evaluation raccomandate per l'utente secondo l'applicazione dei 
     due algoritmi, eliminando anche eventuali duplicati, così da ottenere un'unica lista (\textit{similar\_evaluations}) la quale viene ritornata dalla 
-    funzione sotto forma di risposta HTTP in formato Json;
+    funzione sotto forma di risposta HTTP in formato JSON;
     \begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_5]
         # Putting together the evaluations recommended in similar_user_evaluations list and similar_item_evaluations list
         similar_evaluations = []
@@ -285,7 +285,7 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi.
                 similar_evaluations.append(item_evaluation)
         similar_evaluations = sorted(similar_evaluations, key=lambda i: i['other_id'])
         
-        return JsonResponse(similar_evaluations, safe=False)
+        return JSONResponse(similar_evaluations, safe=False)
     \end{lstlisting} 
 \end{itemize}
 Nel capitolo successivo viene mostrato un esempio di risposta per quando si effettua una chiamata a questa funzione, ed è approfondito il contesto che 
@@ -294,6 +294,6 @@ Nel capitolo successivo viene mostrato un esempio di risposta per quando si effe
 %\begin{figure}[ht!]
 %   \centering
 %   \includegraphics[scale=0.5]{images/CF_Hybrid_test.png}
-%   \caption{Esempio di una risposta in Json a una chiamata Rest all'algoritmo di raccomandazione Ibrido.}
-%   \label{fig:CF_Hybrid_resp_json}
+%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione Ibrido.}
+%   \label{fig:CF_Hybrid_resp_JSON}
 %\end{figure}

@@ -159,8 +159,8 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
     quali Evaluation un utente ha selezionato e usato.
     \item[Target:] è utilizzata per memorizzare quali Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
-    \item[TargetType:] vengono specificati quali sono i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{Url}, 
-    rappresentante l'Url dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e viene fatta una 
+    \item[TargetType:] vengono specificati quali sono i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
+    rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e viene fatta una 
     distizione tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
     gruppo Amazon, e \textit{Azure}, definisce un servizio cloud fornito da Microsoft.
 \end{description}
@@ -233,7 +233,7 @@ def tax_index(request, taxonomy_used):
             # Process the data in form.cleaned_data as required
             nodename_form = form.cleaned_data['nodeName']
             taxonomy_operation_form = form.cleaned_data['actionTax']
-            # Redirect to a new Url (page that show a part of the taxonomy, depending on the action user has chosen):
+            # Redirect to a new URL (page that show a part of the taxonomy, depending on the action user has chosen):
             return redirect(
                 reverse('rec:tax_index', args=[taxonomy_used]) + str(nodename_form) + '_' + taxonomy_operation_form)
     # If id's a GET method we'll create a blank form
@@ -528,12 +528,181 @@ la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la
 % VIEW PER LE RACCOMANDAZIONI
 \section*{View per i processi di raccomandazione}
 % visto che il codice l'ho messo nel capitolo precendente, posso mettere qui degli esempi e mostrare le url per richiamare
-% questi algoritmi, e nel caso dello User e Item algortihm, mostrare le view che li implementano come Rest Api 
+% questi algoritmi, e nel caso dello User e Item algortihm, mostrare le view che li implementano come REST API 
 % (non mostro quella dell'hybrid perché già presente al completo nel capitolo precedente)
+In generale gli algortmi di raccomandazione implementati in questo progetto, e descritti nel Capitolo precendente, vengono richiamati e 
+utilizzati come API REST, un tipo di architettura basata sul protocollo HTTP. Un sistema REST, per funzionare, prevede una struttura degli 
+URL ben definita (atta a identificare univocamente una risorsa o un insieme di risorse) l'utilizzo dei verbi HTTP specifici per il recupero 
+di informazioni (GET), per la modifica (POST, PUT, PATCH, DELETE) e per altri scopi (OPTIONS, ecc.).\hfill\break
+In questo caso ad ogni URL è associata una azione particolare la quale va a richiamare la View che permette di determinare un insieme di 
+raccomandazioni sulla base di un parametro in ingresso, come è mostrato nel Listing \ref{lst:URL_rec}.\hfill\break
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:URL_rec, caption={Porzione parziale del codice contenuto nell'URL mapper per implementare
+    i sistemi di raccomandazione.}]
+# RECOMMENDATION VIEWS
 
+# Item recommendation process
+# Depending on the <str:item_other_id> value I decide on which evaluation of the taxonomy I want to recommend on
+path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation,
+        name='item_recommendation'),
 
+# User recommendation process
+# Depending on the <str:user_other_id> value I decide on which user I want to recommend on
+path('recommendation/user/<str:user_other_id>/', recommendation_views.user_recommendation,
+        name='user_recommendation'),
 
+# Hybrid recommendation process (User and Item recommendation process)
+# Depending on the <str:User_other_id> value I decide on which user I want to recommend on with an hybrid approach
+path('recommendation/hybrid/<str:user_other_id>/', recommendation_views.hybrid_recommendation,
+        name='hybrid_ui_recommendation'),
 
+# Target recommendation process
+# Depending on the <str:target_type_id> value I decide on which user I want to recommend on
+path('recommendation/target/<str:target_type_id>/', recommendation_views.target_recommendation,
+        name='target_recommendation'),
+\end{lstlisting}
+Sulla base dell'URL che viene richiamato e sul parametro (come \textit{user\_other\_id}, \textit{item\_other\_id}, ecc.) verranno fornite le 
+relative raccomandazioni. Nel caso di questo progetto, le View che possono essere richiamate permettono soltanto chiamate HTTP con metodo GET 
+e restiutiscono una risposta HTTP in formato JSON, queste risposte contengono una lista di dizionari e ciascuno contiene l'other\_id della Evaluation 
+che si vuole raccomandare. Di seguito nel Listing \ref{lst:view_rec} vengono mostrati le porzioni di codice rappresentanti 
+le View per gli algoritmi di raccomandazione per Item (in questo caso Evaluaiton), Utenti e Target. Inoltre nel Listing \ref{lst:view_rec_ex} è 
+possibile osservare alcuni esempi e risposte di richieste HTTP a questi algortmi.\hfill\break
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:view_rec, caption={Porzione parziale del codice contenuto nelle View per implementare
+    i sistemi di raccomandazione.}]
+# Item recommendation Api Rest
+@api_view(['GET'])
+def item_recommendation(request, item_other_id):
+    """
+    Returns recommendations for the using an item-based recommendation algorithm for the Evaluation `item_other_id`
+
+    :param request: http GET request
+    :param item_other_id: value representing the other_id of an Item (Evaluation)
+    :return: json response with the evaluations to recommend
+    """
+    # Trying to retrieve the actual node with item_other_id
+    item = Evaluation.objects.get(other_id=item_other_id)
+
+    similar_item_evaluations = item_recommendation_alg(item_other_id)
+    # Cleaning the data, deleting all the keys except 'other_id'
+    similar_item_evaluations_serilized = EvaluationSerializerRecommendation(similar_item_evaluations, many=True).data
+
+    return JsonResponse(similar_item_evaluations_serilized, safe=False)
+
+# User recommendation Api Rest
+@api_view(['GET'])
+def user_recommendation(request, user_other_id):
+    """
+    Returns recommendations for the using an user-based recommendation algorithm for the user `user_other_id`
+
+    :param request: http GET request
+    :param user_other_id: value representing the other_id of a User
+    :return: json response with the evaluations to recommend
+    """
+    # Trying to retrive the actual User with user_other_id
+    user = User.objects.get(other_id=user_other_id)
+
+    target_user_evaluations, similar_user_evaluations = user_recommendation_alg(user_other_id)
+    # Cleaning the data, deleting all the keys except 'other_id'
+    similar_user_evaluations_serilized = EvaluationSerializerRecommendation(similar_user_evaluations, many=True).data
+
+    return JsonResponse(similar_user_evaluations_serilized, safe=False)
+
+# TARGET RECOMMENDATION ALGORITHM & API REST
+
+# Target recommendation algorithm
+def target_recommendation_alg(target_type_id):
+    """
+    For a target (Target_Type like 'host', 'aws', 'url', etc.) chose by a user this algorithm search the possible
+    evaluations that can be recommended for that user.
+
+    :param target_type_id: identifier of a particular target_type
+    :return: a list of evaluations
+    """
+    # Retrieving all the evaluations in the database
+    evaluations = Evaluation.objects.filter(node_type="eva")
+
+    # Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_type_id
+    target_evaluations = []
+    for evaluation in evaluations:  # Scanning all the evaluations
+        for evaluation_controls in evaluation.controls.filter(target_type_id=target_type_id):
+            if not(evaluation in target_evaluations):  # Excluding evaluations duplicated
+                target_evaluations.append(evaluation)
+
+    # Converting the Evaluation model's instance in a dict and putting the evaluation, as a dict, in a list
+    target_evaluations_serializer = EvaluationSerializerRecommendation(target_evaluations, many=True)
+
+    return target_evaluations_serializer.data
+\end{lstlisting}
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:view_rec_ex, caption={Esempi di chiamata e risposta HTTP per i diversi algoritmi di raccomandazione.}]
+Esempio di chiamata per lo Item Recommendation Algorithm
+URL: http://127.0.0.1:8000/recommendation/item/34/ 
+HTTP method: GET
+
+Esempio di risposta per lo Item Recommendation Algorithm
+HTTP Status: 200 OK
+HTTP Response Body:
+[
+    {"other_id": 35},
+    {"other_id": 36}
+]
+
+Esempio di chiamata per lo User Recommendation Algorithm
+URL: http://127.0.0.1:8000/recommendation/user/10/ 
+HTTP method: GET
+
+Esempio di risposta per lo User Recommendation Algorithm
+HTTP Status: 200 OK
+HTTP Response Body:
+[
+    {"other_id": 36}
+]
+
+Esempio di chiamata per lo Hybrid Recommendation Algorithm
+URL: http://127.0.0.1:8000/recommendation/hybrid/10/ 
+HTTP method: GET
+
+Esempio di risposta per lo Hybrid Recommendation Algorithm
+HTTP Status: 200 OK
+HTTP Response Body:
+[
+    {"other_id": 23},
+    {"other_id": 24},
+    {"other_id": 25},
+    {"other_id": 26},
+    {"other_id": 28},
+    {"other_id": 29},
+    {"other_id": 30},
+    {"other_id": 31},
+    {"other_id": 32},
+    {"other_id": 35},
+    {"other_id": 36},
+    {"other_id": 43},
+    {"other_id": 45},
+    {"other_id": 46},
+    {"other_id": 47},
+    {"other_id": 48}
+]
+
+Esempio di chiamata per lo Target Recommendation Algorithm
+URL: http://127.0.0.1:8000/recommendation/target/1/ 
+HTTP method: GET
+
+Esempio di risposta per lo Target Recommendation Algorithm
+HTTP Status: 200 OK
+HTTP Response Body:
+[
+    {"other_id": 25},
+    {"other_id": 29},
+    {"other_id": 30},
+    {"other_id": 24},
+    {"other_id": 28},
+    {"other_id": 31},
+    {"other_id": 23},
+    {"other_id": 26}
+]
+\end{lstlisting}
 % VIEW PER MANTERE LA CONSISTENZA COL MIO DATABASE
 \section*{Consistenza tra i database}
 % parlare di rest_framework, dei serializer, e url

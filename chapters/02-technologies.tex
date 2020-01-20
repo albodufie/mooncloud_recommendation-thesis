@@ -54,7 +54,7 @@ Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{djang
 \begin{description}
     \item[Versatile:] può essere usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti,
     a social network e siti di notizie; può lavorare con qualunque client-side framework, e gestire contenuti in quasi tutti i formati (inclusi HTML, 
-    RSS feeds, Json, Xml, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, ecc.).
+    RSS feeds, JSON, Xml, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, ecc.).
     \item[Sicuro:] aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
     le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un metodo sicuro per gestire gli account degli utenti e le relative 
     password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies, dove sarebbero vulnerabili (invece i cookie 
@@ -68,7 +68,7 @@ Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{djang
 \end{description}
 In generale, un tradizionale server web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
 una richiesta (solitamente di tipo POST o GET) 
-l'applicazione legge le informazioni contenute in essa, all'interno dell'intestazione e/o del corpo, e nell'Url. A seconda della richiesta è possibile che 
+l'applicazione legge le informazioni contenute in essa, all'interno dell'intestazione e/o del corpo, e nell'URL. A seconda della richiesta è possibile che 
 vengano letti o scritti dati da un database o altre operazioni che portino al soddisfacimento della richiesta stessa, a questo punto l'applicazione restituisce una 
 risposta al browser web dell'utente che ne ha fatto richiesta, spesso in modo dinamico, creando una pagina HTML, sulla base del Template,
 da mostrare, in cui può essere data la possibilità di inserire dati dall'utente in appositi campi compilabili o semplicemente mostrare delle informazioni.
@@ -86,9 +86,9 @@ Un'applicazione web in Django tipicamente raggruppa il codice che gestisce quest
 suddivisione in riquadri verdi della Figura \ref{fig:django_doc} \cite{mdn-django-documentation}, in cui ognuno di questi
 gruppi di file svolge delle operazioni ben precise.
 \begin{description}
-    \item Un \textbf{Url mapper} è usato per reindirizzare le richieste HTTP alla View corretta in base all'Url della richiesta; è possibile processare 
-    richieste da qualsiasi Url attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa. 
-    Inoltre è possibile controllare se nell'Url è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
+    \item Un \textbf{URL mapper} è usato per reindirizzare le richieste HTTP alla View corretta in base all'URL della richiesta; è possibile processare 
+    richieste da qualsiasi URL attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa. 
+    Inoltre è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
     funzione appropriata come dati da elaborare.
     \item Una \textbf{View} è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le View accedono ai dati necessari per soddisfare la 
     richiesta, anche attraverso i Model, e si delega la formattazione delle risposte ai Template.
@@ -98,12 +98,12 @@ gruppi di file svolge delle operazioni ben precise.
     rappresentare la posizione e il contenuto effettivo. Una View può creare dinamicamente una pagina HTML usando un Template HTML, popolandolo con dati presi dal Model, 
     che a sua volta può recuperli dal database.
 \end{description}
-Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un Url e come si interfaccia con una View; in questo caso nel 
-momento in cui viene fatta una richiesta HTTP a questo Url \textit{recommendation/item/<str:item\_other\_id>/} viene richiamata la 
+Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un URL e come si interfaccia con una View; in questo caso nel 
+momento in cui viene fatta una richiesta HTTP a questo URL \textit{recommendation/item/<str:item\_other\_id>/} viene richiamata la 
 View \textit{recommendation\_views.item\_recommendation} passando il parametro \textit{<str:item\_other\_id>}.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:URLex1]
-# Url Example 'recommendation/item/35/'
+# URL Example 'recommendation/item/35/'
 path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
 \end{lstlisting}
 A questo punto, come viene mostrato nel Listing \ref{lst:URLex2}, viene richiamata la View, essa prende i valori che gli vengono passati in ingresso e 
@@ -112,10 +112,10 @@ nel database per il valore del parametro \textit{<str:item\_other\_id>} in ingre
 grazie all'ausilio dei Model i quali sono stati utilizzati precedentemente per definire la struttura delle tabelle e dei relativi campi 
 contenuti nel database e ora attraverso i cosiddetti QuerySet, messi a disposizione da Django, è possibile accedere a quei dati; successivamente vengono 
 determinati tramite l'agoritmo di raccomandazione quali sono i possibili item simili e vengono salvati nella variabile \textit{similar\_item\_evaluations}, 
-infine, dopo aver ripulito i dati da informazioni poco rilevanti, viene restiuita una risposta in formato Json al browser web che ha effettuato la richiesta.
+infine, dopo aver ripulito i dati da informazioni poco rilevanti, viene restiuita una risposta in formato JSON al browser web che ha effettuato la richiesta.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:URLex2]
-# Item recommendation Api Rest
+# Item recommendation API REST
 @api_view(['GET'])
 def item_recommendation(request, item_other_id):
     # Trying to retrieve the actual node with item_other_id
@@ -126,7 +126,7 @@ def item_recommendation(request, item_other_id):
     # Cleaning the data, deleting all the keys except 'other_id'
     similar_item_evaluations_serilized = EvaluationSerializerRecommendation(similar_item_evaluations, many=True).data
 
-    return JsonResponse(similar_item_evaluations_serilized, safe=False)
+    return JSONResponse(similar_item_evaluations_serilized, safe=False)
 \end{lstlisting}
 %
 \section{Docker}
