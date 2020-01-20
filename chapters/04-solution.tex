@@ -47,7 +47,7 @@ class TargetType(models.Model):
         return str(self.name)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ['id']
 
 
 # CONTROL MODEL
@@ -122,7 +122,7 @@ class User(models.Model):
         return str(self.email)
 
     class Meta:
-        ordering = ["other_id", "id"]
+        ordering = ['other_id', 'id']
 
 
 # TARGET MODEL
@@ -139,7 +139,7 @@ class Target(models.Model):
         return str(self.user) + " " + str(self.other_id) + " " + str(self.target_type)
 
     class Meta:
-        ordering = ["user"]
+        ordering = ['user']
 \end{lstlisting}
 %
 A partire da questi Model vennero introdotte nel database le seguenti tabelle, le quali è possibile visionare nella Figura 
@@ -186,7 +186,7 @@ succesivamente personalizzata, per poter manipolare la base di dati, e aggiunger
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_homepage.png}
-    \caption{Home page.}
+    \caption{Home page dell'applicativo web a scopo didattico.}
     \label{fig:MCRS_homepage}
 \end{figure}
 \lstset{style=python_code_style}
@@ -207,7 +207,7 @@ immediatamente sotto al Listing \ref{lst:view_tax_homepage} è visibile il codic
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_taxindex.png}
-    \caption{Home page per la navigazione della tassonomia.}
+    \caption{Home page per la navigazione della tassonomia delle Evaluation.}
     \label{fig:MCRS_taxindex}
 \end{figure}
 %
@@ -498,22 +498,24 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
 %\newpage
 %
 % ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
-Per poter agilmente manipolare la base di dati, Django mette a disposizione la cosiddetta Admin Page mostrata in 
-Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
-effetuare modifiche, e per ognuna vengono mostrate le informazioni più rilevanti, come mostrato dalla 
-Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile 
-effetuare ricerche, eliminare direttamente i dati contenuti nel database e aggiungere 
-nuovi dati, come mostrato in Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.
+Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql,Django mette a disposizione 
+la cosiddetta Admin Page mostrata in Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
+effetuare modifiche, e per ognuna vengono visualizzate le colonne più rilevanti, come mostrato dalla 
+Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile effetuare ricerche, attraverso 
+l'apposito campo, eliminare direttamente i record contenuti nel database e aggiungerne dei nuovi, come mostrato in 
+Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.\hfill\break
+In particolare in questo ultimo caso, sulla base di come è stato construito il Model della relativa tabella, si potranno avere dei campi 
+la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la creazione del record.
 %
 \begin{figure}
     \includegraphics[scale=0.3]{images/MCRS_adminpage.png}
-    \caption{Admin page.}
+    \caption{Admin page creata automaticamente da Django.}
     \label{fig:MCRS_adminpage}
 \end{figure}
 %
 \begin{figure}
     \includegraphics[scale=0.3]{images/MCRS_adminpage_evaluationEX.png}
-    \caption{Esempio di Admin page per le Evaluation.}
+    \caption{Esempio di Admin page per la tabella delle Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX}
 \end{figure}
 %
@@ -525,10 +527,20 @@ nuovi dati, come mostrato in Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.
 
 % VIEW PER LE RACCOMANDAZIONI
 \section*{View per i processi di raccomandazione}
-%METTO ANCHE DEGLI ESEMPI
+% visto che il codice l'ho messo nel capitolo precendente, posso mettere qui degli esempi e mostrare le url per richiamare
+% questi algoritmi, e nel caso dello User e Item algortihm, mostrare le view che li implementano come Rest Api 
+% (non mostro quella dell'hybrid perché già presente al completo nel capitolo precedente)
+
+
+
 
 % VIEW PER MANTERE LA CONSISTENZA COL MIO DATABASE
 \section*{Consistenza tra i database}
+% parlare di rest_framework, dei serializer, e url
+
+
 
 % IMPLEMENTAZIONE CON DOCKER
 \section*{Implementazione in Docker}
+
+
