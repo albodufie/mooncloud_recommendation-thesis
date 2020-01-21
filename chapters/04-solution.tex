@@ -16,7 +16,7 @@ rispecchiano questa struttura, partendo dalle considerazioni fatte sulle tecnich
 per implementare un database relazionale che gestisse dati gerarchici, di utilizzare la tecnica
 definita come \textit{Modified Preorder Tree Traversal Algorithm}, la quale permette di massimizzare l'efficienza nelle 
 operazioni di recupero dei dati, e quindi velocizzare i processi di raccomandazione, ma scendendo a compromessi per quanto riguarda le 
-operazioni di inserimento e spostamento dei nodi all'interno della struttura. 
+operazioni d'inserimento e spostamento dei nodi all'interno della struttura. 
 Grazie al package MPTT, il quale è una app di Django che ha come obbiettivo semplificare il più possibile la realizzazione dei 
 Model, utilizzati per la generazione della base di dati, e la 
 gestione della struttura di dati ad albero; si prende cura di tutti i dettagli riguardanti la realizzazione delle tabelle e dei 
@@ -28,7 +28,7 @@ costituenti i Model.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:model, caption={Parti principali del codice dei Models della soluzione.}]
 # TARGET TYPE MODEL
-
+ 
 class TargetType(models.Model):
     """
     Target supported by Moon Cloud system
@@ -42,16 +42,16 @@ class TargetType(models.Model):
     )
     name = models.CharField(max_length=150, choices=TYPES, default="host")
     descr = models.TextField(max_length=1000, default="none")  # Description of a target
-
+ 
     def __str__(self):
         return str(self.name)
-
+ 
     class Meta:
         ordering = ['id']
-
-
+ 
+ 
 # CONTROL MODEL
-
+ 
 class Control(MPTTModel):
     """
     Controls that can be part of Evaluations
@@ -67,20 +67,20 @@ class Control(MPTTModel):
     # Possible node type of the taxonomy (category node or control node)
     node_type = models.CharField(max_length=3, choices=TYPES, default='cat')
     target_type = models.ForeignKey(TargetType, blank=True, null=True, on_delete=models.CASCADE)  # It's null for the root node and category nodes
-
+ 
     def __str__(self):
         return str(self.name)
-
+ 
     class MPTTMeta:
         level_attr = 'level'
         order_insertion_by = ['name']
-
+ 
     class Meta:
         ordering = ['tree_id', 'lft']
-
-
+ 
+ 
 # EVALUATION MODEL
-
+ 
 class Evaluation(MPTTModel):
     """
     Evaluation is composed by one or more Controls, and can be used by Users
@@ -96,37 +96,37 @@ class Evaluation(MPTTModel):
     # Possible node types of the taxonomy (category node or evaluation node)
     node_type = models.CharField(max_length=3, choices=TYPES, default='cat')
     controls = models.ManyToManyField(Control)  # Evaluation can be composed of one or more controls
-
+ 
     def __str__(self):
         return str(self.name)
-
+ 
     class MPTTMeta:
         level_attr = 'level'
         order_insertion_by = ['name']
-
+ 
     class Meta:
         ordering = ['tree_id', 'lft']
-
-
+ 
+ 
 # USER MODEL
-
+ 
 class User(models.Model):
     """
-    User registered to MoonCloud with an email address, and can insert Target and launch Evaluations
+    User registered to Moon Cloud with an email address, and can insert Target and launch Evaluations
     """
     other_id = models.IntegerField(default=-1, unique=True)
     email = models.EmailField(max_length=50, unique=True)
     evaluations = models.ManyToManyField(Evaluation, blank=True)  # Evaluations chosen by user
-
+ 
     def __str__(self):
         return str(self.email)
-
+ 
     class Meta:
         ordering = ['other_id', 'id']
-
-
+ 
+ 
 # TARGET MODEL
-
+ 
 class Target(models.Model):
     """
     Target (can be more than one) chosen by the user
@@ -134,10 +134,10 @@ class Target(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # User has chosen a target_type
     other_id = models.IntegerField(default=-1, unique=True)
     target_type = models.ForeignKey(TargetType, on_delete=models.CASCADE)  # TargetType Id
-
+ 
     def __str__(self):
         return str(self.user) + " " + str(self.other_id) + " " + str(self.target_type)
-
+ 
     class Meta:
         ordering = ['user']
 \end{lstlisting}
@@ -161,7 +161,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
     \item[TargetType:] vengono specificati quali sono i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
     rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e viene fatta una 
-    distizione tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
+    distinzione tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
     gruppo Amazon, e \textit{Azure}, definisce un servizio cloud fornito da Microsoft.
 \end{description}
 \begin{figure}
@@ -179,10 +179,10 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
 implementata un'interfaccia Web a scopo didattico.
 Avviando il server, la home page che viene proposta è mostrata nella Figura \ref{fig:MCRS_homepage}, e subito 
-sotto è possible trovare il Listing \ref{lst:view_homepage}, dalla quale è possibile 
+sotto è possibile trovare il Listing \ref{lst:view_homepage}, dalla quale è possibile 
 accedere alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; inoltre 
 tramite la barra di navigazione è possibile tornare a questa home page o accedere alla admin page generata da Django, e 
-succesivamente personalizzata, per poter manipolare la base di dati, e aggiungere, eliminare item o utenti.
+successivamente personalizzata, per poter manipolare la base di dati, e aggiungere, eliminare item o utenti.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_homepage.png}
@@ -213,7 +213,7 @@ immediatamente sotto al Listing \ref{lst:view_tax_homepage} è visibile il codic
 %
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_tax_homepage, caption={Home page dalla quale è possibile richiamare 
-    diverse operazioni svolgibili sulla tassonomia.}]
+    diverse operazioni eseguibili sulla tassonomia.}]
 def tax_index(request, taxonomy_used):
     """
     The home page shows all taxonomy and a form to make operations on it.
@@ -242,7 +242,7 @@ def tax_index(request, taxonomy_used):
             form = EvaluationOperationForm()
         else:
             form = ControlEvaluationForm()
-
+ 
     # Depending on the taxonomy_used, I'm getting all the categories of Evaluations or Controls taxonomy and save it in a
     # list called "categories_list"
     if (taxonomy_used == "evaluation"):
@@ -252,7 +252,7 @@ def tax_index(request, taxonomy_used):
     categories_list = []
     for node in q_categories:
         categories_list.append(node.name)
-
+ 
     # Depending on the taxonomy_used, I'm getting all the categories of Evaluations or Controls node in the taxonomy
     # and save it in a list called "node_list"
     if (taxonomy_used == "evaluation"):
@@ -262,25 +262,25 @@ def tax_index(request, taxonomy_used):
     node_list = []
     for node in q_nodes:
         node_list.append(node.name)
-
+ 
     # Depending on the taxonomy_used, I'm getting all the Evaluations or Controls taxonomy
     if (taxonomy_used == "evaluation"):
         tax = Evaluation.objects.all()
     else:
         tax = Control.objects.all()
-
+ 
     # Passing the complete taxonomy and data to fill the form so you can operate on the taxonomy
     args = {'tax': tax,
             'categories': categories_list,
             'nodes': node_list,
             'form': form,
             'request_path': taxonomy_used}
-
+ 
     return render(request, "recommendation_app/tax_index.html", args)
 \end{lstlisting}
 %
-Le attività che è possibile svolgere sulla tassonomia, sia dei Controlli sia delle Evaluation, sono i seguenti, mentre le operazioni 
-di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'ausilo della admin page messa a disposizione da Django.\hfill\break
+Le attività che è possibile svolgere sulla tassonomia, sia dei Controlli sia delle Evaluation, sono le seguenti, mentre le operazioni 
+di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'ausilio della admin page messa a disposizione da Django.\hfill\break
 \begin{itemize}
     \item Per ogni singolo nodo è possibile recuperare: i discendenti, i figli, la famiglia o i fratelli. Si ottiene un risultato come nella
     Figura \ref{fig:MCRS_taxnodedetails} nel caso in cui si è scelti l'Evaluation Http robustness check e si vuole ritornare tutta label
@@ -296,7 +296,7 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
     \begin{lstlisting}[language=Python, label=lst:view_tax_nodedetails, caption={Codice utilizzato all'interno delle View per 
         implementare le operazioni per restituire i discendenti, i figli, la famiglia o i fratelli.}]
     # Methods to navigate the taxonomy
-
+ 
     def show_descendants(request, nodename, taxonomy_used):
         """
         Based on the MPTT's method 'get descendants' that return the descendants of a model instance, in tree order
@@ -313,15 +313,15 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
             q_result = Control.objects.get(name=nodename).get_descendants(include_self=False)
             # Get the count of descendants of the model instance
             q_result_num = Control.objects.get(name=nodename).get_descendant_count()
-
+ 
         return render(request, "recommendation_app/tax_node_details.html",
                     {'tax_type': (str(taxonomy_used)).capitalize(),
                     'descendants': q_result,
                     'node_exe': nodename,
                     'method': 'descendants',
                     'num_descendants': q_result_num})
-
-
+ 
+ 
     def show_children(request, nodename, taxonomy_used):
         """
         Based on the MPTT's method 'get children' that return the immediate children of a model instance, in tree order
@@ -334,14 +334,14 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
             q_result = Evaluation.objects.get(name=nodename).get_children()
         else:
             q_result = Control.objects.get(name=nodename).get_children()
-
+ 
         return render(request, "recommendation_app/tax_node_details.html",
                     {'tax_type': (str(taxonomy_used)).capitalize(),
                     'children': q_result,
                     'node_exe': nodename,
                     'method': 'children'})
-
-
+ 
+ 
     def show_family(request, nodename, taxonomy_used):
         """
         Based on the MPTT's method 'get family' that return the ancestors, the model instance itself and the descendants,
@@ -355,14 +355,14 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
             q_result = Evaluation.objects.get(name=nodename).get_family()
         else:
             q_result = Control.objects.get(name=nodename).get_family()
-
+ 
         return render(request, "recommendation_app/tax_node_details.html",
                     {'tax_type': (str(taxonomy_used)).capitalize(),
                     'family': q_result,
                     'node_exe': nodename,
                     'method': 'family'})
-
-
+ 
+ 
     def show_siblings(request, nodename, taxonomy_used):
         """
         Based on the MPTT's method 'get siblings' that return siblings of the model instance (root nodes are considered
@@ -376,7 +376,7 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
             q_result = Evaluation.objects.get(name=nodename).get_siblings()
         else:
             q_result = Control.objects.get(name=nodename).get_siblings()
-
+ 
         return render(request, "recommendation_app/tax_node_details.html",
                     {'tax_type': (str(taxonomy_used)).capitalize(),
                     'siblings': q_result,
@@ -386,8 +386,8 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
     \item Attraverso il pulsante \textit{request schema} nella home page della tassonomia si può effetuare una richiesta di stampa in formato .png e del 
     relativo file scritto in notazione DOT rappresentante la tassonomia stesso sotto forma di albero, che contiene i relativi dati salvati all'interno 
     della base di dati.\hfill\break
-    Il DOT è un linguaggio descrittivo per grafi, tipicamente i file hanno estensione .gv o .dot, che in combinazione con il software Graphivz è possibile 
-    effetuare il rendere della sintassi dot in un immagine più significativa. Qui di seguito nel Listing \ref{lst:DOT_eval} viene mostrato un esempio di 
+    Il DOT è un linguaggio descrittivo per grafi, tipicamente i file hanno estensione .gv o .dot, che in combinazione con il software Graphviz è possibile 
+    effettuare il rendere della sintassi DOT in un immagine più significativa. Qui di seguito nel Listing \ref{lst:DOT_eval} viene mostrato un esempio di 
     scrittura con linguaggio DOT.
     \lstset{style=python_code_style}
     \begin{lstlisting}[language=Python, label=lst:DOT_eval, caption={Codice parziale utilizzato per realizzare lo schema della tassonomia
@@ -445,22 +445,22 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
             i += 1
         # Specify where I want to save the .png image and the .dot file
         taxonomy_dot_object.render('taxonomy_output/taxonomy.dot')
-
+ 
         # This function is used to zip a directory
         def make_zipdir(path, ziph):
             # Ziph is zipfile handle
             for root, dirs, files in os.walk(path):
                 for file in files:
                     ziph.write(os.path.join(root, file))
-
+ 
         # Making the zip file
         zip_file = zipfile.ZipFile('taxonomy_output.zip', 'w', compression=zipfile.ZIP_DEFLATED)
         make_zipdir('taxonomy_output/', zip_file)
         zip_file.close()
-
+ 
         # Remove the directory which was zipped and all files inside
         shutil.rmtree("taxonomy_output/")
-
+ 
         return redirect(reverse('rec:index'))
     \end{lstlisting}
     \item Inoltre è possibile osservare in maniera più approfondita le informazioni rilevanti sulla tassonomia contenute nelle 
@@ -487,7 +487,7 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
             tax_details_obj = Evaluation.objects.all()
         else:
             tax_details_obj = Control.objects.all()
-
+ 
         return render(request, "recommendation_app/tax_details.html",
                     {'tax_details': tax_details_obj,
                     'taxonomy_used': taxonomy_used})
@@ -498,13 +498,13 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
 %\newpage
 %
 % ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
-Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql,Django mette a disposizione 
+Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql, Django mette a disposizione 
 la cosiddetta Admin Page mostrata in Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
 effetuare modifiche, e per ognuna vengono visualizzate le colonne più rilevanti, come mostrato dalla 
-Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile effetuare ricerche, attraverso 
+Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile effettuare ricerche, attraverso 
 l'apposito campo, eliminare direttamente i record contenuti nel database e aggiungerne dei nuovi, come mostrato in 
 Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.\hfill\break
-In particolare in questo ultimo caso, sulla base di come è stato construito il Model della relativa tabella, si potranno avere dei campi 
+In particolare in questo ultimo caso, sulla base di come è stato costruito il Model della relativa tabella, si potranno avere dei campi 
 la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la creazione del record.
 %
 \begin{figure}
@@ -524,38 +524,39 @@ la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la
     \caption{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX_add}
 \end{figure}
-
+%
+\newpage
 % VIEW PER LE RACCOMANDAZIONI
 \section*{View per i processi di raccomandazione}
-% visto che il codice l'ho messo nel capitolo precendente, posso mettere qui degli esempi e mostrare le url per richiamare
+% visto che il codice l'ho messo nel capitolo precedente, posso mettere qui degli esempi e mostrare le url per richiamare
 % questi algoritmi, e nel caso dello User e Item algortihm, mostrare le view che li implementano come REST API 
 % (non mostro quella dell'hybrid perché già presente al completo nel capitolo precedente)
-In generale gli algortmi di raccomandazione implementati in questo progetto, e descritti nel Capitolo precendente, vengono richiamati e 
-utilizzati come API REST, un tipo di architettura basata sul protocollo HTTP. Un sistema REST, per funzionare, prevede una struttura degli 
-URL ben definita (atta a identificare univocamente una risorsa o un insieme di risorse) l'utilizzo dei verbi HTTP specifici per il recupero 
-di informazioni (GET), per la modifica (POST, PUT, PATCH, DELETE) e per altri scopi (OPTIONS, ecc.).\hfill\break
-In questo caso ad ogni URL è associata una azione particolare la quale va a richiamare la View che permette di determinare un insieme di 
+In generale gli algoritmi di raccomandazione implementati in questo progetto, e descritti nel Capitolo \ref{chp:03-recommendationSystems}, 
+vengono richiamati e utilizzati come API REST, un tipo di architettura basata sul protocollo HTTP. Un sistema REST, per funzionare, prevede 
+una struttura degli URL ben definita (atta a identificare univocamente una risorsa o un insieme di risorse) l'utilizzo dei verbi HTTP specifici 
+per il recupero d'informazioni (GET), per la modifica (POST, PUT, PATCH, DELETE) e per altri scopi (OPTIONS, ecc.).\hfill\break
+In questo caso a ogni URL è associata una azione particolare la quale va a richiamare la View che permette di determinare un insieme di 
 raccomandazioni sulla base di un parametro in ingresso, come è mostrato nel Listing \ref{lst:URL_rec}.\hfill\break
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:URL_rec, caption={Porzione parziale del codice contenuto nell'URL mapper per implementare
     i sistemi di raccomandazione.}]
 # RECOMMENDATION VIEWS
-
+ 
 # Item recommendation process
 # Depending on the <str:item_other_id> value I decide on which evaluation of the taxonomy I want to recommend on
 path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation,
         name='item_recommendation'),
-
+ 
 # User recommendation process
 # Depending on the <str:user_other_id> value I decide on which user I want to recommend on
 path('recommendation/user/<str:user_other_id>/', recommendation_views.user_recommendation,
         name='user_recommendation'),
-
+ 
 # Hybrid recommendation process (User and Item recommendation process)
 # Depending on the <str:User_other_id> value I decide on which user I want to recommend on with an hybrid approach
 path('recommendation/hybrid/<str:user_other_id>/', recommendation_views.hybrid_recommendation,
         name='hybrid_ui_recommendation'),
-
+ 
 # Target recommendation process
 # Depending on the <str:target_type_id> value I decide on which user I want to recommend on
 path('recommendation/target/<str:target_type_id>/', recommendation_views.target_recommendation,
@@ -563,7 +564,7 @@ path('recommendation/target/<str:target_type_id>/', recommendation_views.target_
 \end{lstlisting}
 Sulla base dell'URL che viene richiamato e sul parametro (come \textit{user\_other\_id}, \textit{item\_other\_id}, ecc.) verranno fornite le 
 relative raccomandazioni. Nel caso di questo progetto, le View che possono essere richiamate permettono soltanto chiamate HTTP con metodo GET 
-e restiutiscono una risposta HTTP in formato JSON, queste risposte contengono una lista di dizionari e ciascuno contiene l'other\_id della Evaluation 
+e restituiscono una risposta HTTP in formato JSON, queste risposte contengono una lista di dizionari e ciascuno contiene l'other\_id della Evaluation 
 che si vuole raccomandare. Di seguito nel Listing \ref{lst:view_rec} vengono mostrati le porzioni di codice rappresentanti 
 le View per gli algoritmi di raccomandazione per Item (in questo caso Evaluaiton), Utenti e Target. Inoltre nel Listing \ref{lst:view_rec_ex} è 
 possibile osservare alcuni esempi e risposte di richieste HTTP a questi algortmi.\hfill\break
@@ -608,38 +609,30 @@ def user_recommendation(request, user_other_id):
 
     return JsonResponse(similar_user_evaluations_serilized, safe=False)
 
-# TARGET RECOMMENDATION ALGORITHM & API REST
-
-# Target recommendation algorithm
-def target_recommendation_alg(target_type_id):
+# Target Recommendation Api Rest
+@api_view(['GET'])
+def target_recommendation(request, target_type_id):
     """
     For a target (Target_Type like 'host', 'aws', 'url', etc.) chose by a user this algorithm search the possible
     evaluations that can be recommended for that user.
 
+    :param request: http GET request
     :param target_type_id: identifier of a particular target_type
-    :return: a list of evaluations
+    :return: json response with the evaluations to recommend
     """
-    # Retrieving all the evaluations in the database
-    evaluations = Evaluation.objects.filter(node_type="eva")
+    # Trying to retrieve the actual Target Type, with id equal to target_type_id, chosed by a user
+    target = TargetType.objects.get(id=target_type_id)
 
-    # Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_type_id
-    target_evaluations = []
-    for evaluation in evaluations:  # Scanning all the evaluations
-        for evaluation_controls in evaluation.controls.filter(target_type_id=target_type_id):
-            if not(evaluation in target_evaluations):  # Excluding evaluations duplicated
-                target_evaluations.append(evaluation)
+    target_evaluations = target_recommendation_alg(target_type_id)
 
-    # Converting the Evaluation model's instance in a dict and putting the evaluation, as a dict, in a list
-    target_evaluations_serializer = EvaluationSerializerRecommendation(target_evaluations, many=True)
-
-    return target_evaluations_serializer.data
+    return JsonResponse(target_evaluations, safe=False)
 \end{lstlisting}
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_rec_ex, caption={Esempi di chiamata e risposta HTTP per i diversi algoritmi di raccomandazione.}]
 Esempio di chiamata per lo Item Recommendation Algorithm
 URL: http://127.0.0.1:8000/recommendation/item/34/ 
 HTTP method: GET
-
+ 
 Esempio di risposta per lo Item Recommendation Algorithm
 HTTP Status: 200 OK
 HTTP Response Body:
@@ -647,22 +640,22 @@ HTTP Response Body:
     {"other_id": 35},
     {"other_id": 36}
 ]
-
+ 
 Esempio di chiamata per lo User Recommendation Algorithm
 URL: http://127.0.0.1:8000/recommendation/user/10/ 
 HTTP method: GET
-
+ 
 Esempio di risposta per lo User Recommendation Algorithm
 HTTP Status: 200 OK
 HTTP Response Body:
 [
     {"other_id": 36}
 ]
-
+ 
 Esempio di chiamata per lo Hybrid Recommendation Algorithm
 URL: http://127.0.0.1:8000/recommendation/hybrid/10/ 
 HTTP method: GET
-
+ 
 Esempio di risposta per lo Hybrid Recommendation Algorithm
 HTTP Status: 200 OK
 HTTP Response Body:
@@ -684,11 +677,11 @@ HTTP Response Body:
     {"other_id": 47},
     {"other_id": 48}
 ]
-
+ 
 Esempio di chiamata per lo Target Recommendation Algorithm
 URL: http://127.0.0.1:8000/recommendation/target/1/ 
 HTTP method: GET
-
+ 
 Esempio di risposta per lo Target Recommendation Algorithm
 HTTP Status: 200 OK
 HTTP Response Body:
@@ -706,10 +699,44 @@ HTTP Response Body:
 % VIEW PER MANTERE LA CONSISTENZA COL MIO DATABASE
 \section*{Consistenza tra i database}
 % parlare di rest_framework, dei serializer, e url
+Per fare in modo che il database creato in questo progetto e l'attuale database utilizzato dalla piattaforma di Moon Cloud 
+fossero consistenti, quindi le informazioni presenti nell'uno sono identiche a quelle presenti nell'altro, si è 
+pensato d'implementare un sistema di Api Rest.\hfill\break
+Nel caso vengano fatte modifiche, aggiunte o cancellazioni di dati relativi a Controlli, Evaluation, Target, User o Target Type 
+è possibile richiamare tramite appositi URL, mostrati nel Listing \ref{lst:view_cos_rec_url}, queste funzioni ed eseguire la relativa 
+operazione sul database implmentato nella soluzione, senza dover accedere e manipolare direttamente la base di dati.
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Python, label=lst:view_cos_rec_url, caption={Porzione di codice dell'URL Mapper contenti le URL usate per 
+    mantenere la consistenza dei dati.}]
+# API REST EXTERNAL to maintain database consistency
+# Control views
+url(r'^control/$', control_views.ControlListCreate.as_view(),
+    name="control_list_create_view"),
+url(r'^control/(?P<other_id>[0-9]+)/$', control_views.ControlRetrieveDeleteUpdate.as_view(),
+    name="control_retrieve_delete_update_view"),
 
+# Evaluation views
+url(r'^evaluation/$', evaluation_views.EvaluationListCreate.as_view(),
+    name="evaluation_list_create_view"),
+url(r'^evaluation/(?P<other_id>[0-9]+)/$', evaluation_views.EvaluationRetrieveDeleteUpdate.as_view(),
+    name="evaluation_retrieve_delete_update_view"),
 
+# Target views
+url(r'^target/$', target_views.TargetListCreate.as_view(),
+    name="target_list_create_view"),
+url(r'^target/(?P<other_id>[0-9]+)/$', target_views.TargetRetrieveDelete.as_view(),
+    name="target_retrieve_delete_view"),
+
+# User views
+url(r'^user/$', user_views.UserListCreate.as_view(),
+    name="user_list_create_view"),
+url(r'^user/(?P<other_id>[0-9]+)/$', user_views.UserRetrieveDeleteUpdate.as_view(),
+    name="user_retrieve_delete_update_view"),
+url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
+    name="user_evaluations_update_view"),
+\end{lstlisting}
 
 % IMPLEMENTAZIONE CON DOCKER
 \section*{Implementazione in Docker}
-
-
+ 
+ 
