@@ -735,8 +735,15 @@ url(r'^user/(?P<other_id>[0-9]+)/$', user_views.UserRetrieveDeleteUpdate.as_view
 url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
     name="user_evaluations_update_view"),
 \end{lstlisting}
-
+%
+Mano a mano che vennero scritte le View e le altre parti del codice, sono stati scritti dei test per poter garantire il funzionamento di queste 
+funzioni, anche nel caso di eventuali modifiche successive; questo grazie ai metodi già forniti da Django e all'ausilio di Postman.
+%
 % IMPLEMENTAZIONE CON DOCKER
 \section*{Implementazione in Docker}
- 
- 
+Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò ad essi collegati (View, URL, API REST), sono stati fatti i 
+preparativi per poter simulare l'ambiente di Docker e poter eseguire tutta la soluzione implementata in questa tesi all'interno di un 
+Container.\hfill\break
+I file \textit{Dockerfile} e \textit{.yaml} vengono usati dalla Docker Machine per poter creare un Immagine contenente il necessario per l'esecuzione 
+all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter comunicare con l'esterno. 
+%Codice del dockerfile 
