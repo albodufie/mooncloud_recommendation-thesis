@@ -1,8 +1,8 @@
 \chapter{Descrizione della soluzione}\label{chp:04-solution}
 In questo capitolo è approfondito l'aspetto puramente pratico e le fasi che hanno portato alla realizzazione della soluzione; 
 inoltre vengono mostrate le applicazioni pratiche degli aspetti teorici enunciati nei capitoli precedenti.
-%\vspace{1.5 cm}
 %\hfill\break
+%\vspace{1.5 cm}
 \section*{Preparazione della base di dati}
 Prima di poter costruire il sistema di raccomandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari 
 per poter impostare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione.
@@ -746,4 +746,19 @@ preparativi per poter simulare l'ambiente di Docker e poter eseguire tutta la so
 Container.\hfill\break
 I file \textit{Dockerfile} e \textit{.yaml} vengono usati dalla Docker Machine per poter creare un Immagine contenente il necessario per l'esecuzione 
 all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter comunicare con l'esterno. 
-%Codice del dockerfile 
+%Codice del dockerfile
+%
+\vspace{1.5 cm}
+\hfill\break
+Ogni qualvolta è stata portata a termine una fase dell'implementazione, proposta in questa tesi, sono state predisposte 
+dei processi di verifica del funzionamento del codice scritto fino a quel momento. Questo genere di test, vennero fatti 
+per essere certi che le varie fasi fossero in grado di funzionare insieme.\hfill\break
+I primi test vennero fatti sul database, vennero fatti accertamenti sul suo funzionamento e ssu quello del package MPTT usato 
+per costruire la tassonomia delle Evaluation e quella dei Controlli. Successivamente vennero fatte delle verifiche sulla 
+corretta interazione, con la base di dati, attraverso le View a scopo didattico e che le modifiche fatte alle admin page 
+standard di Django dessero i risulatati attesi. Una volta implementati gli algoritmi di raccomandazione, e relative View, 
+e il sistema di API REST per il mantenimento della consistenza tra il database, creato in questa soluzione, e quello 
+attualmente in uso su Moon Cloud, venne creato un sistema di test automatizzato, grazie alle funzioni built-in di Django, 
+in cui ogni test richiama la funzione da testare, salva il suo risultato, e lo confronta con il risultato atteso, inoltre 
+nel caso delle API REST viene controllato anche il codice della risposta HTTP con il codice atteso. Inoltre, sempre per 
+il caso delle API REST, si è voluto creare dei test aggiuntivi tramite l'ausilio di Postman % CHE COSéééééééé .
