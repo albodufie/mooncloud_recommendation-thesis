@@ -759,6 +759,9 @@ corretta interazione, con la base di dati, attraverso le View a scopo didattico 
 standard di Django dessero i risulatati attesi. Una volta implementati gli algoritmi di raccomandazione, e relative View, 
 e il sistema di API REST per il mantenimento della consistenza tra il database, creato in questa soluzione, e quello 
 attualmente in uso su Moon Cloud, venne creato un sistema di test automatizzato, grazie alle funzioni built-in di Django, 
-in cui ogni test richiama la funzione da testare, salva il suo risultato, e lo confronta con il risultato atteso, inoltre 
-nel caso delle API REST viene controllato anche il codice della risposta HTTP con il codice atteso. Inoltre, sempre per 
-il caso delle API REST, si è voluto creare dei test aggiuntivi tramite l'ausilio di Postman % CHE COSéééééééé .
+in cui ogni test richiama la funzione da testare, salva il suo risultato, e lo confronta con il risultato atteso, 
+oltre a verificare che il codice della risposta HTTP corrisponda al codice atteso.\hfill\break
+Per semplificare lo sviluppo e la verifica del corretto funzionamento si è voluto creare dei test aggiuntivi tramite 
+l'ausilio di Postman; una piattaforma nata per lo sviluppo e il test di API, inoltre semplifica molti step per il loro 
+sviluppo così da poter creare API migliori e più velocemente. Inoltre permette di generare una documentazione 
+machine-readable così da rendere le API più facili da usare.
