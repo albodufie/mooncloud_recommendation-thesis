@@ -26,7 +26,7 @@ costituenti i Model.
 %
 % MODELS CODES
 \lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:model, caption={Parti principali del codice dei Models della soluzione.}]
+\begin{lstlisting}[language=Python, label=lst:model, caption={Parti principali del codice che costituisce i Model della soluzione.}]
 # TARGET TYPE MODEL
  
 class TargetType(models.Model):
@@ -147,7 +147,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 \begin{description}
     \item[Control:] è contenuto l'insieme dei software, o soltanto i riferimenti, che vengono poi effettivamente eseguiti all'interno 
     di una Evaluation, i campi other\_id (identificativo dell'Evaluation che fa riferimento al database effettivo di Moon Cloud), 
-    descr (una descrizione del funzionamento del controllo), node\_type (definisce se il nodo è un Evaluation o un nodo Categoria) 
+    descr (una descrizione del funzionamento del controllo), node\_type (definisce se il nodo è un Evaluation o una Categoria) 
     definiscono le caratteristiche del controllo mentre lft, rght, tree\_id, level e parent sono introdotti 
     automaticamente dal package MPTT per poter rappresentare i dati in modo gerarchico, infine target\_type\_id rappresenta, quel 
     controllo a quale Target viene associato.
@@ -160,8 +160,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
     \item[Target:] è utilizzata per memorizzare quali Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
     \item[TargetType:] vengono specificati quali sono i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
-    rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e viene fatta una 
-    distinzione tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
+    rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e si distingue tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
     gruppo Amazon, e \textit{Azure}, definisce un servizio cloud fornito da Microsoft.
 \end{description}
 \begin{figure}
@@ -179,7 +178,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
 implementata un'interfaccia Web a scopo didattico.
 Avviando il server, la home page che viene proposta è mostrata nella Figura \ref{fig:MCRS_homepage}, e subito 
-sotto è possibile trovare il Listing \ref{lst:view_homepage}, dalla quale è possibile 
+sotto è possibile trovare il Listing \ref{lst:view_homepage}, dalla quale si può  
 accedere alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; inoltre 
 tramite la barra di navigazione è possibile tornare a questa home page o accedere alla admin page generata da Django, e 
 successivamente personalizzata, per poter manipolare la base di dati, e aggiungere, eliminare item o utenti.
@@ -280,7 +279,7 @@ def tax_index(request, taxonomy_used):
 \end{lstlisting}
 %
 Le attività che è possibile svolgere sulla tassonomia, sia dei Controlli sia delle Evaluation, sono le seguenti, mentre le operazioni 
-di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'ausilio della admin page messa a disposizione da Django.\hfill\break
+di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio della admin page messa a disposizione da Django.\hfill\break
 \begin{itemize}
     \item Per ogni singolo nodo è possibile recuperare: i discendenti, i figli, la famiglia o i fratelli. Si ottiene un risultato come nella
     Figura \ref{fig:MCRS_taxnodedetails} nel caso in cui si è scelti l'Evaluation Http robustness check e si vuole ritornare tutta label
@@ -384,7 +383,7 @@ di manipolazione dei dati memorizzati dalla base di dati vengono svolte con l'au
                     'method': 'siblings'})
     \end{lstlisting}
     \item Attraverso il pulsante \textit{request schema} nella home page della tassonomia si può effetuare una richiesta di stampa in formato .png e del 
-    relativo file scritto in notazione DOT rappresentante la tassonomia stesso sotto forma di albero, che contiene i relativi dati salvati all'interno 
+    relativo file scritto in notazione DOT rappresentante la tassonomia stessa, sotto forma di albero, in cui sono contenuti i relativi dati, salvati all'interno 
     della base di dati.\hfill\break
     Il DOT è un linguaggio descrittivo per grafi, tipicamente i file hanno estensione .gv o .dot, che in combinazione con il software Graphviz è possibile 
     effettuare il rendere della sintassi DOT in un immagine più significativa. Qui di seguito nel Listing \ref{lst:DOT_eval} viene mostrato un esempio di 
@@ -576,59 +575,59 @@ possibile osservare alcuni esempi e risposte di richieste HTTP a questi algortmi
 def item_recommendation(request, item_other_id):
     """
     Returns recommendations for the using an item-based recommendation algorithm for the Evaluation `item_other_id`
-
+ 
     :param request: http GET request
     :param item_other_id: value representing the other_id of an Item (Evaluation)
     :return: json response with the evaluations to recommend
     """
     # Trying to retrieve the actual node with item_other_id
     item = Evaluation.objects.get(other_id=item_other_id)
-
+ 
     similar_item_evaluations = item_recommendation_alg(item_other_id)
     # Cleaning the data, deleting all the keys except 'other_id'
     similar_item_evaluations_serilized = EvaluationSerializerRecommendation(similar_item_evaluations, many=True).data
-
+ 
     return JsonResponse(similar_item_evaluations_serilized, safe=False)
-
+ 
 # User recommendation Api Rest
 @api_view(['GET'])
 def user_recommendation(request, user_other_id):
     """
     Returns recommendations for the using an user-based recommendation algorithm for the user `user_other_id`
-
+ 
     :param request: http GET request
     :param user_other_id: value representing the other_id of a User
     :return: json response with the evaluations to recommend
     """
-    # Trying to retrive the actual User with user_other_id
+    # Trying to retrieve the actual User with user_other_id
     user = User.objects.get(other_id=user_other_id)
-
+ 
     target_user_evaluations, similar_user_evaluations = user_recommendation_alg(user_other_id)
     # Cleaning the data, deleting all the keys except 'other_id'
     similar_user_evaluations_serilized = EvaluationSerializerRecommendation(similar_user_evaluations, many=True).data
-
+ 
     return JsonResponse(similar_user_evaluations_serilized, safe=False)
-
+ 
 # Target Recommendation Api Rest
 @api_view(['GET'])
 def target_recommendation(request, target_type_id):
     """
     For a target (Target_Type like 'host', 'aws', 'url', etc.) chose by a user this algorithm search the possible
     evaluations that can be recommended for that user.
-
+ 
     :param request: http GET request
     :param target_type_id: identifier of a particular target_type
     :return: json response with the evaluations to recommend
     """
     # Trying to retrieve the actual Target Type, with id equal to target_type_id, chosed by a user
     target = TargetType.objects.get(id=target_type_id)
-
+ 
     target_evaluations = target_recommendation_alg(target_type_id)
-
+ 
     return JsonResponse(target_evaluations, safe=False)
 \end{lstlisting}
 \lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:view_rec_ex, caption={Esempi di chiamata e risposta HTTP per i diversi algoritmi di raccomandazione.}]
+\begin{lstlisting}[language=Python, label=lst:view_rec_ex, caption={Esempi di chiamate e risposte HTTP per i diversi algoritmi di raccomandazione.}]
 Esempio di chiamata per lo Item Recommendation Algorithm
 URL: http://127.0.0.1:8000/recommendation/item/34/ 
 HTTP method: GET
@@ -700,7 +699,7 @@ HTTP Response Body:
 \section*{Consistenza tra i database}
 % parlare di rest_framework, dei serializer, e url
 Per fare in modo che il database creato in questo progetto e l'attuale database utilizzato dalla piattaforma di Moon Cloud 
-fossero consistenti, quindi le informazioni presenti nell'uno sono identiche a quelle presenti nell'altro, si è 
+fossero consistenti, quindi le informazioni presenti nell'uno sono identiche a quelle nell'altro, si è 
 pensato d'implementare un sistema di Api Rest.\hfill\break
 Nel caso vengano fatte modifiche, aggiunte o cancellazioni di dati relativi a Controlli, Evaluation, Target, User o Target Type 
 è possibile richiamare tramite appositi URL, mostrati nel Listing \ref{lst:view_cos_rec_url}, queste funzioni ed eseguire la relativa 
@@ -714,19 +713,19 @@ url(r'^control/$', control_views.ControlListCreate.as_view(),
     name="control_list_create_view"),
 url(r'^control/(?P<other_id>[0-9]+)/$', control_views.ControlRetrieveDeleteUpdate.as_view(),
     name="control_retrieve_delete_update_view"),
-
+ 
 # Evaluation views
 url(r'^evaluation/$', evaluation_views.EvaluationListCreate.as_view(),
     name="evaluation_list_create_view"),
 url(r'^evaluation/(?P<other_id>[0-9]+)/$', evaluation_views.EvaluationRetrieveDeleteUpdate.as_view(),
     name="evaluation_retrieve_delete_update_view"),
-
+ 
 # Target views
 url(r'^target/$', target_views.TargetListCreate.as_view(),
     name="target_list_create_view"),
 url(r'^target/(?P<other_id>[0-9]+)/$', target_views.TargetRetrieveDelete.as_view(),
     name="target_retrieve_delete_view"),
-
+ 
 # User views
 url(r'^user/$', user_views.UserListCreate.as_view(),
     name="user_list_create_view"),
@@ -736,13 +735,13 @@ url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
     name="user_evaluations_update_view"),
 \end{lstlisting}
 %
-Mano a mano che vennero scritte le View e le altre parti del codice, sono stati scritti dei test per poter garantire il funzionamento di queste 
+Durante la scrittura delle View e delle altre parti del codice, sono stati definiti dei test per poter garantire il funzionamento di queste 
 funzioni, anche nel caso di eventuali modifiche successive; questo grazie ai metodi già forniti da Django e all'ausilio di Postman.
 %
 % IMPLEMENTAZIONE CON DOCKER
 \section*{Implementazione in Docker}
-Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò ad essi collegati (View, URL, API REST), sono stati fatti i 
-preparativi per poter simulare l'ambiente di Docker e poter eseguire tutta la soluzione implementata in questa tesi all'interno di un 
+Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò a essi collegati (View, URL, API REST), sono stati fatti i 
+preparativi per poter simulare l'ambiente di Docker ed eseguire tutta la soluzione implementata in questa tesi all'interno di un 
 Container.\hfill\break
 I file \textit{Dockerfile} e \textit{.yaml} vengono usati dalla Docker Machine per poter creare un Immagine contenente il necessario per l'esecuzione 
 all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter comunicare con l'esterno. 
@@ -753,14 +752,14 @@ all'interno del Container, oltre alle caratteristiche del Container stesso e del
 Ogni qualvolta è stata portata a termine una fase dell'implementazione, proposta in questa tesi, sono state predisposte 
 dei processi di verifica del funzionamento del codice scritto fino a quel momento. Questo genere di test, vennero fatti 
 per essere certi che le varie fasi fossero in grado di funzionare insieme.\hfill\break
-I primi test vennero fatti sul database, vennero fatti accertamenti sul suo funzionamento e ssu quello del package MPTT usato 
+I primi test sono fatti sul database, accertandosi del suo funzionamento e di quello del package MPTT usato 
 per costruire la tassonomia delle Evaluation e quella dei Controlli. Successivamente vennero fatte delle verifiche sulla 
 corretta interazione, con la base di dati, attraverso le View a scopo didattico e che le modifiche fatte alle admin page 
-standard di Django dessero i risulatati attesi. Una volta implementati gli algoritmi di raccomandazione, e relative View, 
+standard di Django dessero i risultati attesi. Una volta implementati gli algoritmi di raccomandazione, e relative View, 
 e il sistema di API REST per il mantenimento della consistenza tra il database, creato in questa soluzione, e quello 
 attualmente in uso su Moon Cloud, venne creato un sistema di test automatizzato, grazie alle funzioni built-in di Django, 
-in cui ogni test richiama la funzione da testare, salva il suo risultato, e lo confronta con il risultato atteso, 
-oltre a verificare che il codice della risposta HTTP corrisponda al codice atteso.\hfill\break
+in cui ogni test richiama la funzione da testare, salva il suo risultato, e lo confronta con quello atteso, 
+oltre a verificare che il codice della risposta HTTP corrisponda a quello atteso.\hfill\break
 Per semplificare lo sviluppo e la verifica del corretto funzionamento si è voluto creare dei test aggiuntivi tramite 
 l'ausilio di Postman; una piattaforma nata per lo sviluppo e il test di API, inoltre semplifica molti step per il loro 
 sviluppo così da poter creare API migliori e più velocemente. Inoltre permette di generare una documentazione 
