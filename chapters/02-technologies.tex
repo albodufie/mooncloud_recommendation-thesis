@@ -3,7 +3,6 @@ In questo capitolo sono descritte le tecnologie utilizzate per la realizzazione 
 di certi sistemi rispetto ad altri. In particolare viene fornita una panoramica dei sistemi di raccomandazione analizzati e studiati,
 nel capitolo successivo vengono approfonditi a livello pratico i sistemi di raccomandazione Memory-based i quali sono stati utilizzati 
 per l'implementazione della soluzione.
-% SISTEMARE POSIZIONE TABELLA E FOTO DELLA SEZIONE NESTED SET MODEL
 %
 \section{Perché Python e Django}
 \paragraph{Python}
@@ -43,8 +42,8 @@ indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al c
 o parole chiave, si usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si usa 
 sia una tabulazione sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
-estensione .py) e, se sintatticamente corretto, di eseguirlo, non esiste una fase di compilazione separata (come 
-avviene in C, per esempio) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
+estensione .py) e, se sintatticamente corretto, di eseguirlo, non esiste una fase di compilazione separata (come, per esempio, 
+avviene in C, ) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
 %
 \paragraph{Django}
 Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
@@ -257,13 +256,15 @@ Questo approccio permette di osservare le gerarchie di dati in un modo diverso, 
     progetto in questione (ridotto).}
     \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
-%
 \hfill\break
 %
 Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene i suoi figli. Questa struttura 
 viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi, \textit{lft} e \textit{rght}, come è possibile osservare 
 dalla Tabella \ref{table:nested_set_model_table} seguente, la quale fa riferimento alla Figura \ref{fig:MC_Rec_NSM_Container} 
 posta alla fine della sezione.
+%
+\newpage
+%
 \begin{table}[ht!]
 \centering
 \begin{tabular}[c]{| c | l | c | c |}
@@ -304,7 +305,6 @@ speciali in Sql; per questo motivo si identificano questi campi con i nomi \text
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Tree}
 \end{figure}
-\vspace{-0.5 cm}
 \hfill\break
 L'assegnazione di questi valori viene effettuata ad ogni nodo visitandolo due volte e assegnando i valori in ordine di visita, e in entrambe le visite. 
 Quindi vengono associati ad ogni nodo due numeri, memorizzati come due attributi. 
@@ -329,6 +329,7 @@ SELECT node.name
         AND parent.name = "moon cloud"
     ORDER BY node.lft;
 \end{lstlisting}
+%
 Altro esempio è il caso in cui si vuole recuperare tutti i nodi foglia della tassonomia come mostra il Listing \ref{lst:ex_NSM_query2}, in cui è ancora 
 più semplice rispetto nell'Adjacency List Model. Nel Nested Set Model, il valori di \textit{lft} e \textit{rght} per i nodi foglia hanno valori 
 consecutivi; quindi per trovare i nodi foglia basta cercare quei nodi dove il valore di \textit{rght} è pari a quello di \textit{lft} incrementato di uno.
@@ -338,6 +339,7 @@ SELECT name
     FROM Evaluation
     WHERE rgt = lft + 1;
 \end{lstlisting}
+%
 Infine nel caso di inserimento o cancellazione di un nodo il grado di complessità dell'operazione è determinato dalla posizione del nodo che si 
 vuole inserire o cancellare; a partire dal caso più semplice, quando si vuole inserire o cancellare un nodo foglia, quel nodo senza figli, fino 
 al caso più complesso, quando si vuole cancellare un nodo padre perchè bisogna anche gestire i suoi nodi figli.
