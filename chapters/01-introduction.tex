@@ -1,5 +1,5 @@
 \chapter{Scenario e motivazioni}\label{chp:01-overview}
-In questo capitolo verrà descritto in modo più approfondito il funzionamento della piattaforma Moon Cloud unitamente al 
+In questo capitolo viene descritto in modo più approfondito il funzionamento della piattaforma Moon Cloud unitamente al 
 motivo dell'implementazione della soluzione proposta.
 %
 \section{Introduzione}
@@ -9,12 +9,12 @@ ha assunto importanza a partire dagli anni novanta come effetto del boom d'Inter
 mondo dell'ICT crescono in numero e si evolvono per specificità, per operare in ambienti fortemente eterogenei ma sempre più 
 interconnessi fra di loro come il Cloud Computing, i Social Newtwork, il Marketing Digitale, i Sistemi IoT, la Realtà Virtuale, ecc.
 \vspace{0.5 cm}\hfill\break
-Il Cloud Computing ha portato un rivoluzionario paradigma nella creazione di un nuovo business, virtuale e accessibile, in qualunque momento
-e in qualunque luogo; esso sfrutta le tecnologie messe a disposizione dai sistemi ICT come le operazioni di virtualized computing,
+In particolare, il Cloud Computing ha portato un rivoluzionario paradigma nella creazione di un nuovo business, virtuale e accessibile, 
+in qualunque momento e luogo; esso sfrutta le tecnologie messe a disposizione dai sistemi ICT come le operazioni di virtualized computing,
 internet e distributed computing, provvedendo un sistema integrato molto potente. Google, Microsoft, Amazon sono un esempio di 
 aziende che forniscono servizi di Cloud Computing in business ICT. Si può definire il Cloud Computing come l'abilità di accedere a 
-risorse (come database o applicazioni) in tutto il mondo attraverso una rete in poco tempo.\hfill\break
-Gli immensi benefici del Cloud in termini di flessibilità, consumo delle risorse e gestione semplificata, la rende la prima scelta per 
+risorse (come database o applicazioni) in poco tempo e in tutto il mondo attraverso una rete.\hfill\break
+Gli immensi benefici del Cloud in termini di flessibilità, consumo delle risorse e gestione semplificata, lo rende la prima scelta per 
 utenti e industrie per il deploy dei loro sistemi IT. Tuttavia il Cloud Computing solleva diverse problematiche legate alla mancanza di 
 fiducia e trasparenza dove i clienti necessitano di avere delle garanzie sui servizi Cloud ai quali si affidano; spesso i fornitori di 
 questi servizi non fornisco ai clienti le specifiche riguardanti le misure di sicurezza messe in atto.\hfill\break
@@ -33,21 +33,25 @@ Il prezzo che si paga per i benefici di questa tecnologia è dato dall'increment
 preoccupa tutte le aziende e di conseguenza anche i loro clienti, con l'incremento del rischio di fallimento per i servizi più importanti 
 dovuti a violazioni della privacy e al furto di dati.
 Il mercato sta lentamente notando che non è l'inadeguatezza tecnologica dei sistemi di sicurezza che incrementa il rischio delle 
-violazioni di sicurezza; piuttosto, la mal configurazione e l'errata integrazione di questi sistemi nei processi di business 
+violazioni; piuttosto, la mal configurazione e l'errata integrazione di questi sistemi nei processi di business 
 \cite{cloud-Platform-for-ICT-Security-Governance}.\hfill\break
 %
 \section{Security Assurance}
 L'utilizzo di sistemi di sicurezza e di controllo migliori non garantisce in modo assoluto la sicurezza dell'infrastruttura; 
 per garantire ciò è necessario implementare un processo continuo di diagnostica e verifica della corretta configurazione dei Controlli, 
-supervisionando il loro comportamento, accertandosi che sia quello aspettato. \vspace{0.5 cm}\hfill\break
+supervisionando il loro comportamento, accertandosi che sia quello aspettato.
+\vspace{0.5 cm}
+\hfill\break
 La \textit{Security Assessment} diventa allora un aspetto importante specialmente negli ambienti Cloud e IoT. Questo processo, costituito
 da un insieme di attività mirate alla valutazione del rischio in sistemi IT, deve essere portato avanti in modo continuo e olistico, per 
 correlare le evidence raccolte da sempre maggiori meccanismi di protezione \cite{mooncloud-semi-automatic-and-trustworthy}.\hfill\break
 In più, quando i sistemi Cloud e i servizi IoT sono coinvolti, le dinamiche di questi servizi e la loro rapida evoluzione rende il 
-controllo dei processi all'interno dell'azienda e le politiche di sicurezza più complesse e prone ad errori. \vspace{0.5 cm}\hfill\break
+controllo dei processi all'interno dell'azienda e le politiche di sicurezza più complesse e prone ad errori.
+\vspace{0.5 cm}
+\hfill\break
 I requisiti ad alto livello fondamentali per poter garantire la Security Assurance sono i seguenti.
 \begin{description}
-    \item[Sistema olistico] è richiesta una visione globale e pulita dello status dei sistemi di sicurezza; inoltre è cruciale 
+    \item[Sistema olistico] è richiesta una visione globale e pulita dello status dei sistemi di sicurezza; inoltre, è cruciale 
     distribuire lo sforzo degli specialisti in sicurezza per migliorare il processo e le politiche messe in atto. Si parte da 
     delle valutazioni fatte manualmente a quella semi-automatiche che vengono usate per ispezionare i meccanismi di sicurezza. 
     \item[Monitoraggio continuo ed efficiente] è necessario un controllo continuo che valuti l'efficienza dei sistemi di sicurezza 
@@ -55,7 +59,7 @@ I requisiti ad alto livello fondamentali per poter garantire la Security Assuran
     la mancata configurazione dovuta al cambiamento dell'ambiente possono essere scenari che richiedono un monitoraggio e un 
     aggiornamento continuo.
     \item[Singolo punto di management] avere un solo punto d'accesso in cui poter gestire tutti gli aspetti relativi alla sicurezza, 
-    permette di avere sotto controllo le politiche di sicurezza. Inoltre disporre di un inventario degli asset da proteggere permette di
+    permette di avere sotto controllo le politiche di sicurezza. Inoltre, disporre di un inventario degli asset da proteggere permette di
     poter conoscere quali meccanismi di protezioni applicare.
     \item[Reazioni rapide a incidenti di sicurezza] spesso la reazione a queste situazioni è ritardata da due fattori: il tempo 
     richiesto per rilevare l'incidente e il tempo per analizzare il motivo dell'accaduto; e avere un sistema che implementa un monitoraggio
@@ -65,8 +69,8 @@ I requisiti ad alto livello fondamentali per poter garantire la Security Assuran
 %
 \section{Moon Cloud}
 Moon Cloud è una soluzione PaaS (acronimo inglese di \textit{Platform as a Service}) che fornice una piattaforma B2B 
-(\textit{Business To Business}) innovativa per verifiche, diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT rispetto alle politiche di 
-sicurezza, in modo continuo e su larga scala. Essa supporta una semplice ed efficiente \textit{ICT Security Governance}, dove le politiche 
+(\textit{Business To Business}) innovativa per verifiche, diagnostiche e monitoraggio dell'adeguatezza dei sistemi ICT, in modo continuo e su larga scala,
+rispetto alle politiche di sicurezza. Essa supporta una semplice ed efficiente \textit{ICT Security Governance}, dove le politiche 
 di sicurezza possono essere definite dalle compagnie stesse (a partire da un semplice controllo sulle vulnerabilità a linee guida di
 sicurezza interna), da entità esterne, imposte da standard oppure da regolamentazioni nazionali o internazionali.
 La sicurezza di un sistema o di un insieme di asset dipende solo parzialmente dalla forza dei singoli meccanismi di protezione isolati
@@ -87,11 +91,11 @@ conseguenza se un target supera tutti i Controlli a cui è sottoposto allora sig
     \label{fig:Security_Compliance_Evaluation}
 \end{figure}
 Moon Cloud implementa il processo di Security Compliance Evaluation in Figura \ref{fig:Security_Compliance_Evaluation} usando Controlli 
-di monitoraggio o di test personalizzabili. Inoltre è dotato delle seguenti caratteristiche, le quali vanno a completare i requisiti 
+di monitoraggio o di test personalizzabili. Inoltre, è dotato delle seguenti caratteristiche, le quali vanno a completare i requisiti 
 elencati nella Sezione \ref{list:security-assurance-fondamentals}.
 \begin{itemize}
     \item Moon Cloud implementa un sistema di Security Assurance Evidence-based continuo, implementato come processo di Compliance,
-    basato su politiche custom o standard; inoltre presenta una visione olistica dello stato di sicurezza di un dato sistema.
+    basato su politiche custom o standard; inoltre, presenta una visione olistica dello stato di sicurezza di un dato sistema.
     \item Moon Cloud permette di schedulare e configurare delle ispezioni automatiche, grazie all'inventario di asset protetto e senza
     l'intervento dell'uomo.
     \item Moon Cloud Evaluation Engine può ispezionare dall'interno un sistema, gestendo così delle minaccie interne; permettendo anche 
@@ -107,8 +111,7 @@ decidere quando schedulare l'Evaluation; e nel momento in cui un processo di Eva
 politiche legate ad essa, vengono eseguiti e i risultati, raccolti dalla probe, vengono memorizzati e restituiti all'utente. 
 A questo punto l'utente può accedere a questi risultati a diversi gradi di precisione: una visione sommaria e generale di tutte le 
 politche implentate e dello stato generale del sistema di sicurezza, al risultato di una specifica politica oppure alle evidence 
-raccolte per una Evaluation.\hfill\break
-%
+raccolte per una Evaluation.
 \vspace{0.5 cm}
 \hfill\break
 Per poter rendere ancora più intuitivo e semplice da utilizzare un sistema di questa importanza, si è pensato d'introdurre un sistema
