@@ -375,15 +375,15 @@ UPDATE Evaluation SET rgt = rgt - 2 WHERE rgt > @myRight;
 UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
 \end{lstlisting}
 %
+\newpage
+%
 \begin{figure}
     \centering
-    \includegraphics[scale=0.56]{images/MC_Rec_NSM_Container.png}
+    \includegraphics[scale=0.49]{images/MC_Rec_NSM_Container.png}
     \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
 \end{figure}
-%
-\newpage
 %
 \section{Sistemi di raccomandazione}
 Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia a un utente uno o più item esistenti 
@@ -405,16 +405,16 @@ Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione
     \caption{Categorizzazione generale dei sistemi di raccomandazione.}
     \label{fig:recommender_systems}
 \end{figure}
-Entrambi gli approcci hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e
+Entrambi gli approcci hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e 
 sugli interessi del singolo utente e propone item differenti a utenti differenti, questo significa che ogni utente può ricevere 
 raccomandazioni uniche. 
-Tuttavia la più grande limitazione del CBF è il fatto di non poter determinare se un utente è interessato ad un item in modo implicito,
+Tuttavia la più grande limitazione del CBF è il fatto di non poter determinare se un utente è interessato ad un item in modo implicito, 
 perché analizza direttamente i metadati del prodotto e non considera gli interessi di altri utenti, i quali potrebbero 
 suggerire item che non verrebbero notati con questo approccio.
 Per quanto riguarda il CF, nel caso siano presenti molti contenuti e proprietà associati agli item, allora vengono consumate molte 
 risorse e tempo per poter analizzarli, nel contempo a questo algoritmo non interessano queste informazioni. Una raccomandazione 
 viene fatta sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item e questo è il suo punto 
-di forza perché non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perché può
+di forza perché non si trova a dover analizzare item ricchi di informazioni. Allo stesso tempo è anche il suo punto debole, perché può 
 portare suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti. 
 Questo problema è accentuato quando sono presenti nel database molti item che non hanno valutazioni o non sono stati mai usati dagli 
 utenti \cite{model-based-approach-for-collaborative-filtering}.
@@ -430,15 +430,12 @@ un procedimento a 3 fasi.
     dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, ecc.
     \item[Memorizzazione di dati:] la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
     diventare. Ad esempio, in un sistema di raccomandazione per film, maggiori sono le valutazioni fornite dagli utenti, e 
-    migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina
+    migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina 
     anche il supporto di memorizzazione più adatto.
     \item[Filtraggio dei dati:] dopo la fase di raccolta e memorizzazione dei dati, essi vanno filtrati per poter estrarre 
-    le informazioni rilevanti e poter effettuare le raccomandazioni finali, inoltre vi sono diversi algoritmi standard per 
-    realizzare quest'ultima fase..
+    le informazioni rilevanti e poter effettuare le raccomandazioni finali; inoltre, vi sono diversi algoritmi standard per 
+    realizzare quest'ultima fase.
 \end{description}
-%I sistemi di raccomandazione possono essere suddivisi nelle seguenti categorie, ma spesso si preferisco anche degli approcci ibridi, 
-%combinazioni di sistemi di raccomandazione basati sul Contenuto (\textit{Content-based filtering}) e di 
-%quelli Collaborativi (\textit{Collaborative filtering}) in modo da essere più efficaci e sfruttare i pregi di entrambi gli approcci.
 %
 \subsection{Content-based filtering}
 Un Content-based filtering (definito anche con l'acronimo CBF) è un sistema di raccomandazione in cui vengono suggeriti, rispetto ad un item, quelli 
@@ -462,11 +459,11 @@ Il Filtraggio Collaborativo (definito anche con l'acronimo CF) per poter funzion
 preferenze degli utenti sulla base di un insieme di item, che a loro volta possono essere presenti nella stessa base di dati. 
 Si sfruttano tecniche di analisi dei dati per poter ottenere delle raccomandazioni che consiglino gli utenti a trovare gli item 
 che gli potrebbero piacere,eventualmente producendo una lista dei migliori N item.\hfill\break
-Un utente è sottoposto ad un processo di matching per poter scoprire quali sono i possibili \textit{neighbours},
+Un utente è sottoposto ad un processo di matching per poter scoprire quali sono i possibili \textit{neighbours}, 
 che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune ad egli. Infine, gli item maggiormente 
 preferiti dai \textit{neighbours} sono raccomandati all'utente.\hfill\break
 Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
-utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite.
+utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite. 
 Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item, come nei Filtri Content-based.\hfill\break
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 
 Filtraggio Collaborativo.\hfill\break
@@ -475,7 +472,7 @@ anche diecimila potenziali \textit{neighbours} in tempo reale, ma la richiesta d
 potenziali \textit{neighbours}, per questo motivo possono nascere problemi di performance con i singoli utenti quando essi hanno 
 molte informazioni associate.\hfill\break
 Il secondo obbiettivo è quello di migliorare la qualità dei sistemi di raccomandazione per gli utenti. Questi ultimi vogliono 
-raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item di loro gusto e interesse.
+raccomandazioni di cui possono fidarsi e che possono aiutarli a trovare item di loro gusto e interesse. 
 Per certi versi questi due obbiettivi sono in conflitto tra di loro; per ottenere dei risultati validi e di una certa importanza è 
 necessario trattarli in contemporanea perché aumentare solamente la scalabilità diminuirebbe la qualità delle raccomandazioni e viceversa 
 \cite{item-based-collaborative-filtering}.\hfill\break
@@ -494,8 +491,9 @@ Cosa succederebbe se un nuovo utente o un nuovo item venisse aggiunto al databas
 \begin{description}
     \item[Visitor Cold Start:] si verifica quando un nuovo utente viene aggiunto al database, e visto che non è presente alcuno storico relativo, 
     il sistema non è a conoscenza delle sue preferenze; per questo motivo diventa molto più difficile raccomandare prodotti a quel particolare utente. 
-    Per risolvere questo problema, a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma solo una 
-    volta che si è venuti a conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate alle sue esigenze.
+    Per risolvere questo problema, a livello teorico, si potrebbe applicare un procedimento di raccomandazione basata sulla popolarità dei prodotti, ma 
+    solo una volta che si è venuti a conoscenza delle preferenze dell'utente, sarà possibile generare delle raccomandazioni più precise e adeguate 
+    alle sue esigenze.
     \item[Item Cold Start:] si verifica quando un nuovo item viene inserito nel sistema. L'azione dell'utente è quella più importante per determinare 
     il valore di questo item all'interno dell'ecosistema; quindi maggiore è l'interazione che un item riceve maggiore è la facilità che venga raccomandato 
     all'utente interessato.

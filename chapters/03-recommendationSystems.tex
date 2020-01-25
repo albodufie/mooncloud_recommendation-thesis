@@ -11,19 +11,19 @@ Questi approcci divennero molto famosi grazie alla loro semplicità d'implementa
 di training sui dati e regolazione di molti parametri, permettendo all'utente di comprendere le ragioni che si celano dietro 
 ad ogni raccomandazione.\hfill\break
 Questa tipologia di sistemi di raccomandazione viene definita anche Filtri Collaborativi \textit{Neighborhood-based} ed è possibile ulteriormente 
-suddividerla in tre sottocategorie: User-based filter, Item-based Filter e Hybrid Filter.
+suddividerla in tre sottocategorie: User-based Filter, Item-based Filter e Hybrid Filter.
 %
 \subsection{User-based filtering}
-Il sistema Filtraggio Collaborativo User-based, definito anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}), basa tutto il suo funzionamento sulla 
-comunità di utenti, maggiore è la sua dimensione e l'attività degli utenti con item o servizi e migliori possono essere le 
+Il sistema Filtraggio Collaborativo User-based, definito anche con l'acronimo UB-CF (\textit{User-based Collaborative Filter}), basa tutto il suo 
+funzionamento sulla comunità di utenti, maggiore è la sua dimensione e l'attività degli utenti con item o servizi e migliori possono essere le 
 raccomandazioni. Questo algoritmo fornisce dei suggerimenti a un utente sulla base di uno o più vicini (\textit{neighbours}), e la similarità 
 tra utenti può essere determinata sulla base degli item che l'utente ha utilizzato o valutato.\hfill\break
 Molti di questi approcci possono essere generalizzati dall'algoritmo organizzato nei seguenti passi.
 \begin{enumerate}
     \item Specificare quale sia l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare i relativi utenti che possono 
-    avere dato valutazioni o usato item simili al primo utente. Per velocizzare l'esecuzione dell'algoritmo, piuttosto che recuperare tutti
+    avere dato valutazioni o usato item simili al primo utente. Per velocizzare l'esecuzione dell'algoritmo, piuttosto che recuperare tutti 
     gli utenti, è possibile selezionare soltanto un gruppo di utenti in modo casuale oppure associare dei valori di similarità tra 
-    tutti gli utenti e confrontando questi valori con quello dell'utente target, selezionare i relativi utenti che superano una soglia
+    tutti gli utenti e confrontando questi valori con quello dell'utente target, selezionare i relativi utenti che superano una soglia 
     scelta, oppure utilizzare tecniche di clustering.
     \item Estrarre gli item con cui il primo utente non ha mai interagito e per questo motivo gli possono interessare, e mostrarli 
     sotto forma di raccomandazioni.
@@ -167,14 +167,7 @@ In generale il IB-CF ideato per determinare Evaluation simili funziona seguendo 
     return similar_item_evaluations 
     \end{lstlisting}
 \end{itemize}
-%% ESEMPIO DI UNA CHIAMATA
-%\begin{figure}[ht!]
-%   \centering
-%   \includegraphics[scale=0.5]{images/IB_CF_Evaluation_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione IB-CF per le Evaluation
-%   supportate da Moon Cloud.}
-%   \label{fig:IB_CF_Eval_resp_JSON}
-%\end{figure}
+%
 Altro algoritmo del tipo IB-CF implementato in questa tesi sulla falsa riga di quello appena riportato nel Listing \ref{lst:IB_CF_Evaluation_1}, 
 è quello ideato per determinare quali Evaluation possono essere raccomandate per un Target inserito da un utente tra quelli supportati da Moon Cloud
 (Host avente Windows come sistema operativo, Host avente Linux come sistema operativo, sistemi che sfruttano 
@@ -205,14 +198,7 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funziona
         return target_evaluations_serializer.data
     \end{lstlisting} 
 \end{itemize}
-%% ESEMPIO DI UNA CHIAMATA
-%\begin{figure}[ht!]
-%   \centering
-%   \includegraphics[scale=0.5]{images/IB_CF_Target_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione IB-CF per i 
-%   Target supportarti da Moon Cloud.}
-%   \label{fig:IB_CF_Target_resp_JSON}
-%\end{figure}
+%
 Nel capitolo successivo vengono mostrati anche degli esempi dei valori di risposta di queste funzioni.
 %
 \subsection{Hybrid Filtering} 
@@ -289,10 +275,3 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi.
 \end{itemize}
 Nel capitolo successivo viene mostrato un esempio di risposta per quando si effettua una chiamata a questa funzione, ed è approfondito il contesto che 
 è stato costruito attorno agli algoritmi di raccomandazione descritti in questo capitolo.
-%% ESEMPIO DI UNA CHIAMATA
-%\begin{figure}[ht!]
-%   \centering
-%   \includegraphics[scale=0.5]{images/CF_Hybrid_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione Ibrido.}
-%   \label{fig:CF_Hybrid_resp_JSON}
-%\end{figure}
