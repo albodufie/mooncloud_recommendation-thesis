@@ -23,3 +23,13 @@ summary.fdb_latexmk
 summary.fls
 summary.log
 summary.out
+
+presentation.synctex.gz
+presentation.aux
+presentation.fdb_latexmk
+presentation.fls
+presentation.log
+presentation.out
+presentation.nav
+presentation.snm
+presentation.toc

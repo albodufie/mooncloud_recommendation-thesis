@@ -2,11 +2,18 @@
 In questo capitolo è approfondito l'aspetto puramente pratico e le fasi che hanno portato alla realizzazione della soluzione; 
 inoltre vengono mostrate le applicazioni pratiche degli aspetti teorici enunciati nei capitoli precedenti.
 %
+\vspace{1.5 cm}
+\hfill\break
+% BREVE DESCRIZIONE DELLA SOLUZIONE
+La soluzione proposta in questa testi implementa un servizio di API REST, che si appoggia a un database Postgres, accessibile 
+attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di effettuare degli 
+aggiornamenti a questa base di dati.
+%
 \section*{Preparazione della base di dati}
 Prima di poter costruire il sistema di raccomandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari 
 per poter impostare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione. 
 % TASSONOMIE E DATABASE CON I MODELS (package MPTT)
-Come annunciato nei capitoli precedenti per procedere alla costruzione di un sistema di raccomandazione bisogna avere a disposizione 
+Come descritto nei capitoli precedenti per procedere alla costruzione di un sistema di raccomandazione bisogna avere a disposizione 
 una base di dati solida da cui attingere tutte le informazioni; ed è proprio questo il primo passo che è stato seguito, disegnare 
 e progettare un database da cui partire per la realizzazione degli algoritmi proposti.
 In generale Moon Cloud possiede una struttura delle Evaluation e dei Control ad albero, di conseguenza anche le tabelle del database 
@@ -15,12 +22,11 @@ per implementare un database relazionale che gestisse dati gerarchici, di utiliz
 definita come \textit{Modified Preorder Tree Traversal Algorithm}, la quale permette di massimizzare l'efficienza nelle 
 operazioni di recupero dei dati, e quindi velocizzare i processi di raccomandazione, ma scendendo a compromessi per quanto riguarda le 
 operazioni d'inserimento e spostamento dei nodi all'interno della struttura. 
-Grazie al package MPTT, il quale è una app di Django che ha come obbiettivo semplificare il più possibile la realizzazione dei 
-Model, utilizzati per la generazione della base di dati, e la 
-gestione della struttura di dati ad albero; si prende cura di tutti i dettagli riguardanti la realizzazione delle tabelle e dei 
-campi \textit{left} e \textit{right} associati ad ogni nodo della tassonomia, e vengono messi a disposizione dei tool per poter 
-lavorare con le istanze dei Model. Qui di seguito nel Listing \ref{lst:model} è possibile trovare le porzioni principali del codice 
-costituenti i Model.
+Il package MPTT è una app di Django che ha come obiettivo quello di semplificare il più possibile la realizzazione dei Model, utilizzati 
+per la generazione della base di dati, e la gestione della struttura di dati ad albero; si prende cura di tutti i dettagli riguardanti la 
+realizzazione delle tabelle e dei campi \textit{left} e \textit{right} associati ad ogni nodo della tassonomia, mettendo a disposizione dei 
+tool per poter lavorare con le istanze dei Model. Qui di seguito nel Listing \ref{lst:model} è possibile trovare le porzioni principali del 
+codice costituenti i Model.
 %
 % MODELS CODES
 \lstset{style=python_code_style}
@@ -143,22 +149,23 @@ class Target(models.Model):
 A partire da questi Model vennero introdotte nel database le seguenti tabelle, le quali è possibile visionare nella Figura 
 \ref{fig:str_db_project}.
 \begin{description}
-    \item[Control:] è contenuto l'insieme dei software, o soltanto i riferimenti, che vengono poi effettivamente eseguiti all'interno 
+    \item[Control:] contiene l'insieme dei software, o soltanto i riferimenti, che vengono poi effettivamente eseguiti all'interno 
     di una Evaluation, i campi other\_id (identificativo dell'Evaluation che fa riferimento al database effettivo di Moon Cloud), 
     descr (una descrizione del funzionamento del controllo), node\_type (definisce se il nodo è un Evaluation o una Categoria) 
     definiscono le caratteristiche del controllo mentre lft, rght, tree\_id, level e parent sono introdotti 
     automaticamente dal package MPTT per poter rappresentare i dati in modo gerarchico, infine target\_type\_id rappresenta, quel 
     controllo a quale Target viene associato.
-    \item[Evaluation:] è contenuto l'insieme di Evaluation che un utente può eseguire per un certo Target, e allo stesso modo 
+    \item[Evaluation:] contiene l'insieme di Evaluation che un utente può eseguire per un certo Target, e allo stesso modo 
     i campi contenuti nella tabella Control. La tabella intermedia evaluation\_controls permette di memorizzare quali Controlli 
     sono associati a quali Evaluation.
-    \item[User:] sono contenuti gli utenti registrati alla piattaforma Moon Cloud, e sono anche loro, come con le tabelle precedenti, 
+    \item[User:] contiene gli utenti registrati alla piattaforma Moon Cloud, e sono anche loro, come con le tabelle precedenti, 
     identificati con un campo other\_id, e distinti da un email. La tabella intermedia user\_evaluations permette di memorizzare 
     quali Evaluation un utente ha selezionato e usato.
-    \item[Target:] è utilizzata per memorizzare quali Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
+    \item[Target:] contiene i  Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
-    \item[TargetType:] vengono specificati quali sono i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
-    rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo Ip identificativo di un host e si distingue tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
+    \item[TargetType:] contiene i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
+    rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo IP identificativo di un host e si distingue 
+    tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di cloud computing del 
     gruppo Amazon, e \textit{Azure}, definisce un servizio cloud fornito da Microsoft.
 \end{description}
 \begin{figure}
@@ -491,38 +498,8 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     \end{lstlisting}
 \end{itemize}
 %
-% --------------------------------------------------------------------------------------------------------------------
-%\newpage
-%
-% ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
-Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql, Django mette a disposizione 
-la cosiddetta Admin Page mostrata in Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
-effetuare modifiche, e per ognuna vengono visualizzate le colonne più rilevanti, come mostrato dalla 
-Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile effettuare ricerche, attraverso 
-l'apposito campo, eliminare direttamente i record contenuti nel database e aggiungerne dei nuovi, come mostrato in 
-Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.\hfill\break
-In particolare in questo ultimo caso, sulla base di come è stato costruito il Model della relativa tabella, si potranno avere dei campi 
-la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la creazione del record.
-%
-\begin{figure}
-    \includegraphics[scale=0.3]{images/MCRS_adminpage.png}
-    \caption{Admin page creata automaticamente da Django.}
-    \label{fig:MCRS_adminpage}
-\end{figure}
-%
-\begin{figure}
-    \includegraphics[scale=0.3]{images/MCRS_adminpage_evaluationEX.png}
-    \caption{Esempio di Admin page per la tabella delle Evaluation.}
-    \label{fig:MCRS_adminpage_evaluationEX}
-\end{figure}
-%
-\begin{figure}
-    \includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.png}
-    \caption{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
-    \label{fig:MCRS_adminpage_evaluationEX_add}
-\end{figure}
-%
 \newpage
+%
 % VIEW PER LE RACCOMANDAZIONI
 \section*{View per i processi di raccomandazione}
 % visto che il codice l'ho messo nel capitolo precedente, posso mettere qui degli esempi e mostrare le url per richiamare
@@ -693,6 +670,39 @@ HTTP Response Body:
     {"other_id": 26}
 ]
 \end{lstlisting}
+%
+\newpage
+%
+% ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
+\section*{Personalizzazione Admin Page}
+Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql, Django mette a disposizione 
+la cosiddetta Admin Page mostrata in Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
+effetuare modifiche, e per ognuna vengono visualizzate le colonne più rilevanti, come mostrato dalla 
+Figura \ref{fig:MCRS_adminpage_evaluationEX} nel caso della tabella Evaluation, e dalla quale è possibile effettuare ricerche, attraverso 
+l'apposito campo, eliminare direttamente i record contenuti nel database e aggiungerne dei nuovi, come mostrato in 
+Figura \ref{fig:MCRS_adminpage_evaluationEX_add}.\hfill\break
+In particolare in questo ultimo caso, sulla base di come è stato costruito il Model della relativa tabella, si potranno avere dei campi 
+la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la creazione del record.
+%
+\begin{figure}[ht!]
+    \includegraphics[scale=0.3]{images/MCRS_adminpage.png}
+    \caption{Admin page creata automaticamente da Django.}
+    \label{fig:MCRS_adminpage}
+\end{figure}
+%
+\begin{figure}[ht!]
+    \includegraphics[scale=0.3]{images/MCRS_adminpage_evaluationEX.png}
+    \caption{Esempio di Admin page per la tabella delle Evaluation.}
+    \label{fig:MCRS_adminpage_evaluationEX}
+\end{figure}
+%
+\begin{figure}[ht!]
+    \includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.png}
+    \caption{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
+    \label{fig:MCRS_adminpage_evaluationEX_add}
+\end{figure}
+%
+\newpage
 % VIEW PER MANTERE LA CONSISTENZA COL MIO DATABASE
 \section*{Consistenza tra i database}
 % parlare di rest_framework, dei serializer, e url
