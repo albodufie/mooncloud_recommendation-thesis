@@ -150,16 +150,16 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 \ref{fig:str_db_project}.
 \begin{description}
     \item[Control:] contiene l'insieme dei software, o soltanto i riferimenti, che vengono poi effettivamente eseguiti all'interno 
-    di una Evaluation, i campi other\_id (identificativo dell'Evaluation che fa riferimento al database effettivo di Moon Cloud), 
-    descr (una descrizione del funzionamento del controllo), node\_type (definisce se il nodo è un Evaluation o una Categoria) 
-    definiscono le caratteristiche del controllo mentre lft, rght, tree\_id, level e parent sono introdotti 
-    automaticamente dal package MPTT per poter rappresentare i dati in modo gerarchico, infine target\_type\_id rappresenta, quel 
+    di una Evaluation, i campi \texttt{other\_id} (identificativo dell'Evaluation che fa riferimento al database effettivo di Moon Cloud), 
+    descr (una descrizione del funzionamento del controllo), \texttt{node\_type} (definisce se il nodo è un Evaluation o una Categoria) 
+    definiscono le caratteristiche del controllo mentre lft, rght, \texttt{tree\_id}, \texttt{level} e \texttt{parent} sono introdotti 
+    automaticamente dal package MPTT per poter rappresentare i dati in modo gerarchico, infine \texttt{target\_type\_id} rappresenta, quel 
     controllo a quale Target viene associato.
     \item[Evaluation:] contiene l'insieme di Evaluation che un utente può eseguire per un certo Target, e allo stesso modo 
-    i campi contenuti nella tabella Control. La tabella intermedia evaluation\_controls permette di memorizzare quali Controlli 
+    i campi contenuti nella tabella Control. La tabella intermedia \textit{evaluation\_controls}permette di memorizzare quali Controlli 
     sono associati a quali Evaluation.
     \item[User:] contiene gli utenti registrati alla piattaforma Moon Cloud, e sono anche loro, come con le tabelle precedenti, 
-    identificati con un campo other\_id, e distinti da un email. La tabella intermedia user\_evaluations permette di memorizzare 
+    identificati con un campo \texttt{other\_id}, e distinti da un email. La tabella intermedia \textit{user\_evaluations} permette di memorizzare 
     quali Evaluation un utente ha selezionato e usato.
     \item[Target:] contiene i  Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
@@ -537,9 +537,9 @@ path('recommendation/hybrid/<str:user_other_id>/', recommendation_views.hybrid_r
 path('recommendation/target/<str:target_type_id>/', recommendation_views.target_recommendation,
         name='target_recommendation'),
 \end{lstlisting}
-Sulla base dell'URL che viene richiamato e sul parametro (come \textit{user\_other\_id}, \textit{item\_other\_id}, ecc.) verranno fornite le 
+Sulla base dell'URL che viene richiamato e sul parametro (come \texttt{user\_other\_id}, \texttt{item\_other\_id}, ecc.) verranno fornite le 
 relative raccomandazioni. Nel caso di questo progetto, le View che possono essere richiamate permettono soltanto chiamate HTTP con metodo GET 
-e restituiscono una risposta HTTP in formato JSON, queste risposte contengono una lista di dizionari e ciascuno contiene l'other\_id della Evaluation 
+e restituiscono una risposta HTTP in formato JSON, queste risposte contengono una lista di dizionari e ciascuno contiene l'\texttt{other\_id} della Evaluation 
 che si vuole raccomandare. Di seguito nel Listing \ref{lst:view_rec} vengono mostrati le porzioni di codice rappresentanti 
 le View per gli algoritmi di raccomandazione per Item (in questo caso Evaluaiton), Utenti e Target. Inoltre nel Listing \ref{lst:view_rec_ex} è 
 possibile osservare alcuni esempi e risposte di richieste HTTP a questi algortmi.\hfill\break

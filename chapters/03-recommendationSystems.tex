@@ -39,8 +39,8 @@ Questi approcci sono indipendenti dal contesto in cui sono applicati e possono e
 a delle tecniche basate sul Content-based Filtering; dall'altra parte all'aumentare del numero di utenti che si considerano per 
 effettuare le raccomandazioni migliore è la precisione di questo processo ma maggiore è il costo in termini di tempo.\hfill\break
 Nella soluzione proposta in questa tesi, l'algoritmo UB-CF viene implementato sotto forma di funzione che prende in ingresso un parametro 
-\textit{user\_other\_id}, come è possibile osservare dal Codice \ref{lst:UB_CF_1}, corrispondente all'identificativo dell'utente, 
-e restituisce una lista di raccomandazioni \textit{similar\_user\_evaluations} corrispondenti alle Evaluation simili a quelle usate 
+\texttt{user\_other\_id}, come è possibile osservare dal Codice \ref{lst:UB_CF_1}, corrispondente all'identificativo dell'utente, 
+e restituisce una lista di raccomandazioni \texttt{similar\_user\_evaluations} corrispondenti alle Evaluation simili a quelle usate 
 da altri utenti.\hfill\break
 Per Evaluation si intende quel processo di verifica di uniformità di un certo target o asset, fornito dall'utente, a una o più politiche 
 attraverso una serie di Controlli che a seconda delle caratteristiche e proprietà del target, può avere successo o meno. In altre parole, 
@@ -73,13 +73,13 @@ Più precisamente il funzionamento dell'algoritmo si svolge come segue.
                 other_users_evaluations.append(evaluation)
     \end{lstlisting}
     \item il terzo passo consiste nell'andare a determinare quali tra le Evaluation, dell'utente a cui si vuole raccomandare, quali sono quelle 
-    simili usate dagli altri utenti. Per determinare le Evaluation simili si è andato a confrontare il parametro (\textit{parent\_id}, 
+    simili usate dagli altri utenti. Per determinare le Evaluation simili si è andato a confrontare il parametro (\texttt{parent\_id}, 
     associato ad ogni Evaluation), che identifica all'interno della base di dati quale sia il nodo padre per quella Evaluation, con lo stesso 
     parametro delle restanti Evaluation; in questo modo si è andati a selezionare soltanto gli item appartenenti a una stessa categoria, e 
-    durante questo processo vengono eliminanti eventuali nodi duplicati. Infine viene composta una lista finale \textit{similar\_user\_evaluations} 
+    durante questo processo vengono eliminanti eventuali nodi duplicati. Infine viene composta una lista finale \texttt{similar\_user\_evaluations} 
     con le Evaluation restanti.
-    In definitiva ciò che ritorna questa funzione sono due liste: \textit{target\_user\_evaluations}, che contiene le Evaluation usate dall'utente 
-    in questione e \textit{similar\_user\_evaluations}.
+    In definitiva ciò che ritorna questa funzione sono due liste: \texttt{target\_user\_evaluations}, che contiene le Evaluation usate dall'utente 
+    in questione e \texttt{similar\_user\_evaluations}.
     \begin{lstlisting}[language=Python, label=lst:UB_CF_4]
         # Comparing target user's evaluations and other user's evaluations, and if there is a match the evaluation is
         # added to the 'similar_evaluations' list (the matching is made comparing the 'parent_id')
@@ -99,13 +99,7 @@ Più precisamente il funzionamento dell'algoritmo si svolge come segue.
         return target_user_evaluations, similar_user_evaluations
     \end{lstlisting}
 \end{itemize}
-%% ESEMPIO DI UNA CHIAMATA CON VALORE DI RITORNO
-%\begin{figure}[ht!]
-%   \centering
-%   \includegraphics[scale=0.5]{images/UB_CF_test.png}
-%   \caption{Esempio di una risposta in JSON a una chiamata REST all'algoritmo di raccomandazione UB-CF.}
-%   \label{fig:UB_CF_resp_JSON}
-%\end{figure}
+%
 Nel capitolo successivo vengono mostrati degli esempi pratici in cui è stato applicato questo algoritmo.
 %
 \newpage
@@ -126,13 +120,13 @@ simili, e al suo posto viene effettuato un confronto tra gli item dell'utente a 
 Questi sistemi sono estremamente simili ai sistemi di raccomandazione Content-based, e identificano item simili in base a come sono 
 stati usati dagli utenti in passato \cite{item-based-collaborative-filtering}.\hfill\break
 A livello pratico nella soluzione proposta, questo algoritmo è stato implementato come funzione che ha un 
-parametro \textit{item\_other\_id}, in ingresso, rappresentante l'\textit{other\_id}, un attributo associato ad ogni item all'interno della base di dati 
+parametro \texttt{item\_other\_id}, in ingresso, rappresentante l'\texttt{other\_id}, un attributo associato ad ogni item all'interno della base di dati 
 che lo identifica, del item su cui si vuole andare a cercare altri item simili. In generale per determinare la similarità tra due oggetti si osserva 
-l'attributo \textit{parent\_id} associato a ogni item, che determina quale sia il nodo padre tra tutti i nodi all'interno del database, in sostanza 
+l'attributo \texttt{parent\_id} associato a ogni item, che determina quale sia il nodo padre tra tutti i nodi all'interno del database, in sostanza 
 si selezionano quegli item che appartengono alla stessa categoria.\hfill\break
 In generale il IB-CF ideato per determinare Evaluation simili funziona seguendo i seguenti passi.
 \begin{itemize}
-    \item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione \textit{item\_other\_id} 
+    \item il primo passo è quello di recuperare sulla base del parametro in ingresso alla funzione \texttt{item\_other\_id} 
     l'Evaluation su cui si vuole determinare le altre Evaluation simili;
     \begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_1]
     def item_recommendation_alg(item_other_id):
@@ -148,9 +142,9 @@ In generale il IB-CF ideato per determinare Evaluation simili funziona seguendo 
         all_other_evals = Evaluation.objects.filter(~Q(other_id=item_other_id) & Q(node_type="eva"))\
                                         .values('other_id', 'parent_id').order_by('other_id')
     \end{lstlisting}
-    \item il terzo e ultimo passo consiste nel andare a determinare le Evaluation che hanno lo stesso \textit{parent\_id}, quindi 
+    \item il terzo e ultimo passo consiste nel andare a determinare le Evaluation che hanno lo stesso \texttt{parent\_id}, quindi 
     quelle appartenenti alla stessa categoria, dell'Evaluation ottenuta nel primo passo; inoltre, se presenti, vengono 
-    eliminati eventuali duplicati; e la funzione ritorna una lista \textit{similar\_item\_evaluations} contente le Evaluation simili.
+    eliminati eventuali duplicati; e la funzione ritorna una lista \texttt{similar\_item\_evaluations} contente le Evaluation simili.
     \begin{lstlisting}[language=Python, label=lst:IB_CF_Evaluation_3]
         # Creating a list with all the evaluations that are similar to the target evaluation (comparing the parent_id)
         similar_item_evaluations = []
@@ -172,7 +166,7 @@ Altro algoritmo del tipo IB-CF implementato in questa tesi sulla falsa riga di q
 è quello ideato per determinare quali Evaluation possono essere raccomandate per un Target inserito da un utente tra quelli supportati da Moon Cloud
 (Host avente Windows come sistema operativo, Host avente Linux come sistema operativo, sistemi che sfruttano 
 servizi di Aws o di Azure e URL di siti web).\hfill\break
-In Python questo algoritmo viene implementato come funzione che prende in ingresso l'identificativo univoco (\textit{id}) del Target, e 
+In Python questo algoritmo viene implementato come funzione che prende in ingresso l'identificativo univoco (\texttt{id}) del Target, e 
 restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funzionamento dell'algoritmo si svolge come segue:
 \begin{itemize}
     \item il primo passo è quello di recuperare tutte le Evaluation presenti nel database;
@@ -181,8 +175,8 @@ restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funziona
         # Retriving all the evaluations in the database
         evaluations = Evaluation.objects.filter(node_type="eva")
     \end{lstlisting} 
-    \item il secondo e ultimo passo è quello di andare a determinare quali sono i Controlli che hanno il valore dell'attributo \textit{target\_type\_id} 
-    pari al parametro in ingresso della funzione \textit{target\_id}, e da quei Controlli determinare le Evaluation che li utilizzano, 
+    \item il secondo e ultimo passo è quello di andare a determinare quali sono i Controlli che hanno il valore dell'attributo \texttt{target\_type\_id} 
+    pari al parametro in ingresso della funzione \texttt{target\_id}, e da quei Controlli determinare le Evaluation che li utilizzano, 
     eliminando eventuali duplicati; determinando così le possibili Evaluation applicabili per quel Target.
     \begin{lstlisting}[language=Python, label=lst:IB_CF_Target_2]
         # Saving in the target_evaluations list the evaluations which controls have target_type_id equal to target_id
@@ -206,9 +200,9 @@ Nei Sistemi di Raccomandazione Ibridi si tende a voler combinare più tecniche d
 pregi di ciascun approccio; infatti se si comparano i Sistemi di Raccomandazione Ibridi con quelli Collaborativi o 
 Content-based, la precisione dei suggerimenti è solitamente maggiore.\hfill\break
 Nella soluzione proposta in questa tesi, questo algoritmo viene direttamente implementato come API REST, alla quale vengono 
-passati come parametri la \textit{request}, l'oggetto HTTP che il browser invia al server contenente la richiesta HTTP 
-(attraverso un particolare URL) e lo \textit{user\_other\_id}, un valore recuperato come parametro dall'URL e rappresenta 
-l'\textit{other\_id}, un attributo associato a ogni utente che rappresenta un identificativo per l'utente stesso. Inoltre il 
+passati come parametri la \texttt{request}, l'oggetto HTTP che il browser invia al server contenente la richiesta HTTP 
+(attraverso un particolare URL) e lo \texttt{user\_other\_id}, un valore recuperato come parametro dall'URL e rappresenta 
+l'\texttt{other\_id}, un attributo associato a ogni utente che rappresenta un identificativo per l'utente stesso. Inoltre il 
 tutto viene limitato a essere richiamato solo tramite richieste HTTP con metodo GET.\hfill\break
 Nel Codice \ref{lst:CF_Hybrid_Evaluation_1} si possono vedere come vengono limitate le richieste al metodo GET e come 
 viene definita la funzione.
@@ -226,7 +220,7 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi.
         user = User.objects.get(other_id=user_other_id)
     \end{lstlisting} 
     \item il secondo passo è applicare l'algoritmo di User Recommandation, descritto nella sezione precendete, per le Evaluation e ottenere due liste, 
-    la prima (\textit{target\_user\_evaluations}) contenente le Evaluation che l'utente ha utilizzato, mentre nella seconda (\textit{similar\_user\_evaluations}) 
+    la prima (\texttt{target\_user\_evaluations}) contenente le Evaluation che l'utente ha utilizzato, mentre nella seconda (\texttt{similar\_user\_evaluations}) 
     si hanno le Evaluation che gli altri utenti utilizzano e simili alle Evaluation del primo utente;
     \begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_3]
         # Taking from the user_recommendation_alg the evaluation recommended from this approach (similar_user_evaluations)
@@ -235,8 +229,8 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi.
     \end{lstlisting} 
     \item il terzo passo consiste nell'applicazione dell'algoritmo Item-based per ogni Evaluation usata dall'utente in questione così da ottenere 
     delle raccomandazioni che sono compatibili con le Evaluation usate dall'utente; la similarità o appartenenza alla stessa categoria viene 
-    ottenuta osservando il valore del \textit{parent\_id}; anche in questo caso vengono eliminati eventuali duplicati e viene formata una lista 
-    (\textit{similar\_item\_evaluations}) contenente le Evaluation simili ottenute dall'applicazione dell'algoritmo di raccomandazione Item-based;
+    ottenuta osservando il valore del \texttt{parent\_id}; anche in questo caso vengono eliminati eventuali duplicati e viene formata una lista 
+    (\texttt{similar\_item\_evaluations}) contenente le Evaluation simili ottenute dall'applicazione dell'algoritmo di raccomandazione Item-based;
     \begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_4]
         # For every evaluation used by users is extracted all other possible evaluations that have the same 'parent_id'
         similar_item_evaluations = []
@@ -254,7 +248,7 @@ Il funzionamento di questo algoritmo si svolge nei seguenti passi.
                     similar_item_evaluations.append(item_evaluation)
     \end{lstlisting} 
     \item il quarto passo consiste nel raggruppare le due liste contenenti le Evaluation raccomandate per l'utente secondo l'applicazione dei 
-    due algoritmi, eliminando anche eventuali duplicati, così da ottenere un'unica lista (\textit{similar\_evaluations}) la quale viene ritornata dalla 
+    due algoritmi, eliminando anche eventuali duplicati, così da ottenere un'unica lista (\texttt{similar\_evaluations}) la quale viene ritornata dalla 
     funzione sotto forma di risposta HTTP in formato JSON;
     \begin{lstlisting}[language=Python, label=lst:CF_Hybrid_Evaluation_5]
         # Putting together the evaluations recommended in similar_user_evaluations list and similar_item_evaluations list
