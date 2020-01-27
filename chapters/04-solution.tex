@@ -25,7 +25,7 @@ operazioni d'inserimento e spostamento dei nodi all'interno della struttura.
 Il package MPTT è una app di Django che ha come obiettivo quello di semplificare il più possibile la realizzazione dei Model, utilizzati 
 per la generazione della base di dati, e la gestione della struttura di dati ad albero; si prende cura di tutti i dettagli riguardanti la 
 realizzazione delle tabelle e dei campi \textit{left} e \textit{right} associati ad ogni nodo della tassonomia, mettendo a disposizione dei 
-tool per poter lavorare con le istanze dei Model. Qui di seguito nel Listing \ref{lst:model} è possibile trovare le porzioni principali del 
+tool per poter lavorare con le istanze dei Model. Nel Listing \ref{lst:model} è possibile trovare le porzioni principali del 
 codice costituenti i Model.
 %
 % MODELS CODES
@@ -183,11 +183,12 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 \section*{Realizzazione delle View}
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
 implementata un'interfaccia Web a scopo didattico.
-Avviando il server, la home page che viene proposta è mostrata nella Figura \ref{fig:MCRS_homepage}, e subito 
-sotto è possibile trovare il Listing \ref{lst:view_homepage}, dalla quale si può  
-accedere alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; inoltre 
-tramite la barra di navigazione è possibile tornare a questa home page o accedere alla admin page generata da Django, e 
-successivamente personalizzata, per poter manipolare la base di dati, e aggiungere, eliminare item o utenti.
+Avviando il server, viene mostrata una home page la quale contiene una barra di navigazione da cui è possibile accedere,
+attraverso il \textit{Admin}, alla admin page offerta da Django (successivamente personalizzata, per poter manipolare la base di dati, 
+e aggiungere, eliminare item o utenti), mentre tramite il link \textit{Home} è possibile tornare a 
+questa pagina. Il contenuto di questa pagina mostra una breve descrizione di un sistema di raccomandazione, e accedere tramite i due 
+appositi pulsanti alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; tutto questo 
+viene mostrato dalla Figura \ref{fig:MCRS_homepage} e il relativo Listing \ref{lst:view_homepage}.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_homepage.png}
@@ -206,9 +207,12 @@ def index(request):
     return render(request, "recommendation_app/index.html")
 \end{lstlisting}
 %
-Una volta scelta la tassonomia, di Controlli o delle Evaluation, su cui si vuole navigare, è possibile svolgere diverse attività. 
-Dalla Figura \ref{fig:MCRS_taxindex} è possibile osservare l'interfaccia dalla quale si eseguono le operazioni di seguito descritte, e
-immediatamente sotto al Listing \ref{lst:view_tax_homepage} è visibile il codice che implementa questa pagina web.\hfill\break
+Una volta scelta la tassonomia, di Controlli o delle Evaluation, su cui si vuole navigare, viene mostrata una pagina dove nella metà a sinistra 
+troviamo la possibilità di selezionare un nodo della tassonomia e l'operazione che si vuole svolgere su quel nodo, inoltre, è possibile effettuare 
+una richiesta di generazione di file in formato e linguaggio DOT e relativa immagine in formato .png, attraverso il pulsante \textit{Request schema}. 
+Proseguendo più in basso, vengono mostrati tutti i nodi a cui è stato associato il tipo Categoria e il tipo Evaluation. Nella porzione destra della 
+pagina web viene mostrata l'intera struttura della tassonomia e un link da quale è possibile accedere a una pagina di dettaglio che mostra una 
+simile a quella presente sul database. Questa pagine è visibile dalla Figura \ref{fig:MCRS_taxindex} e dal Listing \ref{lst:view_tax_homepage}.\hfill\break
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_taxindex.png}
@@ -287,8 +291,8 @@ def tax_index(request, taxonomy_used):
 Le attività che è possibile svolgere sulla tassonomia, sia dei Controlli sia delle Evaluation, sono le seguenti, mentre le operazioni 
 di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio della admin page messa a disposizione da Django.\hfill\break
 \begin{itemize}
-    \item Per ogni singolo nodo è possibile recuperare: i discendenti, i figli, la famiglia o i fratelli. Si ottiene un risultato come nella
-    Figura \ref{fig:MCRS_taxnodedetails} nel caso in cui si è scelti l'Evaluation Http robustness check e si vuole ritornare tutta label
+    \item Per ogni singolo nodo è possibile recuperare: i discendenti, i figli, la famiglia o i fratelli. Si ottiene un risultato come nella 
+    Figura \ref{fig:MCRS_taxnodedetails} nel caso in cui si è scelti l'\textit{Evaluation Http robustness check} e si vuole ritornare tutta la 
     famiglia di quel nodo.
     %
     \begin{figure}[ht!]
@@ -388,12 +392,11 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
                     'node_exe': nodename,
                     'method': 'siblings'})
     \end{lstlisting}
-    \item Attraverso il pulsante \textit{request schema} nella home page della tassonomia si può effetuare una richiesta di stampa in formato .png e del 
-    relativo file scritto in notazione DOT rappresentante la tassonomia stessa, sotto forma di albero, in cui sono contenuti i relativi dati, salvati all'interno 
-    della base di dati.\hfill\break
+    \item Attraverso il pulsante \textit{request schema} nella home page della tassonomia si può effettuare una richiesta al software 
+    Graphviz il quale attraverso un file scritto in linguaggio DOT genera lo schema della tassonomia sotto forma d'immagine in formato .png.\hfill\break
     Il DOT è un linguaggio descrittivo per grafi, tipicamente i file hanno estensione .gv o .dot, che in combinazione con il software Graphviz è possibile 
-    effettuare il rendere della sintassi DOT in un immagine più significativa. Qui di seguito nel Listing \ref{lst:DOT_eval} viene mostrato un esempio di 
-    scrittura con linguaggio DOT.
+    effettuare il rendering della sintassi DOT in un immagine più significativa. Un esempio di tale linguaggio è mostrato nel Listing \ref{lst:DOT_eval} 
+    viene mostrato un esempio di scrittura con linguaggio DOT.
     \lstset{style=python_code_style}
     \begin{lstlisting}[language=Python, label=lst:DOT_eval, caption={Codice parziale utilizzato per realizzare lo schema della tassonomia
         per le Evaluation.}]
@@ -513,7 +516,7 @@ per il recupero d'informazioni (GET), per la modifica (POST, PUT, PATCH, DELETE)
 In questo caso a ogni URL è associata una azione particolare la quale va a richiamare la View che permette di determinare un insieme di 
 raccomandazioni sulla base di un parametro in ingresso, come è mostrato nel Listing \ref{lst:URL_rec}.\hfill\break
 \lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:URL_rec, caption={Porzione parziale del codice contenuto nell'URL mapper per implementare
+\begin{lstlisting}[language=Python, label=lst:URL_rec, caption={Porzione parziale del codice contenuto nell'URL mapper per implementare 
     i sistemi di raccomandazione.}]
 # RECOMMENDATION VIEWS
  
@@ -546,7 +549,7 @@ possibile osservare alcuni esempi e risposte di richieste HTTP a questi algortmi
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_rec, caption={Porzione parziale del codice contenuto nelle View per implementare
     i sistemi di raccomandazione.}]
-# Item recommendation Api Rest
+# Item recommendation API REST
 @api_view(['GET'])
 def item_recommendation(request, item_other_id):
     """
@@ -565,7 +568,7 @@ def item_recommendation(request, item_other_id):
  
     return JsonResponse(similar_item_evaluations_serilized, safe=False)
  
-# User recommendation Api Rest
+# User recommendation API REST
 @api_view(['GET'])
 def user_recommendation(request, user_other_id):
     """
@@ -584,7 +587,7 @@ def user_recommendation(request, user_other_id):
  
     return JsonResponse(similar_user_evaluations_serilized, safe=False)
  
-# Target Recommendation Api Rest
+# Target Recommendation API REST
 @api_view(['GET'])
 def target_recommendation(request, target_type_id):
     """
@@ -708,8 +711,8 @@ la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la
 \section*{Consistenza tra i database}
 % parlare di rest_framework, dei serializer, e url
 Per fare in modo che il database creato in questo progetto e l'attuale database utilizzato dalla piattaforma di Moon Cloud 
-fossero consistenti, quindi le informazioni presenti nell'uno sono identiche a quelle nell'altro, si è 
-pensato d'implementare un sistema di Api Rest.\hfill\break
+fossero consistenti, quindi le informazioni presenti nell'uno siano identiche a quelle nell'altro, si è 
+pensato d'implementare un sistema di API REST.\hfill\break
 Nel caso vengano fatte modifiche, aggiunte o cancellazioni di dati relativi a Controlli, Evaluation, Target, User o Target Type 
 è possibile richiamare tramite appositi URL, mostrati nel Listing \ref{lst:view_cos_rec_url}, queste funzioni ed eseguire la relativa 
 operazione sul database implmentato nella soluzione, senza dover accedere e manipolare direttamente la base di dati.
@@ -744,17 +747,64 @@ url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
     name="user_evaluations_update_view"),
 \end{lstlisting}
 %
-Durante la scrittura delle View e delle altre parti del codice, sono stati definiti dei test per poter garantire il funzionamento di queste 
-funzioni, anche nel caso di eventuali modifiche successive; questo grazie ai metodi già forniti da Django e all'ausilio di Postman.
-%
 % IMPLEMENTAZIONE CON DOCKER
 \section*{Implementazione in Docker}
-Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò a essi collegati (View, URL, API REST), sono stati fatti i 
-preparativi per poter simulare l'ambiente di Docker ed eseguire tutta la soluzione implementata in questa tesi all'interno di un 
-Container.\hfill\break
-I file \textit{Dockerfile} e \textit{.yaml} vengono usati dalla Docker Machine per poter creare un Immagine contenente il necessario per l'esecuzione 
-all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter comunicare con l'esterno. 
-%Codice del dockerfile
+Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò a essi collegati (View, URL, API REST); l'ultima fase nel ciclo di sviluppo è il 
+deployment e la sua preparazione. In questo caso l'app viene deployata, come il resto dei componenti di Moon Cloud, in una serie di Container Docker. Per 
+tale ragione, è stato predisposto il file \textit{docker-compose.yml}, il quale viene usato dalla Docker Machine per poter creare un Immagine contenente 
+il necessario per l'esecuzione all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter 
+comunicare con l'esterno.
+%Codice del dockerfile + SPIEGAZIONE
+\lstset{style=python_code_style}
+\begin{lstlisting}[language=Xml, label=lst:docker_compose, caption={Contenuto del file docker-compose.yml per il deployment del sistema di raccomandazione 
+    all'interno di un Container.}]
+    version: '3'
+
+    services:
+      db:
+        networks:
+          - mooncloud
+        image: postgres:12.1
+        restart: always
+        volumes:
+          - "./init_db/initdb.sh:/docker-entrypoint-initdb.d/1-initdb.sh"
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+    
+      api:
+        networks:
+          - mooncloud
+        build:
+            dockerfile: Dockerfile
+            context: .
+        command: ./entrypoint.sh
+        ports:
+          - "8000:8000"
+        depends_on:
+          - db
+        environment:
+          DATABASE_HOST: db
+          DATABASE_PORT: 5432
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_NAME: mooncloud_rec
+    
+    networks:
+      mooncloud:
+        external: true
+\end{lstlisting}
+%
+Questo file permette di configurare i servizi della propria applicazione; i quali, attraverso un singolo comando, possono essere creati e inizializzati a 
+partire da questo singolo file.
+La prima riga specifica sempre la versione (\textit{version}) del formato del file di Compose, successivamente si definiscono i \textit{services} e 
+le \textit{networks}. In questo progetto si è fatto uso di due servizi (\textit{db} e \textit{api}), i quali speficiano le 
+proprietà dei rispettivi Container uno per implementare il database (\textit{db}) e il secondo per le API REST (\textit{api}); nel primo caso per il 
+processo di \textit{build} si fa uso di un'Immagine che è già stata pubblicata in un Docker Registry, mentre nel secondo caso essa viene costruita 
+a partire dal codice sorgente scritto nel suo \textit{Dockerfile}. Per fare in modo che servizi siano accessibili dall'esterno il numero di porta 
+(\textit{ports}) deve essere indicato, nel caso del sevizio \textit{api} ciò è specificato all'interno del \textit{Dockerfile}.\hfill\break
+Le \textit{networks} definiscono le regole di comunicazione tra i Container, e tra i Container e gli host; delle reti in comune 
+permettono a diversi servizi di essere visibili l'uno con l'altro.
 %
 \vspace{1.5 cm}
 \hfill\break
@@ -773,3 +823,6 @@ Per semplificare lo sviluppo e la verifica del corretto funzionamento si è volu
 l'ausilio di Postman; una piattaforma nata per lo sviluppo e il test di API, inoltre semplifica molti step per il loro 
 sviluppo così da poter creare API migliori e più velocemente. Inoltre permette di generare una documentazione 
 machine-readable così da rendere le API più facili da usare.
+
+%Durante la scrittura delle View e delle altre parti del codice, sono stati definiti dei test per poter garantire il funzionamento di queste 
+%funzioni, anche nel caso di eventuali modifiche successive; questo grazie ai metodi già forniti da Django e all'ausilio di Postman.

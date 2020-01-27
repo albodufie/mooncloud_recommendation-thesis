@@ -128,6 +128,29 @@ def item_recommendation(request, item_other_id):
     return JSONResponse(similar_item_evaluations_serilized, safe=False)
 \end{lstlisting}
 %
+\section{API REST}
+Quando si parla di REST (Representational State Transfer) si fa riferimento a un'architettura software, un termine introdotto per la prima volta 
+nel 2000 all'interno di una tesi per il dottorato di Roy Fielding. Questo approccio architetturale venne ideato per creare web API basandosi 
+sul protocollo HTTP. Il REST è infatti un sistema di trasmissione dei dati graie all'utilizzo del protocollo HTTP e dei suoi metodi: 
+GET, POST, PUT, DELETE; grazie a quali si riesce ad identificare, accedere o modificare risorse ben precise.\hfill\break
+Solitamente se si utilizzano delle API si svolgono delle operazioni all’interno di un database remoto:
+\begin{itemize}
+    \item si effettuano richieste di tipo GET quando si vuole ottenere un determinato set di dati dal server.
+    \item si effettuano richieste di tipo POST quando si vuole creare un nuovo oggetto all’interno del database.
+    \item si effettuano richieste di tipo PUT quando si vuole modificare o sostituire completamente un oggetto già esistente.
+    \item si effettuano richieste di tipo DELETE quando si vuole, da remoto, cancellare un oggetto contenuto all’interno del 
+    database al quale si è collegati.
+\end{itemize}
+%
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[scale=0.6]{images/api_rest.png}
+    \caption{Schema generico di funzionamento di un'architettura REST.}
+    \label{fig:rest_api}
+\end{figure}
+Praticamente una buona API permette di fare tutte queste operazioni senza la necessità di dover accedere direttamente al database o alla 
+soluzione implementata per l'inserimento, la modifica o il recupero delle informazioni.
+%
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
 le applicazioni in unità standardizzate chiamate \textit{Container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
