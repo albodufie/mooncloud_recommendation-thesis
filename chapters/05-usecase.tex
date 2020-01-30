@@ -46,7 +46,9 @@ o più processi di Evaluation, per ognuna delle quali scelte è possibile effett
 attraverso l'URL \textit{recommendation/item/<str:item\_other\_id>/} al \textit{Item Recommendation Algorithm}, il quale 
 restituirà una risposta HTTP contenente, in formato JSON, una lista delle Evaluation ritenute più simili a quella selezionata 
 dall'utente. Nel caso in cui sia stata scelta l'Evaluation \textit{Macie Scanner}, con relativo \textit{other\_id} pari a 34, 
-verrà restituita la lista mostrata nel Listing \ref{lst:rsp_item_alg}.
+verrà restituita la lista mostrata nel Listing \ref{lst:rsp_item_alg}; il quale 
+contiene le Evaluation, con \textit{other\_id} pari a 35 e 36, i quali corrispondono rispettivamente a \textit{Sqs Checker} 
+e \textit{Inspector Vulnerability Scan}, entrambe sono applicabili a sistemi Aws.
 \begin{lstlisting}[language=Python, label=lst:rsp_item_alg, caption={Esempio del body della risposta HTTP alla chiamata del 
     \textit{Item Recommendation Algorithm}}]
 [
