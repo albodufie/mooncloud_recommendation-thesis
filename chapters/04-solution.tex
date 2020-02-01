@@ -4,7 +4,6 @@ inoltre vengono mostrate le applicazioni pratiche degli aspetti teorici enunciat
 %
 \vspace{1.5 cm}
 \hfill\break
-% BREVE DESCRIZIONE DELLA SOLUZIONE
 La soluzione proposta in questa testi implementa un servizio di API REST, che si appoggia a un database Postgres, accessibile 
 attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di effettuare degli 
 aggiornamenti a questa base di dati.
@@ -12,7 +11,6 @@ aggiornamenti a questa base di dati.
 \section*{Preparazione della base di dati}
 Prima di poter costruire il sistema di raccomandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari 
 per poter impostare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione. 
-% TASSONOMIE E DATABASE CON I MODELS (package MPTT)
 Come descritto nei capitoli precedenti per procedere alla costruzione di un sistema di raccomandazione bisogna avere a disposizione 
 una base di dati solida da cui attingere tutte le informazioni; ed è proprio questo il primo passo che è stato seguito, disegnare 
 e progettare un database da cui partire per la realizzazione degli algoritmi proposti.
@@ -28,7 +26,6 @@ realizzazione delle tabelle e dei campi \textit{left} e \textit{right} associati
 tool per poter lavorare con le istanze dei Model. Nel Listing \ref{lst:model} è possibile trovare le porzioni principali del 
 codice costituenti i Model.
 %
-% MODELS CODES
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:model, caption={Parti principali del codice che costituiscono i Model della soluzione.}]
 # TARGET TYPE MODEL
@@ -178,8 +175,6 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 %
 \newpage
 %
-% VIEW A SCOPO DIDATTICO
-%\hfill\break
 \section*{Realizzazione delle View}
 Successivamente per poter testare che la tassonomia creata per le Evalution e i Controlli fosse corretta e funzionante si è 
 implementata un'interfaccia Web a scopo didattico.
@@ -504,7 +499,6 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
 %
 \newpage
 %
-% VIEW PER LE RACCOMANDAZIONI
 \section*{View per i processi di raccomandazione}
 % visto che il codice l'ho messo nel capitolo precedente, posso mettere qui degli esempi e mostrare le url per richiamare
 % questi algoritmi, e nel caso dello User e Item algortihm, mostrare le view che li implementano come API REST 
@@ -514,98 +508,72 @@ vengono richiamati e utilizzati come API REST, un tipo di architettura basata su
 una struttura degli URL ben definita (atta a identificare univocamente una risorsa o un insieme di risorse) l'utilizzo dei verbi HTTP specifici 
 per il recupero d'informazioni (GET), per la modifica (POST, PUT, PATCH, DELETE) e per altri scopi (OPTIONS, ecc.).\hfill\break
 In questo caso a ogni URL è associata una azione particolare la quale va a richiamare la View che permette di determinare un insieme di 
-raccomandazioni sulla base di un parametro in ingresso, come è mostrato nel Listing \ref{lst:URL_rec}.\hfill\break
+raccomandazioni sulla base di un parametro in ingresso. Tutte le API REST seguenti restituiscono una risposta 
+HTTP in formato JSON \hfill\break
 %% SOSTITUIRE QUESTO CODICE CON UN ELENCO CHE DESCRIVE LE API REST
-\lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:URL_rec, caption={Porzione parziale del codice contenuto nell'URL mapper per implementare 
-    i sistemi di raccomandazione.}]
-# RECOMMENDATION VIEWS
- 
-# Item recommendation process
-# Depending on the <str:item_other_id> value I decide on which evaluation of the taxonomy I want to recommend on
-path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation,
-        name='item_recommendation'),
- 
-# User recommendation process
-# Depending on the <str:user_other_id> value I decide on which user I want to recommend on
-path('recommendation/user/<str:user_other_id>/', recommendation_views.user_recommendation,
-        name='user_recommendation'),
- 
-# Hybrid recommendation process (User and Item recommendation process)
-# Depending on the <str:User_other_id> value I decide on which user I want to recommend on with an hybrid approach
-path('recommendation/hybrid/<str:user_other_id>/', recommendation_views.hybrid_recommendation,
-        name='hybrid_ui_recommendation'),
- 
-# Target recommendation process
-# Depending on the <str:target_type_id> value I decide on which user I want to recommend on
-path('recommendation/target/<str:target_type_id>/', recommendation_views.target_recommendation,
-        name='target_recommendation'),
-\end{lstlisting}
-Sulla base dell'URL che viene richiamato e sul parametro (come \texttt{user\_other\_id}, \texttt{item\_other\_id}, ecc.) verranno fornite le 
-relative raccomandazioni. Nel caso di questo progetto, le View che possono essere richiamate permettono soltanto chiamate HTTP con metodo GET 
-e restituiscono una risposta HTTP in formato JSON, queste risposte contengono una lista di dizionari e ciascuno contiene l'\texttt{other\_id} della Evaluation 
-che si vuole raccomandare. Di seguito nel Listing \ref{lst:view_rec} vengono mostrati le porzioni di codice rappresentanti 
-le View per gli algoritmi di raccomandazione per Item (in questo caso Evaluaiton), Utenti e Target. Inoltre nel Listing \ref{lst:view_rec_ex} è 
-possibile osservare alcuni esempi e risposte di richieste HTTP a questi algortmi.\hfill\break
-\lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:view_rec, caption={Porzione parziale del codice contenuto nelle View per implementare
-    i sistemi di raccomandazione.}]
-# Item recommendation API REST
-@api_view(['GET'])
-def item_recommendation(request, item_other_id):
-    """
-    Returns recommendations for the using an item-based recommendation algorithm for the Evaluation `item_other_id`
- 
-    :param request: http GET request
-    :param item_other_id: value representing the other_id of an Item (Evaluation)
-    :return: json response with the evaluations to recommend
-    """
-    # Trying to retrieve the actual node with item_other_id
-    item = Evaluation.objects.get(other_id=item_other_id)
- 
-    similar_item_evaluations = item_recommendation_alg(item_other_id)
-    # Cleaning the data, deleting all the keys except 'other_id'
-    similar_item_evaluations_serilized = EvaluationSerializerRecommendation(similar_item_evaluations, many=True).data
- 
-    return JsonResponse(similar_item_evaluations_serilized, safe=False)
- 
-# User recommendation API REST
-@api_view(['GET'])
-def user_recommendation(request, user_other_id):
-    """
-    Returns recommendations for the using an user-based recommendation algorithm for the user `user_other_id`
- 
-    :param request: http GET request
-    :param user_other_id: value representing the other_id of a User
-    :return: json response with the evaluations to recommend
-    """
-    # Trying to retrieve the actual User with user_other_id
-    user = User.objects.get(other_id=user_other_id)
- 
-    target_user_evaluations, similar_user_evaluations = user_recommendation_alg(user_other_id)
-    # Cleaning the data, deleting all the keys except 'other_id'
-    similar_user_evaluations_serilized = EvaluationSerializerRecommendation(similar_user_evaluations, many=True).data
- 
-    return JsonResponse(similar_user_evaluations_serilized, safe=False)
- 
-# Target Recommendation API REST
-@api_view(['GET'])
-def target_recommendation(request, target_type_id):
-    """
-    For a target (Target_Type like 'host', 'aws', 'url', etc.) chose by a user this algorithm search the possible
-    evaluations that can be recommended for that user.
- 
-    :param request: http GET request
-    :param target_type_id: identifier of a particular target_type
-    :return: json response with the evaluations to recommend
-    """
-    # Trying to retrieve the actual Target Type, with id equal to target_type_id, chosed by a user
-    target = TargetType.objects.get(id=target_type_id)
- 
-    target_evaluations = target_recommendation_alg(target_type_id)
- 
-    return JsonResponse(target_evaluations, safe=False)
-\end{lstlisting}
+\begin{description}
+    \item[Richiesta al Item Recommendation Algorithm]
+    \item\texttt{GET /recommendation/item/<item\_other\_id>/}
+    \begin{itemize}
+        \item Descrizione: ritorna tutte le possibili Evaluation simili a una certa Evaluation.
+        \item Input: si trovano i seguenti parametri:
+        \begin{itemize}
+            \item oggetto contenente la HTTP Request
+            \item \texttt{other\_id} della Evaluation su cui viene effettuato il processo di recommendation
+        \end{itemize}
+        \item Output: array JSON che riporta le seguenti informazioni:
+        \begin{itemize}
+            \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
+        \end{itemize}
+    \end{itemize}
+
+    \item[Richiesta al User Recommendation Algorithm]
+    \item\texttt{GET /recommendation/user/<user\_other\_id>/}
+    \begin{itemize}
+        \item Descrizione: ritorna tutte le possibili Evaluation, usate da altri utenti, simili a quelle usate da un certo Utente.
+        \item Input: si trovano i seguenti parametri:
+        \begin{itemize}
+            \item oggetto contenente la HTTP Request
+            \item \texttt{other\_id} dell'Utente su cui viene effettuato il processo di recommendation
+        \end{itemize}
+        \item Output: array JSON che riporta le seguenti informazioni:
+        \begin{itemize}
+            \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
+        \end{itemize}
+    \end{itemize}
+
+    \item[Richiesta al Hybrid Recommendation Algorithm]
+    \item\texttt{GET /recommendation/hybrid/<user\_other\_id>/}
+    \begin{itemize}
+        \item Descrizione: ritorna tutte le possibili Evaluation, usate da altri utenti, simili a quelle usate da un certo Utente. 
+        Inoltre alle Evaluation usate da quest ultimo vengono recuperate tutte le altre Evaluation simili.
+        \item Input: si trovano i seguenti parametri:
+        \begin{itemize}
+            \item oggetto contenente la HTTP Request
+            \item \texttt{other\_id} dell'Utente su cui viene effettuato il processo di recommendation
+        \end{itemize}
+        \item Output: array JSON che riporta le seguenti informazioni:
+        \begin{itemize}
+            \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
+        \end{itemize}
+    \end{itemize}
+
+    \item[Richiesta al Target Recommendation Algorithm]
+    \item\texttt{GET /recommendation/target/<target\_type\_id>/}
+    \begin{itemize}
+        \item Descrizione: ritorna tutte le possibili Evaluation compatibili con un certo Target.
+        \item Input: si trovano i seguenti parametri:
+        \begin{itemize}
+            \item oggetto contenente la HTTP Request
+            \item \texttt{id} del Target su cui viene effettuato il processo di recommendation
+        \end{itemize}
+        \item Output: oggetto JSON che riporta le seguenti informazioni:
+        \begin{itemize}
+            \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
+        \end{itemize}
+    \end{itemize}
+\end{description}
+Inoltre nel Listing \ref{lst:view_rec_ex} è possibile osservare alcuni esempi di richieste e risposte HTTP a questi algortmi.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_rec_ex, caption={Esempi di chiamate e risposte HTTP per i diversi algoritmi di raccomandazione.}]
 Esempio di chiamata per lo Item Recommendation Algorithm
@@ -678,7 +646,6 @@ HTTP Response Body:
 %
 \newpage
 %
-% ASPETTI DI DJANGO CHE HO PERSONALIZZATO, COME LE ADMIN PAGE
 \section*{Personalizzazione Admin Page}
 Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql, Django mette a disposizione 
 la cosiddetta Admin Page mostrata in Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
@@ -708,9 +675,8 @@ la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la
 \end{figure}
 %
 \newpage
-% VIEW PER MANTERE LA CONSISTENZA COL MIO DATABASE
+%
 \section*{Consistenza tra i database}
-% parlare di rest_framework, dei serializer, e url
 Per fare in modo che il database creato in questo progetto e l'attuale database utilizzato dalla piattaforma di Moon Cloud 
 fossero consistenti, quindi le informazioni presenti nell'uno siano identiche a quelle nell'altro, si è 
 pensato d'implementare un sistema di API REST.\hfill\break
@@ -748,14 +714,12 @@ url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
     name="user_evaluations_update_view"),
 \end{lstlisting}
 %
-% IMPLEMENTAZIONE CON DOCKER
 \section*{Implementazione in Docker}
 Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò a essi collegati (View, URL, API REST); l'ultima fase nel ciclo di sviluppo è il 
 deployment e la sua preparazione. In questo caso l'app viene deployata, come il resto dei componenti di Moon Cloud, in una serie di Container Docker. Per 
 tale ragione, è stato predisposto il file \textit{docker-compose.yml}, il quale viene usato dalla Docker Machine per poter creare un Immagine contenente 
 il necessario per l'esecuzione all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter 
 comunicare con l'esterno.
-%Codice del dockerfile + SPIEGAZIONE
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Xml, label=lst:docker_compose, caption={Contenuto del file docker-compose.yml per il deployment del sistema di raccomandazione 
     all'interno di un Container.}]
@@ -809,7 +773,7 @@ permettono a diversi servizi di essere visibili l'uno con l'altro.
 %
 \vspace{1.5 cm}
 \hfill\break
-Ogni qualvolta è stata portata a termine una fase dell'implementazione, proposta in questa tesi, sono state predisposte 
+Durante la scrittura delle View e delle altre parti del codice, proposta in questa tesi, sono state predisposte 
 dei processi di verifica del funzionamento del codice scritto fino a quel momento. Questo genere di test, vennero fatti 
 per essere certi che le varie fasi fossero in grado di funzionare insieme.\hfill\break
 I primi test sono fatti sul database, accertandosi del suo funzionamento e di quello del package MPTT usato 
@@ -824,6 +788,3 @@ Per semplificare lo sviluppo e la verifica del corretto funzionamento si è volu
 l'ausilio di Postman; una piattaforma nata per lo sviluppo e il test di API, inoltre semplifica molti step per il loro 
 sviluppo così da poter creare API migliori e più velocemente. Inoltre permette di generare una documentazione 
 machine-readable così da rendere le API più facili da usare.
-
-%Durante la scrittura delle View e delle altre parti del codice, sono stati definiti dei test per poter garantire il funzionamento di queste 
-%funzioni, anche nel caso di eventuali modifiche successive; questo grazie ai metodi già forniti da Django e all'ausilio di Postman.

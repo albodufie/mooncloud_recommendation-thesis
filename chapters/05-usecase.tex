@@ -1,7 +1,9 @@
 \chapter{Caso d'uso}\label{chp:05-usecase}
-%Dato il database di moon cloud con questi controlli e queste 
-%evaluation si crea la seguente tassonomia. Dato un utente fresh che ha registrato target di 
-%questo tipo l'algoritmo ritorna... Dato un altro utente nel db "simile"... così mettiamo tutto insieme.
+In questo capitolo è descritto un esempio di come l'utente può interagire con la piattaforma di Moon Cloud e di come reagisce 
+il sistema di raccomandazione alle sue azioni.
+%
+\vspace{1.5 cm}
+\hfill\break
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.38]{images/UML_MoonCloud_HowToDo.png}
@@ -14,7 +16,8 @@ accede ai servizi offerti da questo framework, completa la propria registrazione
 Moon Cloud verrà anche fatta nel database usato per poter effettuare il processo di recommendation; questa operazione di 
 copia dei dati da un database a un altro viene fatta per poter avere i dati consistenti in entrambi i punti così da 
 fornire al'utente delle raccomandazioni affidabili; ciò viene fatto non solo per i dati degli utenti ma anche per i Controlli 
-e le Evaluation.\hfill\break
+e le Evaluation. Dalla Figura \ref{fig:UML_MoonCloud_HowToDo} è possibile osservare come interagiscon ad alto livello la 
+piattaforma Moon Cloud e il modulo del sistema di raccomandazione.\hfill\break
 Inizialmente un nuovo utente, che ha appena effettuato la registrazione e avuto accesso alla propria dashboard, (l'interfaccia 
 web) per poter schedulare e lanciare delle Evaluation, egli deve inserire uno o più Target (asset che l'utente possiede e su 
 cui vuole essere certo che vengano rispettate certe politiche di sicurezza o che vengano garantiti certi standard).\hfill\break
@@ -99,4 +102,3 @@ un utente, con \textit{other\_id} pari a 10, l'URL della richiesta sarà
     {"other_id": 48}
 ]
 \end{lstlisting}
-
