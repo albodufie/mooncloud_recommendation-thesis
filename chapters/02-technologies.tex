@@ -98,16 +98,16 @@ gruppi di file svolge delle operazioni ben precise.
     che a sua volta può recuperli dal database.
 \end{description}
 Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un URL e come si interfaccia con una View; in questo caso nel 
-momento in cui viene fatta una richiesta HTTP a questo URL \texttt{recommendation/item/<str:item\_other\_id>/} viene richiamata la 
-View \texttt{recommendation\_views.item\_recommendation} passando il parametro \texttt{<str:item\_other\_id>}.
+momento in cui viene fatta una richiesta HTTP a questo URL \texttt{recommendation/item/<item\_other\_id>/} viene richiamata la 
+View \texttt{recommendation\_views.item\_recommendation} passando il parametro \texttt{<item\_other\_id>}.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:URLex1]
 # URL Example 'recommendation/item/35/'
-path('recommendation/item/<str:item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
+path('recommendation/item/<item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
 \end{lstlisting}
 A questo punto, come viene mostrato nel Listing \ref{lst:URLex2}, viene richiamata la View, essa prende i valori che gli vengono passati in ingresso e 
 restituisce un risultato, in questo caso viene richiamata la View che implementa il sistema di raccomandazione Item-based, la quale si effettua una ricerca 
-nel database per il valore del parametro \texttt{<str:item\_other\_id>} in ingresso, verificando l'esistenza di quell'item, questo è possibile
+nel database per il valore del parametro \texttt{<item\_other\_id>} in ingresso, verificando l'esistenza di quell'item, questo è possibile
 grazie all'ausilio dei Model i quali sono stati utilizzati precedentemente per definire la struttura delle tabelle e dei relativi campi 
 contenuti nel database e ora attraverso i cosiddetti QuerySet, messi a disposizione da Django, è possibile accedere a quei dati; successivamente vengono 
 determinati tramite l'agoritmo di raccomandazione quali sono i possibili item simili e vengono salvati nella variabile \texttt{similar\_item\_evaluations}, 
