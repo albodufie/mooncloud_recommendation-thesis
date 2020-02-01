@@ -5,8 +5,7 @@ inoltre vengono mostrate le applicazioni pratiche degli aspetti teorici enunciat
 \vspace{1.5 cm}
 \hfill\break
 La soluzione proposta in questa testi implementa un servizio di API REST, che si appoggia a un database Postgres, accessibile 
-attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di effettuare degli 
-aggiornamenti a questa base di dati.
+attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di aggiornare la base di dati.
 %
 \section*{Preparazione della base di dati}
 Prima di poter costruire il sistema di raccomandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari 
@@ -526,11 +525,11 @@ HTTP in formato JSON \hfill\break
             \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
         \end{itemize}
     \end{itemize}
-
+ 
     \item[Richiesta al User Recommendation Algorithm]
     \item\texttt{GET /recommendation/user/<user\_other\_id>/}
     \begin{itemize}
-        \item Descrizione: ritorna tutte le possibili Evaluation, usate da altri utenti, simili a quelle usate da un certo Utente.
+        \item Descrizione: ritorna tutte le possibili Evaluation, usate da altri utenti, simili a quelle selezionate da un certo Utente.
         \item Input: si trovano i seguenti parametri:
         \begin{itemize}
             \item oggetto contenente la HTTP Request
@@ -541,11 +540,11 @@ HTTP in formato JSON \hfill\break
             \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
         \end{itemize}
     \end{itemize}
-
+ 
     \item[Richiesta al Hybrid Recommendation Algorithm]
     \item\texttt{GET /recommendation/hybrid/<user\_other\_id>/}
     \begin{itemize}
-        \item Descrizione: ritorna tutte le possibili Evaluation, usate da altri utenti, simili a quelle usate da un certo Utente. 
+        \item Descrizione: ritorna tutte le possibili Evaluation, usate da altri utenti, simili a quelle selezionate da un certo Utente. 
         Inoltre alle Evaluation usate da quest ultimo vengono recuperate tutte le altre Evaluation simili.
         \item Input: si trovano i seguenti parametri:
         \begin{itemize}
@@ -557,7 +556,7 @@ HTTP in formato JSON \hfill\break
             \item oggetti contenenti gli \texttt{other\_id} relativi alle Evaluation raccomandate
         \end{itemize}
     \end{itemize}
-
+ 
     \item[Richiesta al Target Recommendation Algorithm]
     \item\texttt{GET /recommendation/target/<target\_type\_id>/}
     \begin{itemize}
@@ -724,7 +723,7 @@ comunicare con l'esterno.
 \begin{lstlisting}[language=Xml, label=lst:docker_compose, caption={Contenuto del file docker-compose.yml per il deployment del sistema di raccomandazione 
     all'interno di un Container.}]
     version: '3'
-
+ 
     services:
       db:
         networks:
