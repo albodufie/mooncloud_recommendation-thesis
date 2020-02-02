@@ -15,6 +15,23 @@ main.synctex.gz
 main.toc
 main.synctex(busy)
 
+thesis.aux
+thesis.bbl
+thesis.bcf
+thesis.blg
+thesis.fdb_latexmk
+thesis.fls
+thesis.idx
+thesis.ilg
+thesis.ind
+thesis.lof
+thesis.log
+thesis.lot
+thesis.run.xml
+thesis.synctex.gz
+thesis.toc
+thesis.synctex(busy)
+
 albonico-andrea/
 
 summary.synctex.gz
