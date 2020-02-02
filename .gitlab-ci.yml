@@ -3,15 +3,15 @@ stages:
 compile_pdf:
   image: aergus/latex
   script:
-    - latexmk -pdf main.tex
-    - pdfinfo main.pdf
+    - latexmk -pdf thesis.tex
+    - pdfinfo thesis.pdf
     - latexmk -pdf presentation.tex
     - pdfinfo presentation.pdf
-    - latexmk -pdf summary.pdf
+    - latexmk -pdf summary.tex
     - pdfinfo summary.pdf
   stage: build
   artifacts:
     paths:
-      - "main.pdf"
+      - "thesis.pdf"
       - presentation.pdf
       - summary.pdf
