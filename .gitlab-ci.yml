@@ -5,7 +5,13 @@ compile_pdf:
   script:
     - latexmk -pdf main.tex
     - pdfinfo main.pdf
+    - latexmk -pdf presentation.tex
+    - pdfinfo presentation.pdf
+    - latexmk -pdf summary.pdf
+    - pdfinfo summary.pdf
   stage: build
   artifacts:
     paths:
       - "main.pdf"
+      - presentation.pdf
+      - summary.pdf
