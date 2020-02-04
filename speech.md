@@ -1,24 +1,28 @@
 # SLIDE 1: presentazione
+- Presentare i sistemi di Security Assurance evidenziando le difficoltà nel loro utilizzo dovute alle specificità che 
+contengono
+- motivo della tesi -> semplificare l'utilizzo agli utenti
+
+
+# SLIDE 2: motivazioni
+- Tecnologia Cloud e sistemi ICT
+- Benefici del Cloud
+- Fiducia nel cloud
+
+
+# SLIDE 3: obiettivi
 
 
 
-# SLIDE 2: 
+# SLIDE 4: Sistema di raccomandazione
 
 
 
-# SLIDE 3: 
+# SLIDE 5: Collaborative Filter
 
 
 
-# SLIDE 4: 
-
-
-
-# SLIDE 5: 
-
-
-
-# SLIDE 6: 
+# SLIDE 6: Soluzione
 
 
 
@@ -42,6 +46,6 @@
 
 
 
-# SLIDE 12: ringraziamenti
+# SLIDE 12: Conclusioni
 
 
