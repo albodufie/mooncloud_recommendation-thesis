@@ -365,9 +365,9 @@ SELECT name
     WHERE rgt = lft + 1;
 \end{lstlisting}
 %
-Infine nel caso di inserimento o cancellazione di un nodo il grado di complessità dell'operazione è determinato dalla posizione del nodo che si 
-vuole inserire o cancellare; a partire dal caso più semplice, quando si vuole inserire o cancellare un nodo foglia, quel nodo senza figli, fino 
-al caso più complesso, quando si vuole cancellare un nodo padre perchè bisogna anche gestire i suoi nodi figli.
+Infine nel caso di inserimento o cancellazione di un nodo il grado di complessità dell'operazione (inserimento o cancellazione) è determinato dalla 
+posizione del nodo; a partire dal caso più semplice, quando si vuole inserire o cancellare un nodo foglia, quel nodo senza figli, fino 
+al caso più complesso, quando si vuole eliminare un nodo padre perchè bisogna anche gestire i suoi nodi figli.
 Nel primo caso, è sufficente per poter cancellare un nodo senza figli eseguire una query come mostrata nel Listing \ref{lst:ex_NSM_query3}, si determinano 
 prima i valori dei campi \texttt{lft} e \texttt{rght} e la loro differenza, \texttt{width}, successivamente cancellato il nodo si sottrae la sua 
 differenza da ogni nodo alla sua destra.
@@ -400,8 +400,6 @@ UPDATE Evaluation SET rgt = rgt - 2 WHERE rgt > @myRight;
 UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
 \end{lstlisting}
 %
-\newpage
-%
 \begin{figure}
     \centering
     \includegraphics[scale=0.49]{images/MC_Rec_NSM_Container.png}
@@ -409,6 +407,8 @@ UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
 \end{figure}
+%
+\newpage
 %
 \section{Sistemi di raccomandazione}
 Un sistema di raccomandazione (\textit{Recommendation System}) è un sistema che consiglia a un utente uno o più item esistenti 
