@@ -1,6 +1,6 @@
 \chapter{Tecnologie utilizzate}\label{chp:02-technologies}
 In questo capitolo sono descritte le tecnologie utilizzate per la realizzazione del progetto unitamente alle motivazioni legate all'uso 
-di certi sistemi rispetto ad altri. In particolare viene fornita una panoramica dei sistemi di raccomandazione analizzati e studiati,
+di certi sistemi di raccomandazione rispetto ad altri. In particolare viene fornita una panoramica dei sistemi analizzati e studiati;
 nel capitolo successivo vengono approfonditi a livello pratico i sistemi di raccomandazione Memory-based i quali sono stati utilizzati 
 per l'implementazione della soluzione.
 %
@@ -37,9 +37,9 @@ if __name__ == '__main__':
 \end{lstlisting}
 %
 Nei linguaggi come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
-(il C e il Perl usano \textbf{{ }}; il Pascal usa \textbf{begin} ed \textbf{end}). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
+(il C e il Perl usano \textbf{\{ \}}; il Pascal usa \textbf{begin} ed \textbf{end}). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
 indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. In Python invece di usare parentesi 
-o parole chiave, si usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (:). Si usa 
+o parole chiave, si usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (\textbf{\:}). Si usa 
 sia una tabulazione sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
 estensione .py) e, se sintatticamente corretto, di eseguirlo, non esiste una fase di compilazione separata (come, per esempio, 
@@ -58,11 +58,11 @@ Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{djang
     le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un metodo sicuro per gestire gli account degli utenti e le relative 
     password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies, dove sarebbero vulnerabili (invece i cookie 
     contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
-    \item[Mantenibile:] il codice di Django è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
+    \item[Mantenibile:] il codice è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
     particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
     Django raggruppa parti di codice letto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
     \item[Portabile:] Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
-    sia Linux, Windows o Mac OS X. Per di più, Django è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
+    sia Linux, Windows o Mac OS X. Per di più, è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
     e documentazione per l'hosting di siti web in Django.
 \end{description}
 In generale, un tradizionale server web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
@@ -129,10 +129,10 @@ def item_recommendation(request, item_other_id):
 \end{lstlisting}
 %
 \section{API REST}
-Quando si parla di REST (Representational State Transfer) si fa riferimento a un'architettura software, un termine introdotto per la prima volta 
-nel 2000 all'interno di una tesi per il dottorato di Roy Fielding. Questo approccio architetturale venne ideato per creare web API basandosi 
-sul protocollo HTTP. Il REST è infatti un sistema di trasmissione dei dati graie all'utilizzo del protocollo HTTP e dei suoi metodi: 
-GET, POST, PUT, DELETE; grazie a quali si riesce ad identificare, accedere o modificare risorse ben precise.\hfill\break
+Quando si parla di REST (\textit{Representational State Transfer}) si fa riferimento a un'architettura software, un termine introdotto per 
+la prima volta nel 2000 all'interno di una tesi per il dottorato di Roy Fielding. Questo approccio architetturale venne ideato per creare 
+web API basandosi sul protocollo HTTP. Il REST è infatti un sistema di trasmissione dei dati che fa uso del protocollo HTTP e dei suoi metodi: 
+GET, POST, PUT, DELETE per identificare, accedere o modificare risorse ben precise.\hfill\break
 Solitamente se si utilizzano delle API si svolgono delle operazioni all’interno di un database remoto:
 \begin{itemize}
     \item si effettuano richieste di tipo GET quando si vuole ottenere un determinato set di dati dal server.
@@ -148,15 +148,15 @@ Solitamente se si utilizzano delle API si svolgono delle operazioni all’intern
     \caption{Schema generico di funzionamento di un'architettura REST.}
     \label{fig:rest_api}
 \end{figure}
-Praticamente una buona API permette di fare tutte queste operazioni senza la necessità di dover accedere direttamente al database o alla 
-soluzione implementata per l'inserimento, la modifica o il recupero delle informazioni.
+Un'API, sviluppata seguendo tutti i principi dell'architettura REST, permette di effettuare tutte queste operazioni senza la necessità 
+di dover accedere direttamente al database o alla soluzione implementata per l'inserimento, la modifica o il recupero delle informazioni.
 %
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
 le applicazioni in unità standardizzate chiamate \textit{Container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
 strumenti di sistema, codice e runtime. Con Docker, è possibile distribuire e ricalibrare le risorse per un'applicazione in qualsiasi ambiente, 
 tenendo sempre sotto controllo il codice eseguito.\hfill\break
-Questa tecnologia utilizza solitamente il kernel di Linux e le sue funzionalità, come Cgroups e namespace, per isolare i processi in modo da poterli 
+Questa tecnologia utilizza solitamente il kernel di Linux e le sue funzionalità, come namespace, per isolare i processi in modo da poterli 
 eseguire in maniera indipendente. Questa indipendenza è l'obiettivo dei Container: la capacità di eseguire più processi e applicazioni in 
 modo separato per sfruttare al meglio l'infrastruttura esistente pur conservando il livello di sicurezza che sarebbe garantito dalla 
 presenza di sistemi separati.
@@ -251,7 +251,7 @@ Nel Esempio \ref{lst:ex_ALM_query} è possibile osservare come viene recuparata 
 è possibile notare che la maggiore limitazione di questo approccio è che si necessità di un operazione di JOIN per ogni livello 
 della gerarchia, e naturalmente questo porta a un degrado delle performance all'aumentare della complessità; nel caso di questo progetto
 si ha una tassonomia a tre livelli, quindi il problema è limitato, ma volendo avere una visione al futuro questo sistema col tempo diventerebbe 
-sempre meno performante.
+sempre meno performante.\hfill\break
 \begin{lstlisting}[language=SQL, label=lst:ex_ALM_query, caption={Query in puro Sql per recuperare l'intera tassonomia delle Evaluation, 
     secondo l'Adjacency List Model.}]
 SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3
@@ -260,7 +260,7 @@ SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3
         LEFT JOIN Evaluation AS t3 ON t3.parent = t2.id
     WHERE t1.name = "moon cloud";
 \end{lstlisting}
-Questa query si può tradurre in codice client-side attraverso una furnzione ricorsiva la quale determina per ogni nodo i suoi figli, per ogni figlio
+Questa query si può tradurre in codice client-side attraverso una funzione ricorsiva la quale determina per ogni nodo i suoi figli, per ogni figlio
 i suoi figli e così via finchè non si arriva ai nodi foglie.
 Inoltre, molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e 
 ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
@@ -270,8 +270,8 @@ in maggior tempo.
 %
 \subsection{The Nested Set Model}
 Il secondo approccio analizzato è il \textit{Nested Set Model}, il quale è stato utilizzato per l'implementazione delle tassonomie per le Evaluation e 
-i Controlli (o politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) all'interno del progetto.\hfill\break
-Questo approccio permette di osservare le gerarchie di dati in un modo diverso, non come nodi e linee, come se fosse un albero, ma come container innestati.
+i Controlli (politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) all'interno del progetto.\hfill\break
+Questo approccio permette di osservare le gerarchie di dati in un modo diverso, non come nodi e linee di una struttura ad albero, ma come container innestati.
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.6]{images/MC_Rec_NSM_Container(R).png}
@@ -283,7 +283,7 @@ Questo approccio permette di osservare le gerarchie di dati in un modo diverso, 
 %
 Con questo sistema la gerarchia viene mantenuta, secondo il principio cui un nodo padre contiene i suoi figli. Questa struttura 
 viene mantenuta in tabella attraverso l'uso di due attributi aggiuntivi, \texttt{lft} e \texttt{rght}, come è possibile osservare 
-dalla Tabella \ref{table:nested_set_model_table} seguente, la quale fa riferimento alla Figura \ref{fig:MC_Rec_NSM_Container} 
+dalla Tabella \ref{table:nested_set_model_table}, la quale fa riferimento alla Figura \ref{fig:MC_Rec_NSM_Container} 
 posta alla fine della sezione.
 %
 \newpage
@@ -315,9 +315,8 @@ posta alla fine della sezione.
 \label{table:nested_set_model_table}
 \end{table}
 \hfill\break
-Dalla Tabella \ref{table:nested_set_model_table} la gerarchia dei dati viene rappresentata attraverso l'uso 
-degli attributi \textit{left} e \textit{right} per rappresentare l'annidamento dei nodi (il nome delle colonne: \textit{left} e \textit{right}, hanno significati 
-speciali in Sql; per questo motivo si identificano questi campi con i nomi \texttt{lft} e \texttt{rght}).
+Solitamente viene rappresentata attraverso l'uso degli attributi \textit{lft} e \textit{rght} per rappresentare l'annidamento dei nodi 
+perché i nome: \textit{left} e \textit{right}, hanno significati speciali in Sql.
 %
 \newpage
 %
@@ -335,7 +334,7 @@ Più precisamente si inizia la visita dell'albero partendo da sinistra e continu
 nodo i suoi figli, assegnando i valori al campo \textit{left}, prima di assegnare un valore al campo \textit{right}, e successivamente si continua verso 
 destra. Questo approccio è chiamato \textit{Modified Preorder Tree Traversal Algorithm} (MPTT). A partire da questa tecnica è stato 
 ideata la struttura della tassonomia delle evaluation e dei Controlli implementate nella soluzione proposta in questa tesi, con 
-l'ausilio di un package di Python chiamato MPTT, del quale verrà illustrato il funzionamento nel capitolo \ref{chp:04-solution}.\hfill\break
+l'ausilio di un package di Python chiamato MPTT, del quale verrà illustrato il funzionamento nel Capitolo \ref{chp:04-solution}.\hfill\break
 Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec_NSM_Container_R} si può notare che la numerazione dei nodi, viene 
 effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è 
