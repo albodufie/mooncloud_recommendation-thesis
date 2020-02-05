@@ -39,11 +39,11 @@ if __name__ == '__main__':
 Nei linguaggi come Pascal, C e Perl, i blocchi di codice sono indicati con le parentesi oppure con parole chiave 
 (il C e il Perl usano \textbf{\{ \}}; il Pascal usa \textbf{begin} ed \textbf{end}). In questi linguaggi è solo una convenzione degli sviluppatori il fatto di 
 indentare il codice interno ad un blocco, per metterlo in evidenza rispetto al codice circostante. In Python invece di usare parentesi 
-o parole chiave, si usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (\textbf{\:}). Si usa 
-sia una tabulazione sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
+o parole chiave, si usa l'indentazione stessa per indicare i blocchi nidificati in congiunzione col carattere "due punti" (\textbf{:}). 
+Si usa sia una tabulazione sia un numero arbitrario di spazi, ma lo standard Python è di 4 spazi.
 Python è un linguaggio pseudocompilato: un interprete si occupa di analizzare il codice sorgente (semplici file testuali con 
 estensione .py) e, se sintatticamente corretto, di eseguirlo, non esiste una fase di compilazione separata (come, per esempio, 
-avviene in C, ) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
+avviene nel C) che generi un file eseguibile partendo dal sorgente \cite{python-documentation}.
 %
 \paragraph{Django}
 Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
@@ -53,7 +53,7 @@ Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{djang
 \begin{description}
     \item[Versatile:] può essere usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti,
     a social network e siti di notizie; può lavorare con qualunque client-side framework, e gestire contenuti in quasi tutti i formati (inclusi HTML, 
-    RSS feeds, JSON, Xml, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, ecc.).
+    RSS feeds, JSON, XML, etc). Internamente permette la scelta e l'implementazione di qualsiasi funzionalità (es. molti dei database più popolari, ecc.).
     \item[Sicuro:] aiuta gli sviluppatori a evitare gli errori più comuni in merito alla sicurezza provvedendo un framework costruito per eseguire 
     le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un metodo sicuro per gestire gli account degli utenti e le relative 
     password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies, dove sarebbero vulnerabili (invece i cookie 
@@ -188,19 +188,11 @@ Esso è un modello logico di rappresentazione dei dati all'interno di un databas
 da una chiave primaria, e le colonne contengono gli attributi dei dati e in genere ogni record ha un valore per ogni attributo.\hfill\break
 In questa tesi si è lavorato su un database Sql, in cui i dati normalmente sono conservati come semplici "flat table", e in particolare si è usato il DBMS 
 PostgreSQL, un sistema di gestione di database relazionali ad oggetti (ORDBMS). In generale le tabelle contenute in questo tipo di base di dati non permettono la 
-memorizzazione secondo un modello gerarchico (come nell'Xml).\hfill\break
+memorizzazione secondo un modello gerarchico (come nell'XML).\hfill\break
 Per questo motivo è sorta la necessità di cercare un metodo alternativo per poter rappresentare queste strutture all'interno di database tradizionali.
 In questo caso ogni nodo ha un solo padre e nessuno o più figli (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione 
 delle informazioni, può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, 
-grafici di organizzazione di un business, categorie per gestire contenuti e prodotti.
-%
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[scale=0.46]{images/MC_Rec_Tree.png}
-    \caption{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
-    \label{fig:MC_Rec_Tree}
-\end{figure}
-\hfill\break
+grafici di organizzazione di un business, categorie per gestire contenuti e prodotti.\hfill\break
 Durante lo studio compiuto per la realizzazione di questa testi sono stati analizzati diversi approcci per poter gestire le informazioni in modo gerarchico, 
 i più importanti presi in considerazione sono i seguenti: 
 \begin{itemize}
@@ -208,11 +200,20 @@ i più importanti presi in considerazione sono i seguenti:
     \item The Nested Set Model.
 \end{itemize}
 %
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[scale=0.46]{images/MC_Rec_Tree.png}
+    \caption{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
+    \label{fig:MC_Rec_Tree}
+\end{figure}
+%
+\newpage
+%
 \subsection{The Adjacency List Model}
 Il primo approccio è chiamato \textit{Adjacency List Model} o metodo ricorsivo; viene definito tale perché il suo funzionamento si basa su una funzione che 
 itera per tutto l'albero.\hfill\break
 In questo modello, ogni nodo dell'albero contenuto nella tabella ha associato un puntatore al suo nodo padre, e in particolare il nodo radice ha un puntatore 
-a un valore NULL per quest'ultimo valore visto che è il nodo di partenza.\hfill\break
+a un valore NULL per quest'ultimo visto che è il nodo di partenza.\hfill\break
 La Tabella \ref{table:adjacency_list_model_table} mostra un esempio di possibile rappresentazione parziale dei dati nel database implementato in questo progetto 
 secondo questo approccio, utilizzando come riferimento la Figura \ref{fig:MC_Rec_Tree}.
 %
@@ -248,10 +249,10 @@ e di restituzione dei figli di un nodo. Questo approccio diventa problematico ne
 di programmazione perché necessita di una query per ogni nodo dell'albero, e visto che ogni query impiega 
 un certo periodo di tempo, questo rende la funzione molto lenta e poco efficiente quando si lavora con alberi di grandi dimensioni. 
 Nel Esempio \ref{lst:ex_ALM_query} è possibile osservare come viene recuparata in puro Sql l'intera tassonomia per le Evaluation; 
-è possibile notare che la maggiore limitazione di questo approccio è che si necessità di un operazione di JOIN per ogni livello 
+è possibile notare che la maggiore limitazione di questo approccio è che si necessità di un operazione di \textit{JOIN} per ogni livello 
 della gerarchia, e naturalmente questo porta a un degrado delle performance all'aumentare della complessità; nel caso di questo progetto
 si ha una tassonomia a tre livelli, quindi il problema è limitato, ma volendo avere una visione al futuro questo sistema col tempo diventerebbe 
-sempre meno performante.\hfill\break
+sempre meno performante.
 \begin{lstlisting}[language=SQL, label=lst:ex_ALM_query, caption={Query in puro Sql per recuperare l'intera tassonomia delle Evaluation, 
     secondo l'Adjacency List Model.}]
 SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3
@@ -261,22 +262,24 @@ SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3
     WHERE t1.name = "moon cloud";
 \end{lstlisting}
 Questa query si può tradurre in codice client-side attraverso una funzione ricorsiva la quale determina per ogni nodo i suoi figli, per ogni figlio
-i suoi figli e così via finchè non si arriva ai nodi foglie.
-Inoltre, molti linguaggi non sono ottimizzati per funzioni ricorsive. Per ogni nodo, la funzione crea una nuova istanza di se stessa e 
-ogni istanza occupa una porzione di memoria e impiega un certo tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine 
-in maggior tempo.
+i suoi figli e così via finchè non si arriva ai nodi foglie. Inoltre, molti linguaggi non sono ottimizzati per funzioni ricorsive. 
+Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa una porzione di memoria e impiega un certo 
+tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine in maggior tempo.
 %
 \newpage
 %
 \subsection{The Nested Set Model}
-Il secondo approccio analizzato è il \textit{Nested Set Model}, il quale è stato utilizzato per l'implementazione delle tassonomie per le Evaluation e 
-i Controlli (politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) all'interno del progetto.\hfill\break
-Questo approccio permette di osservare le gerarchie di dati in un modo diverso, non come nodi e linee di una struttura ad albero, ma come container innestati.
+Il secondo approccio analizzato è il \textit{Nested Set Model}, il quale è stato utilizzato per l'implementazione delle tassonomie delle le Evaluation e 
+dei Controlli (politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) all'interno del 
+progetto.\hfill\break
+Questo approccio ha permesso di osservare le gerarchie di dati in un modo diverso, non come nodi e linee di una struttura ad albero, ma 
+come container innestati.
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.6]{images/MC_Rec_NSM_Container(R).png}
-    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
-    progetto in questione (ridotto).}
+    \centering
+    \includegraphics[scale=0.65]{images/MC_Rec_NSM_Container(R).png}
+    \caption{Esempio di gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
+    progetto in questione.}
     \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
 \hfill\break
@@ -323,7 +326,7 @@ perché i nome: \textit{left} e \textit{right}, hanno significati speciali in Sq
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
-    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
+    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Tree}
 \end{figure}
@@ -339,8 +342,8 @@ Più semplicemente se si osserva la parte superiore della Figura \ref{fig:MC_Rec
 effettuata a partire da container più esterno da sinistra e continua verso destra.\hfill\break
 A prima vista questo approccio può sembrare più complicato da comprendere rispetto all'Adjacency List Model, ma quest'ultimo è 
 molto più veloce quando si vuole recuperare i nodi, visto che basta una query, mentre è più lento per operazioni di inserimento e 
-cancellazione dei nodi; il Listing \ref{lst:ex_NSM_query} qui di seguito mostra come è possibile recuperare l'itera tassonomia delle Evaluation; si 
-può notare che questa query funziona in modo indipendente dalla profondità della tassonomia; inoltre, non è necessario preoccuparsi del valore \texttt{rght} 
+cancellazione dei nodi; il Listing \ref{lst:ex_NSM_query} mostra come è possibile recuperare l'itera tassonomia delle Evaluation; si 
+può notare che questa query funziona in modo indipendente dalla profondità della tassonomia. Inoltre, non è necessario preoccuparsi del valore \texttt{rght} 
 del nodo all'interno della clausola \textit{BETWEEN} della query perché il valore cadrà sempre all'interno dello stesso nodo padre come anche il 
 valore di \texttt{lft}.
 \begin{lstlisting}[language=SQL, label=lst:ex_NSM_query, caption={Query in puro Sql per recuperare l'intera tassonomia delle Evaluation, 
