@@ -1,6 +1,6 @@
 \chapter{Descrizione della soluzione}\label{chp:04-solution}
 In questo capitolo è approfondito l'aspetto puramente pratico e le fasi che hanno portato alla realizzazione della soluzione; 
-inoltre vengono mostrate le applicazioni pratiche degli aspetti teorici enunciati nei capitoli precedenti.
+inoltre, vengono mostrate le applicazioni pratiche degli aspetti teorici enunciati nei capitoli precedenti.
 %
 \vspace{1.5 cm}
 \hfill\break
@@ -9,16 +9,16 @@ attraverso apposite URL; questo servizio permette di effettuare richieste al sis
 %
 \section*{Preparazione della base di dati}
 Prima di poter costruire il sistema di raccomandazione proposto in questa tesi, sono state eseguite delle operazioni preliminari 
-per poter impostare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione. 
+per poter configurare il progetto di Django e la relativa applicazione che implementerà effettivamente la soluzione. 
 Come descritto nei capitoli precedenti per procedere alla costruzione di un sistema di raccomandazione bisogna avere a disposizione 
 una base di dati solida da cui attingere tutte le informazioni; ed è proprio questo il primo passo che è stato seguito, disegnare 
-e progettare un database da cui partire per la realizzazione degli algoritmi proposti.
-In generale Moon Cloud possiede una struttura delle Evaluation e dei Control ad albero, di conseguenza anche le tabelle del database 
+e progettare un database da cui partire per la realizzazione degli algoritmi proposti.\hfill\break
+In generale, Moon Cloud possiede una struttura delle Evaluation e dei Control ad albero, di conseguenza anche le tabelle del database 
 rispecchiano questa struttura, partendo dalle considerazioni fatte sulle tecniche descritte nei capitoli precedenti si è deciso, che 
 per implementare un database relazionale che gestisse dati gerarchici, di utilizzare la tecnica
 definita come \textit{Modified Preorder Tree Traversal Algorithm}, la quale permette di massimizzare l'efficienza nelle 
 operazioni di recupero dei dati, e quindi velocizzare i processi di raccomandazione, ma scendendo a compromessi per quanto riguarda le 
-operazioni d'inserimento e spostamento dei nodi all'interno della struttura. 
+operazioni d'inserimento e spostamento dei nodi all'interno della struttura.\hfill\break
 Il package MPTT è una app di Django che ha come obiettivo quello di semplificare il più possibile la realizzazione dei Model, utilizzati 
 per la generazione della base di dati, e la gestione della struttura di dati ad albero; si prende cura di tutti i dettagli riguardanti la 
 realizzazione delle tabelle e dei campi \textit{left} e \textit{right} associati ad ogni nodo della tassonomia, mettendo a disposizione dei 
@@ -157,7 +157,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
     \item[User:] contiene gli utenti registrati alla piattaforma Moon Cloud, e sono anche loro, come con le tabelle precedenti, 
     identificati con un campo \texttt{other\_id}, e distinti da un email. La tabella intermedia \textit{user\_evaluations} permette di memorizzare 
     quali Evaluation un utente ha selezionato e usato.
-    \item[Target:] contiene i  Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
+    \item[Target:] contiene i Target (o asset) un utente ha inserito e sui quali vuole effettuare dei processi 
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
     \item[TargetType:] contiene i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
     rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo IP identificativo di un host e si distingue 
@@ -168,7 +168,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.6]{images/MoonCloudRecommendation_ER.png}
-    \caption{Struttura del database.}
+    \caption{Struttura del database implementato in questa soluzione.}
     \label{fig:str_db_project}
 \end{figure}
 %
@@ -499,9 +499,6 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
 \newpage
 %
 \section*{View per i processi di raccomandazione}
-% visto che il codice l'ho messo nel capitolo precedente, posso mettere qui degli esempi e mostrare le url per richiamare
-% questi algoritmi, e nel caso dello User e Item algortihm, mostrare le view che li implementano come API REST 
-% (non mostro quella dell'hybrid perché già presente al completo nel capitolo precedente)
 In generale gli algoritmi di raccomandazione implementati in questo progetto, e descritti nel Capitolo \ref{chp:03-recommendationSystems}, 
 vengono richiamati e utilizzati come API REST, un tipo di architettura basata sul protocollo HTTP. Un sistema REST, per funzionare, prevede 
 una struttura degli URL ben definita (atta a identificare univocamente una risorsa o un insieme di risorse) l'utilizzo dei verbi HTTP specifici 
@@ -509,7 +506,6 @@ per il recupero d'informazioni (GET), per la modifica (POST, PUT, PATCH, DELETE)
 In questo caso a ogni URL è associata una azione particolare la quale va a richiamare la View che permette di determinare un insieme di 
 raccomandazioni sulla base di un parametro in ingresso. Tutte le API REST seguenti restituiscono una risposta 
 HTTP in formato JSON \hfill\break
-%% SOSTITUIRE QUESTO CODICE CON UN ELENCO CHE DESCRIVE LE API REST
 \begin{description}
     \item[Richiesta al Item Recommendation Algorithm]
     \item\texttt{GET /recommendation/item/<item\_other\_id>/}
