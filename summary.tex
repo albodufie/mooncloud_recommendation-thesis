@@ -65,11 +65,15 @@ mediante lo sviluppo di un sistema di raccomandazione di verifiche di sicurezza.
     relazionale, per creare delle tassonomie. In particolare, è stato necessario trovare il modo migliore per memorizzare tali tassonomie all'interno
     di un modello di dati di tipo relazionale.
     \item Studio delle diverse tipologie dei sistemi di raccomandazione e valutazione di quali fossero i più adeguati per il problema in questione.
-    Si sono analizzati in particolare i sistemi \textit{Content-based filter} e i \textit{Collaborative filter}, i loro vantaggi e svantaggi; è
-    stato infine scelto il \textit{Collaborative filter}.
-    %, nello specifico si osservarano quali
-    %fossero i punti di forza e debolezza, e i motivi per cui è stato scelto il secondo tipo rispetto al primo.
-
+    Si sono analizzati in particolare i sistemi \textit{Content-based filter} e i \textit{Collaborative filter}.
+    Il primo algoritmo analizza direttamente i metadati del item e non considera gli interessi di altri utenti, i quali potrebbero 
+    suggerire altri prodotti che non verrebbero notati con questo approccio.
+    Per quanto riguarda il CF, non prende in considerazione i contenuti e proprietà associati agli item ma una raccomandazione 
+    viene fatta sulla base dell'uso che gli utenti fanno degli item e questo è il suo punto 
+    di forza perché non si trova a dover analizzare item ricchi d’informazioni. Allo stesso tempo è anche il suo punto debole, perché può 
+    portare suggerimenti che potrebbero essere considerati poco adatti sulla base della poca relazione con i profili di alcuni utenti. 
+    Infine, è stato scelta la tipologia dei \textit{Collaborative filter} perché si è voluto dare importanza e mettere in primo piano ciò che 
+    pensano gli utenti, così da cercare di colmare il problema della mancata fiducia in questi sistemi.
     \item Creazione di un microservizio che implementa il sistema di raccomandazione. Esso è in grado di offrire raccomandazioni basandosi
     su $i)$ la tipologia di target obiettivo della verifica di sicurezza, $ii)$ la categoria delle \textit{Evaluation} applicate all’asset in questione, $iii)$ 
     \textit{Evaluation} simili usate da altri utenti e $iv)$ la categoria di appartenenza delle \textit{Evaluation} unitamente a quelle simili usate da altri utenti.
