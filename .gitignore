@@ -31,6 +31,7 @@ thesis.run.xml
 thesis.synctex.gz
 thesis.toc
 thesis.synctex(busy)
+thesis.out
 
 albonico-andrea/
 
@@ -54,3 +55,5 @@ presentation.toc
 main.pdf
 summary.pdf
 presentation.pdf
+
+pdfa.xmpi
