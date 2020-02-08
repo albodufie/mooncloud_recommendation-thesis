@@ -1,12 +1,13 @@
 \documentclass[12pt,fleqn,twoside,a4paper]{book}
 
+\usepackage[italian]{babel} % lingua del documento
 \usepackage[T1]{fontenc} % codifica dei font
 \usepackage[utf8]{inputenc} % lettere accentate da tastiera
-\usepackage[italian]{babel} % lingua del documento
-\usepackage{float}
+%\usepackage{float}
 \usepackage{graphicx}
+\usepackage[top=2.5cm,margin=3cm,bottom=2.5cm]{geometry}
 \graphicspath{{images/}}
-\usepackage{rotating} % ruotare un immagine
+%\usepackage{rotating} % ruotare un immagine
 \usepackage{listings} % inserire codice sorgente a modo
 \usepackage[table]{xcolor}
 
@@ -44,7 +45,6 @@
     tabsize=2
 }
 
-
 \usepackage{csquotes}
 \usepackage[backend=biber, style=numeric, sorting=nty]{biblatex}
 \addbibresource{bibliography.bib}
@@ -60,6 +60,13 @@
 
 \usepackage[a-1b]{pdfx}
 \usepackage[pdfa]{hyperref}
+\hypersetup{
+    linkbordercolor={white},
+    allbordercolors={white},
+    colorlinks=false,
+    allcolors={white},
+    %hidelinks=true
+}
 
 \title{Sistema di raccomandazione basato su Collaborative Filter per piattaforma Moon Cloud 
 facente parte dell'ambito della Security Assurance}
@@ -71,38 +78,40 @@ facente parte dell'ambito della Security Assurance}
 \frontmatter
 
 \begin{titlepage}
-    \begin{figure}
-        \centering
-        \includegraphics[height=5.0 cm]{logo.jpg}
-        \vspace{0.5 cm}
-    \end{figure}
     \begin{center}
-        {\Large Corso di Laurea in Informatica Musicale}
-    \end{center}
-    \begin{center}
-        \vspace{2 cm}
-        {\Large \textsc{Un sistema di recommendation per la cybersecurity basato su Collaborative Filter}}
-    \end{center}
-    \par
-    \vspace{2 cm}
-    \begin{flushleft}
-        Relatore:\\ Prof. Valerio Bellandi\\
-        \noindent Correlatore:\\ Prof. Claudio A. Ardagna
-    \end{flushleft}
-    \vspace{1 cm}
-    \begin{flushright}
-        Tesi di Laurea di:\\ Andrea Michele Albonico\\ Matricola: 886667
-    \end{flushright}
-    \vfill
-    \vspace{1.5 cm}
-    \begin{center}
+        \begin{figure}
+            \centering
+            \includegraphics[height=5.0 cm]{logo.jpg}
+        \end{figure}
+        \vspace{.2 cm}
+        {\Large
+            \emph{Corso di Laurea in Informatica Musicale}
+        }
+        \vfill
+        \begin{LARGE}
+            \textsc{Un sistema di recommendation per\\[-0.2 cm]
+            la cybersecurity basato su\\[.2 cm]
+            Collaborative Filter}
+        \end{LARGE}
+        \vfill
+        \begin{flushleft}
+            {\large
+                RELATORE\\[.3 cm] Prof. Valerio Bellandi\\[1 cm]
+                \noindent CORRELATORE\\[.3 cm] Prof. Claudio A. Ardagna
+            }
+        \end{flushleft}
+        \vfill
+        \begin{flushright}
+            {\large TESI DI LAUREA DI\\[.3cm] Andrea Michele Albonico\\[.15cm] Matricola: 886667}
+        \end{flushright}
+        \vfill
         {\Large Anno Accademico 2018/2019}
     \end{center}
 \end{titlepage}
 
 \break
 
-% RINGRAZIAMENTI 
+% RINGRAZIAMENTI
 \input{chapters/00-thanks}
 
 % PREFAZIONE: motivazione con breve descrizione del progetto
