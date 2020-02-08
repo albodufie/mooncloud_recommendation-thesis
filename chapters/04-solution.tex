@@ -167,7 +167,7 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.6]{images/MoonCloudRecommendation_ER.png}
+    \includegraphics[scale=0.8]{images/MoonCloudRecommendation_ER.jpg}
     \caption[Struttura del database implementato in questa soluzione]{Struttura del database implementato in questa soluzione.}
     \label{fig:str_db_project}
 \end{figure}
@@ -185,7 +185,7 @@ appositi pulsanti alle pagine specifiche per la navigazione della tassonomia del
 viene mostrato dalla Figura \ref{fig:MCRS_homepage} e il relativo Listing \ref{lst:view_homepage}.
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.3]{images/MCRS_homepage.png}
+    \includegraphics[scale=0.4]{images/MCRS_homepage.jpg}
     \caption[Home page dell'applicativo web a scopo didattico]{Home page dell'applicativo web a scopo didattico.}
     \label{fig:MCRS_homepage}
 \end{figure}
@@ -203,13 +203,13 @@ def index(request):
 %
 Una volta scelta la tassonomia, di Controlli o delle Evaluation, su cui si vuole navigare, viene mostrata una pagina dove nella metà a sinistra 
 troviamo la possibilità di selezionare un nodo della tassonomia e l'operazione che si vuole svolgere su quel nodo, inoltre, è possibile effettuare 
-una richiesta di generazione di file in formato e linguaggio DOT e relativa immagine in formato .png, attraverso il pulsante \textit{Request schema}. 
+una richiesta di generazione di file in formato e linguaggio DOT e relativa immagine in formato .jpg, attraverso il pulsante \textit{Request schema}. 
 Proseguendo più in basso, vengono mostrati tutti i nodi a cui è stato associato il tipo Categoria e il tipo Evaluation. Nella porzione destra della 
 pagina web viene mostrata l'intera struttura della tassonomia e un link da quale è possibile accedere a una pagina di dettaglio che mostra una 
 simile a quella presente sul database. Questa pagine è visibile dalla Figura \ref{fig:MCRS_taxindex} e dal Listing \ref{lst:view_tax_homepage}.\hfill\break
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.3]{images/MCRS_taxindex.png}
+    \includegraphics[scale=0.4]{images/MCRS_taxindex.jpg}
     \caption{Home page per la navigazione della tassonomia delle Evaluation.}
     \label{fig:MCRS_taxindex}
 \end{figure}
@@ -290,7 +290,8 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     famiglia di quel nodo.
     %
     \begin{figure}[ht!]
-        \includegraphics[scale=0.3]{images/MCRS_taxnodedetails.png}
+        \centering
+        \includegraphics[scale=0.4]{images/MCRS_taxnodedetails.jpg}
         \caption[Risultato dell'operazione selezionata sul nodo in questione]{Risultato dell'operazione selezionata sul nodo in questione.}
         \label{fig:MCRS_taxnodedetails}
     \end{figure}
@@ -387,7 +388,7 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
                     'method': 'siblings'})
     \end{lstlisting}
     \item Attraverso il pulsante \textit{request schema} nella home page della tassonomia si può effettuare una richiesta al software 
-    Graphviz il quale attraverso un file scritto in linguaggio DOT genera lo schema della tassonomia sotto forma d'immagine in formato .png.\hfill\break
+    Graphviz il quale attraverso un file scritto in linguaggio DOT genera lo schema della tassonomia sotto forma d'immagine in formato .jpg.\hfill\break
     Il DOT è un linguaggio descrittivo per grafi, tipicamente i file hanno estensione .gv o .dot, che in combinazione con il software Graphviz è possibile 
     effettuare il rendering della sintassi DOT in un immagine più significativa. Un esempio di tale linguaggio è mostrato nel Listing \ref{lst:DOT_eval} 
     viene mostrato un esempio di scrittura con linguaggio DOT.
@@ -418,10 +419,10 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     %
     \lstset{style=python_code_style}
     \begin{lstlisting}[language=Python, label=lst:view_DOT_eval, caption={Codice utilizzato per la realizzazione del
-        file .dot e relativa immagine .png.}]
+        file .dot e relativa immagine .jpg.}]
     def dot_graph(request, taxonomy_used):
         """
-        Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .png format
+        Create the .dot file (based on the Dot language) and the graph showing the taxonomy in .jpg format
         :param request: HTTP request
         :param taxonomy_used: specify if it's used the Control taxonomy or the Evaluation taxonomy
         :return: HTTP response with the template to show to the user
@@ -445,7 +446,7 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
                 taxonomy_dot_object.node(str(node.id), label=str(node.name))
                 taxonomy_dot_object.edge(str(node.parent_id), str(node.id))
             i += 1
-        # Specify where I want to save the .png image and the .dot file
+        # Specify where I want to save the .jpg image and the .dot file
         taxonomy_dot_object.render('taxonomy_output/taxonomy.dot')
  
         # This function is used to zip a directory
@@ -470,7 +471,8 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     premendo il relativo tasto rispetto al nodo su cui si vuole determinare le altre Evaluation simili.
     %
     \begin{figure}[ht!]
-        \includegraphics[scale=0.3]{images/MCRS_taxdetails.png}
+        \centering
+        \includegraphics[scale=0.41]{images/MCRS_taxdetails.jpg}
         \caption[Dettagli della tassonomia sotto forma di tabella]{Dettagli della tassonomia sotto forma di tabella come nella base di dati.}
         \label{fig:MCRS_taxdetails}
     \end{figure}
@@ -650,19 +652,22 @@ In particolare in questo ultimo caso, sulla base di come è stato costruito il M
 la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la creazione del record.
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.3]{images/MCRS_adminpage.png}
+    \centering
+    \includegraphics[scale=0.38]{images/MCRS_adminpage.jpg}
     \caption[Admin page creata automaticamente da Django]{Admin page creata automaticamente da Django.}
     \label{fig:MCRS_adminpage}
 \end{figure}
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.3]{images/MCRS_adminpage_evaluationEX.png}
+    \centering
+    \includegraphics[scale=0.38]{images/MCRS_adminpage_evaluationEX.jpg}
     \caption[Admin page per la tabella delle Evaluation]{Esempio di Admin page per la tabella delle Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX}
 \end{figure}
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.png}
+    \centering
+    \includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.jpg}
     \caption[Admin page per aggiungere una nuova Evaluation]{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX_add}
 \end{figure}
