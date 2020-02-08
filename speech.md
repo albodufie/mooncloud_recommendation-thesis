@@ -1,7 +1,7 @@
 # SLIDE 1: presentazione
 - Presentare i sistemi di Security Assurance evidenziando le difficoltà nel loro utilizzo dovute alle specificità che 
 contengono
-- per introdurre il motivo della testi bisogna raccontare su delle difficoltà nel dare fiducia nel sistemi Cloud, soprattutto se legati alla 
+- per introdurre il motivo della tesi bisogna raccontare su delle difficoltà nel dare fiducia nel sistemi Cloud, soprattutto se legati alla 
 sicurezza, trattano dati sensibili o cose simili.
 - motivo della tesi -> semplificare l'utilizzo agli utenti e cercare di avviciare anche le persone più diffidenti ad utilizzare questi sistemi.
 

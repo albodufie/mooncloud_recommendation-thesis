@@ -77,7 +77,7 @@ da mostrare, in cui può essere data la possibilità di inserire dati dall'utent
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.3]{images/Django_doc.png}
-    \caption{Schema generico di funzionamento di un applicativo web sviluppato con Django.}
+    \caption[Schema di funzionamento di un applicativo web in Django]{Schema generico di funzionamento di un applicativo web sviluppato con Django.}
     \label{fig:django_doc}
 \end{figure}
 \hfill\break
@@ -128,24 +128,24 @@ def item_recommendation(request, item_other_id):
     return JSONResponse(similar_item_evaluations_serilized, safe=False)
 \end{lstlisting}
 %
-\section{API REST}
+\section{REST}
 Quando si parla di REST (\textit{Representational State Transfer}) si fa riferimento a un'architettura software, un termine introdotto per 
-la prima volta nel 2000 all'interno di una tesi per il dottorato di Roy Fielding. Questo approccio architetturale venne ideato per creare 
+la prima volta nel 2000 all'interno di una tesi di dottorato di Roy Fielding. Questo approccio architetturale venne ideato per creare 
 web API basandosi sul protocollo HTTP. Il REST è infatti un sistema di trasmissione dei dati che fa uso del protocollo HTTP e dei suoi metodi: 
 GET, POST, PUT, DELETE per identificare, accedere o modificare risorse ben precise.\hfill\break
-Solitamente se si utilizzano delle API si svolgono delle operazioni all’interno di un database remoto:
+Solitamente se si utilizzano delle API si svolgono delle operazioni all’interno di un host remoto:
 \begin{itemize}
     \item si effettuano richieste di tipo GET quando si vuole ottenere un determinato set di dati dal server.
-    \item si effettuano richieste di tipo POST quando si vuole creare un nuovo oggetto all’interno del database.
+    \item si effettuano richieste di tipo POST quando si vuole creare un nuovo oggetto all’interno del server.
     \item si effettuano richieste di tipo PUT quando si vuole modificare o sostituire completamente un oggetto già esistente.
     \item si effettuano richieste di tipo DELETE quando si vuole, da remoto, cancellare un oggetto contenuto all’interno del 
-    database al quale si è collegati.
+    host al quale si è collegati.
 \end{itemize}
 %
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.6]{images/api_rest.png}
-    \caption{Schema generico di funzionamento di un'architettura REST.}
+    \caption[Schema di funzionamento di una architettura REST]{Schema generico di funzionamento di un'architettura REST.}
     \label{fig:rest_api}
 \end{figure}
 Un'API, sviluppata seguendo tutti i principi dell'architettura REST, permette di effettuare tutte queste operazioni senza la necessità 
@@ -164,7 +164,7 @@ presenza di sistemi separati.
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.5]{images/Docker_Config_Container.png}
-    \caption{Schematizzazione di Container in Docker e di Virtual Machine.}
+    \caption[Schema di funzionamento di un Container in Docker]{Schematizzazione di Container in Docker e di Virtual Machine.}
     \label{fig:DCC}
 \end{figure}
 \hfill\break
@@ -181,7 +181,7 @@ Un'altra grande differenza è che la virtualizzazione permette di eseguire più 
 condividono lo stesso kernel del sistema operativo e isolano i processi applicativi dal resto dell’infrastruttura.
 %
 \section{Strutture dati gerarchiche}
-Nel caso di questa tesi si vogliono memorizzare due tassonomie, aventi struttura ad albero, in cui ogni nodo corrisponde, all'interno di una tabella, ad un 
+Nel caso di questa tesi si vogliono memorizzare le tassonomie dei Controlli e delle Evaluation, entrambe aventi struttura ad albero in cui ogni nodo corrisponde, all'interno di una tabella, ad un 
 record; quindi in dati gerarchici si instaurano delle relazioni padre-figlio tra le quali non possono essere rappresentate in modo naturale 
 all'interno di un database relazionale, il quale, per l'appunto, segue il Modello Relazionale.\hfill\break
 Esso è un modello logico di rappresentazione dei dati all'interno di un database, in cui ogni riga di una tabella è un record identificato univocamente
@@ -193,7 +193,7 @@ Per questo motivo è sorta la necessità di cercare un metodo alternativo per po
 In questo caso ogni nodo ha un solo padre e nessuno o più figli (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione 
 delle informazioni, può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, 
 grafici di organizzazione di un business, categorie per gestire contenuti e prodotti.\hfill\break
-Durante lo studio compiuto per la realizzazione di questa testi sono stati analizzati diversi approcci per poter gestire le informazioni in modo gerarchico, 
+Durante lo studio compiuto per la realizzazione di questa tesi sono stati analizzati diversi approcci per poter gestire le informazioni in modo gerarchico, 
 i più importanti presi in considerazione sono i seguenti: 
 \begin{itemize}
     \item The Adjacency List Model.
@@ -203,13 +203,13 @@ i più importanti presi in considerazione sono i seguenti:
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.46]{images/MC_Rec_Tree.png}
-    \caption{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
+    \caption[Rappresentazione gerarchica di dati relativi al progetto]{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
     \label{fig:MC_Rec_Tree}
 \end{figure}
 %
 \newpage
 %
-\subsection{The Adjacency List Model}
+\subsection{Adjacency List Model}
 Il primo approccio è chiamato \textit{Adjacency List Model} o metodo ricorsivo; viene definito tale perché il suo funzionamento si basa su una funzione che 
 itera per tutto l'albero.\hfill\break
 In questo modello, ogni nodo dell'albero contenuto nella tabella ha associato un puntatore al suo nodo padre, e in particolare il nodo radice ha un puntatore 
@@ -240,15 +240,15 @@ secondo questo approccio, utilizzando come riferimento la Figura \ref{fig:MC_Rec
     \rowcolor{evaluationcell} 15 & Sqs Checker & 10 \\ [0.5ex]
     \hline
 \end{tabular}
-\caption{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo l'Adjacency List Model.}
+\caption[Gestione di dati secondo l'Adjacency List Model]{Esempio di una possibile tabella per gestire dati in modo gerarchico secondo l'Adjacency List Model.}
 \label{table:adjacency_list_model_table}
 \end{table}
 \hfill\break
 Il vantaggio di usare questo modello sta nella sua semplicità di costruzione, soprattutto a livello di codice client-side, 
 e di restituzione dei figli di un nodo. Questo approccio diventa problematico nella maggior parte dei linguaggi 
-di programmazione perché necessita di una query per ogni nodo dell'albero, e visto che ogni query impiega 
-un certo periodo di tempo, questo rende la funzione molto lenta e poco efficiente quando si lavora con alberi di grandi dimensioni. 
-Nel Esempio \ref{lst:ex_ALM_query} è possibile osservare come viene recuparata in puro Sql l'intera tassonomia per le Evaluation; 
+di programmazione perché necessita di una query per ogni nodo dell'albero, e visto che ogni query impiega un certo periodo di tempo, 
+questo rende la funzione molto lenta e poco efficiente quando si lavora con alberi di grandi dimensioni.\hfill\break
+Nel Listing \ref{lst:ex_ALM_query} è possibile osservare come viene recuparata in puro Sql l'intera tassonomia per le Evaluation; 
 è possibile notare che la maggiore limitazione di questo approccio è che si necessità di un operazione di \textit{JOIN} per ogni livello 
 della gerarchia, e naturalmente questo porta a un degrado delle performance all'aumentare della complessità; nel caso di questo progetto
 si ha una tassonomia a tre livelli, quindi il problema è limitato, ma volendo avere una visione al futuro questo sistema col tempo diventerebbe 
@@ -268,17 +268,17 @@ tempo per inizializzarsi, più grande è l'albero e più questo processo sarà p
 %
 \newpage
 %
-\subsection{The Nested Set Model}
-Il secondo approccio analizzato è il \textit{Nested Set Model}, il quale è stato utilizzato per l'implementazione delle tassonomie delle le Evaluation e 
-dei Controlli (politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) all'interno del 
-progetto.\hfill\break
+\subsection{Nested Set Model}
+Il secondo approccio analizzato è il \textit{Nested Set Model} (con acronimo NSM), il quale è stato utilizzato per l'implementazione delle tassonomie 
+delle le Evaluation e dei Controlli (politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) 
+all'interno del progetto.\hfill\break
 Questo approccio ha permesso di osservare le gerarchie di dati in un modo diverso, non come nodi e linee di una struttura ad albero, ma 
 come container innestati.
 %
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.65]{images/MC_Rec_NSM_Container(R).png}
-    \caption{Esempio di gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
+    \caption[Gestione di dati, come container innestati, secondo il NSM]{Esempio di gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container_R}
 \end{figure}
@@ -326,7 +326,7 @@ perché i nome: \textit{left} e \textit{right}, hanno significati speciali in Sq
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.40]{images/MC_Rec_NSM_Tree.png}
-    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
+    \caption[Gestione di dati (visione ad albero) secondo il NSM]{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Tree}
 \end{figure}
@@ -403,7 +403,7 @@ UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
 \begin{figure}
     \centering
     \includegraphics[scale=0.49]{images/MC_Rec_NSM_Container.png}
-    \caption{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
+    \caption[Gestione di dati (visione completa) secondo il NSM]{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
 \end{figure}
@@ -427,7 +427,7 @@ Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.5]{images/recommender_systems.png}
-    \caption{Categorizzazione generale dei sistemi di raccomandazione.}
+    \caption[Categorizzazione generale dei sistemi di raccomandazione]{Categorizzazione generale dei sistemi di raccomandazione.}
     \label{fig:recommender_systems}
 \end{figure}
 Entrambi gli approcci hanno i loro punti di forza e di debolezza. Il primo algoritmo si focalizza sul contenuto degli item e 

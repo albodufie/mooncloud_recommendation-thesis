@@ -31,7 +31,7 @@ Molti di questi approcci possono essere generalizzati dall'algoritmo organizzato
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.5]{images/UB_CF_ex.png}
-    \caption{Esempio di applicazione di un sistema di raccomandazione User-based.}
+    \caption[Applicazione di un sistema di raccomandazione UB-CF]{Esempio di applicazione di un sistema di raccomandazione User-based.}
     \label{fig:UB_CF}
 \end{figure}
 %
@@ -113,7 +113,7 @@ simili, e al suo posto viene effettuato un confronto tra gli item dell'utente a 
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.5]{images/IB_CF_ex.png}
-    \caption{Esempio di applicazione di un sistema di raccomandazione IB-CF.}
+    \caption[Applicazione di un sistema di raccomandazione IB-CF]{Esempio di applicazione di un sistema di raccomandazione IB-CF.}
     \label{fig:IB_CF}
 \end{figure}
 \hfill\break
@@ -165,7 +165,7 @@ In generale, il IB-CF ideato per determinare Evaluation simili funziona seguendo
 Altro algoritmo del tipo IB-CF implementato in questa tesi sulla falsa riga di quello appena riportato nel Listing \ref{lst:IB_CF_Evaluation_1}, 
 è quello ideato per determinare quali Evaluation possono essere raccomandate per un Target, inserito da un utente, tra quelli supportati da Moon Cloud
 (Host avente \textit{Windows} come sistema operativo, Host avente \textit{Linux} come sistema operativo, sistemi che sfruttano 
-servizi di \textit{Aws} o di \textit{Azure} e \textit{URL} di siti web).\hfill\break
+servizi di \textit{AWS} o di \textit{Azure} e \textit{URL} di siti web).\hfill\break
 In Python questo algoritmo viene implementato come funzione che prende in ingresso l'identificativo univoco (\texttt{id}) del Target, e 
 restituisce l'insieme delle Evaluation raccomandate per quel Target. Il funzionamento dell'algoritmo si svolge come segue:
 \begin{itemize}

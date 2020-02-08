@@ -4,7 +4,7 @@ inoltre, vengono mostrate le applicazioni pratiche degli aspetti teorici enuncia
 %
 \vspace{1.5 cm}
 \hfill\break
-La soluzione proposta in questa testi implementa un servizio di API REST, che si appoggia a un database Postgres, accessibile 
+La soluzione proposta in questa tesi implementa un servizio di API REST, che si appoggia a un database Postgres, accessibile 
 attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di aggiornare la base di dati.
 %
 \section*{Preparazione della base di dati}
@@ -161,14 +161,14 @@ A partire da questi Model vennero introdotte nel database le seguenti tabelle, l
     di monitoraggio e verifica, attraverso l'applicazione di politiche e Evaluation.
     \item[TargetType:] contiene i tipi di Target supportati da Moon Cloud. In generale sono supportati: \textit{URL}, 
     rappresentante l'URL dell'applicativo web, \textit{Host}, viene specificato l'indirizzo IP identificativo di un host e si distingue 
-    tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{Aws}, rappresentante il servizio di Cloud Computing del 
+    tra sistema operativo \textit{Windows} o \textit{Linux} eseguito su esso, \textit{AWSS}, rappresentante il servizio di Cloud Computing del 
     gruppo Amazon, e \textit{Azure}, definisce un servizio Cloud fornito da Microsoft.
 \end{description}
 %
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.6]{images/MoonCloudRecommendation_ER.png}
-    \caption{Struttura del database implementato in questa soluzione.}
+    \caption[Struttura del database implementato in questa soluzione]{Struttura del database implementato in questa soluzione.}
     \label{fig:str_db_project}
 \end{figure}
 %
@@ -186,7 +186,7 @@ viene mostrato dalla Figura \ref{fig:MCRS_homepage} e il relativo Listing \ref{l
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_homepage.png}
-    \caption{Home page dell'applicativo web a scopo didattico.}
+    \caption[Home page dell'applicativo web a scopo didattico]{Home page dell'applicativo web a scopo didattico.}
     \label{fig:MCRS_homepage}
 \end{figure}
 \lstset{style=python_code_style}
@@ -291,7 +291,7 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     %
     \begin{figure}[ht!]
         \includegraphics[scale=0.3]{images/MCRS_taxnodedetails.png}
-        \caption{Risultato dell'operazione selezionata sul nodo in questione.}
+        \caption[Risultato dell'operazione selezionata sul nodo in questione]{Risultato dell'operazione selezionata sul nodo in questione.}
         \label{fig:MCRS_taxnodedetails}
     \end{figure}
     %
@@ -471,7 +471,7 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     %
     \begin{figure}[ht!]
         \includegraphics[scale=0.3]{images/MCRS_taxdetails.png}
-        \caption{Dettagli della tassonomia sotto forma di tabella come nella base di dati.}
+        \caption[Dettagli della tassonomia sotto forma di tabella]{Dettagli della tassonomia sotto forma di tabella come nella base di dati.}
         \label{fig:MCRS_taxdetails}
     \end{figure}
     %
@@ -639,8 +639,6 @@ HTTP Response Body:
 ]
 \end{lstlisting}
 %
-\newpage
-%
 \section*{Personalizzazione Admin Page}
 Per poter agilmente manipolare la base di dati, senza dover scrivere manualmente le query in puro Sql, Django mette a disposizione 
 la cosiddetta Admin Page mostrata in Figura \ref{fig:MCRS_adminpage}, che è stata personalizzata per mostrare le tabelle su cui è possibile 
@@ -653,19 +651,19 @@ la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_adminpage.png}
-    \caption{Admin page creata automaticamente da Django.}
+    \caption[Admin page creata automaticamente da Django]{Admin page creata automaticamente da Django.}
     \label{fig:MCRS_adminpage}
 \end{figure}
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.3]{images/MCRS_adminpage_evaluationEX.png}
-    \caption{Esempio di Admin page per la tabella delle Evaluation.}
+    \caption[Admin page per la tabella delle Evaluation]{Esempio di Admin page per la tabella delle Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX}
 \end{figure}
 %
 \begin{figure}[ht!]
     \includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.png}
-    \caption{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
+    \caption[Admin page per aggiungere una nuova Evaluation]{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX_add}
 \end{figure}
 %
@@ -709,12 +707,15 @@ url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
     name="user_evaluations_update_view"),
 \end{lstlisting}
 %
-\section*{Implementazione in Docker}
+\newpage
+%
+\section*{Deployment in Docker}
 Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò a essi collegati (View, URL, API REST); l'ultima fase nel ciclo di sviluppo è il 
 deployment e la sua preparazione. In questo caso l'app viene deployata, come il resto dei componenti di Moon Cloud, in una serie di Container Docker. Per 
 tale ragione, è stato predisposto il file \textit{docker-compose.yml}, il quale viene usato dalla Docker Machine per poter creare un Immagine contenente 
-il necessario per l'esecuzione all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter 
-comunicare con l'esterno.
+il necessario per l'esecuzione dei Servizi all'interno del Container, oltre alle caratteristiche del Container stesso e delle informazioni usate per poter 
+comunicare con l'esterno. Inoltre, sempre attraverso questo file è possibile deployare più Container assieme ciascuno che esegue operazioni e 
+implementa Servizi diversi.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Xml, label=lst:docker_compose, caption={Contenuto del file docker-compose.yml per il deployment del sistema di raccomandazione 
     all'interno di un Container.}]
