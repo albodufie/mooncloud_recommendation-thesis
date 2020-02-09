@@ -72,8 +72,6 @@ vengano letti o scritti dati da un database o altre operazioni che portino al so
 risposta al browser web dell'utente che ne ha fatto richiesta, spesso in modo dinamico, creando una pagina HTML, sulla base del Template,
 da mostrare, in cui può essere data la possibilità di inserire dati dall'utente in appositi campi compilabili o semplicemente mostrare delle informazioni.
 %
-\newpage
-%
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.5]{images/Django_doc.jpg}
@@ -148,6 +146,7 @@ Solitamente se si utilizzano delle API si svolgono delle operazioni all’intern
     \caption[Schema di funzionamento di una architettura REST]{Schema generico di funzionamento di un'architettura REST.}
     \label{fig:rest_api}
 \end{figure}
+\hfill\break
 Un'API, sviluppata seguendo tutti i principi dell'architettura REST, permette di effettuare tutte queste operazioni senza la necessità 
 di dover accedere direttamente al database o alla soluzione implementata per l'inserimento, la modifica o il recupero delle informazioni.
 %
@@ -202,7 +201,7 @@ i più importanti presi in considerazione sono i seguenti:
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.55]{images/MC_Rec_Tree.jpg}
+    \includegraphics[scale=0.58]{images/MC_Rec_Tree.jpg}
     \caption[Rappresentazione gerarchica di dati relativi al progetto]{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
     \label{fig:MC_Rec_Tree}
 \end{figure}
@@ -266,8 +265,6 @@ i suoi figli e così via finchè non si arriva ai nodi foglie. Inoltre, molti li
 Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa una porzione di memoria e impiega un certo 
 tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine in maggior tempo.
 %
-\newpage
-%
 \subsection{Nested Set Model}
 Il secondo approccio analizzato è il \textit{Nested Set Model} (con acronimo NSM), il quale è stato utilizzato per l'implementazione delle tassonomie 
 delle le Evaluation e dei Controlli (politiche per verificare il soddisfacimento dei requisiti di sicurezza di un Target o asset indicato dall'utente) 
@@ -277,7 +274,7 @@ come container innestati.
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.68]{images/MC_Rec_NSM_Container(R).jpg}
+    \includegraphics[scale=0.73]{images/MC_Rec_NSM_Container(R).jpg}
     \caption[Gestione di dati, come container innestati, secondo il NSM]{Esempio di gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container_R}
@@ -321,11 +318,9 @@ posta alla fine della sezione.
 Solitamente viene rappresentata attraverso l'uso degli attributi \textit{lft} e \textit{rght} per rappresentare l'annidamento dei nodi 
 perché i nome: \textit{left} e \textit{right}, hanno significati speciali in Sql.
 %
-\newpage
-%
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.53]{images/MC_Rec_NSM_Tree.jpg}
+    \includegraphics[scale=0.57]{images/MC_Rec_NSM_Tree.jpg}
     \caption[Gestione di dati (visione ad albero) secondo il NSM]{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Tree}
@@ -402,7 +397,7 @@ UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
 %
 \begin{figure}
     \centering
-    \includegraphics[scale=0.53]{images/MC_Rec_NSM_Container.jpg}
+    \includegraphics[scale=0.58]{images/MC_Rec_NSM_Container.jpg}
     \caption[Gestione di dati (visione completa) secondo il NSM]{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}

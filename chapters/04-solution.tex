@@ -184,11 +184,6 @@ questa pagina. Il contenuto di questa pagina mostra una breve descrizione di un 
 appositi pulsanti alle pagine specifiche per la navigazione della tassonomia delle Evaluation piuttosto che dei Controlli; tutto questo 
 viene mostrato dalla Figura \ref{fig:MCRS_homepage} e il relativo Listing \ref{lst:view_homepage}.
 %
-\begin{figure}[ht!]
-    \includegraphics[scale=0.4]{images/MCRS_homepage.jpg}
-    \caption[Home page dell'applicativo web a scopo didattico]{Home page dell'applicativo web a scopo didattico.}
-    \label{fig:MCRS_homepage}
-\end{figure}
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_homepage, caption={Parte principale del codice delle View della soluzione per gestire l'accesso 
     alla home page.}]
@@ -201,19 +196,26 @@ def index(request):
     return render(request, "recommendation_app/index.html")
 \end{lstlisting}
 %
+\begin{figure}[ht!]
+    \includegraphics[scale=0.4]{images/MCRS_homepage.jpg}
+    \caption[Home page dell'applicativo web a scopo didattico]{Home page dell'applicativo web a scopo didattico.}
+    \label{fig:MCRS_homepage}
+\end{figure}
+\hfill\break
 Una volta scelta la tassonomia, di Controlli o delle Evaluation, su cui si vuole navigare, viene mostrata una pagina dove nella metà a sinistra 
 troviamo la possibilità di selezionare un nodo della tassonomia e l'operazione che si vuole svolgere su quel nodo, inoltre, è possibile effettuare 
 una richiesta di generazione di file in formato e linguaggio DOT e relativa immagine in formato .jpg, attraverso il pulsante \textit{Request schema}. 
 Proseguendo più in basso, vengono mostrati tutti i nodi a cui è stato associato il tipo Categoria e il tipo Evaluation. Nella porzione destra della 
 pagina web viene mostrata l'intera struttura della tassonomia e un link da quale è possibile accedere a una pagina di dettaglio che mostra una 
-simile a quella presente sul database. Questa pagine è visibile dalla Figura \ref{fig:MCRS_taxindex} e dal Listing \ref{lst:view_tax_homepage}.\hfill\break
+simile a quella presente sul database. Questa pagine è visibile dalla Figura \ref{fig:MCRS_taxindex} e dal Listing \ref{lst:view_tax_homepage}.
+%
+\newpage
 %
 \begin{figure}[ht!]
-    \includegraphics[scale=0.4]{images/MCRS_taxindex.jpg}
+    \includegraphics[scale=0.48]{images/MCRS_taxindex.jpg}
     \caption{Home page per la navigazione della tassonomia delle Evaluation.}
     \label{fig:MCRS_taxindex}
 \end{figure}
-%
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Python, label=lst:view_tax_homepage, caption={Home page dalla quale è possibile richiamare 
     diverse operazioni eseguibili sulla tassonomia.}]
@@ -291,7 +293,7 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     %
     \begin{figure}[ht!]
         \centering
-        \includegraphics[scale=0.4]{images/MCRS_taxnodedetails.jpg}
+        \includegraphics[scale=0.44]{images/MCRS_taxnodedetails.jpg}
         \caption[Risultato dell'operazione selezionata sul nodo in questione]{Risultato dell'operazione selezionata sul nodo in questione.}
         \label{fig:MCRS_taxnodedetails}
     \end{figure}
@@ -472,7 +474,7 @@ di manipolazione dei dati memorizzati dal database vengono svolte con l'ausilio 
     %
     \begin{figure}[ht!]
         \centering
-        \includegraphics[scale=0.41]{images/MCRS_taxdetails.jpg}
+        \includegraphics[scale=0.45]{images/MCRS_taxdetails.jpg}
         \caption[Dettagli della tassonomia sotto forma di tabella]{Dettagli della tassonomia sotto forma di tabella come nella base di dati.}
         \label{fig:MCRS_taxdetails}
     \end{figure}
@@ -653,26 +655,30 @@ la cui compilazione è opzionale e altri in cui è obbligatorio compilare per la
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.38]{images/MCRS_adminpage.jpg}
+    \includegraphics[scale=0.4]{images/MCRS_adminpage.jpg}
     \caption[Admin page creata automaticamente da Django]{Admin page creata automaticamente da Django.}
     \label{fig:MCRS_adminpage}
 \end{figure}
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.38]{images/MCRS_adminpage_evaluationEX.jpg}
+    \includegraphics[scale=0.4]{images/MCRS_adminpage_evaluationEX.jpg}
     \caption[Admin page per la tabella delle Evaluation]{Esempio di Admin page per la tabella delle Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX}
 \end{figure}
 %
+\newpage
+%
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.55]{images/MCRS_adminpage_evaluationEX_add.jpg}
+    \includegraphics[scale=0.6]{images/MCRS_adminpage_evaluationEX_add.jpg}
     \caption[Admin page per aggiungere una nuova Evaluation]{Esempio di Admin page per il caso in cui si vuole aggiungere una nuova Evaluation.}
     \label{fig:MCRS_adminpage_evaluationEX_add}
 \end{figure}
+\hfill\break
 %
 \newpage
+\break
 %
 \section*{Consistenza tra i database}
 Per fare in modo che il database creato in questo progetto e l'attuale database utilizzato dalla piattaforma di Moon Cloud 
@@ -712,8 +718,6 @@ url(r'^user_evaluations/$', user_views.UserEvaluationUpdate.as_view(),
     name="user_evaluations_update_view"),
 \end{lstlisting}
 %
-\newpage
-%
 \section*{Deployment in Docker}
 Una volta preparata la base e gli algoritmi di raccomandazione, con tutto ciò a essi collegati (View, URL, API REST); l'ultima fase nel ciclo di sviluppo è il 
 deployment e la sua preparazione. In questo caso l'app viene deployata, come il resto dei componenti di Moon Cloud, in una serie di Container Docker. Per 
@@ -724,41 +728,41 @@ implementa Servizi diversi.
 \lstset{style=python_code_style}
 \begin{lstlisting}[language=Xml, label=lst:docker_compose, caption={Contenuto del file docker-compose.yml per il deployment del sistema di raccomandazione 
     all'interno di un Container.}]
-    version: '3'
- 
-    services:
-      db:
-        networks:
-          - mooncloud
-        image: postgres:12.1
-        restart: always
-        volumes:
-          - "./init_db/initdb.sh:/docker-entrypoint-initdb.d/1-initdb.sh"
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-    
-      api:
-        networks:
-          - mooncloud
-        build:
-            dockerfile: Dockerfile
-            context: .
-        command: ./entrypoint.sh
-        ports:
-          - "8000:8000"
-        depends_on:
-          - db
-        environment:
-          DATABASE_HOST: db
-          DATABASE_PORT: 5432
-          DATABASE_USER: postgres
-          DATABASE_PASSWORD: postgres
-          DATABASE_NAME: mooncloud_rec
-    
+version: '3'
+
+services:
+    db:
     networks:
-      mooncloud:
-        external: true
+        - mooncloud
+    image: postgres:12.1
+    restart: always
+    volumes:
+        - "./init_db/initdb.sh:/docker-entrypoint-initdb.d/1-initdb.sh"
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+
+    api:
+    networks:
+        - mooncloud
+    build:
+        dockerfile: Dockerfile
+        context: .
+    command: ./entrypoint.sh
+    ports:
+        - "8000:8000"
+    depends_on:
+        - db
+    environment:
+        DATABASE_HOST: db
+        DATABASE_PORT: 5432
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: postgres
+        DATABASE_NAME: mooncloud_rec
+
+networks:
+    mooncloud:
+    external: true
 \end{lstlisting}
 %
 Questo file permette di configurare i servizi della propria applicazione; i quali, attraverso un singolo comando, possono essere creati e inizializzati a 
