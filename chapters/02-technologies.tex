@@ -74,7 +74,7 @@ da mostrare, in cui può essere data la possibilità di inserire dati dall'utent
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.5]{images/Django_doc.jpg}
+    \includegraphics[scale=0.5]{Django_doc}
     \caption[Schema di funzionamento di un applicativo web in Django]{Schema generico di funzionamento di un applicativo web sviluppato con Django.}
     \label{fig:django_doc}
 \end{figure}
@@ -142,7 +142,7 @@ Solitamente se si utilizzano delle API si svolgono delle operazioni all’intern
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.6]{images/api_rest.jpg}
+    \includegraphics[scale=0.6]{api_rest}
     \caption[Schema di funzionamento di una architettura REST]{Schema generico di funzionamento di un'architettura REST.}
     \label{fig:rest_api}
 \end{figure}
@@ -162,7 +162,7 @@ presenza di sistemi separati.
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.55]{images/Docker_Config_Container.jpg}
+    \includegraphics[scale=0.55]{Docker_Config_Container}
     \caption[Schema di funzionamento di un Container in Docker]{Schematizzazione di Container in Docker e di Virtual Machine.}
     \label{fig:DCC}
 \end{figure}
@@ -201,7 +201,7 @@ i più importanti presi in considerazione sono i seguenti:
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.58]{images/MC_Rec_Tree.jpg}
+    \includegraphics[scale=0.58]{MC_Rec_Tree}
     \caption[Rappresentazione gerarchica di dati relativi al progetto]{Esempio della rappresentazione gerarchica parziale dei dati nel progetto in questione.}
     \label{fig:MC_Rec_Tree}
 \end{figure}
@@ -274,7 +274,7 @@ come container innestati.
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.73]{images/MC_Rec_NSM_Container(R).jpg}
+    \includegraphics[scale=0.73]{MC_Rec_NSM_Container(R)}
     \caption[Gestione di dati, come container innestati, secondo il NSM]{Esempio di gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container_R}
@@ -320,7 +320,7 @@ perché i nome: \textit{left} e \textit{right}, hanno significati speciali in Sq
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.57]{images/MC_Rec_NSM_Tree.jpg}
+    \includegraphics[scale=0.57]{MC_Rec_NSM_Tree}
     \caption[Gestione di dati (visione ad albero) secondo il NSM]{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando una parte di quelli presenti nel database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Tree}
@@ -397,7 +397,7 @@ UPDATE Evaluation SET lft = lft - 2 WHERE lft > @myRight;
 %
 \begin{figure}
     \centering
-    \includegraphics[scale=0.58]{images/MC_Rec_NSM_Container.jpg}
+    \includegraphics[scale=0.58]{MC_Rec_NSM_Container}
     \caption[Gestione di dati (visione completa) secondo il NSM]{Esempio della gestione di dati in modo gerarchico secondo il Nested Set Model, utilizzando quelli presi dal database del 
     progetto in questione.}
     \label{fig:MC_Rec_NSM_Container}
@@ -421,7 +421,7 @@ Oggigiorno si possono trovare due principali trend di sistemi di raccomandazione
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[scale=0.7]{images/recommender_systems.jpg}
+    \includegraphics[scale=0.7]{recommender_systems}
     \caption[Categorizzazione generale dei sistemi di raccomandazione]{Categorizzazione generale dei sistemi di raccomandazione.}
     \label{fig:recommender_systems}
 \end{figure}
@@ -448,7 +448,7 @@ un procedimento a 3 fasi.
     cioè attraverso la raccolta diretta di informazioni fornite dagli utenti, ad esempio le valutazioni di un prodotto oppure 
     implicitamente. In questo caso vengono raccolti dati che, non sono prodotti in modo intenzionale dall'utente, ma sono ottenuti 
     dai costanti flussi di dati come la cronologia di ricerca, i click effettuati, lo storico degli ordini, ecc.
-    \item[Memorizzazione di dati:] la quantità di dati definisce quanto efficace un modello di raccomandazione possa di 
+    \item[Memorizzazione di dati:] la quantità di dati definisce quanto efficace un modello di raccomandazione può di 
     diventare. Ad esempio, in un sistema di raccomandazione per film, maggiori sono le valutazioni fornite dagli utenti, e 
     migliore sarà il sistema di raccomandazione per gli altri utenti. Il tipo di dati che si vuole raccogliere determina 
     anche il supporto di memorizzazione più adatto.
@@ -478,11 +478,11 @@ processo di confronto con gli item piaciuti dall'utente e gli item migliori veng
 Il Filtraggio Collaborativo (definito anche con l'acronimo CF) per poter funzionare, si appoggia ad un database che raccoglie le 
 preferenze degli utenti sulla base di un insieme di item, che a loro volta possono essere presenti nella stessa base di dati. 
 Si sfruttano tecniche di analisi dei dati per poter ottenere delle raccomandazioni che consiglino gli utenti a trovare gli item 
-che gli potrebbero piacere,eventualmente producendo una lista dei migliori N item.\hfill\break
+che gli potrebbero piacere, eventualmente producendo una lista dei migliori N item.\hfill\break
 Un utente è sottoposto ad un processo di matching per poter scoprire quali sono i possibili \textit{neighbours}, 
 che corrispondono ai possibili utenti aventi storicamente delle preferenze in comune ad egli. Infine, gli item maggiormente 
 preferiti dai \textit{neighbours} sono raccomandati all'utente.\hfill\break
-Questi sistemi tentano di predire la valutazione o la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
+Questi sistemi tentano di predire la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
 utenti, queste ultime possono essere ottenute o in modo esplicito dagli utenti o tramite misurazioni implicite. 
 Inoltre i Filtri Collaborativi non richiedono l'uso di metadati associati agli item, come nei Filtri Content-based.\hfill\break
 Tuttavia, restano ancora oggi alcune sfide significative a cui sono sottoposti i sistemi di raccomandazione basati su 

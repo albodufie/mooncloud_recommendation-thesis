@@ -1,29 +1,27 @@
-\documentclass[12pt,fleqn,twoside,a4paper]{book}
+\documentclass[12pt, fleqn, twoside, a4paper]{book}
 
 \usepackage[italian]{babel} % lingua del documento
 \usepackage[T1]{fontenc} % codifica dei font
 \usepackage[utf8]{inputenc} % lettere accentate da tastiera
-%\usepackage{float}
+\usepackage[top=2.5cm, margin=3cm, bottom=2.5cm]{geometry}
 \usepackage{graphicx}
-\usepackage[top=2.5cm,margin=3cm,bottom=2.5cm]{geometry}
 \graphicspath{{images/}}
-%\usepackage{rotating} % ruotare un immagine
 \usepackage{listings} % inserire codice sorgente a modo
 \usepackage[table]{xcolor}
 
 % colori per le parti di codice in python
-\definecolor{codeorange}{rgb}{1,0.5,0}
-\definecolor{codegreen}{rgb}{0,0.7,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codedarkgreen}{rgb}{0,0.4,0}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codeorange}{rgb}{1, 0.5, 0}
+\definecolor{codegreen}{rgb}{0, 0.7, 0}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codedarkgreen}{rgb}{0, 0.4, 0}
+\definecolor{backcolour}{rgb}{0.95, 0.95, 0.92}
 
 % colori per le tabelle in cui identifico il root node, i nodi categoria e i nodi evaluation/control
-\definecolor{rootnodecell}{rgb}{0.68,0.25,0.19}
+\definecolor{rootnodecell}{rgb}{0.68, 0.25, 0.19}
 \colorlet{rootnodecell}{rootnodecell!50}
-\definecolor{categorycell}{rgb}{0.07,0.66,0.71}
+\definecolor{categorycell}{rgb}{0.07, 0.66, 0.71}
 \colorlet{categorycell}{categorycell!50}
-\definecolor{evaluationcell}{rgb}{0.94,0.57,0.12}
+\definecolor{evaluationcell}{rgb}{0.94, 0.57, 0.12}
 \colorlet{evaluationcell}{evaluationcell!50}
 
 \lstdefinestyle{python_code_style}{
@@ -81,7 +79,7 @@ facente parte dell'ambito della Security Assurance}
     \begin{center}
         \begin{figure}
             \centering
-            \includegraphics[height=5.0 cm]{logo.jpg}
+            \includegraphics[height=5.0 cm]{logo}
         \end{figure}
         \vspace{.2 cm}
         {\Large

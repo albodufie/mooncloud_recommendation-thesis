@@ -25,7 +25,7 @@
         \end{column}
         \begin{column}{0.4\textwidth}
             \begin{center}
-                \includegraphics[scale=0.12]{images_pres/mc}
+                \includegraphics[scale=0.12]{images/mc}
             \end{center}
         \end{column}
     \end{columns}
@@ -42,38 +42,78 @@
         \item L'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{semplice} e \alert{intuitivo}
         \item Si è cercato di colmare il problema della mancata fiducia in questi sistemi
     \end{itemize}
-
 \end{frame}
 
-% SLIDE 5:
+% SLIDE 5: sistema di raccomandazione
 \begin{frame}
     \frametitle{Sistema di raccomandazione}
-
+    Un \textit{recommendation system} può filtrare i dati usando differenti algoritmi e raccomandare gli item più rilevanti agli utenti attraverso 
+    un procedimento a 3 fasi
+    \begin{enumerate}
+        \item \alert{Raccolta di dati}: ottenere dati rilevanti e consistenti su cui applicare algoritmi di raccomandazione
+        \item \alert{Memorizzazione di dati}: la quantità di dati definisce quanto efficace un modello di raccomandazione può di diventare
+        \item \alert{Filtraggio dei dati}: estrarre le informazioni più rilevanti
+    \end{enumerate}
 \end{frame}
 
-% SLIDE 5:
-%\begin{frame}
-%    \frametitle{}
+% SLIDE 6: Collaborative Filter
+\begin{frame}
+    \frametitle{Collaborative filtering}
+    Questo sistema tenta di predire la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
+    utenti%, cioè sulla base di utenti aventi storicamente delle preferenze in comune
+    \begin{itemize}
+        \item Memory-based: metodi che mirano a determinare il grado di relazione tra utenti e item identificando 
+        utenti con uno storico di item usati simile
+            \begin{itemize}
+                \item \alert{UB-CF}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours})
+                \item \alert{IB-CF}: algoritmo che confornta gli item dell'utente a cui si vuole raccomandare e i possibili item simili
+            \end{itemize}
+        \item Hybrid filter: combinare più tecniche di raccomandazione, raggruppando i pregi di ciascun approccio
+    \end{itemize}
+\end{frame}
 
-%\end{frame}
+% SLIDE 7: Collaborative Filter
+\begin{frame}
+    \frametitle{Collaborative filtering (2)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[scale=0.5]{images/UB_CF_ex}
+                \caption{User based Collaborative Filter}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[scale=0.5]{images/IB_CF_ex}
+                \caption{Item based Collaborative Filter}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
 
-% SLIDE 6:
-%\begin{frame}
-%    \frametitle{}
+% SLIDE 8: Soluzione 
+\begin{frame}
+    \frametitle{Soluzione}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.42]{images/UML_MoonCloud_HowToDo}
+    \end{figure}
+\end{frame}
 
-%\end{frame}
-
-% SLIDE 7:
-%\begin{frame}
-%    \frametitle{}
-
-%\end{frame}
-
-% SLIDE 8:
-%\begin{frame}
-%    \frametitle{}
-
-%\end{frame}
+% SLIDE 9: Soluzione 2
+\begin{frame}
+    \frametitle{Soluzione (2)}
+    Servizio di API REST, che si appoggia a un database Postgres, accessibile 
+    attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di aggiornare la base di dati
+    \begin{enumerate}
+        \item Preparazione della base di dati
+        \item Realizzazione delle View
+        \item Consistenza tra i database
+        \item Deployment in Docker
+    \end{enumerate}
+\end{frame}
 
 % SLIDE 9:
 %\begin{frame}
