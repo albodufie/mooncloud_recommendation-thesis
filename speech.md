@@ -1,25 +1,24 @@
-# SLIDE 2: motivazioni
-- Introdurre il mondo del cloud e i suoi benefici ma anche il problema della sicurezza e della scarsa fiducia in questi sistemi da parte dei 
-clienti 
+# SLIDE 2: Scenario e motivazioni 
+- Introdurre il mondo del cloud e i suoi benefici ma anche il problema della sicurezza e della scarsa fiducia in questi sistemi da parte dei clienti 
 - Come soluzione ai problemi di sicurezza venne introdotta la Security Assurance evidenziando le difficoltà nel loro utilizzo dovute alle specificità che contiene
 - per introdurre il motivo della tesi bisogna raccontare delle difficoltà nel dare fiducia nel sistemi Cloud, soprattutto se legati alla 
 sicurezza, trattano dati sensibili (banche) o cose simili.
-- motivo della tesi -> semplificare l'utilizzo agli utenti e cercare di avviciare anche le persone più diffidenti ad utilizzare questi sistemi.
-(maggiore fiducia e trasparenza)
+- definizione di **Cloud Security** 
+- come la tecnica delle security assurance può risolvere questi problemmi di fiducia
+        raccolta di evidence
 
 
-
-# SLIDE 3: motivazioni (1)
+# SLIDE 3: scenario e motivazioni (2)
 - Moon Cloud come salvezza da tutto questo: piattaforma PaaS che implementa una Security Governance e Assurance
-    
+- security Assurance e i 4 requisiti (sistema olistico, monitoraggio continuo, singolo punto di managment e reazioni rapdide a incidenti)
     analisi continua e olistica dell'asset da proteggere è meglio di avere singoli controlli all'avanguardia.
-
+- Security compliance evaluation
 
 
 # SLIDE 4: obiettivi
 - Introdurre un sistema di raccomandazione che porta ad avere usabilità semplificata per utenti e maggiore fiducia nei sistemi cloud
-
-
+- motivo della tesi -> semplificare l'utilizzo agli utenti e cercare di avviciare anche le persone più diffidenti ad utilizzare questi sistemi.
+(maggiore fiducia e trasparenza)
 
 # SLIDE 5: Sistema di raccomandazione
 - descrizione generica e discorsiva con esempi (Netflix, Amazon)
