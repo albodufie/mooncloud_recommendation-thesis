@@ -47,7 +47,7 @@ sicurezza, trattano dati sensibili (banche) o cose simili.
 
 
 # SLIDE 7: Collaborative Filter
-- 
+- descrizione e differenze tra user based e item based con riferimenti a ciò che è stato implementato nella soluzione
 
 
 # SLIDE 8: Soluzione
