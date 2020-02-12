@@ -12,7 +12,7 @@
     \end{itemize}
 \end{frame}
 
-% SLIDE 3: motivazioni
+% SLIDE 3: motivazioni (2)
 \begin{frame}
     \frametitle{Scenario e Motivazioni (2)}
     \begin{columns}
@@ -60,7 +60,7 @@
 \begin{frame}
     \frametitle{Collaborative filtering}
     Questo sistema tenta di predire la preferenza che un utente darebbe a un item basandosi sulle preferenze date da altri 
-    utenti%, cioè sulla base di utenti aventi storicamente delle preferenze in comune
+    utenti
     \begin{itemize}
         \item Memory-based: metodi che mirano a determinare il grado di relazione tra utenti e item identificando 
         utenti con uno storico di item usati simile
@@ -72,7 +72,7 @@
     \end{itemize}
 \end{frame}
 
-% SLIDE 7: Collaborative Filter
+% SLIDE 7: Collaborative Filter (2)
 \begin{frame}
     \frametitle{Collaborative filtering (2)}
     \begin{columns}
@@ -95,15 +95,6 @@
 
 % SLIDE 8: Soluzione 
 \begin{frame}
-    \frametitle{Soluzione}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.42]{images/UML_MoonCloud_HowToDo}
-    \end{figure}
-\end{frame}
-
-% SLIDE 9: Soluzione 2
-\begin{frame}
     \frametitle{Soluzione (2)}
     Servizio di API REST, che si appoggia a un database Postgres, accessibile 
     attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di aggiornare la base di dati
@@ -113,6 +104,15 @@
         \item Consistenza tra i database
         \item Deployment in Docker
     \end{enumerate}
+\end{frame}
+
+% SLIDE 9: Soluzione (2)
+\begin{frame}
+    \frametitle{Soluzione}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.42]{images/UML_MoonCloud_HowToDo}
+    \end{figure}
 \end{frame}
 
 % SLIDE 9:
