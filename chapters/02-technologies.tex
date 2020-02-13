@@ -1,8 +1,8 @@
 \chapter{Tecnologie utilizzate}\label{chp:02-technologies}
 In questo capitolo sono descritte le tecnologie utilizzate per la realizzazione del progetto unitamente alle motivazioni legate all'uso 
 di certi sistemi di raccomandazione rispetto ad altri. In particolare viene fornita una panoramica dei sistemi analizzati e studiati;
-nel capitolo successivo vengono approfonditi a livello pratico i sistemi di raccomandazione Memory-based i quali sono stati utilizzati 
-per l'implementazione della soluzione.
+nel capitolo successivo vengono approfonditi a livello pratico i sistemi di raccomandazione basati su tecniche di Filtraggio
+Collaborativo Memory-based i quali sono stati utilizzati per l'implementazione della soluzione.
 %
 \section{Perché Python e Django}
 \paragraph{Python}
@@ -49,7 +49,7 @@ avviene nel C) che generi un file eseguibile partendo dal sorgente \cite{python-
 Django è un web framework di alto livello basato su Pyhton che permette di sviluppare rapitamente e con tutti i presupposti per un sistema sicuro, un sito web
 perfettamente mantenibile. Esso si occupa della maggiori difficoltà dello sviluppo web, così da permettere di concentrarsi sulla scrittura dell'app; inoltre 
 è open-source e ha una comunità attiva, una documentazione completa e semplice da consultare.\hfill\break
-Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{django-documentation}.
+Django supporta lo sviluppo di applicazioni con le seguenti caratteristiche \cite{django-documentation}.
 \begin{description}
     \item[Versatile:] può essere usato per la creazione di quasi tutti i tipi di siti web, a partire da sistemi per la gestione di contenuti,
     a social network e siti di notizie; può lavorare con qualunque client-side framework, e gestire contenuti in quasi tutti i formati (inclusi HTML, 
@@ -62,7 +62,7 @@ Django aiuta a scrivere applicazioni con le seguenti caratteristiche \cite{djang
     particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
     Django raggruppa parti di codice letto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
     \item[Portabile:] Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
-    sia Linux, Windows o Mac OS X. Per di più, è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
+    sia Linux, Windows o Mac OS. Per di più, è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
     e documentazione per l'hosting di siti web in Django.
 \end{description}
 In generale, un tradizionale server web resta in attesa di richieste HTTP da parte del browser web (o altri client) degli utenti; nel momento in cui riceve 
@@ -85,7 +85,7 @@ gruppi di file svolge delle operazioni ben precise.
 \begin{description}
     \item Un \textbf{URL mapper} è usato per reindirizzare le richieste HTTP alla View corretta in base all'URL della richiesta; è possibile processare 
     richieste da qualsiasi URL attraverso una singola funzione, ma è più mantenibile scrivere diverse View per gestire ogni risorsa. 
-    Inoltre è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
+    Inoltre, è possibile controllare se nell'URL è presente un particolare pattern di stringhe o numeri, e passare di conseguenza la richiesta alla 
     funzione appropriata come dati da elaborare.
     \item Una \textbf{View} è una funzione che gestisce le richieste HTTP, e restituisce una risposta HTTP. Le View accedono ai dati necessari per soddisfare la 
     richiesta, anche attraverso i Model, e si delega la formattazione delle risposte ai Template.
@@ -99,7 +99,7 @@ Nel Listing \ref{lst:URLex1} si può osservare come viene scritto un URL e come 
 momento in cui viene fatta una richiesta HTTP a questo URL \texttt{recommendation/item/<item\_other\_id>/} viene richiamata la 
 View \texttt{recommendation\_views.item\_recommendation} passando il parametro \texttt{<item\_other\_id>}.
 \lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:URLex1]
+\begin{lstlisting}[language=Python, label=lst:URLex1, caption={\ }]
 # URL Example 'recommendation/item/35/'
 path('recommendation/item/<item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
 \end{lstlisting}
@@ -111,7 +111,7 @@ contenuti nel database e ora attraverso i cosiddetti QuerySet, messi a disposizi
 determinati tramite l'agoritmo di raccomandazione quali sono i possibili item simili e vengono salvati nella variabile \texttt{similar\_item\_evaluations}, 
 infine, dopo aver ripulito i dati da informazioni poco rilevanti, viene restiuita una risposta in formato JSON al browser web che ha effettuato la richiesta.
 \lstset{style=python_code_style}
-\begin{lstlisting}[language=Python, label=lst:URLex2]
+\begin{lstlisting}[language=Python, label=lst:URLex2, caption={\ }]
 # Item recommendation API REST
 @api_view(['GET'])
 def item_recommendation(request, item_other_id):
@@ -152,7 +152,7 @@ di dover accedere direttamente al database o alla soluzione implementata per l'i
 %
 \section{Docker}
 Docker è una piattaforma software che permette di creare, testare e distribuire applicazioni con la massima rapidità. Docker raccoglie 
-le applicazioni in unità standardizzate chiamate \textit{Container} che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
+le applicazioni in unità standardizzate, chiamate \textit{Container}, che offrono tutto il necessario per la loro corretta esecuzione, incluse librerie, 
 strumenti di sistema, codice e runtime. Con Docker, è possibile distribuire e ricalibrare le risorse per un'applicazione in qualsiasi ambiente, 
 tenendo sempre sotto controllo il codice eseguito.\hfill\break
 Questa tecnologia utilizza solitamente il kernel di Linux e le sue funzionalità, come namespace, per isolare i processi in modo da poterli 
@@ -169,13 +169,13 @@ presenza di sistemi separati.
 \hfill\break
 Gli strumenti per la creazione di Container, come Docker, consentono il deployment a partire da un'\textit{immagine}, ciò semplifica la condivisione di 
 un'applicazione o di un insieme di servizi, con tutte le loro dipendenze, nei vari ambienti.
-Docker, considera i Container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di creare, distribuire, 
-copiare e spostare i Container da un ambiente all'altro, ottimizzando così le app per il cloud.\hfill\break
-I Container forniscono una modalità standard per impacchettare il codice delle applicazioni, le configurazioni e le dipendenze, in un singolo oggetto e 
+Docker, considera i Container come macchine virtuali modulari estremamente leggere, offrendo la flessibilità di crearli, distribuirli, 
+copiarli e spostarli da un ambiente all'altro, ottimizzando così le app per il cloud.\hfill\break
+Essi forniscono una modalità standard per impacchettare il codice delle applicazioni, le configurazioni e le dipendenze, in un singolo oggetto e 
 condividono un sistema operativo installato sul server, operando come processi con risorse isolate, assicurando velocità, affidabilità e distribuzioni coerenti, 
 indipendentemente dall’ambiente.\hfill\break
 %
-Questo sistema crea un livello di astrazione fra i Container e il sistema operativo ospitante e gestisce l’attivazione e la disattivazione dei Contenitori. 
+Questo sistema crea un livello di astrazione fra i Container e il sistema operativo ospitante e gestisce la loro attivazione e disattivazione. 
 Un'altra grande differenza è che la virtualizzazione permette di eseguire più sistemi operativi contemporaneamente in un singolo sistema, mentre i Container 
 condividono lo stesso kernel del sistema operativo e isolano i processi applicativi dal resto dell’infrastruttura.
 %
@@ -185,14 +185,14 @@ record; quindi in dati gerarchici si instaurano delle relazioni padre-figlio tra
 all'interno di un database relazionale, il quale, per l'appunto, segue il Modello Relazionale.\hfill\break
 Esso è un modello logico di rappresentazione dei dati all'interno di un database, in cui ogni riga di una tabella è un record identificato univocamente
 da una chiave primaria, e le colonne contengono gli attributi dei dati e in genere ogni record ha un valore per ogni attributo.\hfill\break
-In questa tesi si è lavorato su un database Sql, in cui i dati normalmente sono conservati come semplici "flat table", e in particolare si è usato il DBMS 
-PostgreSQL, un sistema di gestione di database relazionali ad oggetti (ORDBMS). In generale le tabelle contenute in questo tipo di base di dati non permettono la 
+In questa tesi si è lavorato su un database SQL, in cui i dati normalmente sono conservati come semplici "flat table", e in particolare si è usato il DBMS 
+PostgreSQL, un sistema di gestione di database relazionali ad oggetti. In generale le tabelle contenute in questo tipo di base di dati non permettono la 
 memorizzazione secondo un modello gerarchico (come nell'XML).\hfill\break
 Per questo motivo è sorta la necessità di cercare un metodo alternativo per poter rappresentare queste strutture all'interno di database tradizionali.
 In questo caso ogni nodo ha un solo padre e nessuno o più figli (a eccezione del nodo radice che non ha un nodo padre); questo genere di rappresentazione 
 delle informazioni, può essere trovato in diversi ambiti di applicazione di un database, incluse discussioni su forum e mailing list, 
 grafici di organizzazione di un business, categorie per gestire contenuti e prodotti.\hfill\break
-Durante lo studio compiuto per la realizzazione di questa tesi sono stati analizzati diversi approcci per poter gestire le informazioni in modo gerarchico, 
+Durante lo studio compiuto per la realizzazione di questa soluzione sono stati analizzati diversi approcci per poter gestire le informazioni in modo gerarchico, 
 i più importanti presi in considerazione sono i seguenti: 
 \begin{itemize}
     \item The Adjacency List Model.
@@ -262,7 +262,7 @@ SELECT t1.name AS lev1, t2.name as lev2, t3.name as lev3
 \end{lstlisting}
 Questa query si può tradurre in codice client-side attraverso una funzione ricorsiva la quale determina per ogni nodo i suoi figli, per ogni figlio
 i suoi figli e così via finchè non si arriva ai nodi foglie. Inoltre, molti linguaggi non sono ottimizzati per funzioni ricorsive. 
-Per ogni nodo, la funzione crea una nuova istanza di se stessa e ogni istanza occupa una porzione di memoria e impiega un certo 
+Per ogni nodo, una funzione di questo tipo crea una nuova istanza di se stessa e ogni istanza occupa una porzione di memoria e impiega un certo 
 tempo per inizializzarsi, più grande è l'albero e più questo processo sarà portato a termine in maggior tempo.
 %
 \subsection{Nested Set Model}
