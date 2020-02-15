@@ -64,19 +64,5 @@ sicurezza, trattano dati sensibili (banche) o cose simili.
 - "CASO D'USO"
 
 
-# Implementazione della struttura dell'applicativo web
-- sistema sviluppato con Django e rilasciato su Docker
-
-
-# SLIDE 10: Gestione della base di dati
-- Come vengono gestiste delle tassonomie in un database di tipo relazionale
-
-
-# SLIDE 11: API REST
-- come interagisce effettivamente MC e SdR
-- mantenimento della consistenza dei dati tra i due db
-
-
-# SLIDE 12: Conclusioni
+# SLIDE 10: Conclusioni
 - cosa ho ottenuto alla fine e sviluppi futuri
-
