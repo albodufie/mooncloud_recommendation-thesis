@@ -65,4 +65,7 @@ sicurezza, trattano dati sensibili (banche) o cose simili.
 
 
 # SLIDE 10: Conclusioni
-- cosa ho ottenuto alla fine e sviluppi futuri
+Il sistema di raccomandazione sviluppato in questo tesi offre delle raccomandazioni di tipo basico, tuttavia è in grado di 
+supportare gli utenti nell'utilizzo della piattaforma Moon Cloud. Offre altresì spunti di miglioramento, ad esempio 
+l'introduzione di un sistema di valutazione delle Evaluation o dei Controlli da parte dell'utente così da incrementare 
+la precisione del sistema di raccomandazione, il quale terrebbe conto anche di queste valutazioni.
