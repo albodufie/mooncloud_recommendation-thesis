@@ -36,8 +36,8 @@
 % SLIDE 4: obiettivi
 \begin{frame}
     \frametitle{Obiettivo della tesi}
-    Introdurre un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
-    all'\textit{asset} che si vuole proteggere e monitorare
+    Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
+    all'\textit{asset} che vuole proteggere e monitorare
     \begin{itemize}
         \item L'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{semplice} e \alert{intuitivo}
         \item Si è cercato di colmare il problema della mancata fiducia in questi sistemi
@@ -63,17 +63,13 @@
     \begin{itemize}
         \item Memory-based: metodi che mirano a determinare il grado di relazione tra utenti e item identificando 
         utenti con uno storico di item usati simile
-            \begin{itemize}
-                \item \alert{UB-CF}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours})
-                \item \alert{IB-CF}: algoritmo che confronta gli item dell'utente a cui si vuole raccomandare e i possibili item simili
-            \end{itemize}
         \item Hybrid filter: combinazione di più tecniche di raccomandazione per raggruppare i pregi di ciascun approccio
     \end{itemize}
 \end{frame}
 
-% SLIDE 7: Collaborative Filter (2)
+% SLIDE 7: Collaborative filtering - Memory based
 \begin{frame}
-    \frametitle{Collaborative filtering (2)}
+    \frametitle{Collaborative filtering - Memory based}
     \begin{columns}
         \begin{column}{0.5\textwidth}
             \begin{figure}
@@ -83,16 +79,29 @@
             \end{figure}
         \end{column}
         \begin{column}{0.5\textwidth}
+            \alert{UB-CF}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours})
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% SLIDE 8: Collaborative filtering - Memory based (2)
+\begin{frame}
+    \frametitle{Collaborative filtering - Memory based (2)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
                 \includegraphics[scale=0.5]{images/IB_CF_ex}
                 %\caption{Item based Collaborative Filter}
             \end{figure}
         \end{column}
+        \begin{column}{0.5\textwidth}
+            \alert{IB-CF}: algoritmo che confronta gli item dell'utente a cui si vuole raccomandare e i possibili item simili
+        \end{column}
     \end{columns}
 \end{frame}
 
-% SLIDE 8: Soluzione
+% SLIDE 9: Soluzione
 \begin{frame}
     \frametitle{Soluzione}
     Servizio di \alert{API REST}, che si appoggia a un database Postgres, accessibile 
@@ -105,7 +114,7 @@
     \end{enumerate}
 \end{frame}
 
-% SLIDE 9: Soluzione (2)
+% SLIDE 10: Soluzione (2)
 \begin{frame}
     \frametitle{Soluzione (2)}
     \begin{figure}
@@ -114,7 +123,7 @@
     \end{figure}
 \end{frame}
 
-% SLIDE 10: Conclusioni
+% SLIDE 11: Conclusioni
 \begin{frame}
     \frametitle{Conclusioni}
     La soluzione proposta introduce un sistema di raccomandazione in un mondo in cui spesso non è presente perché 
@@ -124,12 +133,6 @@
         Security Assurance in totale sicurezza e affidabilità
     \end{itemize}
 \end{frame}
-
-% SLIDE 11:
-%\begin{frame}
-%    \frametitle{}
-
-%\end{frame}
 
 % SLIDE 12:
 %\begin{frame}

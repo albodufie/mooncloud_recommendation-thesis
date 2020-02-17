@@ -46,25 +46,28 @@ sicurezza, trattano dati sensibili (banche) o cose simili.
 - CATEGORIE FONDAMENTALI affrontate nella tesi: memory based e hybrid 
 
 
-# SLIDE 7: Collaborative Filter (2)
+# SLIDE 7: Collaborative filtering - Memory based
 - UB-CF: basa tutto il suo funzionamento sulla comunità di utenti, maggiore è la sua dimensione e l'interazione degli utenti con gli item e migliori possono essere le raccomandazioni. Questo algoritmo fornisce dei suggerimenti a un utente sulla base di uno o più vicini neighbours, e la similarità tra di essi può essere determinata sulla base degli item che l'utente ha utilizzato o valutato.
     FASE 1: specificare quale sia l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare i relativi utenti che possono avere dato valutazioni o usato item simili al primo utente
     FASE 2: estrarre gli item con cui il primo utente non ha mai interagito e per questo motivo gli possono interessare
 - HO APPLICATO L'UB-CF NELLA SOLUZIONE PER GLI UTENTI
+
+
+# SLIDE 8: Collaborative filtering - Memory based (2)
 - IB-CF: Quando l'algoritmo UB-CF viene applicato per milioni di utenti e item non è molto efficiente per via della complessa computazione della ricerca di utenti simili. Per questo motivo venne ideata come alternativa il sistema Filtraggio Collaborativo Item-based dove si è preferito evitare di confrontare utenti simili, e al suo posto viene effettuato un confronto tra gli item dell'utente a cui si vuole raccomandare e i possibili item simili.
 - HO APPLICATO L'IB-CF NELLA SOLUZIONE PER DETERMINARE EVALUATIONE E TARGET
 
 
-# SLIDE 8: Soluzione
+# SLIDE 9: Soluzione
 - sviluppo della soluzione e cosa fa ad alto livello
 
 
-# SLIDE 9: Soluzione (2)
+# SLIDE 10: Soluzione (2)
 - [Figura UML di come SdR interagisce con MC] descrizione generale del funzionamento dell'implementazione
 - "CASO D'USO"
 
 
-# SLIDE 10: Conclusioni
+# SLIDE 11: Conclusioni
 Il sistema di raccomandazione sviluppato in questo tesi offre delle raccomandazioni di tipo basico, tuttavia è in grado di 
 supportare gli utenti nell'utilizzo della piattaforma Moon Cloud. Offre altresì spunti di miglioramento, ad esempio 
 l'introduzione di un sistema di valutazione delle Evaluation o dei Controlli da parte dell'utente così da incrementare 
