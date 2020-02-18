@@ -58,8 +58,8 @@ Django supporta lo sviluppo di applicazioni con le seguenti caratteristiche \cit
     le operazioni in modo corretto e sicuro. Ad esempio, Django fornisce un metodo sicuro per gestire gli account degli utenti e le relative 
     password, evitando errori comuni come inserire informazioni riguardanti la sessione dell'utente nei cookies, dove sarebbero vulnerabili (invece i cookie 
     contengono soltanto una chiave, e i valori effettivi sono salvati nel database) o salvare direttamente una password invece di una hash password.
-    \item[Mantenibile:] il codice è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre 
-    particolare, fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
+    \item[Mantenibile:] il codice è scritto seguendo i principi e i pattern che incoraggiano la creazione di codice mantenibile e riusabile. Inoltre, 
+    fa uso del principio "Don't Repeat Yourself" (DRY) così da ridurre al minimo le duplicazioni non necessarie, diminuendo la quantità di codice.
     Django raggruppa parti di codice letto in moduli seguendo le linee guida del pattern Model View Controller (MVC).
     \item[Portabile:] Django essendo scritto in Python, un linguaggio multi piattaforma, lo rende indipendente dal sistema operativo eseguito sul server, che 
     sia Linux, Windows o Mac OS. Per di più, è ben supportato da molti web hosting provider, che spesso provvedono a specifche infrastrutture
@@ -104,8 +104,8 @@ View \texttt{recommendation\_views.item\_recommendation} passando il parametro \
 path('recommendation/item/<item_other_id>/', recommendation_views.item_recommendation, name='item_recommendation')
 \end{lstlisting}
 A questo punto, come viene mostrato nel Listing \ref{lst:URLex2}, viene richiamata la View, essa prende i valori che gli vengono passati in ingresso e 
-restituisce un risultato, in questo caso viene richiamata la View che implementa il sistema di raccomandazione Item-based, la quale si effettua una ricerca 
-nel database per il valore del parametro \texttt{<item\_other\_id>} in ingresso, verificando l'esistenza di quell'item, questo è possibile
+restituisce un risultato, in questo caso viene richiamata la View che implementa il sistema di raccomandazione Item-based, la quale effettua una ricerca 
+nel database per il valore del parametro \texttt{<item\_other\_id>} in ingresso, verificando l'esistenza di quell'item; questo è possibile
 grazie all'ausilio dei Model i quali sono stati utilizzati precedentemente per definire la struttura delle tabelle e dei relativi campi 
 contenuti nel database e ora attraverso i cosiddetti QuerySet, messi a disposizione da Django, è possibile accedere a quei dati; successivamente vengono 
 determinati tramite l'agoritmo di raccomandazione quali sono i possibili item simili e vengono salvati nella variabile \texttt{similar\_item\_evaluations}, 

@@ -4,23 +4,34 @@
 % SLIDE 2: motivazioni
 \begin{frame}
     \frametitle{Scenario e Motivazioni}
-    Il mondo del Cloud ha portato molti benefici, tuttavia solleva diverse problematiche legate alla \alert{mancanza di fiducia}
-    \hfill\break
+    Il mondo del Cloud ha portato molti benefici, tuttavia solleva diverse problematiche
     \begin{itemize}
-        \item Non vengono fornite agli utenti le specifiche riguardanti le misure di sicurezza messe in atto
-        \item Sono sistemi specifici e \alert{difficili da utilizzare} se non si ha esperienza in materia
+        \item \alert{poca fiducia} da parte degli utenti in questi sistemi
+        \item col tempo sono diventati molto \alert{complessi e impegnativi da gestire}, soprattutto dal punto di vista della sicurezza
+        \item sono sistemi specifici e \alert{difficili da utilizzare} se non si ha esperienza in materia
     \end{itemize}
 \end{frame}
 
-% SLIDE 3: motivazioni (2)
+% SLIDE 3: obiettivi
 \begin{frame}
-    \frametitle{Scenario e Motivazioni (2)}
+    \frametitle{Obiettivo della tesi}
+    Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
+    all'\textit{asset} che vuole proteggere e monitorare
+    \begin{itemize}
+        \item l'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{semplice} e \alert{intuitivo}
+        \item si è cercato di colmare il problema della mancata fiducia in questi sistemi
+    \end{itemize}
+\end{frame}
+
+% SLIDE 4: Moon Cloud
+\begin{frame}
+    \frametitle{Moon Cloud}
     \begin{columns}
         \begin{column}{0.55\textwidth}
             Moon Cloud è una piattaforma erogata come servizio, la quale supporta:
             \begin{itemize}
-                \item Un sistema di \textit{Security Governance}
-                \item Un framework di \alert{\textit{Security Assurance}}
+                \item un sistema di \textit{Security Governance}
+                \item un framework di \alert{\textit{Security Assurance}}
             \end{itemize}
         \end{column}
         \begin{column}{0.4\textwidth}
@@ -31,17 +42,6 @@
     \end{columns}
     Garantisce il controllo della sicurezza informatica in modo rapido ed efficiente, attraverso attività di test e monitoraggio 
     periodiche e programmate
-\end{frame}
-
-% SLIDE 4: obiettivi
-\begin{frame}
-    \frametitle{Obiettivo della tesi}
-    Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
-    all'\textit{asset} che vuole proteggere e monitorare
-    \begin{itemize}
-        \item L'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{semplice} e \alert{intuitivo}
-        \item Si è cercato di colmare il problema della mancata fiducia in questi sistemi
-    \end{itemize}
 \end{frame}
 
 % SLIDE 5: sistema di raccomandazione
@@ -61,60 +61,26 @@
     \frametitle{Collaborative filtering}
     Questo sistema predice la preferenza che un utente accorderebbe a un item basandosi sulle preferenze date da altri utenti
     \begin{itemize}
-        \item Memory-based: metodi che mirano a determinare il grado di relazione tra utenti e item identificando 
-        utenti con uno storico di item usati simile
-        \item Hybrid filter: combinazione di più tecniche di raccomandazione per raggruppare i pregi di ciascun approccio
+        \item \alert{semplici da implementare}, \alert{intuitivi} e non necessitano di operazioni di training sui dati e 
+        regolazione di molti parametri
+        \item permettono all'utente di comprendere le ragioni che si celano dietro ad ogni raccomandazione
     \end{itemize}
 \end{frame}
 
-% SLIDE 7: Collaborative filtering - Memory based
-\begin{frame}
-    \frametitle{Collaborative filtering - Memory based}
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[scale=0.5]{images/UB_CF_ex}
-                %\caption{User based Collaborative Filter}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \alert{User Based Collaborative Filter}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours})
-        \end{column}
-    \end{columns}
-\end{frame}
-
-% SLIDE 8: Collaborative filtering - Memory based (2)
-\begin{frame}
-    \frametitle{Collaborative filtering - Memory based (2)}
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[scale=0.5]{images/IB_CF_ex}
-                %\caption{Item based Collaborative Filter}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \alert{Item based Collaborative Filter}: algoritmo che confronta gli item dell'utente a cui si vuole raccomandare e i possibili item simili
-        \end{column}
-    \end{columns}
-\end{frame}
-
-% SLIDE 9: Soluzione
+% SLIDE 7: Soluzione
 \begin{frame}
     \frametitle{Soluzione}
-    Servizio di \alert{API REST}, che si appoggia a un database Postgres, accessibile 
-    attraverso apposite URL; questo servizio permette di effettuare richieste al sistema di raccomandazione e di aggiornare la base di dati
+    Servizio di \alert{API REST} accessibile attraverso apposite URL che permette di effettuare richieste al sistema di 
+    raccomandazione e di aggiornare la base di dati
     \begin{enumerate}
-        \item Preparazione della base di dati
-        \item Realizzazione delle View
-        \item Consistenza tra i database
-        \item Deployment in Docker
+        \item preparazione della base di dati
+        \item realizzazione delle View
+        \item consistenza tra i database
+        \item deployment in Docker
     \end{enumerate}
 \end{frame}
 
-% SLIDE 10: Soluzione (2)
+% SLIDE 8: Soluzione (2)
 \begin{frame}
     \frametitle{Soluzione (2)}
     \begin{figure}
@@ -123,14 +89,14 @@
     \end{figure}
 \end{frame}
 
-% SLIDE 11: Conclusioni
+% SLIDE 9: Conclusioni
 \begin{frame}
     \frametitle{Conclusioni}
-    La soluzione proposta introduce un sistema di raccomandazione in un mondo in cui spesso non è presente perché 
+    La soluzione introduce un sistema di raccomandazione in un mondo in cui spesso non è presente perché 
     popolato da utenti esperti
     \begin{itemize}
-        \item Viene data una possibilità a un \alert{maggior numero di utenti} di accedere a servizi su un sistema Cloud di 
-        Security Assurance in totale sicurezza e affidabilità
+        \item viene data una possibilità a un \alert{maggior numero di utenti} di accedere a servizi di test e 
+        monitoraggio in totale sicurezza e affidabilità
     \end{itemize}
 \end{frame}
 
@@ -138,4 +104,38 @@
 %\begin{frame}
 %    \frametitle{}
 
+%\end{frame}
+
+% SLIDE 7: Collaborative filtering - Memory based
+%\begin{frame}
+%    \frametitle{Collaborative filtering - Memory based}
+%    \begin{columns}
+%        \begin{column}{0.5\textwidth}
+%            \begin{figure}
+%                \centering
+%                \includegraphics[scale=0.5]{images/UB_CF_ex}
+%               %\caption{User based Collaborative Filter}
+%           \end{figure}
+%        \end{column}
+%        \begin{column}{0.5\textwidth}
+%            \alert{User Based Collaborative Filter}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours})
+%        \end{column}
+%    \end{columns}
+%\end{frame}
+
+% SLIDE 8: Collaborative filtering - Memory based (2)
+%\begin{frame}
+%    \frametitle{Collaborative filtering - Memory based (2)}
+%    \begin{columns}
+%        \begin{column}{0.5\textwidth}
+%            \begin{figure}
+%                \centering
+%                \includegraphics[scale=0.5]{images/IB_CF_ex}
+%                %\caption{Item based Collaborative Filter}
+%            \end{figure}
+%        \end{column}
+%        \begin{column}{0.5\textwidth}
+%            \alert{Item based Collaborative Filter}: algoritmo che confronta gli item dell'utente a cui si vuole raccomandare e i possibili item simili
+%        \end{column}
+%    \end{columns}
 %\end{frame}
