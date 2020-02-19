@@ -4,11 +4,11 @@
 % SLIDE 2: motivazioni
 \begin{frame}
     \frametitle{Scenario e Motivazioni}
-    Il mondo del Cloud ha portato molti benefici, tuttavia solleva diverse problematiche
+    Il mondo del Cloud in cooperazione con i sistemi IT ha portato molti benefici, tuttavia vengono sollevate diverse problematiche
     \begin{itemize}
-        \item \alert{poca fiducia} da parte degli utenti in questi sistemi
-        \item col tempo sono diventati molto \alert{complessi e impegnativi da gestire}, soprattutto dal punto di vista della sicurezza
-        \item sono sistemi specifici e \alert{difficili da utilizzare} se non si ha esperienza in materia
+        \item \alert{poca fiducia} nel mondo del cloud da parte degli utenti
+        \item col tempo questi sistemi sono diventati molto \alert{complessi e impegnativi da gestire}
+        \item inoltre sono specifici e \alert{difficili da utilizzare} se non si ha esperienza in materia
     \end{itemize}
 \end{frame}
 
@@ -31,7 +31,7 @@
             Moon Cloud è una piattaforma erogata come servizio, la quale supporta:
             \begin{itemize}
                 \item un sistema di \textit{Security Governance}
-                \item un framework di \alert{\textit{Security Assurance}}
+                \item un framework di \alert{\textit{Security Assurance}}, basato su Controlli ed Evaluation
             \end{itemize}
         \end{column}
         \begin{column}{0.4\textwidth}
@@ -44,7 +44,7 @@
     periodiche e programmate
 \end{frame}
 
-% SLIDE 5: sistema di raccomandazione
+% SLIDE 5: Sistema di Raccomandazione
 \begin{frame}
     \frametitle{Sistema di raccomandazione}
     Un \textit{recommendation system} può filtrare i dati usando differenti algoritmi e raccomandare gli item più rilevanti agli utenti attraverso 
@@ -94,10 +94,9 @@
     Servizio di \alert{API REST} accessibile attraverso apposite URL che permette di effettuare richieste al sistema di 
     raccomandazione e di aggiornare la base di dati
     \begin{enumerate}
-        \item preparazione della base di dati
-        \item realizzazione delle View
-        \item consistenza tra i database
-        \item deployment in Docker
+        \item in base alle informazioni inserite dall'utente sull'\alert{asset} da proteggere e alle Evaluation usate vengono generate delle 
+        liste 
+        \item queste liste contengono le Evaluation da raccomandare a quell'utente
     \end{enumerate}
 \end{frame}
 
@@ -105,8 +104,8 @@
 \begin{frame}
     \frametitle{Soluzione (2)}
     \begin{figure}
-        \centering
-        \includegraphics[scale=0.42]{images/UML_MoonCloud_HowToDo}
+        %\centering
+        \includegraphics[scale=0.28]{images/UML_MoonCloud_HowToDoPres}
     \end{figure}
 \end{frame}
 
@@ -116,8 +115,8 @@
     La soluzione introduce un sistema di raccomandazione in un mondo in cui spesso non è presente perché 
     popolato da utenti esperti
     \begin{itemize}
-        \item viene data una possibilità a un \alert{maggior numero di utenti} di accedere a servizi di test e 
-        monitoraggio in totale sicurezza e affidabilità
+        \item la configurazione delle attività di test vengono semplificate
+        \item un maggior numero di utenti può fare uso di questi sistemi in totale sicurezza e affidabilità
     \end{itemize}
 \end{frame}
 
