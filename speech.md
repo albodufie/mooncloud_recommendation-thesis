@@ -1,38 +1,3 @@
-# SLIDE 2: Scenario e motivazioni 
-- Introdurre il mondo del cloud e i suoi benefici ma anche il problema della sicurezza e della scarsa fiducia in questi sistemi da parte dei clienti 
-- Come soluzione ai problemi di sicurezza venne introdotta la Security Assurance evidenziando le difficoltà nel loro utilizzo dovute alle specificità che contiene
-- per introdurre il motivo della tesi bisogna raccontare delle difficoltà nel dare fiducia nel sistemi Cloud, soprattutto se legati alla 
-sicurezza, trattano dati sensibili (banche) o cose simili.
-- definizione di **Cloud Security** 
-- come la tecnica delle security assurance può risolvere questi problemmi di fiducia
-        
-        raccolta di evidence
-
-# SLIDE 3: obiettivi
-- Introdurre un sistema di raccomandazione che porta ad avere usabilità semplificata per utenti e maggiore fiducia nei sistemi cloud
-- motivo della tesi -> semplificare l'utilizzo agli utenti e cercare di avviciare anche le persone più diffidenti ad utilizzare questi sistemi.
-(maggiore fiducia e trasparenza)
-
-# SLIDE 4: Moon Cloud
-- Moon Cloud come salvezza da tutto questo: piattaforma PaaS che implementa una Security Governance e Assurance
-- security Assurance e i 4 requisiti (sistema olistico, monitoraggio continuo, singolo punto di managment e reazioni rapdide a incidenti)
-    analisi continua e olistica dell'asset da proteggere è meglio di avere singoli controlli all'avanguardia.
-- Security compliance evaluation
-
-# SLIDE 5: Sistema di raccomandazione
-- descrizione generica e discorsiva con esempi (Netflix, Amazon)
-- principali sistemi di raccomandazione
-    - CBF: un item viene raccomandato ad un utente se esso è simile ad altri item di interesse o piaciuti in passato, prendendo in considerazione prima gli item con alte valutazioni o quelli molto utilizzati;
-        - focalizza sul contenuto degli item e  
-        sugli interessi del singolo utente e propone item differenti a utenti differenti, questo significa che ogni utente può ricevere raccomandazioni uniche
-        - non poter determinare se un utente è interessato ad un item in modo implicito
-        - lento in caso di item ricchi di dati
-
-    - CF: un item viene raccomandato ad un utente se i suoi vicini
-        - una raccomandazione viene fatta sulla base delle valutazioni degli utenti per gli item, o sugli usi che gli utenti fanno degli item e questo è il suo punto di forza perché non si trova a dover analizzare item ricchi di informazioni
-        - può portare suggerimenti che potrebbero essere considerati poco adatti
-        - problema con item nuovi nel database
-- Funzionamento del sistema di raccomandaizone: le tre fasi
 
 
 # SLIDE 6: Collaborative Filter
