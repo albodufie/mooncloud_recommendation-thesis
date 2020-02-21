@@ -63,7 +63,7 @@ Un utente è sottoposto a un processo di matching per poter determinare quali so
 simile; quindi gli item preferiti dai neighbours vengono raccomandati.
 Inoltre, non richiedono l'uso di metadati associati agli item.
 
-# SLIDE 8: Recommendation Algorithm
+# SLIDE 8(7): Recommendation Algorithm
 - L'algoritmo di raccomandazione, il cui funzionamento è visibile nell'**immagine a sinistra**, chiamato User-based Collaborative Filter basa tutto 
 il suo funzionamento sulla comunità di utenti, maggiore è la sua dimensione e l'interazione degli utenti con gli item e migliori possono essere le 
 raccomandazioni. Questo algoritmo fornisce dei suggerimenti a un utente sulla base di uno o più vicini neighbours, e la similarità tra di essi può 
@@ -92,7 +92,7 @@ In questa situazione per determinare quale/i item consigliare all'utente arancio
 matching con gli item all'interno della base di dati che possono essere simili all'item C, e quelli simili vengono raccomandati all'utente.
 
 
-# SLIDE 9: Soluzione
+# SLIDE 9 (8): Soluzione
 La soluzione proposta in questa tesi implementa in sostanza diverse funzioni di raccomandazione a seconda dell'URL e del metodo della chiamata 
 effettuata dalla richiesta HTTP e restituisce i riferimenti agli item da raccomandare sottoforma di risposta HTTP in formato JSON. 
 I possibili algoritmi di raccomandazione che è possibile richiamare sono 3:
@@ -102,7 +102,7 @@ Evaluation compatibili o simili per le Evaluation indicata o per l'asset dell'ut
 - Hybrid algorithm per l'utente cerca di mettere insieme le raccomandazione prodotte dagli altri due algoritmi.
 
 
-# SLIDE 9: Soluzione (2)
+# SLIDE 10 (9): Soluzione (2)
 Un possibile caso di funzionamento del sistema di raccomandazione proposto in questa soluzione è il seguente mostrato nella figura; quando un utente 
 decide di voler eseguire una nuova Evaluation egli la può selezionare tra quelle proposte da Moon Cloud attraverso la Dashboard principale, a quel 
 punto a partire dal core di Moon Cloud viene inviata una richiesta HTTP con metodo GET a uno specifico URL, in quel momento il Sistema di 
@@ -112,7 +112,7 @@ in suo possesso e restituisce sottoforma di risposta HTTP in formato JSON la lis
 in ingresso; a questo punto attraverso la dashboard l'utente le può visionare e scegliere.
 
 
-# SLIDE 10: Conclusioni (1m)
+# SLIDE 11 (10): Conclusioni (1m)
 Il sistema di raccomandazione sviluppato in questo tesi offre delle raccomandazioni di tipo basico, tuttavia è in grado di 
 supportare gli utenti nell'utilizzo della piattaforma Moon Cloud. Offre altresì spunti di miglioramento, ad esempio 
 l'introduzione di un sistema di valutazione delle Evaluation o dei Controlli da parte dell'utente così da incrementare 
