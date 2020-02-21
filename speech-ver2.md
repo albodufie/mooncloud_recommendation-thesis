@@ -102,13 +102,14 @@ Evaluation compatibili o simili per le Evaluation indicata o per l'asset dell'ut
 - Hybrid algorithm per l'utente cerca di mettere insieme le raccomandazione prodotte dagli altri due algoritmi.
 
 
-
 # SLIDE 9: Soluzione (2)
-
-
-
-- "CASO D'USO"
-
+Un possibile caso di funzionamento del sistema di raccomandazione proposto in questa soluzione è il seguente mostrato nella figura; quando un utente 
+decide di voler eseguire una nuova Evaluation egli la può selezionare tra quelle proposte da Moon Cloud attraverso la Dashboard principale, a quel 
+punto a partire dal core di Moon Cloud viene inviata una richiesta HTTP con metodo GET a uno specifico URL, in quel momento il Sistema di 
+Raccomandazione che è in ascolto, riceve la richiesta, sulla base dell'URL e del metodo capisce quale algoritmo di raccomandazione utilizzare, 
+estrae i dati dall'URL, in particolare il riferimento all'interno della base di dati dell'Evaluation, effettua delle operazione di matching sui dati
+in suo possesso e restituisce sottoforma di risposta HTTP in formato JSON la lista dei riferimenti alle Evaluation simili a quella che ha ricevuto 
+in ingresso; a questo punto attraverso la dashboard l'utente le può visionare e scegliere.
 
 
 # SLIDE 10: Conclusioni (1m)
