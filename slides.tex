@@ -53,16 +53,25 @@
     \end{enumerate}
 \end{frame}
 
-% SLIDE 6: Collaborative Filter
+% SLIDE 6: Struttura del database
 \begin{frame}
-    \frametitle{Collaborative filtering}
-    Questo sistema predice la preferenza che un utente accorderebbe a un item basandosi sulle preferenze date da altri utenti
-    \begin{itemize}
-        \item \alert{semplici da implementare}, \alert{intuitivi} e non necessitano di operazioni di training sui dati e 
-        regolazione di molti parametri
-        \item permettono all'utente di comprendere le ragioni che si celano dietro ad ogni raccomandazione
-    \end{itemize}
+    \frametitle{Struttura base di dati}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.35]{images/MC_Rec_Tree2}
+    \end{figure}
 \end{frame}
+
+% SLIDE 6: Collaborative Filter
+%\begin{frame}
+%    \frametitle{Collaborative filtering}
+%    Questo sistema predice la preferenza che un utente accorderebbe a un item basandosi sulle preferenze date da altri utenti
+%    \begin{itemize}
+%        \item \alert{semplici da implementare}, \alert{intuitivi} e non necessitano di operazioni di training sui dati e 
+%        regolazione di molti parametri
+%        \item permettono all'utente di comprendere le ragioni che si celano dietro ad ogni raccomandazione
+%    \end{itemize}
+%\end{frame}
 
 % SLIDE 8: Recommendation Algorithms
 \begin{frame}
@@ -73,14 +82,14 @@
                 \centering
                 \includegraphics[scale=0.5]{images/UB_CF_ex}
            \end{figure}
-           %\alert{User Based Collaborative Filter}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours})
+           \alert{User Based Collaborative Filter}: algoritmo che fornisce dei suggerimenti sulla base di uno o più vicini (\textit{neighbours}) 
         \end{column}
         \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[scale=0.5]{images/IB_CF_ex}
+                \includegraphics[scale=0.55]{images/IB_CF_ex2}
             \end{figure}
-            %\alert{Item based Collaborative Filter}: algoritmo che confronta gli item dell'utente a cui si vuole raccomandare e i possibili item simili
+            \alert{Item based Collaborative Filter}: algoritmo che confronta gli item dell'utente a cui si vuole raccomandare e i possibili item simili 
         \end{column}
     \end{columns}
 \end{frame}
@@ -89,19 +98,22 @@
 \begin{frame}
     \frametitle{Soluzione}
     Servizio di \alert{API REST} accessibile attraverso apposite URL che permette di effettuare richieste al sistema di 
-    raccomandazione e di aggiornare la base di dati
-    \begin{enumerate}
-        \item in base alle informazioni inserite dall'utente sul \alert{target} da proteggere e alle Evaluation usate vengono generate delle 
-        liste 
-        \item queste liste contengono le Evaluation da raccomandare a quell'utente
-    \end{enumerate}
+    raccomandazione e di mantenere consistente la base di dati
+    \begin{itemize}
+        \item si possono richiamare diversi algoritmi di raccomandazione
+        \begin{itemize}
+            \item \alert{User-based Recommendation Algorithm}, il quale si basa sulle Evaluation usate dall'utente a cui si vuole raccomandare 
+            \item \alert{Item-based Recommendation Algorithm}, il quale si può basare o su Evaluation o su Target forniti dall'utente 
+            \item \alert{Hybrid Recommendation Algorithm}, cerca di mettere i pregi dei precedenti algoritmi di raccomandazione per le Evaluation 
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 % SLIDE 9: Soluzione (2)
 \begin{frame}
     \frametitle{Soluzione (2)}
     \begin{figure}
-        %\centering
+        \centering
         \includegraphics[scale=0.32]{images/UML_MoonCloud_HowToDoPres}
     \end{figure}
 \end{frame}
@@ -116,9 +128,3 @@
         \item un maggior numero di utenti può fare uso di questi sistemi in totale sicurezza e affidabilità
     \end{itemize}
 \end{frame}
-
-% SLIDE 12:
-%\begin{frame}
-%    \frametitle{}
-
-%\end{frame}
