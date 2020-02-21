@@ -4,8 +4,7 @@
 % SLIDE 2: motivazioni
 \begin{frame}
     \frametitle{Scenario e Motivazioni}
-    I sistemi IT attuali sono \alert{complessi} ed \alert{eterogenei}, attività di \alert{\textit{Security Assurance}} diventano fondamentali
-
+    I sistemi IT attuali sono \alert{complessi} ed \alert{eterogenei}, attività di \alert{\textit{Security Assurance}} diventano fondamentali 
     \begin{itemize}
         \item numerosi strumenti di sicurezza esistenti
         \item spesso \alert{complessi} da utilizzare
@@ -18,28 +17,7 @@
     % \end{itemize}
 \end{frame}
 
-% SLIDE 3: obiettivo della tesi
-\begin{frame}
-    \frametitle{Obiettivi}
-    Sviluppare un \alert{sistema di raccomandazione} di \alert{verifiche di sicurezza} che consenta di:
-    \begin{itemize}
-        \item suggerire agli utenti quali sono le verifiche \alert{più adatte} per i loro sistemi
-        \begin{itemize}
-            \item \textbf{VEDI SE RIESCI A RIMUOVERE STO SPAZIO BRUTTO PRIMA}sulla base di diversi parametri
-        \end{itemize}
-        \item fornire un \alert{supporto} alle \alert{attività di \textit{Security Assurance}}
-    \end{itemize}
-
-    % Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
-    % al \textit{target} che vuole proteggere e monitorare
-    % \begin{itemize}
-    %     \item l'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{efficace} ed \alert{intuitivo} 
-    %     \item viene supportanto in ogni fase dall'inserimento delle informazioni del target da proteggere fino alla scelta delle 
-    %     attività di monitoraggio da eseguire
-    % \end{itemize}
-\end{frame}
-
-% SLIDE 4: Moon Cloud
+% SLIDE 3: Moon Cloud
 \begin{frame}
     \frametitle{Moon Cloud}
     \begin{columns}
@@ -63,6 +41,27 @@
     \end{columns}
     % Garantisce il controllo della sicurezza informatica in modo rapido ed efficiente, attraverso attività di test e monitoraggio 
     % periodiche e programmate
+\end{frame}
+
+% SLIDE 4: obiettivo della tesi
+\begin{frame}
+    \frametitle{Obiettivi}
+    Sviluppare un \alert{sistema di raccomandazione} di \alert{verifiche di sicurezza} che consenta di:
+    \begin{itemize}
+        \item suggerire agli utenti quali sono le verifiche \alert{più adatte} per i loro sistemi
+        \vspace{-0.4 cm}
+        \begin{itemize}
+            \item sulla base di diversi parametri
+        \end{itemize}
+        \item fornire un \alert{supporto} alle \alert{attività di \textit{Security Assurance}}
+    \end{itemize}
+    % Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
+    % al \textit{target} che vuole proteggere e monitorare
+    % \begin{itemize}
+    %     \item l'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{efficace} ed \alert{intuitivo} 
+    %     \item viene supportanto in ogni fase dall'inserimento delle informazioni del target da proteggere fino alla scelta delle 
+    %     attività di monitoraggio da eseguire
+    % \end{itemize}
 \end{frame}
 
 % SLIDE 5: Sistema di Raccomandazione
@@ -128,9 +127,9 @@
         \begin{itemize}
             \item \alert{user-based} basato su \textit{Evaluation} passate eseguite dall'utente%, il quale si basa sulle Evaluation usate dall'utente a cui si vuole raccomandare 
             \item \alert{item-based} basato su \textit{Evaluation} o \textit{Target}%, il quale si può basare o su Evaluation o su Target forniti dall'utente 
-            \item \alert{ibrido}\textbf{metti tu qualcosa di più stringato}%, cerca di mettere insieme i pregi dei precedenti algoritmi per determinare le Evaluation simili
+            \item \alert{ibrido} condensa i pregi dei precedenti algoritmi%, cerca di mettere insieme i pregi dei precedenti algoritmi per determinare le Evaluation simili
         \end{itemize}
-        \item garantisce la \alert{coerenza} tra il DB principale di Moon Cloud e quello usato dal servizio
+        \item garantisce la \alert{coerenza} tra il database principale di Moon Cloud e quello usato dal servizio
     \end{itemize}
 \end{frame}
 
@@ -139,7 +138,7 @@
     \frametitle{Soluzione (2)}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.32]{images/UML_MoonCloud_HowToDoPres}
+        \includegraphics[scale=0.34]{images/UML_MoonCloud_HowToDoPres}
     \end{figure}
 \end{frame}
 
@@ -149,6 +148,6 @@
     La soluzione introduce un sistema di raccomandazione in un contesto in cui spesso non è presente %perché popolato da utenti esperti
     \begin{itemize}
         \item la configurazione delle \alert{attività di test} vengono \alert{semplificate} 
-        \item un maggior numero di utenti può fare uso di questi sistemi in totale sicurezza e affidabilità \textbf{OK MA PIÀ STRINGATO: ES RENDE ASSURANCE PIÙ ACCESSIBILE}
+        \item la \textit{Security Assurance} diventa maggiormente accessibile%un maggior numero di utenti può fare uso di questi sistemi in totale sicurezza e affidabilità \textbf{OK MA PIÀ STRINGATO: ES RENDE ASSURANCE PIÙ ACCESSIBILE}
     \end{itemize}
 \end{frame}
