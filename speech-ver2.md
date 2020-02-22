@@ -1,5 +1,5 @@
 # SLIDE 2: Scenario e motivazioni (1m30s)
-Oggi giorno i sistemi IT lavorano spesso in cooperazione con i sitemi Cloud, sia in ambienti privati sia in quelli lavorativi, portando molti 
+Oggigiorno i sistemi IT lavorano spesso in cooperazione con i sitemi Cloud, sia in ambienti privati sia in quelli lavorativi, portando molti 
 vantaggi in termini di automazione di processi e incremento di performance. 
 In particolare, grazie ai servizi offerti dalle tecnologie Cloud è possibile accedere a risorse e servizi attraverso la rete in qualunque momento
 e luogo. Tutti questi benefici (flessibilità, ridotto consumo delle risorse) sono anche loro accompagnati da diverse problematiche.
@@ -15,8 +15,8 @@ provvedere una protezione olistica (da tutti i fronti).
 # SLIDE 3: Moon Cloud (2m)
 Moon Clou è una piattaforma che permette di effettuare verifiche e monitoraggi dell'adeguatezza di sistemi IT, in modo continuo e olistico, a 
 politiche di sicurezza. Possiede:
-- singolo punto di management e una raccolta delle Evaluation da poter eseguire.
-- essendo un framework di Security Assurance, si vuole che un asset garantisca il soddisfacimento di politiche o standard precedentemente definiti.
+- un singolo punto di management e una raccolta delle Evaluation da poter eseguire.
+- è un framework di Security Assurance, quindi permette di garantire che un asset soddisfi politiche o standard precedentemente definiti.
 - questi standard vengono definiti all'interno della piattaforma attraverso dei processi chiamati Evaluation, verifiche a cui un target è sottoposto
 e per cui vengono raccolte delle evidence e permettono di valutare l'adeguatezza di un target a uno o più standard di sicurezza. I risultati di 
 questi processi vengono riportati all'utente con diversi gradi di dettaglio (Generale, risultato di un processo di Evaluation, fino al risultato 
@@ -113,8 +113,8 @@ in ingresso; a questo punto attraverso la dashboard l'utente le può visionare e
 
 
 # SLIDE 10 (11): Conclusioni (1m)
-Il sistema di raccomandazione sviluppato in questo tesi offre delle raccomandazioni di tipo basico, tuttavia è in grado di 
-supportare gli utenti nell'utilizzo della piattaforma Moon Cloud. Offre altresì spunti di miglioramento, ad esempio 
+Il sistema di raccomandazione sviluppato  offre delle raccomandazioni di tipo basico, tuttavia è in grado di 
+supportare gli utenti nell'utilizzo della piattaforma Moon Cloud. Offre anche spunti di miglioramento, ad esempio 
 l'introduzione di un sistema di valutazione delle Evaluation o dei Controlli da parte dell'utente così da incrementare 
 la precisione del sistema di raccomandazione, il quale terrebbe conto anche di queste valutazioni.
 
