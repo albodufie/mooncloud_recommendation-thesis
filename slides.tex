@@ -4,20 +4,55 @@
 % SLIDE 2: motivazioni
 \begin{frame}
     \frametitle{Scenario e Motivazioni}
-    Il mondo del Cloud in cooperazione con i sistemi IT ha portato molti benefici, tuttavia vengono sollevate diverse problematiche
+    I sistemi IT attuali sono \alert{complessi} ed \alert{eterogenei}, attività di \alert{\textit{Security Assurance}} diventano fondamentali 
     \begin{itemize}
-        \item questi sistemi sono spesso \alert{complessi e impegnativi da gestire} se non si hanno conoscenze approfondite in materia, 
-        soprattutto per utenti poco esperti
+        \item numerosi strumenti di sicurezza esistenti
+        \item spesso \alert{complessi} da utilizzare
+        \item difficilmente accessibili a utenti poco esperti
     \end{itemize}
+    % Il mondo del Cloud in cooperazione con i sistemi IT ha portato molti benefici, tuttavia vengono sollevate diverse problematiche
+    % \begin{itemize}
+    %     \item questi sistemi sono spesso \alert{complessi e impegnativi da gestire} se non si hanno conoscenze approfondite in materia, 
+    %     soprattutto per utenti poco esperti
+    % \end{itemize}
 \end{frame}
 
-% SLIDE 3: Moon Cloud
+% SLIDE 3: obiettivo della tesi
+\begin{frame}
+    \frametitle{Obiettivi}
+    Sviluppare un \alert{sistema di raccomandazione} di \alert{verifiche di sicurezza} che consenta di:
+    \begin{itemize}
+        \item suggerire agli utenti quali sono le verifiche \alert{più adatte} per i loro sistemi
+        \vspace{-0.4 cm}
+        \begin{itemize}
+            \item sulla base di diversi parametri
+        \end{itemize}
+        \item fornire un \alert{supporto} alle \alert{attività di \textit{Security Assurance}}
+    \end{itemize}
+    % Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
+    % al \textit{target} che vuole proteggere e monitorare
+    % \begin{itemize}
+    %     \item l'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{efficace} ed \alert{intuitivo} 
+    %     \item viene supportanto in ogni fase dall'inserimento delle informazioni del target da proteggere fino alla scelta delle 
+    %     attività di monitoraggio da eseguire
+    % \end{itemize}
+\end{frame}
+
+% SLIDE 4: Moon Cloud
 \begin{frame}
     \frametitle{Moon Cloud}
     \begin{columns}
         \begin{column}{0.55\textwidth}
-            Moon Cloud è una piattaforma erogata come servizio, la quale supporta un framework di \alert{\textit{Security Assurance}}, 
-            basato su Controlli ed Evaluation
+            Framework di \alert{\textit{Security Assurance}}
+            \begin{itemize}
+                \item erogato \alert{as-a-Service}
+                \begin{itemize}
+                    \item l'utente configura le verifiche (\alert{\textit{Evaluation}}) di sicurezza
+                    \item Moon Cloud le esegue e mostra risultati
+                \end{itemize}
+                \item controllo \alert{centralizzato} della sicurezza di un sistema
+                %\item l'utente conf (\alert{\textit{Evaluation}})
+            \end{itemize}
         \end{column}
         \begin{column}{0.4\textwidth}
             \begin{center}
@@ -25,55 +60,23 @@
             \end{center}
         \end{column}
     \end{columns}
-    Garantisce il controllo della sicurezza informatica in modo rapido ed efficiente, attraverso attività di test e monitoraggio 
-    periodiche e programmate
-\end{frame}
-
-% SLIDE 4: obiettivo della tesi
-\begin{frame}
-    \frametitle{Obiettivo della tesi}
-    Introduzione di un \alert{sistema di raccomandazione} che possa consigliare all'utente delle possibili \textit{Evaluation} rispetto 
-    al \textit{target} che vuole proteggere e monitorare
-    \begin{itemize}
-        \item l'utente meno esperto può usufruire dei servizi offerti da Moon Cloud in modo \alert{efficace} ed \alert{intuitivo} 
-        \item viene supportanto in ogni fase dall'inserimento delle informazioni del target da proteggere fino alla scelta delle 
-        attività di monitoraggio da eseguire
-    \end{itemize}
+    % Garantisce il controllo della sicurezza informatica in modo rapido ed efficiente, attraverso attività di test e monitoraggio 
+    % periodiche e programmate
 \end{frame}
 
 % SLIDE 5: Sistema di Raccomandazione
 \begin{frame}
-    \frametitle{Sistema di raccomandazione}
-    Un \textit{recommendation system} può filtrare i dati usando differenti algoritmi e raccomandare gli item più rilevanti agli utenti attraverso 
+    \frametitle{Sistemi di raccomandazione}
+    Un \textit{recommendation system} filtra i dati usando diversi algoritmi e raccomanda gli item più rilevanti agli utenti attraverso 
     un procedimento a 3 fasi
     \begin{enumerate}
-        \item \alert{Raccolta di dati}: ottenere informazioni rilevanti e consistenti su cui applicare algoritmi di raccomandazione
-        \item \alert{Memorizzazione di dati}: la quantità di dati definisce quanto efficace un modello di raccomandazione può di diventare
-        \item \alert{Filtraggio dei dati}: estrarre le informazioni più rilevanti
+        \item \alert{raccolta di dati}: ottenere informazioni rilevanti e consistenti su cui applicare algoritmi di raccomandazione
+        \item \alert{memorizzazione di dati}: la quantità di dati definisce quanto efficace un modello di raccomandazione può diventare
+        \item \alert{filtraggio dei dati}: estrarre le informazioni più rilevanti
     \end{enumerate}
 \end{frame}
 
-% SLIDE 6: Struttura del database
-\begin{frame}
-    \frametitle{Struttura base di dati}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.35]{images/MC_Rec_Tree2}
-    \end{figure}
-\end{frame}
-
-% SLIDE 6: Collaborative Filter
-%\begin{frame}
-%    \frametitle{Collaborative filtering}
-%    Questo sistema predice la preferenza che un utente accorderebbe a un item basandosi sulle preferenze date da altri utenti
-%    \begin{itemize}
-%        \item \alert{semplici da implementare}, \alert{intuitivi} e non necessitano di operazioni di training sui dati e 
-%        regolazione di molti parametri
-%        \item permettono all'utente di comprendere le ragioni che si celano dietro ad ogni raccomandazione
-%    \end{itemize}
-%\end{frame}
-
-% SLIDE 8: Recommendation Algorithms
+% SLIDE 6: Recommendation Algorithms
 \begin{frame}
     \frametitle{Recommendation Algorithms}
     \begin{columns}
@@ -94,18 +97,39 @@
     \end{columns}
 \end{frame}
 
+% SLIDE 6: Collaborative Filter
+%\begin{frame}
+%    \frametitle{Collaborative filtering}
+%    Questo sistema predice la preferenza che un utente accorderebbe a un item basandosi sulle preferenze date da altri utenti
+%    \begin{itemize}
+%        \item \alert{semplici da implementare}, \alert{intuitivi} e non necessitano di operazioni di training sui dati e 
+%        regolazione di molti parametri
+%        \item permettono all'utente di comprendere le ragioni che si celano dietro ad ogni raccomandazione
+%    \end{itemize}
+%\end{frame}
+
+% SLIDE 7: Struttura del database
+\begin{frame}
+    \frametitle{Tassonomia}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.35]{images/MC_Rec_Tree2}
+    \end{figure}
+\end{frame}
+
 % SLIDE 9: Soluzione
 \begin{frame}
     \frametitle{Soluzione}
-    Servizio di \alert{API REST} accessibile attraverso apposite URL che permette di effettuare richieste al sistema di 
-    raccomandazione e di mantenere consistente la base di dati
+    Servizio di \alert{API REST} che implementa un \alert{sistema di raccomandazione} \alert{integrato} nel \alert{backend} di Moon Cloud
+    % accessibile attraverso apposite URL che permette di effettuare richieste al sistema di  raccomandazione e di mantenere consistente la base di dati
     \begin{itemize}
-        \item si possono richiamare diversi algoritmi di raccomandazione
+        \item offre diversi tipi di raccomandazioni per \alert{suggerire \textit{Evaluation}}
         \begin{itemize}
-            \item \alert{algoritmo di raccomandazione User-based}, il quale si basa sulle Evaluation usate dall'utente a cui si vuole raccomandare 
-            \item \alert{algoritmo di raccomandazione Item-based}, il quale si può basare o su Evaluation o su Target forniti dall'utente 
-            \item \alert{algoritmo di raccomandazione Ibrido}, cerca di mettere insieme i pregi dei precedenti algoritmi per determinare le Evaluation simili
+            \item \alert{user-based} basato su \textit{Evaluation} passate eseguite dall'utente%, il quale si basa sulle Evaluation usate dall'utente a cui si vuole raccomandare 
+            \item \alert{item-based} basato su \textit{Evaluation} o \textit{Target}%, il quale si può basare o su Evaluation o su Target forniti dall'utente 
+            \item \alert{ibrido} condensa i pregi dei precedenti algoritmi%, cerca di mettere insieme i pregi dei precedenti algoritmi per determinare le Evaluation simili
         \end{itemize}
+        \item garantisce la \alert{coerenza} tra il database principale di Moon Cloud e quello usato dal servizio
     \end{itemize}
 \end{frame}
 
@@ -114,17 +138,16 @@
     \frametitle{Soluzione (2)}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.32]{images/UML_MoonCloud_HowToDoPres}
+        \includegraphics[scale=0.34]{images/UML_MoonCloud_HowToDoPres}
     \end{figure}
 \end{frame}
 
 % SLIDE 10: Conclusioni
 \begin{frame}
     \frametitle{Conclusioni}
-    La soluzione introduce un sistema di raccomandazione in un mondo in cui spesso non è presente perché 
-    popolato da utenti esperti
+    La soluzione introduce un sistema di raccomandazione in un contesto in cui spesso non è presente %perché popolato da utenti esperti
     \begin{itemize}
-        \item la configurazione delle attività di test vengono semplificate
-        \item un maggior numero di utenti può fare uso di questi sistemi in totale sicurezza e affidabilità
+        \item la configurazione delle \alert{attività di test} vengono \alert{semplificate} 
+        \item la \textit{Security Assurance} diventa maggiormente accessibile%un maggior numero di utenti può fare uso di questi sistemi in totale sicurezza e affidabilità \textbf{OK MA PIÀ STRINGATO: ES RENDE ASSURANCE PIÙ ACCESSIBILE}
     \end{itemize}
 \end{frame}

@@ -12,7 +12,16 @@ proprietà di sicurezza messe in atto.
 La sicurezza non dipende dalla singola efficenza di una politica applicata ma dall'abilità di far saper cooperare questi Controlli affinchè possano
 provvedere una protezione olistica (da tutti i fronti).
 
-# SLIDE 3: Moon Cloud (2m)
+
+# SLIDE 3: Obiettivo della tesi (1m)
+Quindi per poter gestire tutti gli aspetti di sicurezza e di protezione dei dati legati al proprio sistema IT bisogna saper configurare e 
+gestire in modo corretto le diverse misure di sicurezza da mettere in atto, quindi si necessita di personale esperto in materia.
+Per questo motivo la soluzione proposta in questa tesi è un sistema di raccomandazione, simile sotto certi punti di vista a quelli implementati su 
+Netflix o per le pubblicità targettizzate su YouTube, è necessario per poter sostenere anche utenti meno esperti nella protezione dei propri asset, 
+aiutandoli a scegliere le politiche di sicurezza più adatte alle proprie esigenze.
+
+
+# SLIDE 4: Moon Cloud (2m)
 Moon Clou è una piattaforma che permette di effettuare verifiche e monitoraggi dell'adeguatezza di sistemi IT, in modo continuo e olistico, a 
 politiche di sicurezza. Possiede:
 - un singolo punto di management e una raccolta delle Evaluation da poter eseguire.
@@ -22,14 +31,6 @@ e per cui vengono raccolte delle evidence e permettono di valutare l'adeguatezza
 questi processi vengono riportati all'utente con diversi gradi di dettaglio (Generale, risultato di un processo di Evaluation, fino al risultato 
 e alle evidence raccolte per una politica di sicurezza particolare).
 EVALUATION = UNO o PIU CONTROLLI, POLITICHE O STANDARD DI SICUREZZA
-
-
-# SLIDE 4: Obiettivo della tesi (1m)
-Quindi per poter gestire tutti gli aspetti di sicurezza e di protezione dei dati legati al proprio sistema IT bisogna saper configurare e 
-gestire in modo corretto le diverse misure di sicurezza da mettere in atto, quindi si necessita di personale esperto in materia.
-Per questo motivo la soluzione proposta in questa tesi è un sistema di raccomandazione, simile sotto certi punti di vista a quelli implementati su 
-Netflix o per le pubblicità targettizzate su YouTube, è necessario per poter sostenere anche utenti meno esperti nella protezione dei propri asset, 
-aiutandoli a scegliere le politiche di sicurezza più adatte alle proprie esigenze.
 
 
 # SLIDE 5: Sistema di raccomandazione (3m30s)
