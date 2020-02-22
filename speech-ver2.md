@@ -101,6 +101,9 @@ I possibili algoritmi di raccomandazione che è possibile richiamare sono 3:
 - Item-based algorithm per Evaluation usata dall'utente o per il target che l'utente vuole proteggere, in entrambi i casi vengono resistuite delle 
 Evaluation compatibili o simili per le Evaluation indicata o per l'asset dell'utente.
 - Hybrid algorithm per l'utente cerca di mettere insieme le raccomandazione prodotte dagli altri due algoritmi.
+Inoltre, essendo il database principale di Moon Clod e quello usato dal sistema di raccomandazione indipendenti 
+l'uno dall'altro, sono state ideate ultieriori API seguendo l'architettura REST per mantere la consistenza dei 
+dati tra i due DB.
 
 
 # SLIDE 9 (10): Soluzione (2)
