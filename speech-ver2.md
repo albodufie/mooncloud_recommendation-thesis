@@ -4,42 +4,42 @@ Security Assurance.
 
 
 # SLIDE 2: Scenario e motivazioni (1m30s)
-Oggigiorno i sistemi IT lavorano spesso in cooperazione con sistemi Cloud, sia in ambienti privati sia in quelli lavorativi, portando molti 
-vantaggi in termini di automazione di processi e incremento di performance. 
-In particolare, grazie ai servizi offerti dalle tecnologie Cloud è possibile accedere a risorse e servizi attraverso la rete in qualunque momento
-e luogo. Tutti questi benefici (flessibilità, ridotto consumo delle risorse) sono anche loro accompagnati da diverse problematiche soprattutto in ambito di sicurezza.
+Oggigiorno i sistemi IT lavorano spesso in cooperazione con sistemi Cloud. In particolare, grazie ai servizi offerti dalle tecnologie Cloud è 
+possibile accedere a risorse e servizi attraverso la rete in qualunque momento
+e luogo. Tutti questi benefici (flessibilità, ridotto consumo delle risorse) sono anche loro accompagnati da diverse problematiche soprattutto 
+per via della complessità raggiunta e delle difficoltà in ambito di sicurezza.
 
-Esistono si delle diverse tecniche, come quelle di criptazione, o degli standard di sicurezza, ma ciò non basta per sopperire a questo problema.
+Esistono molte tecniche di sicurezza, come quelle di criptazione, ma ciò non basta per sopperire a questo problema.
 
-- Allora nascono tecniche di Security Assurance, le quali consistono in procedimenti di raccolta di dati e evidence che accertino la validità e l'efficienza delle proprietà di sicurezza messe in atto per un determinato asset. 
+Allora nascono tecniche di Security Assurance, le quali consistono in procedimenti di raccolta di dati e evidence che accertino la validità e 
+l'efficienza delle proprietà di sicurezza messe in atto per un determinato asset. La sicurezza non dipende dalla singola efficienza di una politica  
+applicata ma dall'abilità di far saper cooperare questi Controlli affinché possano provvedere una protezione olistica (da tutti i fronti).
 
-La sicurezza non dipende dalla singola efficienza di una politica applicata ma dall'abilità di far saper cooperare questi Controlli affinché possano
-provvedere una protezione olistica (da tutti i fronti).
+Per via della numerosità dei sistemi e delle politiche di sicurezza implementabili, dei diversi framework di Security Assurance solo utenti con 
+una certa esperienza in materia.
 
 
 # SLIDE 3: Obiettivo della tesi (1m)
 Quindi per poter gestire tutti gli aspetti di sicurezza e di protezione dei dati legati al proprio sistema IT bisogna saper configurare e 
-gestire in modo corretto il proprio framework di Security Assurance.
-Per questo motivo la soluzione proposta in questa tesi è un sistema di raccomandazione è necessario per poter sostenere anche utenti meno esperti nella protezione dei propri asset, aiutandoli a scegliere le politiche di sicurezza più adatte alle proprie esigenze.
+gestire in modo corretto il framework di Security Assurance usato.
+Per questo motivo la soluzione proposta in questa tesi è un sistema di raccomandazione in grado di sostenere anche utenti meno esperti nella protezione dei propri asset, aiutandoli a scegliere le politiche di sicurezza più adatte alle proprie esigenze.
 
 
 # SLIDE 4: Moon Cloud (2m)
 Moon Cloud (spin off dell'università degli studi di Milano) è una piattaforma che permette di effettuare verifiche e monitoraggi dell'adeguatezza di sistemi 
 IT, in modo continuo e olistico, a politiche di sicurezza. Possiede:
-- un singolo punto di management e una raccolta delle Evaluation da poter eseguire.
+- un singolo punto di management (Dashboard) e una raccolta delle Evaluation da poter eseguire.
 - è un framework di Security Assurance, quindi permette di garantire che un asset soddisfi politiche o standard precedentemente definiti.
-- questi standard vengono definiti all'interno della piattaforma attraverso dei processi chiamati Evaluation, verifiche a cui un target è sottoposto
-e per cui vengono raccolte delle evidence e permettono di valutare l'adeguatezza di un target a uno o più standard di sicurezza. I risultati di 
-questi processi vengono riportati all'utente con diversi gradi di dettaglio attraverso la Dashboard fornita (Generale, risultato di un processo di Evaluation, 
-fino al risultato e alle evidence raccolte per una politica di sicurezza particolare).
+- all'interno della piattaforma viene definita una Evaluation, come insieme di una o più verifiche a cui un target è sottoposto
+e per cui vengono raccolte delle evidence che permettono di valutare l'adeguatezza di un target a uno o più standard di sicurezza. I risultati di 
+questi processi vengono riportati all'utente con diversi gradi di dettaglio attraverso la Dashboard fornita (Generale; risultato di un processo di Evaluation; fino al risultato e alle evidence raccolte per una politica di sicurezza particolare implementata nell'Evaluation).
 EVALUATION = UNO o PIU CONTROLLI, POLITICHE O STANDARD DI SICUREZZA
 
 
 # SLIDE 5: Sistema di raccomandazione (3m30s)
-In sostanza un sistema di raccomandazione è un sistema che consiglia a un utente uno o più item esistenti in un database; ad esempio i video di 
-YouTube; quando si effettua una raccomandazione si va a consigliare un utente un item che possa essere di suo gradimento.
+In sostanza un sistema di raccomandazione è un sistema che consiglia a un utente uno o più item esistenti in un database; quando si effettua una raccomandazione si va a consigliare un utente un item che possa essere di suo gradimento.
 In questa tesi sono stati approfonditi i sistemi di raccomandazione basati su Collaborative Filter, i quali si basano sul principio che un item è 
-raccomandato ad un utente se altri utenti, ritenuti simili per gusti e interessi, hanno fatto uso di quello stesso item.
+raccomandato ad un utente se altri utenti, ritenuti simili per interessi, hanno fatto uso di quello stesso item.
 
 PROBLEMA DELLA COLD START, sia per utenti sia per item.
 
@@ -89,7 +89,7 @@ In questa situazione si è sfruttata la tecnica definita come Nested set model p
 all'interno di database relazionali.
 
 
-# SLIDE 8: Soluzione
+# SLIDE 8: Soluzione - cosa fa il progetto
 La soluzione proposta in questa tesi implementa in sostanza diverse funzioni di raccomandazione a seconda dell'URL e del metodo della chiamata 
 effettuata dalla richiesta HTTP e restituisce i riferimenti agli item da raccomandare sottoforma di risposta HTTP in formato JSON. 
 I possibili algoritmi di raccomandazione che è possibile richiamare sono 3:
@@ -104,7 +104,7 @@ l'uno dall'altro, sono state ideate ulteriori API seguendo l'architettura REST p
 dati tra i due DB.
 
 
-# SLIDE 9: Soluzione (2)
+# SLIDE 9: Soluzione (2) - caso d'uso
 Un possibile caso di funzionamento del sistema di raccomandazione proposto in questa soluzione è il seguente mostrato nella figura; quando un utente 
 decide di voler eseguire una nuova Evaluation egli la può selezionare tra quelle proposte da Moon Cloud attraverso la Dashboard principale, a quel 
 punto a partire dal core di Moon Cloud viene inviata una richiesta HTTP con metodo GET a uno specifico URL, in quel momento il Sistema di 
