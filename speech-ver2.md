@@ -1,6 +1,6 @@
 # SLIDE 1: Presentazione
-Buongiorno, sono Andrea Albonico e lo scopo di questa tesi è lo studio e la realizzazione di un sistema di raccomandazione per la 
-Security Assurance.
+Buongiorno, sono Andrea Albonico e lo scopo di questa tesi è lo studio e la realizzazione di un sistema di 
+raccomandazione per la Security Assurance.
 
 
 # SLIDE 2: Scenario e motivazioni (1m30s)
