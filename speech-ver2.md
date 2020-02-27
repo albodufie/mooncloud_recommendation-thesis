@@ -52,28 +52,25 @@ informazioni più rilevanti e significative da raccomandare all'utente.
 
 
 # SLIDE 6: Recommendation Algorithm
-- L'algoritmo di raccomandazione, il cui funzionamento è visibile nell'**immagine a sinistra**, chiamato Filtro Collaborativo User-based basa tutto 
-il suo funzionamento sulla comunità di utenti, maggiore è la sua dimensione e l'interazione degli utenti con gli item e migliori possono essere le 
-raccomandazioni. Questo algoritmo fornisce dei suggerimenti a un utente sulla base di uno o più vicini neighbours, e la similarità tra di essi può 
-essere determinata sulla base degli item che l'utente ha utilizzato o valutato.
+- L'algoritmo di raccomandazione, visibile nell'**immagine a sinistra**, è chiamato Filtro Collaborativo User-based basa tutto 
+il suo funzionamento sulla comunità di utenti che utilizza il framework di Security Assurance; maggiore è il numero di utenti e la loro interazione 
+con gli item (politiche di sicurezza implementate) e migliori potranno essere le raccomandazioni. 
 
-    FASE 1: specificare quale sia l'utente a cui si vuole applicare l'algoritmo di raccomandazione e recuperare i relativi utenti che possono avere 
-    dato valutazioni o usato item simili al primo utente
-
-    FASE 2: estrarre gli item con cui il primo utente non ha mai interagito e per questo motivo gli possono interessare
+Questo algoritmo fornisce dei suggerimenti a un utente sulla base di uno o più utenti simili (definiti anche neighbours), e la 
+similarità tra di essi può essere determinata sulla base degli item che l'utente ha utilizzato rispetto ad altri utenti che hanno utilizzato item 
+simili al primo utente; determinati gli utenti simili si estraggono gli item con cui il primo utente non ha mai interagito e per questo motivo gli 
+possono interessare.
 
 ### ESEMPIO UB-CF
 Preso l'utente arancione, al quale vogliamo raccomandare un insieme di item, e altri N utenti, si va a ricercare quali sono gli utenti con uno 
-storico di item usati simile, in questo caso è il primo utente a partire dall'alto; infatti è possibile notare che quest’ultimo ha usato gli item
+storico di item usati simile, in questo caso è il primo utente a partire dall'alto; infatti, è possibile notare che quest’ultimo ha usato gli item
 A, B, e C mentre il nostro utente ha usato gli item B, C; avendo un numero di item in comune alto si può dire che i due utenti hanno degli interessi
 simili quindi è possibile che l'item C, non usato dal nostro utente, sia di suo interesse. Per questo motivo gli potrà essere consigliato sottoforma
 di raccomandazione.
 - HO APPLICATO L'UB-CF NELLA SOLUZIONE PER GLI UTENTI
 
-- Quando l'algoritmo Filtro Collaborativo User-based, il cui funzionamento è visibile nell'**immagine di destra** viene applicato per milioni di utenti e item 
-non è molto efficiente per via della complessità computazionale richiesta dalla ricerca di utenti simili. Per questo motivo come alternativa ho pensato al 
-sistema Filtraggio Collaborativo Item-based, in questo caso si confrontano gli item dell'utente a cui si vuole raccomandare e i possibili item simili 
-presenti nella base di dati.
+- Mentre l'algoritmo di racommandazione basato su Filtraggio Collaborativo Item-based, visibile nell'**immagine di destra**, effettua un confronto 
+tra gli item dell'utente a cui si vuole raccomandare e i possibili item simili presenti nella base di dati.
 
 ### ESEMPIO IB-CF
 In questa situazione per determinare quale/i item consigliare all'utente arancione, avendo lui utilizzato l'item C, si va ad effettuare un 
